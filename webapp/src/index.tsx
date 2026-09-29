@@ -332,7 +332,7 @@ export default class Plugin {
 
         this.doRegistrations(registry, store, graphqlClient);
 
-        // https://mattermost.atlassian.net/browse/MM-48872
+        // MM-48872
         // This is handled by LoginHook, but it doesn't seem compatible with e2e tests.
         // Grab global settings
         const getGlobalSettings = async () => {

@@ -1,7 +1,7 @@
 // Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-// Mattermost v12 hosts that still ship React 18 do not expose window.ReactJSXRuntime.
+// Antimatter v12 hosts that still ship React 18 do not expose window.ReactJSXRuntime.
 // React 19 hosts do. Provide a createElement-backed fallback so the automatic JSX
 // transform can load in either case. Must be the first webpack entry.
 

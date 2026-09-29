@@ -137,7 +137,7 @@ const PlaybookRunDetails = () => {
         // of a DM/GM run there's no team selected at all — channel link,
         // recent activity, and timeline rendering all need a team context.
         // usePreviousTeamId() encapsulates the same default-team logic the
-        // Mattermost host webapp uses (prev team localStorage → first team).
+        // Antimatter host webapp uses (prev team localStorage → first team).
         if (!hasRun || currentTeamId || !prevTeamId) {
             return;
         }

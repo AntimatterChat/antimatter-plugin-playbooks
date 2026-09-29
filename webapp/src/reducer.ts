@@ -321,7 +321,7 @@ const myPlaybookRunsByTeam = (
         };
     }
 
-    // TODO https://mattermost.atlassian.net/browse/MM-65733
+    // TODO MM-65733
     case RECEIVED_TEAM_PLAYBOOK_RUN_CONNECTIONS:
     case RECEIVED_TEAM_PLAYBOOK_RUNS: {
         const receivedTeamPlaybookRunsAction = action as ReceivedTeamPlaybookRuns;

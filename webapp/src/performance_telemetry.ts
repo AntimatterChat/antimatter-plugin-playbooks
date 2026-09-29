@@ -2,7 +2,7 @@
 // See LICENSE.txt for license information.
 
 // Note: Adapted from mattermost/webapp/channels/src/utils/performance_telemetry/index.ts.
-// The Mattermost repo doesn't expose this functionality to plugins, so it's duplicated here.
+// The Antimatter repo doesn't expose this functionality to plugins, so it's duplicated here.
 // If it becomes available as a public import, this file can be removed.
 
 /**
@@ -38,7 +38,7 @@ export const Measure = {
 
 /**
  * Creates a performance mark that will be reported to the server.
- * The mark will be caught by Mattermost's webapp PerformanceObserver.
+ * The mark will be caught by Antimatter's webapp PerformanceObserver.
  */
 export function mark(name: string): PerformanceMark {
     return performance.mark(name, {
@@ -50,7 +50,7 @@ export function mark(name: string): PerformanceMark {
 
 /**
  * Measures the duration between two performance marks and reports it to the server
- * via Mattermost's Webapp Performance Observer.
+ * via Antimatter's Webapp Performance Observer.
  *
  * The metric is sent as "plugin_webapp_perf" with labels:
  *   - plugin_id: "playbooks"

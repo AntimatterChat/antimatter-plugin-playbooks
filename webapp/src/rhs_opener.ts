@@ -51,7 +51,7 @@ export function makeRHSOpener(store: Store, graphqlClient: ApolloClient<Normaliz
         const isInChannel = matchPath(url.pathname, {path: '/:team/:path(channels|messages)/:identifier/:postid?'});
 
         //@ts-ignore Views not in global state
-        const mmRhsOpen = state.views.rhs.isSidebarOpen;
+        const amRhsOpen = state.views.rhs.isSidebarOpen;
 
         // Wait for a valid team and channel before doing anything.
         if (!isInChannel || !currentChannel || !currentTeam) {
@@ -117,7 +117,7 @@ export function makeRHSOpener(store: Store, graphqlClient: ApolloClient<Normaliz
         }
 
         // Don't navigate away from an alternate sidebar that is open.
-        if (mmRhsOpen) {
+        if (amRhsOpen) {
             return;
         }
 

@@ -37,7 +37,7 @@ const useInitTeamRoutingLogic = () => {
     const currentTeamId = useAppSelector(getCurrentTeamId);
 
     // Centralized in hooks/teams.ts — same `user_prev_team:{userId}` localStorage
-    // pattern Mattermost webapp uses, with first-team fallback.
+    // pattern Antimatter webapp uses, with first-team fallback.
     const [prevTeamId, setPrevTeamId] = usePreviousTeamId();
 
     /**
@@ -85,13 +85,13 @@ export const useDefaultRedirectOnTeamChange = (teamScopedModelTeamId: string | u
 };
 
 const MainBody = () => {
-    const mattermostIDFormat = '[a-z0-9]{26}';
+    const antimatterIDFormat = '[a-z0-9]{26}';
     const match = useRouteMatch();
     useInitTeamRoutingLogic();
 
     return (
         <Switch>
-            <Route path={`${match.url}/playbooks/:playbookId(${mattermostIDFormat})/:tab(attributes|outline|reports|juliendev)?`}>
+            <Route path={`${match.url}/playbooks/:playbookId(${antimatterIDFormat})/:tab(attributes|outline|reports|juliendev)?`}>
                 <PlaybookEditor/>
             </Route>
             <Route
@@ -104,7 +104,7 @@ const MainBody = () => {
                 from={`${match.url}/incidents/:playbookRunId`}
                 to={`${match.url}/runs/:playbookRunId`}
             />
-            <Route path={`${match.url}/runs/:playbookRunId(${mattermostIDFormat})`}>
+            <Route path={`${match.url}/runs/:playbookRunId(${antimatterIDFormat})`}>
                 <PlaybookRun/>
             </Route>
             <Redirect

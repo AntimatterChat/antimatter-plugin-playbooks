@@ -93,7 +93,7 @@ const RHSAbout = (props: Props) => {
         const response = await setOwner(props.playbookRun.id, userId);
         if (response.error) {
             // eslint-disable-next-line no-warning-comments
-            // TODO: Should be presented to the user? https://mattermost.atlassian.net/browse/MM-24271
+            // TODO: Should be presented to the user? MM-24271
             console.log(response.error); // eslint-disable-line no-console
             // Re-fetch to correct stale ownership in Redux — this causes the Finish button
             // to disappear for users who no longer have permission to finish the run.

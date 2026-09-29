@@ -7,7 +7,7 @@ import {useSelector} from 'react-redux';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 import {getMyTeams} from 'mattermost-redux/selectors/entities/teams';
 
-// Mattermost webapp persists the user's last-active team under
+// Antimatter webapp persists the user's last-active team under
 // `user_prev_team:{userId}` in localStorage. We use the same key so the
 // Playbooks plugin and the host webapp stay in sync — switching teams in
 // either place is reflected in the other on next load.
@@ -15,7 +15,7 @@ const prevTeamLocalStorageKey = (userId: string) => `user_prev_team:${userId}`;
 
 /**
  * Returns `[prevTeamId, setPrevTeamId, removePrevTeamId]` for the user's
- * last-active team, persisted to the same localStorage key Mattermost webapp
+ * last-active team, persisted to the same localStorage key Antimatter webapp
  * uses. When no previous selection exists, defaults to the first team in the
  * user's `getMyTeams` list — mirroring the host webapp's default-team logic.
  *

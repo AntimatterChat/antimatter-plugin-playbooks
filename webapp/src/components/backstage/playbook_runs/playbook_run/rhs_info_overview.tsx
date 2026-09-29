@@ -308,7 +308,7 @@ const ChannelRow = ({channel, runMetadata, channelDeleted, role, onClickRequestJ
 
         // For DMs, the visible label is the teammate's display name; the
         // channel itself has no human-readable name. For GMs and regular
-        // channels, fall back to the channel's display_name (Mattermost
+        // channels, fall back to the channel's display_name (Antimatter
         // populates this for GMs from member profiles when those load).
         let displayName: string;
         if (channel.type === General.DM_CHANNEL && teammate) {
@@ -318,7 +318,7 @@ const ChannelRow = ({channel, runMetadata, channelDeleted, role, onClickRequestJ
         }
 
         // Build the full URL path. DM/GM channels are teamless on the model
-        // but the Mattermost frontend route grammar still requires a team
+        // but the Antimatter frontend route grammar still requires a team
         // prefix; fall back to currentTeam.name (already encoded in teamName)
         // so the link actually navigates.
         let channelPath: string;

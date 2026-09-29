@@ -250,7 +250,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         template: {
             ...emptyPlaybook(),
             title: 'Customer Onboarding',
-            description: mtrim`New Mattermost customers are onboarded following a process similar to this playbook.
+            description: mtrim`New Antimatter customers are onboarded following a process similar to this playbook.
 
             Customize this playbook to reflect your own customer onboarding process.`,
             checklists: [
@@ -272,20 +272,20 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
                         newChecklistItem('Review current Zendesk tickets and updates'),
                         newChecklistItem('Log customer technical details in Salesforce'),
                         newChecklistItem('Confirm customer received technical discovery summary package'),
-                        newChecklistItem('Send current Mattermost "Pen Test" report to customer'),
+                        newChecklistItem('Send current Antimatter "Pen Test" report to customer'),
                         newChecklistItem('Schedule plugin/integration planning session'),
                         newChecklistItem('Confirm data migration plans'),
-                        newChecklistItem('Extend Mattermost with integrations'),
+                        newChecklistItem('Extend Antimatter with integrations'),
                         newChecklistItem('Confirm functional & load test plans'),
                         newChecklistItem('Confirm team/channel organization'),
-                        newChecklistItem('Sign up for Mattermost blog for releases and announcements'),
+                        newChecklistItem('Sign up for Antimatter blog for releases and announcements'),
                         newChecklistItem('Confirm next upgrade version'),
                     ],
                 },
                 {
                     title: 'Go-Live',
                     items: [
-                        newChecklistItem('Order Mattermost swag package for project team'),
+                        newChecklistItem('Order Antimatter swag package for project team'),
                         newChecklistItem('Confirm end-user roll-out plan'),
                         newChecklistItem('Confirm customer go-live'),
                         newChecklistItem('Perform post go-live retrospective'),
@@ -295,7 +295,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
                     title: 'Optional value prompts after go-live',
                     items: [
                         newChecklistItem('Intro playbooks and boards'),
-                        newChecklistItem('Inform upgrading Mattermost 101'),
+                        newChecklistItem('Inform upgrading Antimatter 101'),
                         newChecklistItem('Share tips & tricks w/ DevOps focus'),
                         newChecklistItem('Share tips & tricks w/ efficiency focus'),
                         newChecklistItem('Schedule quarterly roadmap review w/ product team'),
@@ -342,20 +342,20 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         template: {
             ...emptyPlaybook(),
             title: 'Employee Onboarding',
-            description: mtrim`Every new Mattermost Staff member completes this onboarding process when joining the company.
+            description: mtrim`Every new Antimatter Staff member completes this onboarding process when joining the company.
 
             Customize this playbook to reflect your own employee onboarding process.`,
             checklists: [
                 {
                     title: 'Pre-day one',
                     items: [
-                        newChecklistItem('Complete the [Onboarding Systems Form in the IT HelpDesk](https://helpdesk.mattermost.com/support/home)'),
+                        newChecklistItem('Complete the [Onboarding Systems Form in the IT HelpDesk](https://docs.antimatter.example/support/home)'),
                         newChecklistItem(
                             'Complete the onboarding template prior to your new staff member\'s start date',
                             mtrim`Managers play a large role in setting their new direct report up for success and making them feel welcome by setting clear expectations and preparing the team and internal stakeholders for how they can help new colleagues integrate and connect organizationally and culturally.
                                 * **Onboarding Objectives:** Clarify the areas and projects your new team member should focus on in their first 90 days. Use the _Overview of the Role_ that you completed when you opened the role.
-                                * **AOR clarity:** Identify AORs that are relevant for your new hire, and indicate any AORs that your new hire will [DRI](https://handbook.mattermost.com/company/about-mattermost/list-of-terms#dri) or act as backup DRI. As needed, clarify AOR transitions with internal stakeholders ahead of your new hire's start date. See [AOR page](https://handbook.mattermost.com/operations/operations/areas-of-responsibility) Include the interview panel and their respective focus areas.
-                                * **Assign an Onboarding Peer:** The Onboarding Peer or peers should be an individual or group of people that can help answer questions about the team, department and Mattermost. In many ways, an Onboarding Peer may be an [end-boss](https://handbook.mattermost.com/company/about-mattermost/mindsets#mini-boss-end-boss) for specific AORs. Managers should ask permission of a potential Onboarding Peer prior to assignment.`,
+                                * **AOR clarity:** Identify AORs that are relevant for your new hire, and indicate any AORs that your new hire will [DRI](https://docs.antimatter.example/company/about-antimatter/list-of-terms#dri) or act as backup DRI. As needed, clarify AOR transitions with internal stakeholders ahead of your new hire's start date. See [AOR page](https://docs.antimatter.example/operations/operations/areas-of-responsibility) Include the interview panel and their respective focus areas.
+                                * **Assign an Onboarding Peer:** The Onboarding Peer or peers should be an individual or group of people that can help answer questions about the team, department and Antimatter. In many ways, an Onboarding Peer may be an [end-boss](https://docs.antimatter.example/company/about-antimatter/mindsets#mini-boss-end-boss) for specific AORs. Managers should ask permission of a potential Onboarding Peer prior to assignment.`,
                         ),
                     ],
                 },
@@ -363,13 +363,13 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
                     title: 'Week one',
                     items: [
                         newChecklistItem(
-                            'Introduce our new staff member in the [Welcome Channel](https://community.mattermost.com/private-core/channels/welcome)',
+                            'Introduce our new staff member in the [Welcome Channel](https://docs.antimatter.example/private-core/channels/welcome)',
                             mtrim`All new hires are asked to complete a short bio and share with their Managers. Managers should include this bio in the welcome message.
 
                                 Be sure to include the hashtag \#newcolleague when posting your message.`,
                         ),
                         newChecklistItem(
-                            'Review Team [AORs](https://handbook.mattermost.com/operations/operations/areas-of-responsibility)',
+                            'Review Team [AORs](https://docs.antimatter.example/operations/operations/areas-of-responsibility)',
                             'This is also a good time to review the new hire\'s AOR and onboarding expectations.'
                         ),
                         newChecklistItem(
@@ -377,7 +377,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
                             'These are individuals the new staff member will work with and who the new staff member should set up meetings with during their first month or two.',
                         ),
                         newChecklistItem(
-                            'Add to Mattermost channels',
+                            'Add to Antimatter channels',
                             'Ensure your team member is added to appropriate channels based on team and role.',
                         ),
                         newChecklistItem(
@@ -389,14 +389,14 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
                 {
                     title: 'Month one',
                     items: [
-                        newChecklistItem('Review Company and Team [V2MOMs](https://handbook.mattermost.com/company/how-to-guides-for-staff/how-to-v2mom)'),
+                        newChecklistItem('Review Company and Team [V2MOMs](https://docs.antimatter.example/company/how-to-guides-for-staff/how-to-v2mom)'),
                         newChecklistItem('Align on role responsibilities and expectations'),
                         newChecklistItem(
                             'COM Introduction',
-                            'New team members are invited to introduce themselves at [COM](https://handbook.mattermost.com/operations/operations/company-cadence#customer-obsession-meeting-aka-com) during their second week. If they\'re not comfortable doing their own introduction, Managers will do so on their behalf.',
+                            'New team members are invited to introduce themselves at [COM](https://docs.antimatter.example/operations/operations/company-cadence#customer-obsession-meeting-aka-com) during their second week. If they\'re not comfortable doing their own introduction, Managers will do so on their behalf.',
                         ),
                         newChecklistItem(
-                            '[Shoulder Check](https://handbook.mattermost.com/company/about-mattermost/mindsets#shoulder-check)',
+                            '[Shoulder Check](https://docs.antimatter.example/company/about-antimatter/mindsets#shoulder-check)',
                             'Assess potential blindspots and ask for feedback.',
                         ),
                     ],
@@ -406,7 +406,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
                     items: [
                         newChecklistItem(
                             '90-day New Colleague Feedback',
-                            'Managers are notified to kick off the [New Colleague Review Process](https://handbook.mattermost.com/contributors/onboarding#new-colleague-90-day-feedback-process) on their new staff member\'s 65th day. The feedback will include a summary of the new staff member\'s responsibilities during the first 90 days. Managers should communicate these responsibilities to the new staff member during their first week.',
+                            'Managers are notified to kick off the [New Colleague Review Process](https://docs.antimatter.example/contributors/onboarding#new-colleague-90-day-feedback-process) on their new staff member\'s 65th day. The feedback will include a summary of the new staff member\'s responsibilities during the first 90 days. Managers should communicate these responsibilities to the new staff member during their first week.',
                         ),
                     ],
                 },
@@ -570,7 +570,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         template: {
             ...emptyPlaybook(),
             title: 'Bug Bash',
-            description: mtrim`About once or twice a month, the Mattermost Playbooks team uses this playbook to run a 50 minute bug-bash testing the latest version of Playbooks.
+            description: mtrim`About once or twice a month, the Antimatter Playbooks team uses this playbook to run a 50 minute bug-bash testing the latest version of Playbooks.
 
             Customize this playbook to reflect your own bug bash process.`,
             create_public_playbook_run: true,
@@ -604,10 +604,10 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
                         ),
                         newChecklistItem(
                             'Enable Open Servers & CRT for all Cloud Instances',
-                            mtrim`From a command line, login to each server in turn via [\`mmctl\`](https://github.com/mattermost/mmctl), and configure, e.g.:
+                            mtrim`From a command line, login to each server in turn via \`mmctl\`, and configure, e.g.:
                                 \`\`\`
                                 for server in playbooks-bug-bash-t0 playbooks-bug-bash-e0 playbooks-bug-bash-e10 playbooks-bug-bash-e20; do
-                                    mmctl auth login https://$server.test.mattermost.cloud --name $server --username sysadmin --password-file <(echo "Sys@dmin123");
+                                    mmctl auth login https://$server.test.antimatter.example --name $server --username sysadmin --password-file <(echo "Sys@dmin123");
                                     mmctl config set TeamSettings.EnableOpenServer true;
                                     mmctl config set ServiceSettings.CollapsedThreads default_on;
                                 done
@@ -615,11 +615,11 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
                         ),
                         newChecklistItem(
                             'Install the plugin to each instance',
-                            mtrim`From a command line, login to each server in turn via [\`mmctl\`](https://github.com/mattermost/mmctl), and configure, e.g.:
+                            mtrim`From a command line, login to each server in turn via \`mmctl\`, and configure, e.g.:
                                 \`\`\`
                                 for server in playbooks-bug-bash-t0 playbooks-bug-bash-e0 playbooks-bug-bash-e10 playbooks-bug-bash-e20; do
-                                    mmctl auth login https://$server.test.mattermost.cloud --name $server --username sysadmin --password-file <(echo "Sys@dmin123");
-                                    mmctl plugin install-url --force https://github.com/mattermost/mattermost-plugin-playbooks/releases/download/v1.22.0%2Balpha.3/playbooks-1.22.0+alpha.3.tar.gz
+                                    mmctl auth login https://$server.test.antimatter.example --name $server --username sysadmin --password-file <(echo "Sys@dmin123");
+                                    mmctl plugin install-url --force https://github.com/antimatterchat/antimatter-plugin-playbooks/releases/download/v1.22.0%2Balpha.3/playbooks-1.22.0+alpha.3.tar.gz
                                 done
                                 \`\`\``,
                         ),
@@ -703,14 +703,14 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
 
             **Release Link**: TBD
             **Zoom**: TBD
-            **Triage Filter**: https://mattermost.atlassian.net/secure/RapidBoard.jspa?rapidView=68&projectKey=MM&view=planning.nodetail&quickFilter=332&issueLimit=100
+            **Triage Filter**: TBD
 
             | Servers |
             | -- |
-            | [T0](https://playbooks-bug-bash-t0.test.mattermost.cloud) |
-            | [E0](https://playbooks-bug-bash-e0.test.mattermost.cloud) |
-            | [E10](https://playbooks-bug-bash-e10.test.mattermost.cloud) |
-            | [E20](https://playbooks-bug-bash-e20.test.mattermost.cloud) |
+            | [T0](https://playbooks-bug-bash-t0.test.antimatter.example) |
+            | [E0](https://playbooks-bug-bash-e0.test.antimatter.example) |
+            | [E10](https://playbooks-bug-bash-e10.test.antimatter.example) |
+            | [E20](https://playbooks-bug-bash-e20.test.antimatter.example) |
 
             Login with:
 

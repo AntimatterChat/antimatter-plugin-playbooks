@@ -81,7 +81,7 @@ describe('durationFromQuery', () => {
     });
 });
 
-// Failing test to reproduce https://mattermost.atlassian.net/browse/MM-44810
+// Failing test to reproduce MM-44810
 describe.skip('parse', () => {
     it('Mode.DurationValue', () => {
         const duration = parse('en', '1 month', Mode.DurationValue);

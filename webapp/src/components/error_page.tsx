@@ -26,7 +26,7 @@ const ErrorPage = () => {
     let title: React.ReactNode = 'Page not found';
     let message: React.ReactNode = 'The page you were trying to reach does not exist.';
     let returnTo = '/';
-    let returnToMsg: React.ReactNode = 'Back to Mattermost';
+    let returnToMsg: React.ReactNode = 'Back to Antimatter';
 
     switch (params.type) {
     case ErrorPageTypes.PLAYBOOK_RUNS:
