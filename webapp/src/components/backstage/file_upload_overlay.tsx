@@ -5,7 +5,7 @@ import React from 'react';
 
 import {useIntl} from 'react-intl';
 
-import MattermostLogo from 'src/components/assets/mattermost_logo_svg';
+import AntimatterLogo from 'src/components/assets/antimatter_logo';
 import filesOverlay from 'src/components/assets/files_overlay.png';
 
 export interface FileUploadOverlayProps {
@@ -40,7 +40,7 @@ export const FileUploadOverlay = (props: FileUploadOverlayProps) => {
                         <i className='fa fa-upload'/>
                         {props.message}
                     </span>
-                    <MattermostLogo
+                    <AntimatterLogo
                         className='overlay__logo'
                         fill='#ffffff'
                         width='100'

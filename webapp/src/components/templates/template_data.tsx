@@ -7,7 +7,7 @@ import {mtrim} from 'js-trim-multiline-string';
 
 import {DraftPlaybookWithChecklist, emptyPlaybook, newChecklistItem} from 'src/types/playbook';
 
-import MattermostLogo from 'src/components/assets/mattermost_logo_svg';
+import AntimatterLogo from 'src/components/assets/antimatter_logo';
 import ClipboardChecklist from 'src/components/assets/illustrations/clipboard_checklist_svg';
 import ProductRelease from 'src/components/assets/illustrations/product_release_svg';
 import BugBash from 'src/components/assets/illustrations/bug_bash_svg';
@@ -68,7 +68,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         description: 'Perfect your release process from ideation to production.',
         icon: <ProductRelease/>,
         color: '#C4313314',
-        author: <MattermostLogo/>,
+        author: <AntimatterLogo/>,
         template: {
             ...emptyPlaybook(),
             title: 'Product Release',
@@ -154,7 +154,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         title: 'Incident Resolution',
         description: 'Resolving incidents requires speed and accuracy. Streamline your processes for rapid response and resolution.',
         icon: <IncidentResolutionSvg/>,
-        author: <MattermostLogo/>,
+        author: <AntimatterLogo/>,
         color: '#33997014',
         template: {
             ...emptyPlaybook(),
@@ -246,7 +246,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         description: 'Create a standardized, smooth onboarding experience for new customers to get them up and running quickly. ',
         icon: <CustomerOnboarding/>,
         color: '#3C507A14',
-        author: <MattermostLogo/>,
+        author: <AntimatterLogo/>,
         template: {
             ...emptyPlaybook(),
             title: 'Customer Onboarding',
@@ -338,7 +338,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         description: 'Set your new hires up for success with input from your entire organization, in one smooth process.',
         icon: <EmployeeOnboarding/>,
         color: '#FFBC1F14',
-        author: <MattermostLogo/>,
+        author: <AntimatterLogo/>,
         template: {
             ...emptyPlaybook(),
             title: 'Employee Onboarding',
@@ -443,7 +443,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         description: 'Create transparent workflows across development teams to ensure your feature development process is seamless.',
         icon: <FeatureLifecycle/>,
         color: '#62697E14',
-        author: <MattermostLogo/>,
+        author: <AntimatterLogo/>,
         template: {
             ...emptyPlaybook(),
             title: 'Feature Lifecycle',
@@ -566,7 +566,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         description: 'Customize this playbook to reflect your own bug bash process.',
         icon: <BugBash/>,
         color: '#7A560014',
-        author: <MattermostLogo/>,
+        author: <AntimatterLogo/>,
         template: {
             ...emptyPlaybook(),
             title: 'Bug Bash',
@@ -725,7 +725,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
         labelColor: '#E5AA1F29-#A37200',
         icon: <LearnPlaybooks/>,
         color: '#FFBC1F14',
-        author: <MattermostLogo/>,
+        author: <AntimatterLogo/>,
         description: 'New to playbooks? This playbook will help you get familiar with playbooks, configurations, and playbook runs.',
         template: {
             ...emptyPlaybook(),
