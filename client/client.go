@@ -82,8 +82,8 @@ func New(client4 *model.Client4) (*Client, error) {
 }
 
 // newClient creates a new instance of Client from the given URL and http.Client.
-func newClient(mattermostSiteURL string, httpClient *http.Client) (*Client, error) {
-	siteURL, err := url.Parse(mattermostSiteURL)
+func newClient(antimatterSiteURL string, httpClient *http.Client) (*Client, error) {
+	siteURL, err := url.Parse(antimatterSiteURL)
 	if err != nil {
 		return nil, err
 	}

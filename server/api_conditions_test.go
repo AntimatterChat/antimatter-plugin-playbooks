@@ -55,7 +55,7 @@ func TestPlaybookConditionsCRUD(t *testing.T) {
 	assert.False(t, result.HasMore)
 
 	// Parse the created select field to get the actual option IDs
-	appSelectField, err := app.NewPropertyFieldFromMattermostPropertyField(selectField)
+	appSelectField, err := app.NewPropertyFieldFromAntimatterPropertyField(selectField)
 	require.NoError(t, err)
 	require.NotEmpty(t, appSelectField.Attrs.Options)
 
@@ -200,7 +200,7 @@ func createSelectPropertyField(name, groupID, playbookID string, optionNames []s
 		},
 	}
 
-	return appField.ToMattermostPropertyField()
+	return appField.ToAntimatterPropertyField()
 }
 
 func createTextPropertyField(name, groupID, playbookID string) *model.PropertyField {

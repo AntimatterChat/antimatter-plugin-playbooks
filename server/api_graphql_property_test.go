@@ -79,17 +79,17 @@ func TestGraphQLPropertyFields(t *testing.T) {
 		require.NotNil(t, playbooksGroup)
 
 		// Get the created property field using app service
-		mmCreatedField, err := e.Srv.PropertyService().GetPropertyField(e.Context, playbooksGroup.ID, fieldID)
+		amCreatedField, err := e.Srv.PropertyService().GetPropertyField(e.Context, playbooksGroup.ID, fieldID)
 		require.NoError(t, err)
-		require.NotNil(t, mmCreatedField)
-		require.Equal(t, "Priority", mmCreatedField.Name)
-		require.Equal(t, "select", string(mmCreatedField.Type))
-		require.Equal(t, playbooksGroup.ID, mmCreatedField.GroupID)
-		require.Equal(t, app.PropertyTargetTypePlaybook, mmCreatedField.TargetType)
-		require.Equal(t, e.BasicPlaybook.ID, mmCreatedField.TargetID)
+		require.NotNil(t, amCreatedField)
+		require.Equal(t, "Priority", amCreatedField.Name)
+		require.Equal(t, "select", string(amCreatedField.Type))
+		require.Equal(t, playbooksGroup.ID, amCreatedField.GroupID)
+		require.Equal(t, app.PropertyTargetTypePlaybook, amCreatedField.TargetType)
+		require.Equal(t, e.BasicPlaybook.ID, amCreatedField.TargetID)
 
 		// Convert to our PropertyField type to access parsed options
-		createdField, err := app.NewPropertyFieldFromMattermostPropertyField(mmCreatedField)
+		createdField, err := app.NewPropertyFieldFromAntimatterPropertyField(amCreatedField)
 		require.NoError(t, err)
 		require.NotNil(t, createdField)
 
@@ -673,11 +673,11 @@ func TestPropertyFieldDeletionWithConditions(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, playbooksGroup)
 
-	mmCreatedField, err := e.Srv.PropertyService().GetPropertyField(e.Context, playbooksGroup.ID, fieldID)
+	amCreatedField, err := e.Srv.PropertyService().GetPropertyField(e.Context, playbooksGroup.ID, fieldID)
 	require.NoError(t, err)
-	require.NotNil(t, mmCreatedField)
+	require.NotNil(t, amCreatedField)
 
-	appCreatedField, err := app.NewPropertyFieldFromMattermostPropertyField(mmCreatedField)
+	appCreatedField, err := app.NewPropertyFieldFromAntimatterPropertyField(amCreatedField)
 	require.NoError(t, err)
 	require.NotEmpty(t, appCreatedField.Attrs.Options)
 
@@ -848,10 +848,10 @@ func gqlCreateSelectPropertyField(t *testing.T, e *TestEnvironment, playbookID, 
 	playbooksGroup, err := e.Srv.PropertyService().GetPropertyGroup("playbooks")
 	require.NoError(t, err)
 
-	mmField, err := e.Srv.PropertyService().GetPropertyField(e.Context, playbooksGroup.ID, fieldID)
+	amField, err := e.Srv.PropertyService().GetPropertyField(e.Context, playbooksGroup.ID, fieldID)
 	require.NoError(t, err)
 
-	appField, err := app.NewPropertyFieldFromMattermostPropertyField(mmField)
+	appField, err := app.NewPropertyFieldFromAntimatterPropertyField(amField)
 	require.NoError(t, err)
 	require.Len(t, appField.Attrs.Options, len(optionNames))
 

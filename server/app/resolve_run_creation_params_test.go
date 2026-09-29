@@ -8,7 +8,7 @@ import (
 	"errors"
 	"testing"
 
-	mm_model "github.com/mattermost/mattermost/server/public/model"
+	am_model "github.com/mattermost/mattermost/server/public/model"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -79,7 +79,7 @@ func (s *stubUpsertPropertyService) CopyPlaybookPropertiesToPlaybook(_, _ string
 func (s *stubUpsertPropertyService) UpsertRunPropertyValue(_, _ string, _ json.RawMessage) (*PropertyValue, error) {
 	panic("not called")
 }
-func (s *stubUpsertPropertyService) SanitizePropertyValue(_ mm_model.PropertyFieldType, _ json.RawMessage) (json.RawMessage, error) {
+func (s *stubUpsertPropertyService) SanitizePropertyValue(_ am_model.PropertyFieldType, _ json.RawMessage) (json.RawMessage, error) {
 	panic("not called")
 }
 func (s *stubUpsertPropertyService) GetRunsPropertyFields(_ []string) (map[string][]PropertyField, error) {
@@ -109,11 +109,11 @@ func (s *stubUpsertPropertyServiceCapture) UpsertRunPropertyValueWithField(_ str
 // ---------------------------------------------------------------------------
 
 func TestApplyInitialPropertyValues(t *testing.T) {
-	playbookFieldID := mm_model.NewId()
-	runFieldID := mm_model.NewId()
+	playbookFieldID := am_model.NewId()
+	runFieldID := am_model.NewId()
 
 	makeRun := func() *PlaybookRun {
-		return &PlaybookRun{ID: mm_model.NewId()}
+		return &PlaybookRun{ID: am_model.NewId()}
 	}
 
 	makeCopyResult := func() *PropertyCopyResult {
@@ -251,7 +251,7 @@ func TestApplyInitialPropertyValues(t *testing.T) {
 
 func TestResolveRunCreationParams_NilPlaybook(t *testing.T) {
 	svc := &PlaybookRunServiceImpl{}
-	run := &PlaybookRun{ID: mm_model.NewId()}
+	run := &PlaybookRun{ID: am_model.NewId()}
 
 	err := svc.ResolveRunCreationParams(run, nil, nil, RunSourcePost)
 
@@ -271,7 +271,7 @@ func TestResolveRunCreationParams_PlaybookIDMismatch(t *testing.T) {
 }
 
 func TestResolveRunCreationParams_SetsPlaybookIDFromPlaybook(t *testing.T) {
-	pbID := mm_model.NewId()
+	pbID := am_model.NewId()
 
 	svc := &PlaybookRunServiceImpl{}
 
@@ -285,7 +285,7 @@ func TestResolveRunCreationParams_SetsPlaybookIDFromPlaybook(t *testing.T) {
 }
 
 func TestResolveRunCreationParams_DoesNotAllocateRunNumber(t *testing.T) {
-	pbID := mm_model.NewId()
+	pbID := am_model.NewId()
 
 	svc := &PlaybookRunServiceImpl{}
 
@@ -302,14 +302,14 @@ func TestResolveRunCreationParams_DoesNotAllocateRunNumber(t *testing.T) {
 
 func TestResolveRunCreationParams_OverrideAllowedTemplateSkipsDryRunValidation(t *testing.T) {
 	zoneField := PropertyField{
-		PropertyField: mm_model.PropertyField{
+		PropertyField: am_model.PropertyField{
 			ID:   "fld_zone",
 			Name: "Zone",
-			Type: mm_model.PropertyFieldTypeText,
+			Type: am_model.PropertyFieldTypeText,
 		},
 	}
 	pb := &Playbook{
-		ID:                        mm_model.NewId(),
+		ID:                        am_model.NewId(),
 		ChannelNameTemplate:       "{Zone}",
 		ChannelNameTemplateLocked: false,
 	}
@@ -325,14 +325,14 @@ func TestResolveRunCreationParams_OverrideAllowedTemplateSkipsDryRunValidation(t
 
 func TestResolveRunCreationParams_OverrideNotAllowedTemplateStillValidates(t *testing.T) {
 	zoneField := PropertyField{
-		PropertyField: mm_model.PropertyField{
+		PropertyField: am_model.PropertyField{
 			ID:   "fld_zone",
 			Name: "Zone",
-			Type: mm_model.PropertyFieldTypeText,
+			Type: am_model.PropertyFieldTypeText,
 		},
 	}
 	pb := &Playbook{
-		ID:                        mm_model.NewId(),
+		ID:                        am_model.NewId(),
 		ChannelNameTemplate:       "{Zone}",
 		ChannelNameTemplateLocked: true,
 	}
@@ -349,14 +349,14 @@ func TestResolveRunCreationParams_OverrideNotAllowedTemplateStillValidates(t *te
 
 func TestResolveRunCreationParams_UnlockedPropertyTemplateAllowsDialogAndCommandSources(t *testing.T) {
 	zoneField := PropertyField{
-		PropertyField: mm_model.PropertyField{
+		PropertyField: am_model.PropertyField{
 			ID:   "fld_zone",
 			Name: "Zone",
-			Type: mm_model.PropertyFieldTypeText,
+			Type: am_model.PropertyFieldTypeText,
 		},
 	}
 	pb := &Playbook{
-		ID:                        mm_model.NewId(),
+		ID:                        am_model.NewId(),
 		ChannelNameTemplate:       "{Zone}",
 		ChannelNameTemplateLocked: false,
 	}
@@ -376,14 +376,14 @@ func TestResolveRunCreationParams_UnlockedPropertyTemplateAllowsDialogAndCommand
 
 func TestResolveRunCreationParams_LockedPropertyTemplateBlocksDialogAndCommandSources(t *testing.T) {
 	zoneField := PropertyField{
-		PropertyField: mm_model.PropertyField{
+		PropertyField: am_model.PropertyField{
 			ID:   "fld_zone",
 			Name: "Zone",
-			Type: mm_model.PropertyFieldTypeText,
+			Type: am_model.PropertyFieldTypeText,
 		},
 	}
 	pb := &Playbook{
-		ID:                        mm_model.NewId(),
+		ID:                        am_model.NewId(),
 		ChannelNameTemplate:       "{Zone}",
 		ChannelNameTemplateLocked: true,
 	}

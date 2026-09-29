@@ -133,23 +133,23 @@ func (p *PropertyField) SanitizeAndValidate() error {
 	return nil
 }
 
-func (p *PropertyField) ToMattermostPropertyField() *model.PropertyField {
-	mmpf := p.PropertyField
+func (p *PropertyField) ToAntimatterPropertyField() *model.PropertyField {
+	ampf := p.PropertyField
 
-	mmpf.Attrs = model.StringInterface{
+	ampf.Attrs = model.StringInterface{
 		PropertyAttrsVisibility: p.Attrs.Visibility,
 		PropertyAttrsSortOrder:  p.Attrs.SortOrder,
 		PropertyAttrsParentID:   p.Attrs.ParentID,
 		PropertyAttrsValueType:  p.Attrs.ValueType,
 	}
 	if len(p.Attrs.Options) > 0 {
-		mmpf.Attrs[model.PropertyFieldAttributeOptions] = p.Attrs.Options
+		ampf.Attrs[model.PropertyFieldAttributeOptions] = p.Attrs.Options
 	}
-	return &mmpf
+	return &ampf
 }
 
-func NewPropertyFieldFromMattermostPropertyField(mmpf *model.PropertyField) (*PropertyField, error) {
-	attrsJSON, err := json.Marshal(mmpf.Attrs)
+func NewPropertyFieldFromAntimatterPropertyField(ampf *model.PropertyField) (*PropertyField, error) {
+	attrsJSON, err := json.Marshal(ampf.Attrs)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +161,7 @@ func NewPropertyFieldFromMattermostPropertyField(mmpf *model.PropertyField) (*Pr
 	}
 
 	return &PropertyField{
-		PropertyField: *mmpf,
+		PropertyField: *ampf,
 		Attrs:         attrs,
 	}, nil
 }

@@ -50,7 +50,7 @@ func NewHandler(pluginAPI *pluginapi.Client, config config.Service, auditor app.
 	root := mux.NewRouter()
 	root.Use(LogRequest)
 	api := root.PathPrefix("/api/v0").Subrouter()
-	api.Use(handler.MattermostAuthorizationRequired)
+	api.Use(handler.AntimatterAuthorizationRequired)
 
 	api.Handle("{anything:.*}", http.NotFoundHandler())
 	api.NotFoundHandler = http.NotFoundHandler()
@@ -123,14 +123,14 @@ const (
 	actingUserIDHeader = "Mattermost-Plugin-Acting-User-Id"
 )
 
-// MattermostAuthorizationRequired checks if a request is authorized.
+// AntimatterAuthorizationRequired checks if a request is authorized.
 //
 // A request is authorized when it carries an authenticated user (the Mattermost-User-Id header set
 // by the server for user sessions). Additionally, a trusted inter-plugin request may assert the
 // user it is acting on behalf of via the Mattermost-Plugin-Acting-User-Id header; that user is then
 // promoted into Mattermost-User-Id so every downstream per-user permission check applies to the
 // asserted user unchanged.
-func (h *Handler) MattermostAuthorizationRequired(next http.Handler) http.Handler {
+func (h *Handler) AntimatterAuthorizationRequired(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Normal authenticated user request -- unchanged behavior.
 		if r.Header.Get(userIDHeader) != "" {

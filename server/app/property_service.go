@@ -60,17 +60,17 @@ func (s *propertyService) CreatePropertyField(playbookID string, propertyField P
 		return nil, err
 	}
 
-	mmPropertyField := propertyField.ToMattermostPropertyField()
-	mmPropertyField.GroupID = s.groupID
-	mmPropertyField.TargetType = PropertyTargetTypePlaybook
-	mmPropertyField.TargetID = playbookID
+	amPropertyField := propertyField.ToAntimatterPropertyField()
+	amPropertyField.GroupID = s.groupID
+	amPropertyField.TargetType = PropertyTargetTypePlaybook
+	amPropertyField.TargetID = playbookID
 
-	createdField, err := s.api.Property.CreatePropertyField(mmPropertyField)
+	createdField, err := s.api.Property.CreatePropertyField(amPropertyField)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create property field")
 	}
 
-	resultField, err := NewPropertyFieldFromMattermostPropertyField(createdField)
+	resultField, err := NewPropertyFieldFromAntimatterPropertyField(createdField)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to convert created property field")
 	}
@@ -93,12 +93,12 @@ func (s *propertyService) validatePropertyLimit(playbookID string) error {
 }
 
 func (s *propertyService) GetPropertyField(propertyID string) (*PropertyField, error) {
-	mmPropertyField, err := s.api.Property.GetPropertyField(s.groupID, propertyID)
+	amPropertyField, err := s.api.Property.GetPropertyField(s.groupID, propertyID)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get property field")
 	}
 
-	resultField, err := NewPropertyFieldFromMattermostPropertyField(mmPropertyField)
+	resultField, err := NewPropertyFieldFromAntimatterPropertyField(amPropertyField)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to convert property field")
 	}
@@ -111,14 +111,14 @@ func (s *propertyService) GetPropertyFields(playbookID string) ([]PropertyField,
 }
 
 func (s *propertyService) GetPropertyFieldsSince(playbookID string, updatedSince int64) ([]PropertyField, error) {
-	mmPropertyFields, err := s.getAllPropertyFieldsSince(PropertyTargetTypePlaybook, playbookID, updatedSince)
+	amPropertyFields, err := s.getAllPropertyFieldsSince(PropertyTargetTypePlaybook, playbookID, updatedSince)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get property fields")
 	}
 
-	propertyFields := make([]PropertyField, 0, len(mmPropertyFields))
-	for _, mmField := range mmPropertyFields {
-		propertyField, err := NewPropertyFieldFromMattermostPropertyField(mmField)
+	propertyFields := make([]PropertyField, 0, len(amPropertyFields))
+	for _, amField := range amPropertyFields {
+		propertyField, err := NewPropertyFieldFromAntimatterPropertyField(amField)
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to convert property field")
 		}
@@ -181,7 +181,7 @@ func (s *propertyService) UpdatePropertyField(playbookID string, propertyField P
 
 	// Check if any options are being removed and validate they are not in use
 	if propertyField.SupportsOptions() {
-		existingPropertyField, err := NewPropertyFieldFromMattermostPropertyField(existingField)
+		existingPropertyField, err := NewPropertyFieldFromAntimatterPropertyField(existingField)
 		if err != nil {
 			return nil, errors.Wrap(err, "failed to convert existing property field")
 		}
@@ -201,22 +201,22 @@ func (s *propertyService) UpdatePropertyField(playbookID string, propertyField P
 	}
 
 	// Convert the input to Mattermost property field
-	mmPropertyField := propertyField.ToMattermostPropertyField()
+	amPropertyField := propertyField.ToAntimatterPropertyField()
 
 	// Preserve important fields from the existing property field
-	mmPropertyField.GroupID = existingField.GroupID
-	mmPropertyField.TargetType = existingField.TargetType
-	mmPropertyField.TargetID = existingField.TargetID
-	mmPropertyField.CreateAt = existingField.CreateAt
-	mmPropertyField.UpdateAt = existingField.UpdateAt
-	mmPropertyField.DeleteAt = existingField.DeleteAt
+	amPropertyField.GroupID = existingField.GroupID
+	amPropertyField.TargetType = existingField.TargetType
+	amPropertyField.TargetID = existingField.TargetID
+	amPropertyField.CreateAt = existingField.CreateAt
+	amPropertyField.UpdateAt = existingField.UpdateAt
+	amPropertyField.DeleteAt = existingField.DeleteAt
 
-	updatedField, err := s.api.Property.UpdatePropertyField(s.groupID, mmPropertyField)
+	updatedField, err := s.api.Property.UpdatePropertyField(s.groupID, amPropertyField)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to update property field")
 	}
 
-	resultField, err := NewPropertyFieldFromMattermostPropertyField(updatedField)
+	resultField, err := NewPropertyFieldFromAntimatterPropertyField(updatedField)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to convert updated property field")
 	}
@@ -308,7 +308,7 @@ func (s *propertyService) ReorderPropertyFields(playbookID, fieldID string, targ
 
 	fieldsToUpdate := make([]*model.PropertyField, len(changedIndices))
 	for i, idx := range changedIndices {
-		fieldsToUpdate[i] = reorderedFields[idx].ToMattermostPropertyField()
+		fieldsToUpdate[i] = reorderedFields[idx].ToAntimatterPropertyField()
 	}
 
 	_, err = s.api.Property.UpdatePropertyFields(s.groupID, fieldsToUpdate)
@@ -413,13 +413,13 @@ func (s *propertyService) CopyPlaybookPropertiesToRun(playbookID, runID string) 
 			return nil, errors.Wrapf(err, "failed to duplicate property field %s for run", playbookProperty.Name)
 		}
 
-		createdFieldMM, err := s.api.Property.CreatePropertyField(runProperty)
+		createdFieldAM, err := s.api.Property.CreatePropertyField(runProperty)
 		if err != nil {
 			return nil, errors.Wrapf(err, "failed to create run property field for %s", playbookProperty.Name)
 		}
 
 		// Convert the created field back to our PropertyField type to access typed options
-		createdField, err := NewPropertyFieldFromMattermostPropertyField(createdFieldMM)
+		createdField, err := NewPropertyFieldFromAntimatterPropertyField(createdFieldAM)
 		if err != nil {
 			return nil, errors.Wrapf(err, "failed to convert created property field %s", playbookProperty.Name)
 		}
@@ -432,7 +432,7 @@ func (s *propertyService) CopyPlaybookPropertiesToRun(playbookID, runID string) 
 
 		// Track option ID mappings if field supports options
 		if createdField.SupportsOptions() {
-			playbookField, err := NewPropertyFieldFromMattermostPropertyField(playbookProperty)
+			playbookField, err := NewPropertyFieldFromAntimatterPropertyField(playbookProperty)
 			if err != nil {
 				return nil, errors.Wrapf(err, "failed to convert playbook property field %s", playbookProperty.Name)
 			}
@@ -475,12 +475,12 @@ func (s *propertyService) CopyPlaybookPropertiesToPlaybook(sourcePlaybookID, tar
 			return nil, errors.Wrapf(err, "failed to duplicate property field %s for playbook", sourceProperty.Name)
 		}
 
-		createdFieldMM, err := s.api.Property.CreatePropertyField(targetProperty)
+		createdFieldAM, err := s.api.Property.CreatePropertyField(targetProperty)
 		if err != nil {
 			return nil, errors.Wrapf(err, "failed to create playbook property field for %s", sourceProperty.Name)
 		}
 
-		createdField, err := NewPropertyFieldFromMattermostPropertyField(createdFieldMM)
+		createdField, err := NewPropertyFieldFromAntimatterPropertyField(createdFieldAM)
 		if err != nil {
 			return nil, errors.Wrapf(err, "failed to convert created property field %s", sourceProperty.Name)
 		}
@@ -489,7 +489,7 @@ func (s *propertyService) CopyPlaybookPropertiesToPlaybook(sourcePlaybookID, tar
 		copiedFields = append(copiedFields, *createdField)
 
 		if createdField.SupportsOptions() {
-			sourceField, err := NewPropertyFieldFromMattermostPropertyField(sourceProperty)
+			sourceField, err := NewPropertyFieldFromAntimatterPropertyField(sourceProperty)
 			if err != nil {
 				return nil, errors.Wrapf(err, "failed to convert source property field %s", sourceProperty.Name)
 			}
@@ -516,7 +516,7 @@ func (s *propertyService) CopyPlaybookPropertiesToPlaybook(sourcePlaybookID, tar
 }
 
 func (s *propertyService) copyPropertyFieldForPlaybook(sourceProperty *model.PropertyField, targetPlaybookID string) (*model.PropertyField, error) {
-	propertyField, err := NewPropertyFieldFromMattermostPropertyField(sourceProperty)
+	propertyField, err := NewPropertyFieldFromAntimatterPropertyField(sourceProperty)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to convert source property %s", sourceProperty.Name)
 	}
@@ -538,11 +538,11 @@ func (s *propertyService) copyPropertyFieldForPlaybook(sourceProperty *model.Pro
 		return nil, errors.Wrapf(err, "failed to validate playbook property field for %s", sourceProperty.Name)
 	}
 
-	return propertyField.ToMattermostPropertyField(), nil
+	return propertyField.ToAntimatterPropertyField(), nil
 }
 
 func (s *propertyService) copyPropertyFieldForRun(playbookProperty *model.PropertyField, runID string) (*model.PropertyField, error) {
-	propertyField, err := NewPropertyFieldFromMattermostPropertyField(playbookProperty)
+	propertyField, err := NewPropertyFieldFromAntimatterPropertyField(playbookProperty)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to convert playbook property %s", playbookProperty.Name)
 	}
@@ -566,7 +566,7 @@ func (s *propertyService) copyPropertyFieldForRun(playbookProperty *model.Proper
 		return nil, errors.Wrapf(err, "failed to validate run property field for %s", playbookProperty.Name)
 	}
 
-	return propertyField.ToMattermostPropertyField(), nil
+	return propertyField.ToAntimatterPropertyField(), nil
 }
 
 func (s *propertyService) GetRunPropertyValues(runID string) ([]PropertyValue, error) {
@@ -613,7 +613,7 @@ func (s *propertyService) UpsertRunPropertyValue(runID, propertyFieldID string, 
 	// GetPropertyField filters by the playbook group scope, so run-level fields (targettype=run)
 	// may return "no rows". When that happens, fall back to searching the run's property fields
 	// directly to find the matching field.
-	mmPropertyField, getErr := s.api.Property.GetPropertyField(s.groupID, propertyFieldID)
+	amPropertyField, getErr := s.api.Property.GetPropertyField(s.groupID, propertyFieldID)
 	var propertyField *model.PropertyField
 	if getErr != nil {
 		if getErr != pluginapi.ErrNotFound {
@@ -625,17 +625,17 @@ func (s *propertyService) UpsertRunPropertyValue(runID, propertyFieldID string, 
 		}
 		for _, rf := range runFields {
 			if rf.ID == propertyFieldID {
-				propertyField = rf.ToMattermostPropertyField()
+				propertyField = rf.ToAntimatterPropertyField()
 				break
 			}
 		}
 		if propertyField == nil {
 			return nil, errors.Wrapf(getErr, "property field %s not found on run %s", propertyFieldID, runID)
 		}
-	} else if mmPropertyField == nil {
+	} else if amPropertyField == nil {
 		return nil, ErrNotFound
 	} else {
-		propertyField = mmPropertyField
+		propertyField = amPropertyField
 	}
 
 	if propertyField.TargetType != PropertyTargetTypeRun || propertyField.TargetID != runID {
@@ -675,8 +675,8 @@ func (s *propertyService) UpsertRunPropertyValueWithField(runID string, field *P
 	if field.TargetType != PropertyTargetTypeRun || field.TargetID != runID {
 		return nil, ErrPropertyFieldNotOnRun
 	}
-	mmField := field.ToMattermostPropertyField()
-	sanitizedValue, err := s.sanitizeAndValidatePropertyValue(mmField, value, true)
+	amField := field.ToAntimatterPropertyField()
+	sanitizedValue, err := s.sanitizeAndValidatePropertyValue(amField, value, true)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to sanitize and validate property value")
 	}
@@ -806,7 +806,7 @@ func (s *propertyService) validateSelectValue(propertyField *model.PropertyField
 		return nil
 	}
 
-	pf, err := NewPropertyFieldFromMattermostPropertyField(propertyField)
+	pf, err := NewPropertyFieldFromAntimatterPropertyField(propertyField)
 	if err != nil {
 		return errors.Wrap(err, "failed to convert property field")
 	}
@@ -825,7 +825,7 @@ func (s *propertyService) validateMultiselectValue(propertyField *model.Property
 		return nil
 	}
 
-	pf, err := NewPropertyFieldFromMattermostPropertyField(propertyField)
+	pf, err := NewPropertyFieldFromAntimatterPropertyField(propertyField)
 	if err != nil {
 		return errors.Wrap(err, "failed to convert property field")
 	}
@@ -896,13 +896,13 @@ func (s *propertyService) getRunsPropertyFields(runIDs []string, pageSize int, u
 		opts.Cursor.CreateAt = fields[len(fields)-1].CreateAt
 	}
 
-	for _, mmField := range allFields {
-		pf, err := NewPropertyFieldFromMattermostPropertyField(mmField)
+	for _, amField := range allFields {
+		pf, err := NewPropertyFieldFromAntimatterPropertyField(amField)
 		if err != nil {
 			logrus.WithError(err).Warn("Failed to convert property field")
 			continue
 		}
-		result[mmField.TargetID] = append(result[mmField.TargetID], *pf)
+		result[amField.TargetID] = append(result[amField.TargetID], *pf)
 	}
 
 	return result, nil
@@ -941,9 +941,9 @@ func (s *propertyService) getRunsPropertyValues(runIDs []string, pageSize int, u
 		opts.Cursor.CreateAt = values[len(values)-1].CreateAt
 	}
 
-	for _, mmValue := range allValues {
-		pv := PropertyValue(*mmValue)
-		result[mmValue.TargetID] = append(result[mmValue.TargetID], pv)
+	for _, amValue := range allValues {
+		pv := PropertyValue(*amValue)
+		result[amValue.TargetID] = append(result[amValue.TargetID], pv)
 	}
 
 	return result, nil

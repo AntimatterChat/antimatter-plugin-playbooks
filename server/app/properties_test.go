@@ -258,7 +258,7 @@ func TestPropertyField_SanitizeAndValidate(t *testing.T) {
 	})
 }
 
-func TestPropertyField_ToMattermostPropertyField(t *testing.T) {
+func TestPropertyField_ToAntimatterPropertyField(t *testing.T) {
 	optionID1 := model.NewId()
 	optionID2 := model.NewId()
 	option1 := model.NewPluginPropertyOption(optionID1, "Option 1")
@@ -284,7 +284,7 @@ func TestPropertyField_ToMattermostPropertyField(t *testing.T) {
 		},
 	}
 
-	result := pf.ToMattermostPropertyField()
+	result := pf.ToAntimatterPropertyField()
 
 	require.Equal(t, "field-id", result.ID)
 	require.Equal(t, "Test Field", result.Name)
@@ -310,13 +310,13 @@ func TestPropertyField_ToMattermostPropertyField(t *testing.T) {
 	require.Equal(t, "Option 2", options[1].GetName())
 }
 
-func TestNewPropertyFieldFromMattermostPropertyField(t *testing.T) {
+func TestNewPropertyFieldFromAntimatterPropertyField(t *testing.T) {
 	optionID1 := model.NewId()
 	optionID2 := model.NewId()
 	option1 := model.NewPluginPropertyOption(optionID1, "Option 1")
 	option2 := model.NewPluginPropertyOption(optionID2, "Option 2")
 
-	mmpf := &model.PropertyField{
+	ampf := &model.PropertyField{
 		ID:         "field-id",
 		Name:       "Test Field",
 		Type:       model.PropertyFieldTypeSelect,
@@ -334,7 +334,7 @@ func TestNewPropertyFieldFromMattermostPropertyField(t *testing.T) {
 		},
 	}
 
-	result, err := NewPropertyFieldFromMattermostPropertyField(mmpf)
+	result, err := NewPropertyFieldFromAntimatterPropertyField(ampf)
 	require.NoError(t, err)
 	require.NotNil(t, result)
 
@@ -359,10 +359,10 @@ func TestNewPropertyFieldFromMattermostPropertyField(t *testing.T) {
 	require.Equal(t, "Option 2", result.Attrs.Options[1].GetName())
 }
 
-func TestNewPropertyFieldFromMattermostPropertyField_InvalidAttrs(t *testing.T) {
+func TestNewPropertyFieldFromAntimatterPropertyField_InvalidAttrs(t *testing.T) {
 	t.Run("handles attrs that cannot be marshaled", func(t *testing.T) {
 		// Create attrs with a channel that cannot be marshaled to JSON
-		mmpf := &model.PropertyField{
+		ampf := &model.PropertyField{
 			ID:   "field-id",
 			Name: "Test Field",
 			Type: model.PropertyFieldTypeText,
@@ -371,19 +371,19 @@ func TestNewPropertyFieldFromMattermostPropertyField_InvalidAttrs(t *testing.T) 
 			},
 		}
 
-		_, err := NewPropertyFieldFromMattermostPropertyField(mmpf)
+		_, err := NewPropertyFieldFromAntimatterPropertyField(ampf)
 		require.Error(t, err)
 	})
 
 	t.Run("handles empty attrs", func(t *testing.T) {
-		mmpf := &model.PropertyField{
+		ampf := &model.PropertyField{
 			ID:    "field-id",
 			Name:  "Test Field",
 			Type:  model.PropertyFieldTypeText,
 			Attrs: model.StringInterface{},
 		}
 
-		result, err := NewPropertyFieldFromMattermostPropertyField(mmpf)
+		result, err := NewPropertyFieldFromAntimatterPropertyField(ampf)
 		require.NoError(t, err)
 		require.NotNil(t, result)
 		require.Equal(t, "field-id", result.ID)

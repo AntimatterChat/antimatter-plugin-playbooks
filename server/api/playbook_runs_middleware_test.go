@@ -16,7 +16,7 @@ import (
 	"github.com/mattermost/mattermost/server/public/model"
 )
 
-func TestMattermostAuthorizationRequired(t *testing.T) {
+func TestAntimatterAuthorizationRequired(t *testing.T) {
 	const (
 		userID       = "user_abc123"
 		callerPlugin = "com.example.caller"
@@ -107,7 +107,7 @@ func TestMattermostAuthorizationRequired(t *testing.T) {
 			}
 
 			rec := httptest.NewRecorder()
-			h.MattermostAuthorizationRequired(next).ServeHTTP(rec, req)
+			h.AntimatterAuthorizationRequired(next).ServeHTTP(rec, req)
 
 			require.Equal(t, tc.expectStatus, rec.Code)
 			if tc.expectStatus == http.StatusOK {
