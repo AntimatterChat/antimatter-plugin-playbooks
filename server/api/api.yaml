@@ -1451,7 +1451,7 @@ paths:
                   example: true
                 public:
                   type: boolean
-                  description: A boolean indicating whether the playbook is licensed as public or private. Required 'true' for free tier.
+                  description: A boolean indicating whether the playbook is public or private.
                   example: true
                 checklists:
                   type: array

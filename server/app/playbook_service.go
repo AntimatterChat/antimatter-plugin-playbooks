@@ -563,12 +563,8 @@ func (s *playbookService) Duplicate(playbook Playbook, userID string) (string, e
 
 // get top playbooks for teams
 func (s *playbookService) GetTopPlaybooksForTeam(teamID, userID string, opts *InsightsOpts) (*PlaybooksInsightsList, error) {
-	permissionFlag, err := licenseAndGuestCheck(s, userID, false)
-	if err != nil {
+	if err := guestCheck(s, userID); err != nil {
 		return nil, err
-	}
-	if !permissionFlag {
-		return nil, errors.New("User cannot access playbooks insights")
 	}
 
 	return s.store.GetTopPlaybooksForTeam(teamID, userID, opts)
@@ -576,40 +572,26 @@ func (s *playbookService) GetTopPlaybooksForTeam(teamID, userID string, opts *In
 
 // get top playbooks for users
 func (s *playbookService) GetTopPlaybooksForUser(teamID, userID string, opts *InsightsOpts) (*PlaybooksInsightsList, error) {
-	permissionFlag, err := licenseAndGuestCheck(s, userID, true)
-	if err != nil {
+	if err := guestCheck(s, userID); err != nil {
 		return nil, err
-	}
-	if !permissionFlag {
-		return nil, errors.New("User cannot access playbooks insights")
 	}
 
 	return s.store.GetTopPlaybooksForUser(teamID, userID, opts)
 }
 
-func licenseAndGuestCheck(s *playbookService, userID string, isMyInsights bool) (bool, error) {
-	licenseError := errors.New("invalid license/authorization to use insights API")
-	guestError := errors.New("Guests aren't authorized to use insights API")
-	lic := s.api.System.GetLicense()
-
+// guestCheck returns an error if the user is a guest, since guests aren't authorized to use
+// the insights API.
+func guestCheck(s *playbookService, userID string) error {
 	user, err := s.api.User.Get(userID)
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	if user.IsGuest() {
-		return false, guestError
+		return errors.New("Guests aren't authorized to use insights API")
 	}
 
-	if lic == nil && !isMyInsights {
-		return false, licenseError
-	}
-
-	if !isMyInsights && (lic.SkuShortName != model.LicenseShortSkuProfessional && lic.SkuShortName != model.LicenseShortSkuEnterprise) {
-		return false, licenseError
-	}
-
-	return true, nil
+	return nil
 }
 
 // CreatePropertyField creates a property field for a playbook and bumps the playbook's updated_at

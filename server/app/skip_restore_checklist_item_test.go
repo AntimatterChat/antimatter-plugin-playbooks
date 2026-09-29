@@ -97,11 +97,11 @@ func newTaskStateService(t *testing.T, item ChecklistItem) taskStateService {
 
 	return taskStateService{
 		svc: &PlaybookRunServiceImpl{
-			store:          store,
-			api:            api,
-			poster:         poster,
-			configService:  stubTaskStateConfig{},
-			licenseChecker: stubLicenseChecker{},
+			store:           store,
+			api:             api,
+			poster:          poster,
+			configService:   stubTaskStateConfig{},
+			propertyService: emptyRunPropertiesService{},
 		},
 		store:  store,
 		api:    api,

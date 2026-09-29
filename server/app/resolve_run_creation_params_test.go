@@ -259,7 +259,7 @@ func TestResolveRunCreationParams_NilPlaybook(t *testing.T) {
 }
 
 func TestResolveRunCreationParams_PlaybookIDMismatch(t *testing.T) {
-	svc := &PlaybookRunServiceImpl{licenseChecker: &stubLicenseCheckerNoAttributes{}}
+	svc := &PlaybookRunServiceImpl{}
 
 	run := &PlaybookRun{PlaybookID: "pb_a"}
 	pb := &Playbook{ID: "pb_b"}
@@ -273,9 +273,7 @@ func TestResolveRunCreationParams_PlaybookIDMismatch(t *testing.T) {
 func TestResolveRunCreationParams_SetsPlaybookIDFromPlaybook(t *testing.T) {
 	pbID := mm_model.NewId()
 
-	svc := &PlaybookRunServiceImpl{
-		licenseChecker: &stubLicenseCheckerNoAttributes{},
-	}
+	svc := &PlaybookRunServiceImpl{}
 
 	run := &PlaybookRun{PlaybookID: ""}
 	pb := &Playbook{ID: pbID, ChannelNameTemplate: "", RunNumberPrefix: ""}
@@ -289,9 +287,7 @@ func TestResolveRunCreationParams_SetsPlaybookIDFromPlaybook(t *testing.T) {
 func TestResolveRunCreationParams_DoesNotAllocateRunNumber(t *testing.T) {
 	pbID := mm_model.NewId()
 
-	svc := &PlaybookRunServiceImpl{
-		licenseChecker: &stubLicenseCheckerNoAttributes{},
-	}
+	svc := &PlaybookRunServiceImpl{}
 
 	run := &PlaybookRun{PlaybookID: pbID}
 	pb := &Playbook{ID: pbID, ChannelNameTemplate: "", RunNumberPrefix: "INC"}
@@ -319,7 +315,6 @@ func TestResolveRunCreationParams_OverrideAllowedTemplateSkipsDryRunValidation(t
 	}
 	svc := &PlaybookRunServiceImpl{
 		propertyService: &allocPropertyServiceStub{fields: []PropertyField{zoneField}},
-		licenseChecker:  &allocLicenseCheckerWithAttributes{},
 	}
 
 	run := &PlaybookRun{PlaybookID: pb.ID}
@@ -343,7 +338,6 @@ func TestResolveRunCreationParams_OverrideNotAllowedTemplateStillValidates(t *te
 	}
 	svc := &PlaybookRunServiceImpl{
 		propertyService: &allocPropertyServiceStub{fields: []PropertyField{zoneField}},
-		licenseChecker:  &allocLicenseCheckerWithAttributes{},
 	}
 
 	run := &PlaybookRun{PlaybookID: pb.ID}
@@ -368,7 +362,6 @@ func TestResolveRunCreationParams_UnlockedPropertyTemplateAllowsDialogAndCommand
 	}
 	svc := &PlaybookRunServiceImpl{
 		propertyService: &allocPropertyServiceStub{fields: []PropertyField{zoneField}},
-		licenseChecker:  &allocLicenseCheckerWithAttributes{},
 	}
 
 	for _, source := range []string{RunSourceDialog, RunSourceCommand} {
@@ -396,7 +389,6 @@ func TestResolveRunCreationParams_LockedPropertyTemplateBlocksDialogAndCommandSo
 	}
 	svc := &PlaybookRunServiceImpl{
 		propertyService: &allocPropertyServiceStub{fields: []PropertyField{zoneField}},
-		licenseChecker:  &allocLicenseCheckerWithAttributes{},
 	}
 
 	for _, source := range []string{RunSourceDialog, RunSourceCommand} {

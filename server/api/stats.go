@@ -82,11 +82,6 @@ func parsePlaybookStatsFilters(u *url.URL) (*sqlstore.StatsFilters, error) {
 
 // playbookStats handles the internal plugin stats
 func (h *StatsHandler) playbookStats(c *Context, w http.ResponseWriter, r *http.Request) {
-	if !h.licenseChecker.StatsAllowed() {
-		h.HandleErrorWithCode(w, c.logger, http.StatusForbidden, "timeline feature is not covered by current server license", nil)
-		return
-	}
-
 	userID := r.Header.Get("Mattermost-User-ID")
 
 	filters, err := parsePlaybookStatsFilters(r.URL)

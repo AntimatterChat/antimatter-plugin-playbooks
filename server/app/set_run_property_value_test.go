@@ -80,19 +80,6 @@ func TestUpsertRunPropertyValueWithField(t *testing.T) {
 	})
 }
 
-// stubLicenseCheckerNoAttributes is a LicenseChecker that reports no premium
-// attributes are allowed. Used to avoid a nil panic in GetPlaybookRun while
-// keeping property-field loading disabled so the stub store controls the run.
-type stubLicenseCheckerNoAttributes struct{}
-
-func (s *stubLicenseCheckerNoAttributes) PlaybookAllowed(_ bool) bool       { return true }
-func (s *stubLicenseCheckerNoAttributes) RetrospectiveAllowed() bool        { return false }
-func (s *stubLicenseCheckerNoAttributes) TimelineAllowed() bool             { return false }
-func (s *stubLicenseCheckerNoAttributes) StatsAllowed() bool                { return false }
-func (s *stubLicenseCheckerNoAttributes) ChecklistItemDueDateAllowed() bool { return false }
-func (s *stubLicenseCheckerNoAttributes) PlaybookAttributesAllowed() bool   { return false }
-func (s *stubLicenseCheckerNoAttributes) ConditionalPlaybooksAllowed() bool { return false }
-
 // stubRunStoreGetOnly is a minimal PlaybookRunStore stub that supports only
 // GetPlaybookRun. All other methods panic so that any unexpected call is
 // immediately visible during testing.
@@ -230,8 +217,8 @@ func TestSetRunPropertyValue_FieldOwnershipValidation(t *testing.T) {
 
 	t.Run("field not in run returns error without store writes", func(t *testing.T) {
 		svc := &PlaybookRunServiceImpl{
-			store:          &stubRunStoreGetOnly{run: runWithoutField},
-			licenseChecker: &stubLicenseCheckerNoAttributes{},
+			store:           &stubRunStoreGetOnly{run: runWithoutField},
+			propertyService: emptyRunPropertiesService{},
 		}
 
 		_, err := svc.SetRunPropertyValue("user1", runID, fieldID, json.RawMessage(`"high"`))
@@ -243,8 +230,8 @@ func TestSetRunPropertyValue_FieldOwnershipValidation(t *testing.T) {
 	t.Run("store error on GetPlaybookRun propagates", func(t *testing.T) {
 		storeErr := errors.New("db unavailable")
 		svc := &PlaybookRunServiceImpl{
-			store:          &stubRunStoreGetOnly{err: storeErr},
-			licenseChecker: &stubLicenseCheckerNoAttributes{},
+			store:           &stubRunStoreGetOnly{err: storeErr},
+			propertyService: emptyRunPropertiesService{},
 		}
 
 		_, err := svc.SetRunPropertyValue("user1", runID, fieldID, json.RawMessage(`"high"`))
@@ -256,8 +243,8 @@ func TestSetRunPropertyValue_FieldOwnershipValidation(t *testing.T) {
 	t.Run("field belonging to a different run is rejected", func(t *testing.T) {
 		differentFieldID := model.NewId()
 		svc := &PlaybookRunServiceImpl{
-			store:          &stubRunStoreGetOnly{run: runWithField},
-			licenseChecker: &stubLicenseCheckerNoAttributes{},
+			store:           &stubRunStoreGetOnly{run: runWithField},
+			propertyService: emptyRunPropertiesService{},
 		}
 
 		_, err := svc.SetRunPropertyValue("user1", runID, differentFieldID, json.RawMessage(`"high"`))

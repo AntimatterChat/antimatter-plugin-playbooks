@@ -98,10 +98,6 @@ func (p *PermissionsService) canViewTeam(userID string, teamID string) bool {
 }
 
 func (p *PermissionsService) PlaybookCreate(userID string, playbook Playbook) error {
-	if !p.licenseChecker.PlaybookAllowed(p.PlaybookIsPublic(playbook)) {
-		return errors.Wrapf(ErrLicensedFeature, "the playbook is not valid with the current license")
-	}
-
 	// Check the user has permissions over all broadcast channels
 	for _, channelID := range playbook.BroadcastChannelIDs {
 		if !p.pluginAPI.User.HasPermissionToChannel(userID, channelID, model.PermissionCreatePost) {
@@ -249,28 +245,16 @@ func (p *PermissionsService) IsPlaybookAdmin(userID string, playbook Playbook) b
 
 // PlaybookManageConditions returns an error if the user cannot manage conditions for the playbook
 func (p *PermissionsService) PlaybookManageConditions(userID string, playbook Playbook) error {
-	if !p.licenseChecker.ConditionalPlaybooksAllowed() {
-		return errors.Wrapf(ErrLicensedFeature, "conditional playbooks feature is not covered by current server license")
-	}
-
 	return p.PlaybookEdit(userID, playbook)
 }
 
 // PlaybookViewConditions returns an error if the user cannot view conditions for the playbook
 func (p *PermissionsService) PlaybookViewConditions(userID string, playbookID string) error {
-	if !p.licenseChecker.ConditionalPlaybooksAllowed() {
-		return errors.Wrapf(ErrLicensedFeature, "conditional playbooks feature is not covered by current server license")
-	}
-
 	return p.PlaybookView(userID, playbookID)
 }
 
 // RunViewConditions returns an error if the user cannot view conditions for the run
 func (p *PermissionsService) RunViewConditions(userID string, runID string) error {
-	if !p.licenseChecker.ConditionalPlaybooksAllowed() {
-		return errors.Wrapf(ErrLicensedFeature, "conditional playbooks feature is not covered by current server license")
-	}
-
 	return p.RunView(userID, runID)
 }
 
@@ -352,10 +336,6 @@ func (p *PermissionsService) PlaybookModifyWithFixes(userID string, playbook *Pl
 		if !p.IsPlaybookAdmin(userID, oldPlaybook) && !IsSystemAdmin(userID, p.pluginAPI) {
 			return errors.Wrapf(ErrNoPermissions, "only a playbook admin can change OwnerGroupOnlyActions")
 		}
-	}
-
-	if !p.licenseChecker.PlaybookAllowed(p.PlaybookIsPublic(*playbook)) {
-		return errors.Wrapf(ErrLicensedFeature, "the playbook is not valid with the current license")
 	}
 
 	return nil

@@ -242,9 +242,6 @@ func (r *PlaybookRootResolver) UpdatePlaybook(ctx context.Context, args struct {
 				return "", err
 			}
 		}
-		if !c.licenceChecker.PlaybookAllowed(*args.Updates.Public) {
-			return "", errors.Wrapf(app.ErrLicensedFeature, "the playbook is not valid with the current license")
-		}
 		addToSetmap(setmap, "Public", args.Updates.Public)
 	}
 	addToSetmap(setmap, "CreatePublicIncident", args.Updates.CreatePublicPlaybookRun)

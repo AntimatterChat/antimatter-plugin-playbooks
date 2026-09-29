@@ -155,16 +155,6 @@ func (s *allocPropertyServiceStub) GetRunsPropertyFields([]string) (map[string][
 	panic("not called")
 }
 
-type allocLicenseCheckerWithAttributes struct{}
-
-func (s *allocLicenseCheckerWithAttributes) PlaybookAllowed(bool) bool         { return true }
-func (s *allocLicenseCheckerWithAttributes) RetrospectiveAllowed() bool        { return true }
-func (s *allocLicenseCheckerWithAttributes) TimelineAllowed() bool             { return true }
-func (s *allocLicenseCheckerWithAttributes) StatsAllowed() bool                { return true }
-func (s *allocLicenseCheckerWithAttributes) ChecklistItemDueDateAllowed() bool { return true }
-func (s *allocLicenseCheckerWithAttributes) PlaybookAttributesAllowed() bool   { return true }
-func (s *allocLicenseCheckerWithAttributes) ConditionalPlaybooksAllowed() bool { return true }
-
 // ---------------------------------------------------------------------------
 // Tests for resolveAndAllocate
 // ---------------------------------------------------------------------------
@@ -180,7 +170,6 @@ func newAllocService(pbStub *allocPlaybookServiceStub) *PlaybookRunServiceImpl {
 	return &PlaybookRunServiceImpl{
 		playbookService: pbStub,
 		propertyService: &allocPropertyServiceStub{},
-		licenseChecker:  &stubLicenseCheckerNoAttributes{},
 	}
 }
 
@@ -259,11 +248,8 @@ func TestResolveAndAllocate_IncrementNotFoundWrapsMalformedRun(t *testing.T) {
 }
 
 // TestResolveAndAllocate_DryRunFailureSkipsAllocation pins the atomicity contract:
-// when template dry-run validation fails (license-on + template missing a required
-// property value), the counter must NOT be consumed.
-//
-// This test deliberately exercises the licensed path because dry-run only validates
-// property-field placeholders when PlaybookAttributesAllowed() is true.
+// when template dry-run validation fails (template missing a required property value),
+// the counter must NOT be consumed.
 func TestResolveAndAllocate_DryRunFailureSkipsAllocation(t *testing.T) {
 	zoneField := PropertyField{
 		PropertyField: model.PropertyField{
@@ -282,7 +268,6 @@ func TestResolveAndAllocate_DryRunFailureSkipsAllocation(t *testing.T) {
 	svc := &PlaybookRunServiceImpl{
 		playbookService: pbStub,
 		propertyService: &allocPropertyServiceStub{fields: []PropertyField{zoneField}},
-		licenseChecker:  &allocLicenseCheckerWithAttributes{},
 	}
 
 	run := &PlaybookRun{PlaybookID: pb.ID, Name: "test"}
@@ -432,7 +417,6 @@ func TestResolveAndAllocate_UnrecognizedPlaceholderLockedFailsResolve(t *testing
 	svc := &PlaybookRunServiceImpl{
 		playbookService: pbStub,
 		propertyService: &allocPropertyServiceStub{fields: []PropertyField{zoneField}},
-		licenseChecker:  &allocLicenseCheckerWithAttributes{},
 	}
 
 	run := &PlaybookRun{PlaybookID: pb.ID, Name: "My Custom Name"}
@@ -482,7 +466,6 @@ func TestResolveAndAllocate_UserSuppliedNameResolvesPropertyField(t *testing.T) 
 	svc := &PlaybookRunServiceImpl{
 		playbookService: pbStub,
 		propertyService: &allocPropertyServiceStub{fields: []PropertyField{versionField}},
-		licenseChecker:  &allocLicenseCheckerWithAttributes{},
 	}
 
 	run := &PlaybookRun{PlaybookID: pb.ID, Name: "Release version {Version}"}

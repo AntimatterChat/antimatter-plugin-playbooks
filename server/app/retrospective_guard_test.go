@@ -41,17 +41,21 @@ func (s *stubRunStore) GetPlaybookRun(_ string) (*PlaybookRun, error) {
 	return s.run, nil
 }
 
-// stubLicenseChecker satisfies LicenseChecker, returning false for all checks so
-// that GetPlaybookRun skips property-field enrichment in unit tests.
-type stubLicenseChecker struct{}
+// emptyRunPropertiesService satisfies PropertyService via interface embedding and
+// returns no property fields or values for a run, so that GetPlaybookRun's
+// property-field enrichment is a no-op in unit tests. Any other method panics on
+// nil deref, which is intentional — these tests must not trigger them.
+type emptyRunPropertiesService struct {
+	PropertyService
+}
 
-func (stubLicenseChecker) PlaybookAllowed(bool) bool         { return false }
-func (stubLicenseChecker) RetrospectiveAllowed() bool        { return false }
-func (stubLicenseChecker) TimelineAllowed() bool             { return false }
-func (stubLicenseChecker) StatsAllowed() bool                { return false }
-func (stubLicenseChecker) ChecklistItemDueDateAllowed() bool { return false }
-func (stubLicenseChecker) PlaybookAttributesAllowed() bool   { return false }
-func (stubLicenseChecker) ConditionalPlaybooksAllowed() bool { return false }
+func (emptyRunPropertiesService) GetRunPropertyFields(string) ([]PropertyField, error) {
+	return nil, nil
+}
+
+func (emptyRunPropertiesService) GetRunPropertyValues(string) ([]PropertyValue, error) {
+	return nil, nil
+}
 
 // TestHandleReminderToFillRetro_Cancel verifies that handleReminderToFillRetro calls
 // scheduler.Cancel exactly once when RetrospectiveEnabled is false, regardless of
@@ -75,9 +79,9 @@ func TestHandleReminderToFillRetro_Cancel(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			sched := &recordingScheduler{}
 			svc := &PlaybookRunServiceImpl{
-				store:          &stubRunStore{run: &tc.run},
-				scheduler:      sched,
-				licenseChecker: stubLicenseChecker{},
+				store:           &stubRunStore{run: &tc.run},
+				scheduler:       sched,
+				propertyService: emptyRunPropertiesService{},
 			}
 
 			svc.handleReminderToFillRetro(tc.run.ID)
@@ -110,9 +114,9 @@ func TestHandleReminderToFillRetro_Skip(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			sched := &recordingScheduler{}
 			svc := &PlaybookRunServiceImpl{
-				store:          &stubRunStore{run: &tc.run},
-				scheduler:      sched,
-				licenseChecker: stubLicenseChecker{},
+				store:           &stubRunStore{run: &tc.run},
+				scheduler:       sched,
+				propertyService: emptyRunPropertiesService{},
 			}
 
 			require.NotPanics(t, func() {

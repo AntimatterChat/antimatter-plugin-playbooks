@@ -276,21 +276,14 @@ func (s *PlaybookRunServiceImpl) GetPlaybookRuns(requesterInfo RequesterInfo, op
 		runIDs[i] = run.ID
 	}
 
-	// Default to empty maps
-	fieldsMap := make(map[string][]PropertyField)
-	valuesMap := make(map[string][]PropertyValue)
+	fieldsMap, err := s.propertyService.GetRunsPropertyFields(runIDs)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to get property fields for runs")
+	}
 
-	if s.licenseChecker.PlaybookAttributesAllowed() {
-		var err error
-		fieldsMap, err = s.propertyService.GetRunsPropertyFields(runIDs)
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to get property fields for runs")
-		}
-
-		valuesMap, err = s.propertyService.GetRunsPropertyValues(runIDs)
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to get property values for runs")
-		}
+	valuesMap, err := s.propertyService.GetRunsPropertyValues(runIDs)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to get property values for runs")
 	}
 
 	for i := range results.Items {
@@ -583,7 +576,7 @@ func (s *PlaybookRunServiceImpl) CreatePlaybookRun(playbookRun *PlaybookRun, pb 
 		return nil, err
 	}
 
-	if pb != nil && s.licenseChecker.PlaybookAttributesAllowed() {
+	if pb != nil {
 		propertyCopyResult, err := s.propertyService.CopyPlaybookPropertiesToRun(pb.ID, playbookRun.ID)
 		if err != nil {
 			logger.WithError(err).Warn("failed to copy playbook properties to run")
@@ -602,23 +595,21 @@ func (s *PlaybookRunServiceImpl) CreatePlaybookRun(playbookRun *PlaybookRun, pb 
 			// Resolve any property_user assignees from the run's initial property values.
 			resolvePropertyUserAssignmentsFromRun(playbookRun)
 
-			// Copy conditions from playbook to run using the field mappings if license allows
+			// Copy conditions from playbook to run using the field mappings
 			conditionsWereCopied := false
-			if s.licenseChecker.ConditionalPlaybooksAllowed() {
-				conditionMapping, err := s.conditionService.CopyPlaybookConditionsToRun(pb.ID, playbookRun.ID, propertyCopyResult)
-				if err != nil {
-					logger.WithError(err).Warn("failed to copy playbook conditions to run")
-				} else {
-					// Update checklist item condition IDs to reference the new condition IDs
-					playbookRun.SwapConditionIDs(conditionMapping)
+			conditionMapping, err := s.conditionService.CopyPlaybookConditionsToRun(pb.ID, playbookRun.ID, propertyCopyResult)
+			if err != nil {
+				logger.WithError(err).Warn("failed to copy playbook conditions to run")
+			} else {
+				// Update checklist item condition IDs to reference the new condition IDs
+				playbookRun.SwapConditionIDs(conditionMapping)
 
-					if len(conditionMapping) > 0 {
-						conditionsWereCopied = true
-						// Evaluate conditions with default property values as a baseline.
-						_, err = s.conditionService.EvaluateAllConditionsForRun(playbookRun)
-						if err != nil {
-							logger.WithError(err).Warn("failed to evaluate conditions for run")
-						}
+				if len(conditionMapping) > 0 {
+					conditionsWereCopied = true
+					// Evaluate conditions with default property values as a baseline.
+					_, err = s.conditionService.EvaluateAllConditionsForRun(playbookRun)
+					if err != nil {
+						logger.WithError(err).Warn("failed to evaluate conditions for run")
 					}
 				}
 			}
@@ -1474,16 +1465,14 @@ func (s *PlaybookRunServiceImpl) FinishPlaybookRun(playbookRunID, userID string)
 
 	// We are resolving the playbook run. Send the reminder to fill out the retrospective
 	// Also start the recurring reminder if enabled.
-	if s.licenseChecker.RetrospectiveAllowed() {
-		if playbookRunToModify.RetrospectiveEnabled && playbookRunToModify.RetrospectivePublishedAt == 0 {
-			if err = s.postRetrospectiveReminder(playbookRunToModify, true); err != nil {
-				return errors.Wrap(err, "couldn't post retrospective reminder")
-			}
-			s.scheduler.Cancel(RetrospectivePrefix + playbookRunID)
-			if playbookRunToModify.RetrospectiveReminderIntervalSeconds != 0 {
-				if err = s.SetReminder(RetrospectivePrefix+playbookRunID, time.Duration(playbookRunToModify.RetrospectiveReminderIntervalSeconds)*time.Second); err != nil {
-					return errors.Wrap(err, "failed to set the retrospective reminder for playbook run")
-				}
+	if playbookRunToModify.RetrospectiveEnabled && playbookRunToModify.RetrospectivePublishedAt == 0 {
+		if err = s.postRetrospectiveReminder(playbookRunToModify, true); err != nil {
+			return errors.Wrap(err, "couldn't post retrospective reminder")
+		}
+		s.scheduler.Cancel(RetrospectivePrefix + playbookRunID)
+		if playbookRunToModify.RetrospectiveReminderIntervalSeconds != 0 {
+			if err = s.SetReminder(RetrospectivePrefix+playbookRunID, time.Duration(playbookRunToModify.RetrospectiveReminderIntervalSeconds)*time.Second); err != nil {
+				return errors.Wrap(err, "failed to set the retrospective reminder for playbook run")
 			}
 		}
 	}
@@ -1926,8 +1915,7 @@ func (s *PlaybookRunServiceImpl) ToggleRetrospectiveEnabled(playbookRunID, userI
 	// unpublished run restarts it so the owner still gets prompted.
 	if !enabled {
 		s.scheduler.Cancel(reminderKey)
-	} else if s.licenseChecker.RetrospectiveAllowed() &&
-		playbookRunToModify.CurrentStatus == StatusFinished &&
+	} else if playbookRunToModify.CurrentStatus == StatusFinished &&
 		playbookRunToModify.RetrospectivePublishedAt == 0 {
 		// Reminder/scheduler errors are intentionally non-fatal: the toggle has already
 		// been persisted to the DB. Failure here means the owner won't be automatically
@@ -2065,23 +2053,17 @@ func (s *PlaybookRunServiceImpl) GetPlaybookRun(playbookRunID string) (*Playbook
 		return nil, err
 	}
 
-	// Default to empty slices
-	playbookRun.PropertyFields = []PropertyField{}
-	playbookRun.PropertyValues = []PropertyValue{}
-
-	if s.licenseChecker.PlaybookAttributesAllowed() {
-		propertyFields, err := s.propertyService.GetRunPropertyFields(playbookRunID)
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to get run property fields")
-		}
-		playbookRun.PropertyFields = propertyFields
-
-		propertyValues, err := s.propertyService.GetRunPropertyValues(playbookRunID)
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to get run property values")
-		}
-		playbookRun.PropertyValues = propertyValues
+	propertyFields, err := s.propertyService.GetRunPropertyFields(playbookRunID)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to get run property fields")
 	}
+	playbookRun.PropertyFields = propertyFields
+
+	propertyValues, err := s.propertyService.GetRunPropertyValues(playbookRunID)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to get run property values")
+	}
+	playbookRun.PropertyValues = propertyValues
 
 	playbookRun.ComputeTaskProgress()
 
@@ -6433,14 +6415,14 @@ func (s *PlaybookRunServiceImpl) ResolveRunCreationParams(playbookRun *PlaybookR
 		playbookRun.PlaybookID = pb.ID
 	}
 
-	fields, attributesLicensed, err := s.loadTemplateFields(pb, strings.TrimSpace(playbookRun.Name))
+	fields, err := s.loadTemplateFields(pb, strings.TrimSpace(playbookRun.Name))
 	if err != nil {
 		return err
 	}
 
 	s.resolveOwner(playbookRun, logger)
 
-	template, err := s.prepareTemplate(pb, source, fields, attributesLicensed, logger)
+	template, err := s.prepareTemplate(pb, source, fields, logger)
 	if err != nil {
 		return err
 	}
@@ -6471,12 +6453,12 @@ func (s *PlaybookRunServiceImpl) resolveAndAllocate(playbookRun *PlaybookRun, pb
 	}
 	pb = &latestPb
 
-	fields, attributesLicensed, err := s.loadTemplateFields(pb, userSuppliedName)
+	fields, err := s.loadTemplateFields(pb, userSuppliedName)
 	if err != nil {
 		return "", err
 	}
 
-	template, err := s.prepareTemplate(pb, source, fields, attributesLicensed, logger)
+	template, err := s.prepareTemplate(pb, source, fields, logger)
 	if err != nil {
 		return "", err
 	}
@@ -6506,19 +6488,17 @@ func (s *PlaybookRunServiceImpl) resolveAndAllocate(playbookRun *PlaybookRun, pb
 	return s.resolveRunName(playbookRun, pb, template, fields, sanitizedValues, userSuppliedName, runNumber, formatFunc, logger)
 }
 
-// loadTemplateFields checks whether the attributes licence is active and, if the playbook's
-// channel name template or the caller-supplied name contains placeholders, fetches the
-// associated property fields — tokens in a user-supplied name are resolved the same as the
-// template's, so its fields must be loaded too.
-func (s *PlaybookRunServiceImpl) loadTemplateFields(pb *Playbook, userSuppliedName string) (fields []PropertyField, attributesLicensed bool, err error) {
-	attributesLicensed = s.licenseChecker.PlaybookAttributesAllowed()
-	if attributesLicensed && (strings.Contains(pb.ChannelNameTemplate, "{") || strings.Contains(userSuppliedName, "{")) {
+// loadTemplateFields fetches the playbook's property fields if its channel name template or
+// the caller-supplied name contains placeholders — tokens in a user-supplied name are resolved
+// the same as the template's, so its fields must be loaded too.
+func (s *PlaybookRunServiceImpl) loadTemplateFields(pb *Playbook, userSuppliedName string) (fields []PropertyField, err error) {
+	if strings.Contains(pb.ChannelNameTemplate, "{") || strings.Contains(userSuppliedName, "{") {
 		fields, err = s.propertyService.GetPropertyFields(pb.ID)
 		if err != nil {
-			return nil, false, errors.Wrap(err, "failed to load property fields for template resolution")
+			return nil, errors.Wrap(err, "failed to load property fields for template resolution")
 		}
 	}
-	return fields, attributesLicensed, nil
+	return fields, nil
 }
 
 // resolveOwner applies the DefaultOwnerID fallback and validates team membership,
@@ -6543,15 +6523,12 @@ func (s *PlaybookRunServiceImpl) resolveOwner(playbookRun *PlaybookRun, logger *
 
 // prepareTemplate validates and self-heals the channel name template from the playbook snapshot.
 // It returns the cleaned template string to use for name resolution.
-func (s *PlaybookRunServiceImpl) prepareTemplate(pb *Playbook, source string, fields []PropertyField, attributesLicensed bool, logger *logrus.Entry) (string, error) {
+func (s *PlaybookRunServiceImpl) prepareTemplate(pb *Playbook, source string, fields []PropertyField, logger *logrus.Entry) (string, error) {
 	// Snapshot to local to avoid TOCTOU with concurrent playbook mutations.
 	template := pb.ChannelNameTemplate
 
 	// Self-heal: strip unknown field placeholders left by a failed delete, then persist atomically.
-	// Only runs when the license is active so that fields are loaded and the known-field set is
-	// accurate. When the license is inactive the second check below returns an error immediately,
-	// leaving the template intact for when the license is re-activated.
-	if template != "" && attributesLicensed {
+	if template != "" {
 		if unknownFields := ValidateTemplate(template, ResolveOptions{Fields: fields}); len(unknownFields) > 0 {
 			cleaned := template
 			for _, f := range unknownFields {
@@ -6571,16 +6548,12 @@ func (s *PlaybookRunServiceImpl) prepareTemplate(pb *Playbook, source string, fi
 		}
 	}
 
-	// Property placeholders require an active attributes license and cannot be supplied
-	// via dialog or slash command (those sources have no property value input). This only
+	// Property placeholders cannot be supplied via dialog or slash command (those sources have no property value input). This only
 	// matters when the template will actually be used to resolve the run name — an unlocked
 	// template is just a prefill suggestion, so its placeholders must not block run creation.
 	// Check against the cleaned template so deleted-field ghosts don't trip this gate.
 	if TemplateLocked(pb, template) {
 		if propertyPlaceholders := ValidateTemplate(template, ResolveOptions{}); len(propertyPlaceholders) > 0 {
-			if !attributesLicensed {
-				return "", errors.Wrap(ErrMalformedPlaybookRun, "this playbook uses property-based name templates but the attributes license is not active")
-			}
 			switch source {
 			case RunSourceDialog:
 				return "", errors.Wrap(ErrMalformedPlaybookRun, "this playbook requires property values that cannot be provided via the dialog; use the webapp creation flow instead")

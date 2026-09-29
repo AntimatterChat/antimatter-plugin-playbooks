@@ -24,10 +24,6 @@ func (r *PropertyRootResolver) PlaybookProperty(ctx context.Context, args struct
 		return nil, err
 	}
 
-	if !c.licenceChecker.PlaybookAttributesAllowed() {
-		return nil, errors.Wrapf(app.ErrLicensedFeature, "playbook attributes feature is not covered by current server license")
-	}
-
 	userID := c.r.Header.Get("Mattermost-User-ID")
 
 	// Check permissions to view the playbook
@@ -56,10 +52,6 @@ func (r *PropertyRootResolver) AddPlaybookPropertyField(ctx context.Context, arg
 	c, err := getContext(ctx)
 	if err != nil {
 		return "", err
-	}
-
-	if !c.licenceChecker.PlaybookAttributesAllowed() {
-		return "", errors.Wrapf(app.ErrLicensedFeature, "playbook attributes feature is not covered by current server license")
 	}
 
 	userID := c.r.Header.Get("Mattermost-User-ID")
@@ -97,10 +89,6 @@ func (r *PropertyRootResolver) UpdatePlaybookPropertyField(ctx context.Context, 
 	c, err := getContext(ctx)
 	if err != nil {
 		return "", err
-	}
-
-	if !c.licenceChecker.PlaybookAttributesAllowed() {
-		return "", errors.Wrapf(app.ErrLicensedFeature, "playbook attributes feature is not covered by current server license")
 	}
 
 	userID := c.r.Header.Get("Mattermost-User-ID")
@@ -157,10 +145,6 @@ func (r *PropertyRootResolver) DeletePlaybookPropertyField(ctx context.Context, 
 		return "", err
 	}
 
-	if !c.licenceChecker.PlaybookAttributesAllowed() {
-		return "", errors.Wrapf(app.ErrLicensedFeature, "playbook attributes feature is not covered by current server license")
-	}
-
 	userID := c.r.Header.Get("Mattermost-User-ID")
 
 	currentPlaybook, err := c.playbookService.Get(args.PlaybookID)
@@ -207,10 +191,6 @@ func (r *PropertyRootResolver) SetRunPropertyValue(ctx context.Context, args str
 	c, err := getContext(ctx)
 	if err != nil {
 		return "", err
-	}
-
-	if !c.licenceChecker.PlaybookAttributesAllowed() {
-		return "", errors.Wrapf(app.ErrLicensedFeature, "playbook attributes feature is not covered by current server license")
 	}
 
 	userID := c.r.Header.Get("Mattermost-User-ID")

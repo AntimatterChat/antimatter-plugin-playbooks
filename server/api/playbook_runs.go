@@ -432,11 +432,6 @@ func (h *PlaybookRunHandler) createPlaybookRunFromDialog(c *Context, w http.Resp
 // addToTimelineDialog handles the interactive dialog submission when a user clicks the
 // corresponding post action.
 func (h *PlaybookRunHandler) addToTimelineDialog(c *Context, w http.ResponseWriter, r *http.Request) {
-	if !h.licenseChecker.TimelineAllowed() {
-		h.HandleErrorWithCode(w, c.logger, http.StatusForbidden, "timeline feature is not covered by current server license", nil)
-		return
-	}
-
 	userID := r.Header.Get("Mattermost-User-ID")
 
 	var request *model.SubmitDialogRequest
@@ -1627,11 +1622,6 @@ func (h *PlaybookRunHandler) itemSetAssigneeOnlyComplete(c *Context, w http.Resp
 }
 
 func (h *PlaybookRunHandler) itemSetDueDate(c *Context, w http.ResponseWriter, r *http.Request) {
-	if !h.licenseChecker.ChecklistItemDueDateAllowed() {
-		h.HandleErrorWithCode(w, c.logger, http.StatusForbidden, "checklist item due date feature is not covered by current server license", nil)
-		return
-	}
-
 	vars := mux.Vars(r)
 	id := vars["id"]
 	checklistNum, err := strconv.Atoi(vars["checklist"])

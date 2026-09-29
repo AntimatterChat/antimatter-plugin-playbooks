@@ -843,7 +843,7 @@ func (h *PlaybookHandler) importPlaybook(c *Context, w http.ResponseWriter, r *h
 		},
 	}
 
-	// Force the imported playbook to be public to avoid licencing issues
+	// Visibility is not part of the export format, so imported playbooks are made public
 	playbook.Public = true
 
 	if teamID != "" {
@@ -1064,11 +1064,6 @@ func (h *PlaybookHandler) getPlaybookPropertyFields(c *Context, w http.ResponseW
 	playbookID := vars["id"]
 	logger := c.logger.WithField("playbook_id", playbookID)
 
-	if !h.licenseChecker.PlaybookAttributesAllowed() {
-		h.HandleErrorWithCode(w, logger, http.StatusForbidden, "playbook attributes feature is not covered by current server license", app.ErrLicensedFeature)
-		return
-	}
-
 	userID := r.Header.Get("Mattermost-User-ID")
 
 	if err := h.permissions.PlaybookView(userID, playbookID); err != nil {
@@ -1100,11 +1095,6 @@ func (h *PlaybookHandler) createPlaybookPropertyField(c *Context, w http.Respons
 	vars := mux.Vars(r)
 	playbookID := vars["id"]
 	logger := c.logger.WithField("playbook_id", playbookID)
-
-	if !h.licenseChecker.PlaybookAttributesAllowed() {
-		h.HandleErrorWithCode(w, logger, http.StatusForbidden, "playbook attributes feature is not covered by current server license", app.ErrLicensedFeature)
-		return
-	}
 
 	userID := r.Header.Get("Mattermost-User-ID")
 
@@ -1145,11 +1135,6 @@ func (h *PlaybookHandler) updatePlaybookPropertyField(c *Context, w http.Respons
 	playbookID := vars["id"]
 	fieldID := vars["fieldID"]
 	logger := c.logger.WithFields(logrus.Fields{"playbook_id": playbookID, "field_id": fieldID})
-
-	if !h.licenseChecker.PlaybookAttributesAllowed() {
-		h.HandleErrorWithCode(w, logger, http.StatusForbidden, "playbook attributes feature is not covered by current server license", app.ErrLicensedFeature)
-		return
-	}
 
 	userID := r.Header.Get("Mattermost-User-ID")
 
@@ -1240,11 +1225,6 @@ func (h *PlaybookHandler) deletePlaybookPropertyField(c *Context, w http.Respons
 	fieldID := vars["fieldID"]
 	logger := c.logger.WithFields(logrus.Fields{"playbook_id": playbookID, "field_id": fieldID})
 
-	if !h.licenseChecker.PlaybookAttributesAllowed() {
-		h.HandleErrorWithCode(w, logger, http.StatusForbidden, "playbook attributes feature is not covered by current server license", app.ErrLicensedFeature)
-		return
-	}
-
 	userID := r.Header.Get("Mattermost-User-ID")
 
 	currentPlaybook, err := h.playbookService.Get(playbookID)
@@ -1309,11 +1289,6 @@ func (h *PlaybookHandler) reorderPlaybookPropertyFields(c *Context, w http.Respo
 	vars := mux.Vars(r)
 	playbookID := vars["id"]
 	logger := c.logger.WithFields(logrus.Fields{"playbook_id": playbookID})
-
-	if !h.licenseChecker.PlaybookAttributesAllowed() {
-		h.HandleErrorWithCode(w, logger, http.StatusForbidden, "playbook attributes feature is not covered by current server license", app.ErrLicensedFeature)
-		return
-	}
 
 	userID := r.Header.Get("Mattermost-User-ID")
 

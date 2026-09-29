@@ -68,12 +68,12 @@ func newModifyCheckedStateHarness(t *testing.T, run *PlaybookRun, taskRequiremen
 	poster.EXPECT().PublishWebsocketEventToChannelReliable(gomock.Any(), gomock.Any(), gomock.Any()).AnyTimes()
 
 	svc := &PlaybookRunServiceImpl{
-		store:          store,
-		api:            mockAPI,
-		pluginAPI:      pluginapi.NewClient(mockAPI, nil),
-		configService:  &stubConfigService{taskRequirementsEnabled: taskRequirementsEnabled},
-		licenseChecker: &stubLicenseCheckerNoAttributes{},
-		poster:         poster,
+		store:           store,
+		api:             mockAPI,
+		pluginAPI:       pluginapi.NewClient(mockAPI, nil),
+		configService:   &stubConfigService{taskRequirementsEnabled: taskRequirementsEnabled},
+		propertyService: emptyRunPropertiesService{},
+		poster:          poster,
 	}
 	return svc, store
 }
