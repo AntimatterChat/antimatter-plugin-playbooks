@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 )
 
 func TestRunResolver_NumTasks(t *testing.T) {

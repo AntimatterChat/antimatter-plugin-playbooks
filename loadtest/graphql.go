@@ -6,8 +6,8 @@ package loadtest
 import (
 	"context"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/graphql"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/graphql"
 )
 
 // gqlRunsOnTeam runs the RunsOnTeam GraphQL query, returning a list of

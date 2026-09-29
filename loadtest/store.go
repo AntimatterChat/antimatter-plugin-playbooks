@@ -8,8 +8,8 @@ import (
 	"math/rand"
 	"sync"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/graphql"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/graphql"
 )
 
 // PluginStore implements the Store interface as an in-memory store for the [PluginController]

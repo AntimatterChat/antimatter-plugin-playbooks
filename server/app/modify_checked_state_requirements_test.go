@@ -16,8 +16,8 @@ import (
 	"github.com/mattermost/mattermost/server/public/plugin/plugintest"
 	"github.com/mattermost/mattermost/server/public/pluginapi"
 
-	mock_bot "github.com/mattermost/mattermost-plugin-playbooks/server/bot/mocks"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/config"
+	mock_bot "github.com/antimatterchat/antimatter-plugin-playbooks/server/bot/mocks"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/config"
 )
 
 type stubConfigService struct {

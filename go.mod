@@ -1,8 +1,8 @@
-module github.com/mattermost/mattermost-plugin-playbooks
+module github.com/antimatterchat/antimatter-plugin-playbooks
 
 go 1.26.7
 
-replace github.com/mattermost/mattermost-plugin-playbooks/client => ./client
+replace github.com/antimatterchat/antimatter-plugin-playbooks/client => ./client
 
 replace github.com/HdrHistogram/hdrhistogram-go => github.com/codahale/hdrhistogram v1.1.2
 
@@ -15,6 +15,7 @@ require (
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/MicahParks/jwkset v0.11.0
 	github.com/MicahParks/keyfunc/v3 v3.3.3
+	github.com/antimatterchat/antimatter-plugin-playbooks/client v0.8.0
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/golang/mock v1.6.0
@@ -27,7 +28,6 @@ require (
 	github.com/lib/pq v1.12.3
 	github.com/mattermost/mattermost-load-test-ng v1.31.1-0.20260126111505-259c9598ea05
 	github.com/mattermost/mattermost-plugin-agents v1.14.1-0.20260501175157-27e12955f081
-	github.com/mattermost/mattermost-plugin-playbooks/client v0.8.0
 	github.com/mattermost/mattermost/server/public v0.4.3
 	github.com/mattermost/mattermost/server/v8 v8.0.0-20260626143749-f31c2869bad3
 	github.com/mattermost/morph v1.1.0

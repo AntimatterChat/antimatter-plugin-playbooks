@@ -10,7 +10,7 @@ import (
 	sq "github.com/Masterminds/squirrel"
 	"github.com/pkg/errors"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 )
 
 type sqlUserInfo struct {

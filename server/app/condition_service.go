@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/bot"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/bot"
 )
 
 // Websocket event constants disabled until we implement proper user targeting

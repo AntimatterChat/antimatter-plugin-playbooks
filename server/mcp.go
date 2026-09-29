@@ -13,9 +13,9 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/internal/playbooksmcp/tools"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/api"
 	"github.com/mattermost/mattermost-plugin-agents/public/mcphelper"
-	"github.com/mattermost/mattermost-plugin-playbooks/internal/playbooksmcp/tools"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/api"
 	"github.com/sirupsen/logrus"
 )
 

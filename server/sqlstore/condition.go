@@ -12,7 +12,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 )
 
 type conditionForDB struct {

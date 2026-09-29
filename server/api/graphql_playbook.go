@@ -7,7 +7,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 	"github.com/sirupsen/logrus"
 )
 

@@ -6,8 +6,8 @@ package loadtest
 import (
 	"context"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
 	ltuser "github.com/mattermost/mattermost-load-test-ng/loadtest/user"
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
 )
 
 // HookLogin implements the logic performed by Playbooks right after the user

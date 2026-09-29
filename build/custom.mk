@@ -3,16 +3,16 @@
 ## Generate mocks.
 mocks:
 ifneq ($(HAS_SERVER),)
-	mockgen -destination server/bot/mocks/mock_poster.go github.com/mattermost/mattermost-plugin-playbooks/server/bot Poster
-	mockgen -destination server/app/mocks/mock_job_once_scheduler.go github.com/mattermost/mattermost-plugin-playbooks/server/app JobOnceScheduler
-	mockgen -destination server/app/mocks/mock_condition_store.go github.com/mattermost/mattermost-plugin-playbooks/server/app ConditionStore
-	mockgen -destination server/app/mocks/mock_playbook_store.go github.com/mattermost/mattermost-plugin-playbooks/server/app PlaybookStore
-	mockgen -destination server/app/mocks/mock_property_service.go github.com/mattermost/mattermost-plugin-playbooks/server/app PropertyService
-	mockgen -destination server/app/mocks/mock_condition_service.go github.com/mattermost/mattermost-plugin-playbooks/server/app ConditionService
-	mockgen -destination server/app/mocks/mock_auditor.go github.com/mattermost/mattermost-plugin-playbooks/server/app Auditor
-	mockgen -destination server/sqlstore/mocks/mock_kvapi.go github.com/mattermost/mattermost-plugin-playbooks/server/sqlstore KVAPI
-	mockgen -destination server/sqlstore/mocks/mock_storeapi.go github.com/mattermost/mattermost-plugin-playbooks/server/sqlstore StoreAPI
-	mockgen -destination server/sqlstore/mocks/mock_configurationapi.go github.com/mattermost/mattermost-plugin-playbooks/server/sqlstore ConfigurationAPI
+	mockgen -destination server/bot/mocks/mock_poster.go github.com/antimatterchat/antimatter-plugin-playbooks/server/bot Poster
+	mockgen -destination server/app/mocks/mock_job_once_scheduler.go github.com/antimatterchat/antimatter-plugin-playbooks/server/app JobOnceScheduler
+	mockgen -destination server/app/mocks/mock_condition_store.go github.com/antimatterchat/antimatter-plugin-playbooks/server/app ConditionStore
+	mockgen -destination server/app/mocks/mock_playbook_store.go github.com/antimatterchat/antimatter-plugin-playbooks/server/app PlaybookStore
+	mockgen -destination server/app/mocks/mock_property_service.go github.com/antimatterchat/antimatter-plugin-playbooks/server/app PropertyService
+	mockgen -destination server/app/mocks/mock_condition_service.go github.com/antimatterchat/antimatter-plugin-playbooks/server/app ConditionService
+	mockgen -destination server/app/mocks/mock_auditor.go github.com/antimatterchat/antimatter-plugin-playbooks/server/app Auditor
+	mockgen -destination server/sqlstore/mocks/mock_kvapi.go github.com/antimatterchat/antimatter-plugin-playbooks/server/sqlstore KVAPI
+	mockgen -destination server/sqlstore/mocks/mock_storeapi.go github.com/antimatterchat/antimatter-plugin-playbooks/server/sqlstore StoreAPI
+	mockgen -destination server/sqlstore/mocks/mock_configurationapi.go github.com/antimatterchat/antimatter-plugin-playbooks/server/sqlstore ConfigurationAPI
 endif
 
 ## Runs the redocly server.

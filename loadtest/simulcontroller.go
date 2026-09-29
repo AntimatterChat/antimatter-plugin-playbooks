@@ -6,11 +6,11 @@ package loadtest
 import (
 	"fmt"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
 	"github.com/blang/semver"
 	ltcontrol "github.com/mattermost/mattermost-load-test-ng/loadtest/control"
 	ltplugins "github.com/mattermost/mattermost-load-test-ng/loadtest/plugins"
 	ltuser "github.com/mattermost/mattermost-load-test-ng/loadtest/user"
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
 )
 
 // SimulController is a load-test controller for the Playbooks plugin, to be

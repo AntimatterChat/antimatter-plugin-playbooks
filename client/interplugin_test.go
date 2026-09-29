@@ -12,7 +12,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
 )
 
 func TestNewInterPluginClient(t *testing.T) {

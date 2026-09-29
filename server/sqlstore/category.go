@@ -11,7 +11,7 @@ import (
 
 	"github.com/mattermost/mattermost/server/public/model"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 )
 
 // playbookStore is a sql store for playbooks. Use NewPlaybookStore to create it.

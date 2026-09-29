@@ -16,10 +16,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/api"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/config"
 	"github.com/mattermost/mattermost-plugin-agents/public/bridgeclient"
 	"github.com/mattermost/mattermost-plugin-agents/public/mcphelper"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/api"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/config"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

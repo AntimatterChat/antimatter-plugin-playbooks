@@ -13,8 +13,8 @@ import (
 
 	"github.com/mattermost/mattermost/server/public/model"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
-	mock_sqlstore "github.com/mattermost/mattermost-plugin-playbooks/server/sqlstore/mocks"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
+	mock_sqlstore "github.com/antimatterchat/antimatter-plugin-playbooks/server/sqlstore/mocks"
 )
 
 func setupConditionStore(t *testing.T, db *sqlx.DB) (app.ConditionStore, app.PlaybookStore) {

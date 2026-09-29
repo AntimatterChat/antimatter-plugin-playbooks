@@ -10,7 +10,7 @@ import (
 
 	"github.com/mattermost/mattermost/server/public/model"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
 )
 
 func ExamplePlaybookRunService_Get() {

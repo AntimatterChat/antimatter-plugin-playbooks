@@ -22,14 +22,14 @@ import (
 	"github.com/mattermost/mattermost/server/public/pluginapi/cluster"
 	"github.com/mattermost/mattermost/server/public/shared/i18n"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/api"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/bot"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/command"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/config"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/metrics"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/scheduler"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/sqlstore"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/api"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/bot"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/command"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/config"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/metrics"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/scheduler"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/sqlstore"
 
 	_ "time/tzdata" // for systems that don't have tzdata installed
 )

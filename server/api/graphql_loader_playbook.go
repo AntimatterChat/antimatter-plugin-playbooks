@@ -6,8 +6,8 @@ package api
 import (
 	"context"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 	"github.com/graph-gophers/dataloader/v7"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
 )
 
 type playbookInfo struct {

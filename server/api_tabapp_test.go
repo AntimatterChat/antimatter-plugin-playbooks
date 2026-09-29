@@ -13,8 +13,8 @@ import (
 
 	"github.com/mattermost/mattermost/server/public/model"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/api"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/api"
 )
 
 func TestTabAppGetRuns(t *testing.T) {

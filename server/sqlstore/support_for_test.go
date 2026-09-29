@@ -16,8 +16,8 @@ import (
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/v8/channels/store/storetest"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
-	mock_app "github.com/mattermost/mattermost-plugin-playbooks/server/app/mocks"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
+	mock_app "github.com/antimatterchat/antimatter-plugin-playbooks/server/app/mocks"
 )
 
 func setupTestDB(t testing.TB) *sqlx.DB {

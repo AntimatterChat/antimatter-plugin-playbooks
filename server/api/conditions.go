@@ -13,7 +13,7 @@ import (
 	"github.com/mattermost/mattermost/server/public/pluginapi"
 	"github.com/pkg/errors"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 )
 
 const (

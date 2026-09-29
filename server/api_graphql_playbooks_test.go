@@ -11,10 +11,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/api"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 	"github.com/graph-gophers/graphql-go"
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/api"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

@@ -8,10 +8,10 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
+	mock_app "github.com/antimatterchat/antimatter-plugin-playbooks/server/app/mocks"
+	mock_bot "github.com/antimatterchat/antimatter-plugin-playbooks/server/bot/mocks"
 	"github.com/golang/mock/gomock"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
-	mock_app "github.com/mattermost/mattermost-plugin-playbooks/server/app/mocks"
-	mock_bot "github.com/mattermost/mattermost-plugin-playbooks/server/bot/mocks"
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/stretchr/testify/require"
 )

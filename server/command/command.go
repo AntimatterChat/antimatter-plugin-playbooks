@@ -17,10 +17,10 @@ import (
 	"github.com/mattermost/mattermost/server/public/plugin"
 	"github.com/mattermost/mattermost/server/public/pluginapi"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/bot"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/config"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/timeutils"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/bot"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/config"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/timeutils"
 )
 
 const helpText = "###### Mattermost Playbooks Plugin - Slash Command Help\n" +

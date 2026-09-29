@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/require"
 
-	mock_app "github.com/mattermost/mattermost-plugin-playbooks/server/app/mocks"
+	mock_app "github.com/antimatterchat/antimatter-plugin-playbooks/server/app/mocks"
 	"github.com/mattermost/mattermost/server/public/model"
 )
 

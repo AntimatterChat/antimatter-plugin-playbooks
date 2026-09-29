@@ -10,7 +10,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
 )
 
 // TestPropertyOperations covers property-field CRUD on a playbook and property-value

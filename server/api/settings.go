@@ -6,9 +6,9 @@ package api
 import (
 	"net/http"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/config"
 	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/config"
 
 	"github.com/mattermost/mattermost/server/public/pluginapi"
 )

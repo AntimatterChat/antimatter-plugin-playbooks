@@ -10,7 +10,7 @@ import (
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/pkg/errors"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
 )
 
 type PropertyRootResolver struct{}

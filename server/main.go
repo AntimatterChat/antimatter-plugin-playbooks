@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/api"
 	"github.com/graph-gophers/graphql-go"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/api"
 	"github.com/mattermost/mattermost/server/public/plugin"
 )
 

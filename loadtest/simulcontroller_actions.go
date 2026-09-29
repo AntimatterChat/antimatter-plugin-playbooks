@@ -7,9 +7,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/antimatterchat/antimatter-plugin-playbooks/client"
 	ltcontrol "github.com/mattermost/mattermost-load-test-ng/loadtest/control"
 	ltuser "github.com/mattermost/mattermost-load-test-ng/loadtest/user"
-	"github.com/mattermost/mattermost-plugin-playbooks/client"
 )
 
 // OpenRHS opens the Playbooks RHS, getting the channel's runs to show either

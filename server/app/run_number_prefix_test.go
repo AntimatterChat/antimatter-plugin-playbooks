@@ -12,10 +12,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/mattermost/mattermost-plugin-playbooks/server/app"
-	mock_app "github.com/mattermost/mattermost-plugin-playbooks/server/app/mocks"
-	mock_bot "github.com/mattermost/mattermost-plugin-playbooks/server/bot/mocks"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/metrics"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/app"
+	mock_app "github.com/antimatterchat/antimatter-plugin-playbooks/server/app/mocks"
+	mock_bot "github.com/antimatterchat/antimatter-plugin-playbooks/server/bot/mocks"
+	"github.com/antimatterchat/antimatter-plugin-playbooks/server/metrics"
 )
 
 func makePlaybookService(ctrl *gomock.Controller) (app.PlaybookService, *mock_app.MockPlaybookStore, *mock_app.MockPropertyService) {
