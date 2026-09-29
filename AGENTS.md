@@ -8,7 +8,7 @@
 - `make server` — build the server binary
 - `make webapp` — build the webapp bundle
 - `make dist` — build and bundle the plugin (.tar.gz)
-- `make deploy` — build and install the plugin into a running Mattermost server
+- `make deploy` — build and install the plugin into a running Antimatter server
 - `make watch` — continuously build and install when files change
 - `make clean` — remove all build artifacts
 
@@ -21,5 +21,5 @@
 ## Cursor Cloud Agents
 
 - Cloud-agent environment files live in `.cursor/`.
-- `.cursor/cursor.md` has cloud-only instructions for starting Mattermost with Docker and deploying this plugin.
+- `.cursor/cursor.md` has cloud-only instructions for starting Antimatter with Docker and deploying this plugin.
 - `.cursor/AGENTS.md` is generated from `.cursor/cursor.md` during cloud-agent startup and should not be committed.

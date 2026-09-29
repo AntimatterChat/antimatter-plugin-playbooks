@@ -300,7 +300,7 @@ jobs:
           aws-region: us-east-1
       - name: Upload dist to S3
         run: |
-          aws s3 cp dist/playbooks-*.tar.gz s3://${{ secrets.AWS_S3_BUCKET }}/mattermost-plugin-playbooks/mattermost-plugin-playbooks-${{ steps.short-sha.outputs.sha }}.tar.gz
+          aws s3 cp dist/playbooks-*.tar.gz s3://${{ secrets.AWS_S3_BUCKET }}/antimatter-plugin-playbooks/antimatter-plugin-playbooks-${{ steps.short-sha.outputs.sha }}.tar.gz
 
   upload-fips:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
@@ -330,7 +330,7 @@ jobs:
           aws-region: us-east-1
       - name: Upload dist-fips to S3
         run: |
-          aws s3 cp dist-fips/playbooks-*.tar.gz s3://${{ secrets.AWS_S3_BUCKET }}/mattermost-plugin-playbooks/mattermost-plugin-playbooks-fips-${{ steps.short-sha.outputs.sha }}.tar.gz
+          aws s3 cp dist-fips/playbooks-*.tar.gz s3://${{ secrets.AWS_S3_BUCKET }}/antimatter-plugin-playbooks/antimatter-plugin-playbooks-fips-${{ steps.short-sha.outputs.sha }}.tar.gz
 
   test:
     runs-on: ubuntu-22.04

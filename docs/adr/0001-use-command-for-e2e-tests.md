@@ -18,7 +18,7 @@ Analyzing our pipelines we figured out that integration tests take too much time
 
 ## Decision
 
-We want to introduce a custom PR command `/e2e-test` in order to manually trigger integration tests. The idea is similar to mattermod command introduced [here](https://github.com/mattermost/mattermost-mattermod/pull/327). The proposal includes limiting the e2e testing only on approved PRs to avoid community increased load . 
+We want to introduce a custom PR command `/e2e-test` in order to manually trigger integration tests. The idea is similar to the command introduced in mattermod. The proposal includes limiting the e2e testing only on approved PRs to avoid community increased load . 
 
 ![e2e](assets/e2e-test-ci-workflow.jpeg)
 

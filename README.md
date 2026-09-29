@@ -1,14 +1,12 @@
-# Mattermost Playbooks
+# Antimatter Playbooks
 
-[![Release](https://img.shields.io/github/v/release/mattermost/mattermost-plugin-playbooks)](https://github.com/mattermost/mattermost-plugin-playbooks/releases/latest)
+[![Release](https://img.shields.io/github/v/release/antimatterchat/antimatter-plugin-playbooks)](https://github.com/antimatterchat/antimatter-plugin-playbooks/releases/latest)
 
-Mattermost Playbooks allows your team to create and run playbooks from within Mattermost. For configuration and administration information visit our [documentation](https://docs.mattermost.com/guides/playbooks.html).
-
-![Mattermost Playbooks](assets/incident_response.png)
+Antimatter Playbooks allows your team to create and run playbooks from within Antimatter. For configuration and administration information visit our [documentation](https://docs.antimatter.example/guides/playbooks.html).
 
 ## Version Support
 
-| Mattermost version | Playbooks version | Supported Until |
+| Antimatter version | Playbooks version | Supported Until |
 |---|---|---|
 | master | v2.12.0 | always |
 | v12.0 | v2.12.0 | TBD |
@@ -18,7 +16,7 @@ Mattermost Playbooks allows your team to create and run playbooks from within Ma
 | v11.7 ESR | v2.9.5 | 2027-05-15 |
 
 ## Development Builds
-In your `mattermost-server` configuration (`config/config.json`), set the following values:
+In your Antimatter server configuration (`config/config.json`), set the following values:
 
 `ServiceSettings.EnableLocalMode: true`
 
@@ -38,7 +36,7 @@ This repository is licensed under the [Apache 2.0 License](LICENSE.txt). All fea
 
 ## Generating test data
 
-To quickly test Mattermost Playbooks, use the following test commands to create playbook runs populated with random data:
+To quickly test Antimatter Playbooks, use the following test commands to create playbook runs populated with random data:
 
 - `/playbook test create-playbooks [total playbooks]` - Provide a number of total playbooks that will be created. The command creates one or more playbooks based on the given parameter.
 
@@ -54,7 +52,7 @@ To quickly test Mattermost Playbooks, use the following test commands to create 
 
 ## Running E2E tests
 
-When running E2E tests, the local `mattermost-server` configuration may be unexpectedly modified if either `on_prem_default_config.json` or `cloud_default_default_config.json` (depending on the server edition) has conflicting values for the same keys. This can be avoided by setting `CYPRESS_developerMode=true` when calling Cypress scripts. For example: `CYPRESS_developerMode=true npm run cypress:open`.
+When running E2E tests, the local Antimatter server configuration may be unexpectedly modified if either `on_prem_default_config.json` or `cloud_default_default_config.json` (depending on the server edition) has conflicting values for the same keys. This can be avoided by setting `CYPRESS_developerMode=true` when calling Cypress scripts. For example: `CYPRESS_developerMode=true npm run cypress:open`.
 
 ## How to Release
 
@@ -111,9 +109,9 @@ make tag-release patch       # Creates v2.6.2
 
 ## Contributing
 
-This plugin contains both a server and web app portion. Read our documentation about the [Developer Workflow](https://developers.mattermost.com/extend/plugins/developer-workflow/) and [Developer Setup](https://developers.mattermost.com/extend/plugins/developer-setup/) for more information about developing and extending plugins.
+This plugin contains both a server and web app portion. Read our documentation about the [Developer Workflow](https://docs.antimatter.example/extend/plugins/developer-workflow/) and [Developer Setup](https://docs.antimatter.example/extend/plugins/developer-setup/) for more information about developing and extending plugins.
 
-For more information about contributing to Mattermost, and the different ways you can contribute, see [https://www.mattermost.org/contribute-to-mattermost](https://mattermost.com/contribute/?redirect_source=mm-org).
+For more information about contributing to Antimatter, and the different ways you can contribute, see [https://docs.antimatter.example/contribute-to-antimatter](https://docs.antimatter.example/contribute/?redirect_source=mm-org).
 
 ### Logging
 
@@ -153,7 +151,7 @@ All migrations in the `future` folder should have both migration directions - `u
 
 ## Popular searches for Help Wanted issues:
 
-* [Help wanted tickets currently up for grab]([https://github.com/mattermost/mattermost-server/issues?q=is%3Aopen+is%3Aissue+label%3AArea%2FPlaybooks+label%3A%22Up+For+Grabs%22](https://github.com/mattermost/mattermost-plugin-playbooks/issues?q=is%3Aopen+is%3Aissue+label%3A%22Help+Wanted%22+label%3A%22Up+For+Grabs%22))
-* [Good first issue tickets]([https://github.com/mattermost/mattermost-server/issues?q=is%3Aopen+is%3Aissue+label%3AArea%2FPlaybooks+label%3A%22Good+First+Issue%22+label%3A%22Up+For+Grabs%22](https://github.com/mattermost/mattermost-plugin-playbooks/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22))
+* [Help wanted tickets currently up for grab](https://github.com/antimatterchat/antimatter-plugin-playbooks/issues?q=is%3Aopen+is%3Aissue+label%3A%22Help+Wanted%22+label%3A%22Up+For+Grabs%22)
+* [Good first issue tickets](https://github.com/antimatterchat/antimatter-plugin-playbooks/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22)
 
-For more information, join the discussion in the [`Developers: Playbooks` channel](https://community.mattermost.com/core/channels/developers-playbooks).
+For more information, join the discussion in the [`Developers: Playbooks` channel](https://docs.antimatter.example/core/channels/developers-playbooks).
