@@ -195,7 +195,7 @@ func (f *fakeAPIClient) GetCurrentUserID(context.Context) (string, error) {
 }
 
 func (f *fakeAPIClient) GetPlaybookURL(playbookID string) string {
-	return "https://mattermost.example.com/playbooks/playbooks/" + playbookID
+	return "https://antimatter.example.com/playbooks/playbooks/" + playbookID
 }
 
 // cloneValues snapshots query params, since fetchRunDetails mutates the same
@@ -487,7 +487,7 @@ func TestToolAddChecklistItemRejectsInvalidAssignee(t *testing.T) {
 		AssigneeID:      "invalid",
 	}
 
-	if _, err := toolAddChecklistItem(context.Background(), client, args); err == nil || err.Error() != "assignee_id must be a valid Mattermost ID" {
+	if _, err := toolAddChecklistItem(context.Background(), client, args); err == nil || err.Error() != "assignee_id must be a valid Antimatter ID" {
 		t.Fatalf("expected assignee validation error, got %v", err)
 	}
 
@@ -811,7 +811,7 @@ func TestMoveChecklistToolsValidation(t *testing.T) {
 			runTool: func(ctx context.Context, client APIClient) (string, error) {
 				return toolMoveSection(ctx, client, MoveSectionArgs{RunID: "invalid", SourceChecklistIdx: 0, DestChecklistIdx: 1})
 			},
-			wantErr: "run_id must be a valid Mattermost ID",
+			wantErr: "run_id must be a valid Antimatter ID",
 		},
 		{
 			name: "move section rejects negative source checklist index",
@@ -832,7 +832,7 @@ func TestMoveChecklistToolsValidation(t *testing.T) {
 			runTool: func(ctx context.Context, client APIClient) (string, error) {
 				return toolMoveChecklistItem(ctx, client, MoveChecklistItemArgs{RunID: "invalid", SourceChecklistIdx: 0, SourceItemIdx: 1, DestChecklistIdx: 2, DestItemIdx: 3})
 			},
-			wantErr: "run_id must be a valid Mattermost ID",
+			wantErr: "run_id must be a valid Antimatter ID",
 		},
 		{
 			name: "move checklist item rejects negative source checklist index",
@@ -867,7 +867,7 @@ func TestMoveChecklistToolsValidation(t *testing.T) {
 			runTool: func(ctx context.Context, client APIClient) (string, error) {
 				return toolSetChecklistItemDueDate(ctx, client, SetChecklistItemDueDateArgs{RunID: "invalid", ChecklistNumber: 0, ItemNumber: 1, DueDate: 1717200000000})
 			},
-			wantErr: "run_id must be a valid Mattermost ID",
+			wantErr: "run_id must be a valid Antimatter ID",
 		},
 		{
 			name: "set checklist item due date rejects negative checklist index",
@@ -989,7 +989,7 @@ func TestToolSetChecklistItemAssigneeValidation(t *testing.T) {
 		{
 			name:    "rejects invalid run id",
 			args:    SetChecklistItemAssigneeArgs{RunID: "invalid", ChecklistNumber: 0, ItemNumber: 1, AssigneeID: assigneeID},
-			wantErr: "run_id must be a valid Mattermost ID",
+			wantErr: "run_id must be a valid Antimatter ID",
 		},
 		{
 			name:    "rejects negative checklist index",
@@ -1004,7 +1004,7 @@ func TestToolSetChecklistItemAssigneeValidation(t *testing.T) {
 		{
 			name:    "rejects invalid assignee id",
 			args:    SetChecklistItemAssigneeArgs{RunID: runID, ChecklistNumber: 0, ItemNumber: 1, AssigneeID: "invalid"},
-			wantErr: "assignee_id must be a valid Mattermost ID",
+			wantErr: "assignee_id must be a valid Antimatter ID",
 		},
 	}
 

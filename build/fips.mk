@@ -1,5 +1,5 @@
 # FIPS-compliant Linux/amd64 build. Linux/amd64 is the only platform
-# mattermost-server's FIPS release path supports.
+# the Antimatter server's FIPS release path supports.
 
 FIPS_IMAGE ?= cgr.dev/mattermost.com/go-msft-fips:1.26.7.1-dev@sha256:ae345a37a612265894a7e7f318be45680663346cb7992613916e196daf38e839
 # Same filename as the non-FIPS bundle on purpose: `make upload-to-server`

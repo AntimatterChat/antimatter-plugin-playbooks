@@ -16,7 +16,7 @@ import (
 // --- Argument structs ---
 
 type ResolveChannelContextArgs struct {
-	ChannelID       string `json:"channel_id" jsonschema:"The Mattermost channel ID the agent is operating in (26-char ID). Returns the runs in this channel with their checklist items and the zero-based indexes needed by check_item and the other item tools."`
+	ChannelID       string `json:"channel_id" jsonschema:"The Antimatter channel ID the agent is operating in (26-char ID). Returns the runs in this channel with their checklist items and the zero-based indexes needed by check_item and the other item tools."`
 	IncludeFinished bool   `json:"include_finished,omitempty" jsonschema:"If true, also include finished runs. Defaults to false (only in-progress runs)."`
 }
 
@@ -31,7 +31,7 @@ type FindChecklistItemArgs struct {
 
 func (p *PlaybooksToolProvider) addMCPHelperResolveTools(server *mcphelper.Server) {
 	addMCPHelperTool(server, p.clientFactory, "resolve_channel_context",
-		"Resolve the runs and checklist items that live in a Mattermost channel. Use this first, passing the channel the agent is operating in, to discover the run_id and the zero-based checklist/item indexes before calling check_item (or any other item tool). Returns each run with its checklist items formatted as [checklist_number][item_number] title (state). Example: {\"channel_id\": \"abc123...\"}",
+		"Resolve the runs and checklist items that live in an Antimatter channel. Use this first, passing the channel the agent is operating in, to discover the run_id and the zero-based checklist/item indexes before calling check_item (or any other item tool). Returns each run with its checklist items formatted as [checklist_number][item_number] title (state). Example: {\"channel_id\": \"abc123...\"}",
 		toolResolveChannelContext)
 
 	addMCPHelperTool(server, p.clientFactory, "find_checklist_item",

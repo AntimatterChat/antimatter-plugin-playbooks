@@ -361,7 +361,7 @@ func TestConditionStore(t *testing.T) {
 		created, err := conditionStore.CreateCondition(playbookID, condition)
 		require.NoError(t, err)
 		require.NotEmpty(t, created.ID)
-		require.Len(t, created.ID, 26) // Mattermost ID length
+		require.Len(t, created.ID, 26) // Antimatter ID length
 	})
 
 	t.Run("verify database storage of extracted field and option IDs", func(t *testing.T) {

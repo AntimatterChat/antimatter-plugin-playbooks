@@ -23,7 +23,7 @@ import (
 	"github.com/antimatterchat/antimatter-plugin-playbooks/server/timeutils"
 )
 
-const helpText = "###### Mattermost Playbooks Plugin - Slash Command Help\n" +
+const helpText = "###### Antimatter Playbooks Plugin - Slash Command Help\n" +
 	"* `/playbook run` - Run a playbook\n" +
 	"* `/playbook finish` - Finish the playbook run in this channel. \n" +
 	"* `/playbook update` - Provide a status update. \n" +
@@ -37,12 +37,12 @@ const helpText = "###### Mattermost Playbooks Plugin - Slash Command Help\n" +
 	"* `/playbook settings digest [on/off]` - turn daily digest on/off. \n" +
 	"* `/playbook settings weekly-digest [on/off]` - turn weekly digest on/off. \n" +
 	"\n" +
-	"Learn more [in our documentation](https://mattermost.com/pl/default-incident-response-app-documentation). \n" +
+	"Learn more [in our documentation](https://docs.antimatter.example/pl/default-incident-response-app-documentation). \n" +
 	""
 
 const confirmPrompt = "CONFIRM"
 
-// Register is a function that allows the runner to register commands with the mattermost server.
+// Register is a function that allows the runner to register commands with the antimatter server.
 type Register func(*model.Command) error
 
 // RegisterCommands should be called by the plugin to register all necessary commands
@@ -1150,7 +1150,7 @@ func (r *Runner) actionTestSelf(args []string) {
 
 We also have images:
 
-![Mattermost logo](/static/icon_152x152.png)
+![Antimatter logo](/static/icon_152x152.png)
 
 And... yes, of course, we have emojis
 
@@ -2200,7 +2200,7 @@ func (r *Runner) actionDevCreateFields(args []string) {
 		playbookID, createdTextField.Name, createdTextField.ID, createdSelectField.Name, createdSelectField.ID, createdMultiselectField.Name, createdMultiselectField.ID))
 }
 
-// Execute should be called by the plugin when a command invocation is received from the Mattermost server.
+// Execute should be called by the plugin when a command invocation is received from the Antimatter server.
 func (r *Runner) Execute() error {
 	if err := r.isValid(); err != nil {
 		return err

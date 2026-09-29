@@ -200,7 +200,7 @@ func (s *propertyService) UpdatePropertyField(playbookID string, propertyField P
 		}
 	}
 
-	// Convert the input to Mattermost property field
+	// Convert the input to Antimatter property field
 	amPropertyField := propertyField.ToAntimatterPropertyField()
 
 	// Preserve important fields from the existing property field

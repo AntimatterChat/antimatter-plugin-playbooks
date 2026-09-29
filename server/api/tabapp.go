@@ -49,7 +49,7 @@ func NewTabAppHandler(
 		getJWTKeyFunc:      getJWTKeyFunc,
 	}
 
-	// Regiter the tab app on the root, which doesn't require Mattermost user authentication.
+	// Regiter the tab app on the root, which doesn't require Antimatter user authentication.
 	tabAppRouter := apiHandler.root.PathPrefix("/tabapp/").Subrouter()
 	tabAppRouter.HandleFunc("/runs", withContext(handler.getPlaybookRuns)).Methods(http.MethodOptions, http.MethodGet)
 
@@ -280,13 +280,13 @@ func (h *TabAppHandler) getLimitedUser(userID string, showFullName bool) (limite
 // getPlaybookRuns handles the GET /tabapp/runs endpoint.
 //
 // It returns certain runs and associated users and status posts in support of
-// a Microsoft Teams app backed by a Mattermost domain.
+// a Microsoft Teams app backed by an Antimatter domain.
 //
 // Only runs with the @msteams as a participant are returned, though this can
 // this can be automated by automatically inviting said bot to new runs via the
 // playbook configuration.
 //
-// A Mattermost account is not required: rather the caller must prove
+// An Antimatter account is not required: rather the caller must prove
 // themselves to belong to the configured Microsoft Teams tenant by passing a
 // Microsoft Entra ID token in the Authorization header. The signature of this
 // JWT is verified against known Microsoft signing keys, effectively allowing

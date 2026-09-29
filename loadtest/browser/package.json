@@ -1,5 +1,5 @@
 {
-  "name": "mattermost-plugin-playbooks-loadtest-browser",
+  "name": "antimatter-plugin-playbooks-loadtest-browser",
   "version": "2.4.3",
   "private": true,
   "type": "module",

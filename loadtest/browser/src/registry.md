@@ -1,6 +1,6 @@
 # Browser Simulations Registry
 
-This document lists all available browser simulations that can be run using the browser controller for Mattermost Playbooks plugin load testing. Programmatically it is defined in the [registry.ts file](./registry.ts).
+This document lists all available browser simulations that can be run using the browser controller for Antimatter Playbooks plugin load testing. Programmatically it is defined in the [registry.ts file](./registry.ts).
 
 ## Simulations list
 

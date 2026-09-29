@@ -224,7 +224,7 @@ type PlaybookRunListOptions struct {
 	// Statuses filters by InProgress or Ended; defaults to All when no status specified.
 	Statuses []Status `url:"statuses,omitempty"`
 
-	// OwnerID filters by owner's Mattermost user ID. Defaults to blank (no filter). Specify "me" for current user.
+	// OwnerID filters by owner's Antimatter user ID. Defaults to blank (no filter). Specify "me" for current user.
 	OwnerID string `url:"owner_user_id,omitempty"`
 
 	// ParticipantID filters playbook runs that have this user as a participant. Defaults to blank (no filter). Specify "me" for current user.

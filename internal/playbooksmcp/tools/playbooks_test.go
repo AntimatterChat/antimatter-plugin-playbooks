@@ -102,7 +102,7 @@ func TestToolCreatePlaybookFetchesCreatedPlaybookAndReturnsURL(t *testing.T) {
 	if err := json.Unmarshal([]byte(result), &decoded); err != nil {
 		t.Fatalf("result is not JSON: %v", err)
 	}
-	if decoded.PlaybookURL != "https://mattermost.example.com/playbooks/playbooks/abcdefghijklmnopqrstuvwxyz" {
+	if decoded.PlaybookURL != "https://antimatter.example.com/playbooks/playbooks/abcdefghijklmnopqrstuvwxyz" {
 		t.Fatalf("unexpected playbook_url: %s", decoded.PlaybookURL)
 	}
 }
@@ -258,7 +258,7 @@ func TestToolCreatePlaybookAttributeRejectsInvalidInput(t *testing.T) {
 		{
 			name: "invalid playbook id",
 			args: CreatePlaybookAttributeArgs{PlaybookID: "bad", Name: "Severity", Type: "text"},
-			want: "playbook_id must be a valid Mattermost ID",
+			want: "playbook_id must be a valid Antimatter ID",
 		},
 		{
 			name: "blank name",
@@ -298,7 +298,7 @@ func TestToolCreatePlaybookAttributeRejectsInvalidInput(t *testing.T) {
 		{
 			name: "invalid parent id",
 			args: CreatePlaybookAttributeArgs{PlaybookID: "abcdefghijklmnopqrstuvwxyz", Name: "Severity detail", Type: "text", Attrs: &CreatePlaybookAttributeAttrs{ParentID: "bad"}},
-			want: "attrs.parent_id must be a valid Mattermost ID",
+			want: "attrs.parent_id must be a valid Antimatter ID",
 		},
 		{
 			name: "invalid value type",
@@ -453,12 +453,12 @@ func TestToolUpdatePlaybookAttributeRejectsInvalidInput(t *testing.T) {
 		{
 			name: "invalid field id",
 			args: UpdatePlaybookAttributeArgs{PlaybookID: "abcdefghijklmnopqrstuvwxyz", FieldID: "bad", Name: "Severity", Type: "text"},
-			want: "field_id must be a valid Mattermost ID",
+			want: "field_id must be a valid Antimatter ID",
 		},
 		{
 			name: "invalid playbook id",
 			args: UpdatePlaybookAttributeArgs{PlaybookID: "bad", FieldID: "bcdefghijklmnopqrstuvwxyza", Name: "Severity", Type: "text"},
-			want: "playbook_id must be a valid Mattermost ID",
+			want: "playbook_id must be a valid Antimatter ID",
 		},
 		{
 			name: "select missing options",
@@ -493,7 +493,7 @@ func TestToolUpdatePlaybookAttributeRejectsInvalidInput(t *testing.T) {
 		{
 			name: "invalid parent id",
 			args: UpdatePlaybookAttributeArgs{PlaybookID: "abcdefghijklmnopqrstuvwxyz", FieldID: "bcdefghijklmnopqrstuvwxyza", Name: "Severity detail", Type: "text", Attrs: &UpdatePlaybookAttributeAttrs{ParentID: "bad"}},
-			want: "attrs.parent_id must be a valid Mattermost ID",
+			want: "attrs.parent_id must be a valid Antimatter ID",
 		},
 		{
 			name: "invalid value type",
@@ -665,12 +665,12 @@ func TestToolReorderPlaybookAttributeRejectsInvalidInput(t *testing.T) {
 		{
 			name: "invalid playbook id",
 			args: ReorderPlaybookAttributeArgs{PlaybookID: "bad", FieldID: "bcdefghijklmnopqrstuvwxyza"},
-			want: "playbook_id must be a valid Mattermost ID",
+			want: "playbook_id must be a valid Antimatter ID",
 		},
 		{
 			name: "invalid field id",
 			args: ReorderPlaybookAttributeArgs{PlaybookID: "abcdefghijklmnopqrstuvwxyz", FieldID: "bad"},
-			want: "field_id must be a valid Mattermost ID",
+			want: "field_id must be a valid Antimatter ID",
 		},
 		{
 			name: "negative target position",
@@ -782,7 +782,7 @@ func TestToolListPlaybookAttributesRejectsInvalidPlaybookID(t *testing.T) {
 
 	_, err := toolListPlaybookAttributes(context.Background(), client, ListPlaybookAttributesArgs{PlaybookID: "bad"})
 	require.Error(t, err)
-	assert.Contains(t, err.Error(), "playbook_id must be a valid Mattermost ID")
+	assert.Contains(t, err.Error(), "playbook_id must be a valid Antimatter ID")
 	assert.Empty(t, client.getEndpoint)
 	assert.Empty(t, client.postEndpoint)
 	assert.Empty(t, client.putEndpoint)
@@ -796,7 +796,7 @@ func TestToolCreatePlaybookRejectsInvalidInput(t *testing.T) {
 		want string
 	}{
 		{"blank title", CreatePlaybookArgs{Title: " ", TeamID: "abcdefghijklmnopqrstuvwxyz"}, "title is required"},
-		{"invalid team", CreatePlaybookArgs{Title: "x", TeamID: "bad"}, "team_id must be a valid Mattermost ID"},
+		{"invalid team", CreatePlaybookArgs{Title: "x", TeamID: "bad"}, "team_id must be a valid Antimatter ID"},
 		{"blank checklist", CreatePlaybookArgs{Title: "x", TeamID: "abcdefghijklmnopqrstuvwxyz", Checklists: []CreatePlaybookChecklist{{Title: " "}}}, "checklists[0].title is required"},
 		{"blank item", CreatePlaybookArgs{Title: "x", TeamID: "abcdefghijklmnopqrstuvwxyz", Checklists: []CreatePlaybookChecklist{{Title: "ok", Items: []CreatePlaybookItem{{Title: " "}}}}}, "checklists[0].items[0].title is required"},
 		{"invalid webhook", CreatePlaybookArgs{Title: "x", TeamID: "abcdefghijklmnopqrstuvwxyz", WebhookOnCreationURLs: []string{"ftp://example.com"}}, "webhook_on_creation_urls[0] must be an http or https URL"},
@@ -1441,7 +1441,7 @@ func TestToolPlaybookTaskValidationErrors(t *testing.T) {
 			run: func(client *fakeAPIClient) (string, error) {
 				return toolAddPlaybookTask(context.Background(), client, AddPlaybookTaskArgs{PlaybookID: "bad", ChecklistNumber: 0, Title: "New task"})
 			},
-			want:      "playbook_id must be a valid Mattermost ID",
+			want:      "playbook_id must be a valid Antimatter ID",
 			wantNoPut: true,
 		},
 		{
@@ -1457,7 +1457,7 @@ func TestToolPlaybookTaskValidationErrors(t *testing.T) {
 			run: func(client *fakeAPIClient) (string, error) {
 				return toolAddPlaybookTask(context.Background(), client, AddPlaybookTaskArgs{PlaybookID: playbookID, ChecklistNumber: 0, Title: "New task", AssigneeID: "bad"})
 			},
-			want:      "assignee_id must be a valid Mattermost ID",
+			want:      "assignee_id must be a valid Antimatter ID",
 			wantNoPut: true,
 		},
 		{
@@ -1483,7 +1483,7 @@ func TestToolPlaybookTaskValidationErrors(t *testing.T) {
 				assigneeID := "bad"
 				return toolEditPlaybookTask(context.Background(), client, EditPlaybookTaskArgs{PlaybookID: playbookID, ChecklistNumber: 0, ItemNumber: 0, AssigneeID: &assigneeID})
 			},
-			want:      "assignee_id must be a valid Mattermost ID",
+			want:      "assignee_id must be a valid Antimatter ID",
 			wantNoPut: true,
 		},
 		{
@@ -1562,7 +1562,7 @@ func TestToolPlaybookTaskValidationErrors(t *testing.T) {
 			run: func(client *fakeAPIClient) (string, error) {
 				return toolAddPlaybookSection(context.Background(), client, AddPlaybookSectionArgs{PlaybookID: "bad", Title: "New section"})
 			},
-			want:      "playbook_id must be a valid Mattermost ID",
+			want:      "playbook_id must be a valid Antimatter ID",
 			wantNoPut: true,
 		},
 		{
@@ -1603,7 +1603,7 @@ func TestToolPlaybookTaskValidationErrors(t *testing.T) {
 					Items:      []CreatePlaybookItem{{Title: "Task", AssigneeID: "bad"}},
 				})
 			},
-			want:      "items[0].assignee_id must be a valid Mattermost ID",
+			want:      "items[0].assignee_id must be a valid Antimatter ID",
 			wantNoPut: true,
 		},
 		{
@@ -1623,7 +1623,7 @@ func TestToolPlaybookTaskValidationErrors(t *testing.T) {
 			run: func(client *fakeAPIClient) (string, error) {
 				return toolRenamePlaybookSection(context.Background(), client, RenamePlaybookSectionArgs{PlaybookID: "bad", ChecklistNumber: 0, Title: "Renamed"})
 			},
-			want:      "playbook_id must be a valid Mattermost ID",
+			want:      "playbook_id must be a valid Antimatter ID",
 			wantNoPut: true,
 		},
 		{
@@ -1658,7 +1658,7 @@ func TestToolPlaybookTaskValidationErrors(t *testing.T) {
 			run: func(client *fakeAPIClient) (string, error) {
 				return toolRemovePlaybookSection(context.Background(), client, RemovePlaybookSectionArgs{PlaybookID: "bad", ChecklistNumber: 0})
 			},
-			want:      "playbook_id must be a valid Mattermost ID",
+			want:      "playbook_id must be a valid Antimatter ID",
 			wantNoPut: true,
 		},
 		{
@@ -1685,7 +1685,7 @@ func TestToolPlaybookTaskValidationErrors(t *testing.T) {
 			run: func(client *fakeAPIClient) (string, error) {
 				return toolMovePlaybookSection(context.Background(), client, MovePlaybookSectionArgs{PlaybookID: "bad", SourceChecklistIdx: 0, DestChecklistIdx: 0})
 			},
-			want:      "playbook_id must be a valid Mattermost ID",
+			want:      "playbook_id must be a valid Antimatter ID",
 			wantNoPut: true,
 		},
 		{

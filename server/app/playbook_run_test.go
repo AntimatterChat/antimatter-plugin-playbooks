@@ -1657,7 +1657,7 @@ func TestComputeTaskProgress(t *testing.T) {
 // DM/GM runs. sendWebhooksOnUpdateStatus uses the same ownerFirstTeamName + getDMGMChannelURL
 // path; its URL construction is covered by TestGetDMGMChannelURL in urls_test.go.
 func TestSendWebhooksOnCreationDMGM(t *testing.T) {
-	siteURL := "http://mattermost.example.com"
+	siteURL := "http://antimatter.example.com"
 	config := &model.Config{}
 	config.SetDefaults()
 	config.ServiceSettings.SiteURL = &siteURL

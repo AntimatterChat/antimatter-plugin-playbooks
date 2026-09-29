@@ -19,7 +19,7 @@ const defaultReminderTimerSeconds int64 = 86400
 
 type CreatePlaybookArgs struct {
 	Title                        string                    `json:"title" jsonschema:"Playbook title"`
-	TeamID                       string                    `json:"team_id" jsonschema:"The 26-character Mattermost team ID where the playbook will be created"`
+	TeamID                       string                    `json:"team_id" jsonschema:"The 26-character Antimatter team ID where the playbook will be created"`
 	Description                  string                    `json:"description,omitempty" jsonschema:"Optional playbook description"`
 	Public                       *bool                     `json:"public,omitempty" jsonschema:"Whether the playbook is public. Defaults to true."`
 	CreatePublicPlaybookRun      *bool                     `json:"create_public_playbook_run,omitempty" jsonschema:"Whether runs started from this playbook should create public channels"`
@@ -118,7 +118,7 @@ type ListPlaybookAttributesArgs struct {
 }
 
 type ListPlaybooksArgs struct {
-	TeamID       string `json:"team_id,omitempty" jsonschema:"Optional 26-character Mattermost team ID to filter playbook templates"`
+	TeamID       string `json:"team_id,omitempty" jsonschema:"Optional 26-character Antimatter team ID to filter playbook templates"`
 	SearchTerm   string `json:"search_term,omitempty" jsonschema:"Optional search text for playbook template title or team name"`
 	WithArchived bool   `json:"with_archived,omitempty" jsonschema:"Include archived playbook templates"`
 	Page         int    `json:"page,omitempty" jsonschema:"Page number (0-indexed)"`
@@ -135,7 +135,7 @@ type AddPlaybookTaskArgs struct {
 	Title           string `json:"title" jsonschema:"Title of the new task"`
 	Description     string `json:"description,omitempty" jsonschema:"Optional task description (supports Markdown)"`
 	Command         string `json:"command,omitempty" jsonschema:"Optional slash command to associate with the task"`
-	AssigneeID      string `json:"assignee_id,omitempty" jsonschema:"Optional Mattermost user ID to assign the task to"`
+	AssigneeID      string `json:"assignee_id,omitempty" jsonschema:"Optional Antimatter user ID to assign the task to"`
 	DueDate         int64  `json:"due_date,omitempty" jsonschema:"Optional relative offset from run start, in milliseconds (for example, 86400000 = 1 day)"`
 }
 
@@ -146,7 +146,7 @@ type EditPlaybookTaskArgs struct {
 	Title           *string `json:"title,omitempty" jsonschema:"New title for the task"`
 	Description     *string `json:"description,omitempty" jsonschema:"New task description (supports Markdown)"`
 	Command         *string `json:"command,omitempty" jsonschema:"Slash command to associate with the task"`
-	AssigneeID      *string `json:"assignee_id,omitempty" jsonschema:"Mattermost user ID to assign the task to; set empty string to clear"`
+	AssigneeID      *string `json:"assignee_id,omitempty" jsonschema:"Antimatter user ID to assign the task to; set empty string to clear"`
 	DueDate         *int64  `json:"due_date,omitempty" jsonschema:"Relative offset from run start, in milliseconds (for example, 86400000 = 1 day); use 0 to clear"`
 }
 
@@ -201,7 +201,7 @@ type listPlaybooksResponse struct {
 }
 
 func (p *PlaybooksToolProvider) addMCPHelperPlaybookTools(server *mcphelper.Server) {
-	addMCPHelperTool(server, p.clientFactory, "create_playbook", "Create a Mattermost Playbook in a team with optional stages/checklists, tasks, members, invitations, default owner, broadcast settings, metrics, run channel options, and webhooks. Returns the created playbook and browser URL.", toolCreatePlaybook)
+	addMCPHelperTool(server, p.clientFactory, "create_playbook", "Create an Antimatter Playbook in a team with optional stages/checklists, tasks, members, invitations, default owner, broadcast settings, metrics, run channel options, and webhooks. Returns the created playbook and browser URL.", toolCreatePlaybook)
 	addMCPHelperTool(server, p.clientFactory, "list_playbooks", "List playbook templates with optional team and search filters. Use this first when you know a template title or team but do not yet know the playbook_id. Example: {\"team_id\": \"team123...\", \"search_term\": \"Incident\", \"per_page\": 10}", toolListPlaybooks)
 	addMCPHelperTool(server, p.clientFactory, "get_playbook", "Get full details for a playbook template, including checklists and task indexes. Use this to confirm the playbook_id and the zero-based checklist_number/item_number values before mutating tasks. Example: {\"playbook_id\": \"abc123...\"}", toolGetPlaybook)
 	addMCPHelperTool(server, p.clientFactory, "create_playbook_attribute", "Create an attribute/property field on an existing playbook template. If you do not already know the playbook_id, call list_playbooks first. Supported types are text, select, multiselect, date, user, and multiuser. Select and multiselect attributes require attrs.options. Returns the created field as formatted JSON. Example: {\"playbook_id\": \"abc123...\", \"name\": \"Severity\", \"type\": \"select\", \"attrs\": {\"visibility\": \"always\", \"sort_order\": 1, \"options\": [{\"name\": \"High\", \"color\": \"red\"}]}}", toolCreatePlaybookAttribute)

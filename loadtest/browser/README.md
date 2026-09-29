@@ -1,12 +1,12 @@
-# Mattermost Plugin Playbooks Loadtest Browser package
+# Antimatter Plugin Playbooks Loadtest Browser package
 
-Browser-based load testing package for the Mattermost Playbooks plugin.
+Browser-based load testing package for the Antimatter Playbooks plugin.
 
 ## Overview
 
-This package provides Playwright-powered browser automation scenarios for load testing the Mattermost Playbooks plugin. It simulates real user interactions with the Playbooks webapp interface.
+This package provides Playwright-powered browser automation scenarios for load testing the Antimatter Playbooks plugin. It simulates real user interactions with the Playbooks webapp interface.
 
-For more information about the Mattermost load testing framework, see the https://github.com/mattermost/mattermost-load-test-ng/tree/master/browser.
+For more information about the Antimatter load testing framework, see the https://github.com/mattermost/mattermost-load-test-ng/tree/master/browser.
 
 ## Available Simulations
 
@@ -25,7 +25,7 @@ To package the build for use in mattermost-load-test-ng, it should be packaged i
 
 2. The tarball is created in the `packs/` directory with the format:
    ```
-   mattermost-plugin-playbooks-loadtest-browser-{version}.tgz
+   antimatter-plugin-playbooks-loadtest-browser-{version}.tgz
    ```
 
 1. Copy the tarball to the mattermost-load-test-ng browser packs directory:
@@ -36,5 +36,5 @@ To package the build for use in mattermost-load-test-ng, it should be packaged i
 1. Install it in the mattermost-load-test-ng browser package:
    ```bash
    cd /path/to/mattermost-load-test-ng/browser
-   npm install --save ./packs/mattermost-plugin-playbooks-loadtest-browser-{version}.tgz
+   npm install --save ./packs/antimatter-plugin-playbooks-loadtest-browser-{version}.tgz
    ```

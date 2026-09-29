@@ -25,7 +25,7 @@ func (c *GenController) PluginId() string {
 	return "playbooks"
 }
 
-// MinServerVersion returns the minimum version the Mattermost server must have
+// MinServerVersion returns the minimum version the Antimatter server must have
 // to be able to run the registered actions.
 func (c *GenController) MinServerVersion() semver.Version {
 	return semver.MustParse("11.0.0")

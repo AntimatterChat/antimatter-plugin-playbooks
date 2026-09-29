@@ -18,7 +18,7 @@ import (
 )
 
 // MaxRequestSize is the size limit for any incoming request
-// The default limit set by mattermost-server is the configured max file size, and
+// The default limit set by the Antimatter server is the configured max file size, and
 // it sometimes isn't small enough to prevent some scenarios.
 //
 // This is important to prevent huge payloads from being sent
@@ -114,7 +114,7 @@ func ReturnJSON(w http.ResponseWriter, pointerToObject interface{}, httpStatus i
 // them.
 const (
 	userIDHeader = "Mattermost-User-Id"
-	// pluginIDHeader is set by the Mattermost server on inter-plugin/internal requests to identify
+	// pluginIDHeader is set by the Antimatter server on inter-plugin/internal requests to identify
 	// the calling plugin. The server deletes it from externally-originated requests, so it cannot
 	// be spoofed by an external client -- it is the trust anchor for inter-plugin authorization.
 	pluginIDHeader = "Mattermost-Plugin-ID"

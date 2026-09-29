@@ -24,7 +24,7 @@ func TestUpsertRunPropertyValueWithField(t *testing.T) {
 	// and does not call s.api, so these sub-tests run entirely without a plugin API.
 	s := &propertyService{}
 
-	// A valid 26-character Mattermost user ID (the format model.IsValidId accepts)
+	// A valid 26-character Antimatter user ID (the format model.IsValidId accepts)
 	validUserID := model.NewId()
 
 	userField := &model.PropertyField{

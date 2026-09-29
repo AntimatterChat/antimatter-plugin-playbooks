@@ -106,7 +106,7 @@ func (c *pluginMCPClient) Delete(ctx context.Context, endpoint string) error {
 
 func (c *pluginMCPClient) GetCurrentUserID(context.Context) (string, error) {
 	if c.userID == "" {
-		return "", fmt.Errorf("missing Mattermost user ID")
+		return "", fmt.Errorf("missing Antimatter user ID")
 	}
 	return c.userID, nil
 }
@@ -169,7 +169,7 @@ func newPlaybooksMCPServer(api mcphelper.PluginAPI, handler http.Handler, expose
 	factory := func(ctx context.Context) (tools.APIClient, error) {
 		userID := mcphelper.GetUserID(ctx)
 		if userID == "" {
-			return nil, fmt.Errorf("missing Mattermost user ID")
+			return nil, fmt.Errorf("missing Antimatter user ID")
 		}
 		return &pluginMCPClient{handler: handler, userID: userID, siteURL: siteURL}, nil
 	}

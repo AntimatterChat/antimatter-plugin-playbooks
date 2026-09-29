@@ -9,13 +9,13 @@ import (
 	"github.com/mattermost/mattermost/server/public/model"
 )
 
-// validateID checks that an ID matches the Mattermost ID format.
+// validateID checks that an ID matches the Antimatter ID format.
 func validateID(id, name string) error {
 	if id == "" {
 		return fmt.Errorf("%s is required", name)
 	}
 	if !model.IsValidId(id) {
-		return fmt.Errorf("%s must be a valid Mattermost ID", name)
+		return fmt.Errorf("%s must be a valid Antimatter ID", name)
 	}
 	return nil
 }

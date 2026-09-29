@@ -13,22 +13,22 @@ import (
 
 func TestGetPlaybookDetailsURL(t *testing.T) {
 	require.Equal(t,
-		"http://mattermost.com/playbooks/playbooks/playbookTestId",
-		getPlaybookDetailsURL("http://mattermost.com", "playbookTestId"),
+		"http://antimatter.example/playbooks/playbooks/playbookTestId",
+		getPlaybookDetailsURL("http://antimatter.example", "playbookTestId"),
 	)
 }
 
 func TestGetPlaybooksNewURL(t *testing.T) {
 	require.Equal(t,
-		"http://mattermost.com/playbooks/playbooks/new",
-		getPlaybooksNewURL("http://mattermost.com"),
+		"http://antimatter.example/playbooks/playbooks/new",
+		getPlaybooksNewURL("http://antimatter.example"),
 	)
 }
 
 func TestGetPlaybooksURL(t *testing.T) {
 	require.Equal(t,
-		"http://mattermost.com/playbooks/playbooks",
-		getPlaybooksURL("http://mattermost.com"),
+		"http://antimatter.example/playbooks/playbooks",
+		getPlaybooksURL("http://antimatter.example"),
 	)
 }
 
@@ -48,15 +48,15 @@ func TestGetRunDetailsRelativeURL(t *testing.T) {
 
 func TestGetRunDetailsURL(t *testing.T) {
 	require.Equal(t,
-		"http://mattermost.com/playbooks/runs/testPlaybookRunId",
-		getRunDetailsURL("http://mattermost.com", "testPlaybookRunId"),
+		"http://antimatter.example/playbooks/runs/testPlaybookRunId",
+		getRunDetailsURL("http://antimatter.example", "testPlaybookRunId"),
 	)
 }
 
 func TestGetRunRetrospectiveURL(t *testing.T) {
 	require.Equal(t,
-		"http://mattermost.com/playbooks/runs/testPlaybookRunId/retrospective",
-		getRunRetrospectiveURL("http://mattermost.com", "testPlaybookRunId"),
+		"http://antimatter.example/playbooks/runs/testPlaybookRunId/retrospective",
+		getRunRetrospectiveURL("http://antimatter.example", "testPlaybookRunId"),
 	)
 }
 
@@ -92,17 +92,17 @@ func TestGetRelativeURLForChannel(t *testing.T) {
 func TestGetURLForChannel(t *testing.T) {
 	// public: absolute version
 	require.Equal(t,
-		"http://mattermost.com/myteam/channels/my-channel",
-		getURLForChannel("http://mattermost.com", "myteam", &model.Channel{Name: "my-channel", Type: model.ChannelTypeOpen}),
+		"http://antimatter.example/myteam/channels/my-channel",
+		getURLForChannel("http://antimatter.example", "myteam", &model.Channel{Name: "my-channel", Type: model.ChannelTypeOpen}),
 	)
 	// GM: /messages/<channel.Name>
 	require.Equal(t,
-		"http://mattermost.com/myteam/messages/user1__user2__user3",
-		getURLForChannel("http://mattermost.com", "myteam", &model.Channel{Id: "gmId", Name: "user1__user2__user3", Type: model.ChannelTypeGroup}),
+		"http://antimatter.example/myteam/messages/user1__user2__user3",
+		getURLForChannel("http://antimatter.example", "myteam", &model.Channel{Id: "gmId", Name: "user1__user2__user3", Type: model.ChannelTypeGroup}),
 	)
 	// DM: /messages/<channel.Id>
 	require.Equal(t,
-		"http://mattermost.com/myteam/messages/channelId123",
-		getURLForChannel("http://mattermost.com", "myteam", &model.Channel{Id: "channelId123", Name: "user1__user2", Type: model.ChannelTypeDirect}),
+		"http://antimatter.example/myteam/messages/channelId123",
+		getURLForChannel("http://antimatter.example", "myteam", &model.Channel{Id: "channelId123", Name: "user1__user2", Type: model.ChannelTypeDirect}),
 	)
 }

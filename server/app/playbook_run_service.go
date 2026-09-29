@@ -977,7 +977,7 @@ func (s *PlaybookRunServiceImpl) OpenAddChecklistItemDialog(triggerID, userID, p
 	return nil
 }
 
-// maxInteractiveDialogRequirements is Mattermost's interactive dialog element limit.
+// maxInteractiveDialogRequirements is Antimatter's interactive dialog element limit.
 const maxInteractiveDialogRequirements = 5
 
 func (s *PlaybookRunServiceImpl) OpenFillRequirementsDialog(triggerID, userID, playbookRunID string, checklist, item int) error {

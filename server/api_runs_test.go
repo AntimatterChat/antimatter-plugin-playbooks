@@ -4466,7 +4466,7 @@ func TestOwnerGroupOnlyActions(t *testing.T) {
 		require.NoError(t, err)
 		require.NotNil(t, run)
 
-		// RegularUserNotInTeam is a valid Mattermost account but has no team membership.
+		// RegularUserNotInTeam is a valid Antimatter account but has no team membership.
 		// Attempting to assign them as owner must be rejected — if it weren't, with
 		// OwnerGroupOnlyActions=true they could hold owner status without channel access,
 		// locking the run for all other participants.
@@ -6175,7 +6175,7 @@ func TestAssigneeAutoAddParticipant(t *testing.T) {
 	t.Run("target failing team membership validation is not added and does not receive the DM", func(t *testing.T) {
 		run := newChecklistRun(t, e.RegularUser.Id)
 
-		// A valid Mattermost user deliberately NOT added to BasicTeam, so AddParticipants'
+		// A valid Antimatter user deliberately NOT added to BasicTeam, so AddParticipants'
 		// team-membership validation silently drops them into usersFailedToInvite.
 		outsider, _, err := e.ServerAdminClient.CreateUser(context.Background(), &model.User{
 			Email:    "outsider-" + model.NewId() + "@example.com",

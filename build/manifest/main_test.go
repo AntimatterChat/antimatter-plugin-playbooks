@@ -13,9 +13,9 @@ import (
 const validSourceManifest = `{
   "id": "playbooks",
   "name": "Playbooks",
-  "description": "Mattermost Playbooks enable reliable and repeatable processes for your teams.",
-  "homepage_url": "https://github.com/mattermost/mattermost-plugin-playbooks/",
-  "support_url": "https://github.com/mattermost/mattermost-plugin-playbooks/issues",
+  "description": "Antimatter Playbooks enable reliable and repeatable processes for your teams.",
+  "homepage_url": "https://github.com/antimatterchat/antimatter-plugin-playbooks/",
+  "support_url": "https://github.com/antimatterchat/antimatter-plugin-playbooks/issues",
   "icon_path": "assets/plugin_icon.svg",
   "min_server_version": "12.0.0"
 }`

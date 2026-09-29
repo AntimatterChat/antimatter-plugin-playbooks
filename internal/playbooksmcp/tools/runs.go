@@ -16,8 +16,8 @@ import (
 // --- Argument structs ---
 
 type ListRunsArgs struct {
-	TeamID      string   `json:"team_id,omitempty" jsonschema:"Filter by team ID (26-char Mattermost ID)"`
-	ChannelID   string   `json:"channel_id,omitempty" jsonschema:"Filter by channel ID (26-char Mattermost ID). If the agent is operating within a channel, set this to that channel's ID to see only its runs."`
+	TeamID      string   `json:"team_id,omitempty" jsonschema:"Filter by team ID (26-char Antimatter ID)"`
+	ChannelID   string   `json:"channel_id,omitempty" jsonschema:"Filter by channel ID (26-char Antimatter ID). If the agent is operating within a channel, set this to that channel's ID to see only its runs."`
 	Status      string   `json:"status,omitempty" jsonschema:"Filter by status: InProgress or Finished"`
 	OwnerUserID string   `json:"owner_user_id,omitempty" jsonschema:"Filter by owner user ID. Use 'me' for the current user."`
 	Type        string   `json:"type,omitempty" jsonschema:"Filter by run type: playbook or channelChecklist"`
@@ -28,7 +28,7 @@ type ListRunsArgs struct {
 
 type CreateChecklistArgs struct {
 	Name      string                   `json:"name" jsonschema:"Name/title of the checklist run"`
-	ChannelID string                   `json:"channel_id" jsonschema:"The Mattermost channel ID to create the checklist in"`
+	ChannelID string                   `json:"channel_id" jsonschema:"The Antimatter channel ID to create the checklist in"`
 	TeamID    string                   `json:"team_id,omitempty" jsonschema:"Optional team ID. If omitted, the channel's team is used."`
 	Summary   string                   `json:"summary,omitempty" jsonschema:"Optional summary/description for the checklist run"`
 	Sections  []CreateChecklistSection `json:"sections,omitempty" jsonschema:"Optional initial sections to add after creating the checklist"`
@@ -130,7 +130,7 @@ func (p *PlaybooksToolProvider) addMCPHelperRunTools(server *mcphelper.Server) {
 		toolListRuns)
 
 	addMCPHelperTool(server, p.clientFactory, "create_checklist",
-		"Create a channel checklist (a playbook run without an associated playbook) in an existing Mattermost channel. The authenticated user is used as owner. Optionally include initial sections and items. Example: {\"name\": \"Release checklist\", \"channel_id\": \"abc123...\", \"sections\": [{\"title\": \"Pre-release\", \"items\": [{\"title\": \"Confirm changelog\"}]}]}",
+		"Create a channel checklist (a playbook run without an associated playbook) in an existing Antimatter channel. The authenticated user is used as owner. Optionally include initial sections and items. Example: {\"name\": \"Release checklist\", \"channel_id\": \"abc123...\", \"sections\": [{\"title\": \"Pre-release\", \"items\": [{\"title\": \"Confirm changelog\"}]}]}",
 		toolCreateChecklist)
 
 	addMCPHelperTool(server, p.clientFactory, "get_run",
@@ -146,7 +146,7 @@ func (p *PlaybooksToolProvider) addMCPHelperRunTools(server *mcphelper.Server) {
 		toolFinishRun)
 
 	addMCPHelperTool(server, p.clientFactory, "change_run_owner",
-		"Change the owner of a playbook run. The new owner must be a valid Mattermost user. Example: {\"run_id\": \"abc123...\", \"owner_id\": \"def456...\"}",
+		"Change the owner of a playbook run. The new owner must be a valid Antimatter user. Example: {\"run_id\": \"abc123...\", \"owner_id\": \"def456...\"}",
 		toolChangeRunOwner)
 }
 

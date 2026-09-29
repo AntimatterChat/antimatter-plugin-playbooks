@@ -1668,7 +1668,7 @@ type PlaybookRunFilterOptions struct {
 	// Statuses filters by all statuses in the list (inclusive)
 	Statuses []string
 
-	// OwnerID filters by owner's Mattermost user ID. Defaults to blank (no filter).
+	// OwnerID filters by owner's Antimatter user ID. Defaults to blank (no filter).
 	OwnerID string `url:"owner_user_id,omitempty"`
 
 	// ParticipantID filters playbook runs that have this member. Defaults to blank (no filter).

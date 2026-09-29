@@ -57,7 +57,7 @@ func TestMain(m *testing.M) {
 		return
 	}
 
-	// Playbooks requires Mattermost 12.0.0 for the host JSX runtime. The
+	// Playbooks requires Antimatter 12.0.0 for the host JSX runtime. The
 	// in-process test server still reports 11.9 via server/v8; override so
 	// plugin deploy succeeds until that module is bumped.
 	model.CurrentVersion = "12.0.0"
@@ -282,7 +282,7 @@ func createPluginBundleOnce() string {
 	return globalBundlePath
 }
 
-// serverInstance is a running Mattermost server with the playbooks plugin
+// serverInstance is a running Antimatter server with the playbooks plugin
 // deployed onto it. A single instance is shared across the whole test package
 // (see ensureSharedServer) to avoid paying the multi-second server boot cost for
 // every test.
@@ -315,7 +315,7 @@ func ensureSharedServer(t *testing.T) *serverInstance {
 	return sharedInstance
 }
 
-// bootServer creates a brand-new Mattermost server on its own database and
+// bootServer creates a brand-new Antimatter server on its own database and
 // deploys the playbooks plugin onto it. The returned cleanup function shuts the
 // server down and removes its temporary resources. It is used both for the
 // shared server and for the dedicated servers handed out by SetupIsolated.
@@ -355,7 +355,7 @@ func bootServer(tb testing.TB) (*serverInstance, func()) {
 	cfg.TeamSettings.MaxUsersPerTeam = testPtr(10000)
 	cfg.LocalizationSettings.SetDefaults()
 	cfg.SqlSettings = *sqlSettings
-	cfg.ServiceSettings.SiteURL = testPtr("http://testsiteurlplaybooks.mattermost.com/")
+	cfg.ServiceSettings.SiteURL = testPtr("http://testsiteurlplaybooks.antimatter.example/")
 	cfg.LogSettings.EnableConsole = testPtr(true)
 	cfg.LogSettings.EnableFile = testPtr(false)
 	cfg.LogSettings.ConsoleLevel = testPtr("DEBUG")
@@ -381,7 +381,7 @@ func bootServer(tb testing.TB) (*serverInstance, func()) {
 	// Create a server with our specified options
 	require.NoError(tb, utils.TranslationsPreInit())
 
-	// The plugin itself no longer checks any license. The upstream Mattermost test server
+	// The plugin itself no longer checks any license. The upstream Antimatter test server
 	// used by these integration tests still gates some of its own features (e.g. guest
 	// accounts) behind a license, so give it a test license.
 	license := model.NewTestLicense()
@@ -479,7 +479,7 @@ func newEnv(t *testing.T, instance *serverInstance) *TestEnvironment {
 
 // username, email and resourceName produce per-environment unique identifiers so
 // that fixtures created on the shared server never collide. base must be short
-// enough that the resulting username stays within Mattermost's 22-char limit.
+// enough that the resulting username stays within Antimatter's 22-char limit.
 func (e *TestEnvironment) username(base string) string {
 	return fmt.Sprintf("pb-%s-%d", base, e.id)
 }

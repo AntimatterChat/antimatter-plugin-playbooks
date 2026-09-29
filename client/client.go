@@ -28,7 +28,7 @@ const (
 	userAgent  = "go-client/" + apiVersion
 
 	// externalAPIURLPrefix is the API path prefix for requests made over regular HTTP, where the
-	// Mattermost server routes /plugins/<id>/* to the plugin.
+	// Antimatter server routes /plugins/<id>/* to the plugin.
 	externalAPIURLPrefix = "plugins/" + manifestID + "/api/" + apiVersion + "/"
 	// interPluginAPIURLPrefix is the API path prefix for inter-plugin requests, where PluginHTTP
 	// routes by the first path segment (/<id>/*) instead.
@@ -71,7 +71,7 @@ type Client struct {
 	Categories *CategoriesService
 }
 
-// New creates a new instance of Client using the configuration from the given Mattermost Client.
+// New creates a new instance of Client using the configuration from the given Antimatter Client.
 func New(client4 *model.Client4) (*Client, error) {
 	ctx := context.Background()
 	ts := oauth2.StaticTokenSource(

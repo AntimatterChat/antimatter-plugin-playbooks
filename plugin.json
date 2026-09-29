@@ -1,9 +1,9 @@
 {
   "id": "playbooks",
   "name": "Playbooks",
-  "description": "Mattermost Playbooks enable reliable and repeatable processes for your teams using checklists, automation, and retrospectives.",
-  "homepage_url": "https://github.com/mattermost/mattermost-plugin-playbooks/",
-  "support_url": "https://github.com/mattermost/mattermost-plugin-playbooks/issues",
+  "description": "Antimatter Playbooks enable reliable and repeatable processes for your teams using checklists, automation, and retrospectives.",
+  "homepage_url": "https://github.com/antimatterchat/antimatter-plugin-playbooks/",
+  "support_url": "https://github.com/antimatterchat/antimatter-plugin-playbooks/issues",
   "icon_path": "assets/plugin_icon.svg",
   "min_server_version": "12.0.0",
   "server": {
@@ -26,7 +26,7 @@
         "key": "enableTeamsTabApp",
         "display_name": "Enable Teams Tab App",
         "type": "bool",
-        "help_text": "When true, enable a Microsoft Teams Tab app to expose Mattermost Playbook runs.",
+        "help_text": "When true, enable a Microsoft Teams Tab app to expose Antimatter Playbook runs.",
         "default": false
       },
       {

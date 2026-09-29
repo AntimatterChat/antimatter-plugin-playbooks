@@ -72,8 +72,8 @@ func TestPluginMCPClientSendsJSONBody(t *testing.T) {
 }
 
 func TestPluginMCPClientGetPlaybookURLReturnsAbsoluteURL(t *testing.T) {
-	client := &pluginMCPClient{siteURL: "https://mattermost.example.com/"}
-	assert.Equal(t, "https://mattermost.example.com/playbooks/playbooks/playbook-id", client.GetPlaybookURL("playbook-id"))
+	client := &pluginMCPClient{siteURL: "https://antimatter.example.com/"}
+	assert.Equal(t, "https://antimatter.example.com/playbooks/playbooks/playbook-id", client.GetPlaybookURL("playbook-id"))
 }
 
 func TestPluginMCPClientReturnsAPIErrorBody(t *testing.T) {
@@ -117,7 +117,7 @@ func TestNewPlaybooksMCPServerRegistersExposeExternal(t *testing.T) {
 		requestCh: make(chan *http.Request, 1),
 		bodyCh:    make(chan []byte, 1),
 	}
-	server, err := newPlaybooksMCPServer(api, http.NotFoundHandler(), true, "https://mattermost.example.com")
+	server, err := newPlaybooksMCPServer(api, http.NotFoundHandler(), true, "https://antimatter.example.com")
 	require.NoError(t, err)
 
 	require.NoError(t, server.Register())

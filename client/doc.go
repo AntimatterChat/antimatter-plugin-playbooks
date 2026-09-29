@@ -3,7 +3,7 @@
 
 // Package client provides an HTTP client for using the Playbooks API.
 //
-// External callers authenticate as a Mattermost user and construct a client with New:
+// External callers authenticate as an Antimatter user and construct a client with New:
 //
 //	pb, err := client.New(client4)
 //

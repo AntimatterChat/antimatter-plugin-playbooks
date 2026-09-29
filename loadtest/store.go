@@ -25,7 +25,7 @@ type PluginStore struct {
 	// following shape: TeamID > ChannelID > Run
 	// This is not how the current model works, but we still need to use it as a
 	// result of the RunsOnTeamQuery GraphQL query.
-	// See https://mattermost.atlassian.net/browse/MM-65733
+	// See MM-65733
 	runsOnTeamQueryMap map[string]map[string]graphql.RunEdge
 
 	// runsByTeamByChannel stores all runs per channel in a map with the

@@ -1303,9 +1303,9 @@ func TestPlaybooksPermissions(t *testing.T) {
 		require.Equal(t, e.BasicTeam.Id, originalTeamID, "Playbook should initially be in BasicTeam (Team A)")
 
 		// Step 6: Check if we're in a cached permission state
-		// PatchRole doesn't always invalidate permission caches in Mattermost, which can cause
+		// PatchRole doesn't always invalidate permission caches in Antimatter, which can cause
 		// the permission check to still see the old (removed) permissions. If we detect this
-		// cached state, we skip the test rather than failing, as this is a known Mattermost
+		// cached state, we skip the test rather than failing, as this is a known Antimatter
 		// caching issue, not a bug in our security check.
 		//
 		// We check by attempting the update and seeing if it succeeds when it shouldn't.
@@ -1322,7 +1322,7 @@ func TestPlaybooksPermissions(t *testing.T) {
 			_ = e.PlaybooksAdminClient.Playbooks.Update(context.Background(), testPlaybook)
 
 			t.Skip("Skipping test: Permission cache not invalidated after PatchRole. " +
-				"This is a known Mattermost caching issue where role permission changes don't " +
+				"This is a known Antimatter caching issue where role permission changes don't " +
 				"immediately reflect in HasPermissionToTeam checks. The security check is working " +
 				"correctly, but the cache hasn't been cleared yet.")
 		}
