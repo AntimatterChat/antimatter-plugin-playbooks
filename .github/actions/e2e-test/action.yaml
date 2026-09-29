@@ -76,8 +76,8 @@ runs:
     - name: ci/install-playbooks
       env:
         MM_SERVICESETTINGS_SITEURL: http://localhost:8065
-        MM_ADMIN_USERNAME: sysadmin
-        MM_ADMIN_PASSWORD: Sys@dmin-sample1
+        AM_ADMIN_USERNAME: sysadmin
+        AM_ADMIN_PASSWORD: Sys@dmin-sample1
       run: make upload-to-server
       shell: bash
 
@@ -90,8 +90,8 @@ runs:
         DASHBOARD_ENABLE: "false"
         FULL_REPORT: "false"
         MM_SERVICESETTINGS_SITEURL: http://localhost:8065
-        MM_ADMIN_USERNAME: sysadmin
-        MM_ADMIN_PASSWORD: Sys@dmin-sample1
+        AM_ADMIN_USERNAME: sysadmin
+        AM_ADMIN_PASSWORD: Sys@dmin-sample1
         CYPRESS_serverEdition: ${{ inputs.CYPRESS_serverEdition }}
         MM_SERVICESETTINGS_EXPERIMENTALSTRICTCSRFENFORCEMENT: "false"
         MM_SERVICESETTINGS_STRICTCSRFENFORCEMENT: "false"

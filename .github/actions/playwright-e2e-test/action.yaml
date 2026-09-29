@@ -68,16 +68,16 @@ runs:
     - name: ci/install-playbooks
       env:
         MM_SERVICESETTINGS_SITEURL: http://localhost:8065
-        MM_ADMIN_USERNAME: sysadmin
-        MM_ADMIN_PASSWORD: Sys@dmin-sample1
+        AM_ADMIN_USERNAME: sysadmin
+        AM_ADMIN_PASSWORD: Sys@dmin-sample1
       run: make upload-to-server
       shell: bash
 
     - name: ci/run-playwright-tests
       env:
         MM_SERVICESETTINGS_SITEURL: http://localhost:8065
-        MM_ADMIN_USERNAME: sysadmin
-        MM_ADMIN_PASSWORD: Sys@dmin-sample1
+        AM_ADMIN_USERNAME: sysadmin
+        AM_ADMIN_PASSWORD: Sys@dmin-sample1
         MM_SERVICESETTINGS_EXPERIMENTALSTRICTCSRFENFORCEMENT: "false"
         MM_SERVICESETTINGS_STRICTCSRFENFORCEMENT: "false"
         TERM: xterm

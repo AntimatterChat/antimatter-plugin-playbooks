@@ -14,8 +14,9 @@ interface Team {
     name: string;
 }
 
-const adminUsername = process.env.MM_ADMIN_USERNAME || 'sysadmin';
-const adminPassword = process.env.MM_ADMIN_PASSWORD || 'Sys@dmin-sample1';
+// AM_ADMIN_* take precedence; the legacy MM_ADMIN_* names are still accepted.
+const adminUsername = process.env.AM_ADMIN_USERNAME || process.env.MM_ADMIN_USERNAME || 'sysadmin';
+const adminPassword = process.env.AM_ADMIN_PASSWORD || process.env.MM_ADMIN_PASSWORD || 'Sys@dmin-sample1';
 
 // Match Cypress' default sysadmin team without sharing files across projects.
 const defaultTeam = {

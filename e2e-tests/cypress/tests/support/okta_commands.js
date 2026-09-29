@@ -3,7 +3,9 @@
 
 import * as TIMEOUTS from '../fixtures/timeouts';
 
-const token = 'SSWS ' + Cypress.env('oktaMMAppToken');
+// oktaAMAppToken/oktaAMAppId take precedence; the legacy oktaMMApp* names are still accepted.
+const token = 'SSWS ' + (Cypress.env('oktaAMAppToken') || Cypress.env('oktaMMAppToken'));
+const oktaAppId = Cypress.env('oktaAMAppId') || Cypress.env('oktaMMAppId');
 
 function buildProfile(user) {
     const profile = {
@@ -116,7 +118,7 @@ Cypress.Commands.add('oktaDeleteSession', (userId = '') => {
 Cypress.Commands.add('oktaAssignUserToApplication', (userId = '', user = {}) => {
     return cy.task('oktaRequest', {
         baseUrl: Cypress.env('oktaApiUrl'),
-        urlSuffix: '/apps/' + Cypress.env('oktaMMAppId') + '/users',
+        urlSuffix: '/apps/' + oktaAppId + '/users',
         method: 'post',
         token,
         data: {
