@@ -13,7 +13,7 @@ The start script boots `dockerd`, logs in to Docker Hub when credentials are con
 - `make check-style` — run Go and webapp linters/type checks.
 - `make test` — run server and webapp unit tests (Go tests require a running Postgres).
 - `make dist` — build `dist/playbooks-<version>.tar.gz`.
-- `make deploy` — build and deploy the plugin to Mattermost.
+- `make deploy` — build and deploy the plugin to Antimatter.
 - `make watch` — rebuild the plugin and redeploy on webapp changes.
 - `make logs-watch` — follow plugin logs after deployment.
 
@@ -24,81 +24,81 @@ Skip flags for faster setup:
 - `CLOUD_AGENT_SKIP_WEBAPP_DEPS=1` skips webapp dependency installation.
 - `CLOUD_AGENT_SKIP_IMAGE_LOAD=1` skips loading cached Docker image archives.
 
-## Run Mattermost
+## Run Antimatter
 
-Start Postgres and Mattermost from the preloaded images:
+Start Postgres and Antimatter from the preloaded images:
 
 ```bash
-export MM_IMAGE=mattermostdevelopment/mattermost-enterprise-edition:master
-export MM_PLATFORM=linux/amd64
+export AM_IMAGE=mattermostdevelopment/mattermost-enterprise-edition:master
+export AM_PLATFORM=linux/amd64
 export POSTGRES_IMAGE=postgres:16-alpine
-export MM_DB_USER=mmuser
-export MM_DB_PASSWORD=mmuser_password
-export MM_DB_NAME=mattermost
-export MM_ADMIN_USERNAME=admin
-export MM_ADMIN_PASSWORD='Admin1234!'
+export AM_DB_USER=mmuser
+export AM_DB_PASSWORD=mmuser_password
+export AM_DB_NAME=antimatter
+export AM_ADMIN_USERNAME=admin
+export AM_ADMIN_PASSWORD='Admin1234!'
 
-docker network create mattermost-dev || true
-docker rm -f mattermost mm-postgres 2>/dev/null || true
-docker volume create mm-postgres-data
+docker network create antimatter-dev || true
+docker rm -f antimatter am-postgres 2>/dev/null || true
+docker volume create am-postgres-data
 
 docker run -d \
-  --name mm-postgres \
-  --network mattermost-dev \
-  -e POSTGRES_USER="$MM_DB_USER" \
-  -e POSTGRES_PASSWORD="$MM_DB_PASSWORD" \
-  -e POSTGRES_DB="$MM_DB_NAME" \
+  --name am-postgres \
+  --network antimatter-dev \
+  -e POSTGRES_USER="$AM_DB_USER" \
+  -e POSTGRES_PASSWORD="$AM_DB_PASSWORD" \
+  -e POSTGRES_DB="$AM_DB_NAME" \
   --health-cmd='pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"' \
   --health-interval=5s \
   --health-timeout=5s \
   --health-retries=24 \
-  -v mm-postgres-data:/var/lib/postgresql/data \
+  -v am-postgres-data:/var/lib/postgresql/data \
   "$POSTGRES_IMAGE"
 
-until [ "$(docker inspect -f '{{.State.Health.Status}}' mm-postgres)" = "healthy" ]; do
+until [ "$(docker inspect -f '{{.State.Health.Status}}' am-postgres)" = "healthy" ]; do
   sleep 2
 done
 
-mkdir -p /tmp/mattermost/{config,data,logs,plugins,client-plugins,bleve-indexes}
-chmod -R 777 /tmp/mattermost
+mkdir -p /tmp/antimatter/{config,data,logs,plugins,client-plugins,bleve-indexes}
+chmod -R 777 /tmp/antimatter
 
 docker run -d \
-  --name mattermost \
-  --platform "$MM_PLATFORM" \
-  --network mattermost-dev \
+  --name antimatter \
+  --platform "$AM_PLATFORM" \
+  --network antimatter-dev \
   -p 8065:8065 \
   -e MM_SQLSETTINGS_DRIVERNAME=postgres \
-  -e "MM_SQLSETTINGS_DATASOURCE=postgres://$MM_DB_USER:$MM_DB_PASSWORD@mm-postgres:5432/$MM_DB_NAME?sslmode=disable&connect_timeout=10" \
+  -e "MM_SQLSETTINGS_DATASOURCE=postgres://$AM_DB_USER:$AM_DB_PASSWORD@am-postgres:5432/$AM_DB_NAME?sslmode=disable&connect_timeout=10" \
   -e MM_SERVICESETTINGS_SITEURL=http://localhost:8065 \
   -e MM_SERVICESETTINGS_ENABLEDEVELOPER=true \
   -e MM_SERVICESETTINGS_ENABLELOCALMODE=true \
   -e MM_PLUGINSETTINGS_ENABLEUPLOADS=true \
   -e MM_PLUGINSETTINGS_ENABLEMARKETPLACE=false \
-  -v /tmp/mattermost/config:/mattermost/config \
-  -v /tmp/mattermost/data:/mattermost/data \
-  -v /tmp/mattermost/logs:/mattermost/logs \
-  -v /tmp/mattermost/plugins:/mattermost/plugins \
-  -v /tmp/mattermost/client-plugins:/mattermost/client/plugins \
-  -v /tmp/mattermost/bleve-indexes:/mattermost/bleve-indexes \
-  "$MM_IMAGE"
+  -v /tmp/antimatter/config:/mattermost/config \
+  -v /tmp/antimatter/data:/mattermost/data \
+  -v /tmp/antimatter/logs:/mattermost/logs \
+  -v /tmp/antimatter/plugins:/mattermost/plugins \
+  -v /tmp/antimatter/client-plugins:/mattermost/client/plugins \
+  -v /tmp/antimatter/bleve-indexes:/mattermost/bleve-indexes \
+  "$AM_IMAGE"
 ```
 
-Wait for Mattermost, then create a system admin:
+Wait for Antimatter, then create a system admin:
 
 ```bash
 until curl -fsS http://localhost:8065/api/v4/system/ping | jq -e '.status == "OK"' >/dev/null; do
   sleep 2
 done
 
-docker exec mattermost mmctl --local user search "$MM_ADMIN_USERNAME" | grep -q "$MM_ADMIN_USERNAME" || \
-  docker exec mattermost mmctl --local user create \
+docker exec antimatter mmctl --local user search "$AM_ADMIN_USERNAME" | grep -q "$AM_ADMIN_USERNAME" || \
+  docker exec antimatter mmctl --local user create \
     --email admin@example.com \
-    --username "$MM_ADMIN_USERNAME" \
-    --password "$MM_ADMIN_PASSWORD" \
+    --username "$AM_ADMIN_USERNAME" \
+    --password "$AM_ADMIN_PASSWORD" \
     --system-admin
 ```
 
-Mattermost will be available on port `8065`.
+Antimatter will be available on port `8065`.
 
 ## Deploy The Plugin
 
@@ -106,8 +106,8 @@ Deploy through the plugin API using the admin credentials:
 
 ```bash
 export MM_SERVICESETTINGS_SITEURL=http://localhost:8065
-export MM_ADMIN_USERNAME=admin
-export MM_ADMIN_PASSWORD='Admin1234!'
+export AM_ADMIN_USERNAME=admin
+export AM_ADMIN_PASSWORD='Admin1234!'
 export MM_SERVICESETTINGS_ENABLEDEVELOPER=true
 
 make deploy
@@ -117,8 +117,8 @@ For iterative webapp work:
 
 ```bash
 export MM_SERVICESETTINGS_SITEURL=http://localhost:8065
-export MM_ADMIN_USERNAME=admin
-export MM_ADMIN_PASSWORD='Admin1234!'
+export AM_ADMIN_USERNAME=admin
+export AM_ADMIN_PASSWORD='Admin1234!'
 export MM_SERVICESETTINGS_ENABLEDEVELOPER=true
 
 make watch
@@ -126,11 +126,11 @@ make watch
 
 `MM_SERVICESETTINGS_ENABLEDEVELOPER=true` builds only the current-platform binary for faster deploy cycles.
 
-## Drive The Mattermost UI
+## Drive The Antimatter UI
 
-The Dockerfile installs `agent-browser` and Chrome runtime libraries so cloud agents can test Mattermost through the browser.
+The Dockerfile installs `agent-browser` and Chrome runtime libraries so cloud agents can test Antimatter through the browser.
 
-After Mattermost is running and the plugin is deployed, open the UI:
+After Antimatter is running and the plugin is deployed, open the UI:
 
 ```bash
 agent-browser open http://localhost:8065
@@ -159,9 +159,9 @@ Create screenshots with `agent-browser`, then upload them with `aws s3 cp`:
 
 ```bash
 mkdir -p /tmp/artifacts
-agent-browser screenshot /tmp/artifacts/mattermost-playbooks.png
+agent-browser screenshot /tmp/artifacts/antimatter-playbooks.png
 aws sts get-caller-identity
-aws s3 cp /tmp/artifacts/mattermost-playbooks.png <artifact-s3-uri>/mattermost-playbooks.png
+aws s3 cp /tmp/artifacts/antimatter-playbooks.png <artifact-s3-uri>/antimatter-playbooks.png
 ```
 
 Do not print AWS credentials or secret environment variables. If `aws sts get-caller-identity` fails, stop and report the missing AWS configuration instead of attempting to work around credentials.
@@ -170,8 +170,8 @@ Do not print AWS credentials or secret environment variables. If `aws sts get-ca
 
 - When `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` are configured as Cloud Agent secrets, `cloud-agent-start.sh` logs in to Docker Hub so DinD pulls avoid anonymous rate limits. Without them, startup continues with a warning and preloaded image archives still load from disk.
 - Webapp dependencies install with `--ignore-scripts --legacy-peer-deps` (see `Makefile`); the install script uses `make webapp/node_modules` to match local development.
-- Go unit tests expect Postgres to be reachable; start the `mm-postgres` container before `make test`.
-- The Mattermost Enterprise `master` image runs as `linux/amd64` even on arm64 cloud agents; always pass `--platform linux/amd64` when starting Mattermost.
+- Go unit tests expect Postgres to be reachable; start the `am-postgres` container before `make test`.
+- The Antimatter Enterprise `master` image runs as `linux/amd64` even on arm64 cloud agents; always pass `--platform linux/amd64` when starting Antimatter.
 - For E2E tests, set `CYPRESS_developerMode=true` when invoking Cypress to avoid unexpected server config changes.
 
 ## Troubleshooting
@@ -181,5 +181,5 @@ Do not print AWS credentials or secret environment variables. If `aws sts get-ca
 - If browser automation fails, run `agent-browser install` to refresh browser assets.
 - If artifact uploads fail, run `aws sts get-caller-identity` and verify the target S3 URI before retrying.
 - If the plugin upload fails, confirm `MM_PLUGINSETTINGS_ENABLEUPLOADS=true` and the admin credentials are exported.
-- If Mattermost is unhealthy, run `docker logs mattermost` and `docker logs mm-postgres`.
-- To reset the local Mattermost stack, run `docker rm -f mattermost mm-postgres` and remove `/tmp/mattermost` or `mm-postgres-data` if persisted data is not needed.
+- If Antimatter is unhealthy, run `docker logs antimatter` and `docker logs am-postgres`.
+- To reset the local Antimatter stack, run `docker rm -f antimatter am-postgres` and remove `/tmp/antimatter` or `am-postgres-data` if persisted data is not needed.
