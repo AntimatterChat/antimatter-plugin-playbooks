@@ -4,7 +4,6 @@
 import React, {useMemo} from 'react';
 
 import {PropertyField, PropertyValue} from 'src/types/properties';
-import {useAllowPlaybookAttributes} from 'src/hooks/license';
 
 import RHSProperty from 'src/components/rhs/rhs_property';
 
@@ -17,8 +16,6 @@ interface Props {
 }
 
 const PropertiesList = (props: Props) => {
-    const allowPlaybookAttributes = useAllowPlaybookAttributes();
-
     // Match property fields with their values using useMemo for performance
     const propertiesWithValues = useMemo(() => {
         if (!props.propertyFields) {
@@ -36,7 +33,7 @@ const PropertiesList = (props: Props) => {
         });
     }, [props.propertyFields, props.propertyValues]);
 
-    if (!allowPlaybookAttributes || propertiesWithValues.length === 0) {
+    if (propertiesWithValues.length === 0) {
         return null;
     }
 

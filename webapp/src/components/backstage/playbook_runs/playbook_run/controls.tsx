@@ -23,7 +23,7 @@ import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 import {useAppSelector} from 'src/hooks/redux';
 
 import {exportChannelUrl, getSiteUrl} from 'src/client';
-import {useAllowChannelExport, useExportLogAvailable, usePlaybooksRouting} from 'src/hooks';
+import {useExportLogAvailable, usePlaybooksRouting} from 'src/hooks';
 import {PlaybookRun, playbookRunIsActive} from 'src/types/playbook_run';
 import {PlaybookRunType} from 'src/graphql/generated/graphql';
 import {copyToClipboard} from 'src/utils';
@@ -223,16 +223,10 @@ export const FinishRunMenuItem = (props: {playbookRun: PlaybookRun, role: Role, 
     return null;
 };
 
-export const ExportChannelLogsMenuItem = (props: {channelId: string, setShowModal: (show: boolean) => void}) => {
+export const ExportChannelLogsMenuItem = (props: {channelId: string}) => {
     const exportAvailable = useExportLogAvailable();
-    const allowChannelExport = useAllowChannelExport();
 
     const onExportClick = () => {
-        if (!allowChannelExport) {
-            props.setShowModal(true);
-            return;
-        }
-
         window.location.href = exportChannelUrl(props.channelId);
     };
 

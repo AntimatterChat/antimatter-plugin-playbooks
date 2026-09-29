@@ -5,8 +5,6 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {useIntl} from 'react-intl';
 
-import {KeyVariantCircleIcon} from '@mattermost/compass-icons/components';
-
 import {TertiaryButton} from 'src/components/assets/buttons';
 import DotMenu, {DropdownMenuItem} from 'src/components/dot_menu';
 import {
@@ -22,9 +20,6 @@ import {ClockOutline, DollarSign, PoundSign} from 'src/components/backstage/play
 import ConfirmModalLight from 'src/components/widgets/confirmation_modal_light';
 import {DefaultFooterContainer} from 'src/components/widgets/generic_modal';
 import ConditionalTooltip from 'src/components/widgets/conditional_tooltip';
-import {useAllowPlaybookAndRunMetrics} from 'src/hooks';
-import UpgradeModal from 'src/components/backstage/upgrade_modal';
-import {AdminNotificationType} from 'src/constants';
 
 enum TaskType {
     add,
@@ -64,8 +59,6 @@ const Metrics = ({
     const [saveMetricToggle, setSaveMetricToggle] = useState(false);
     const [nextTask, setNextTask] = useState<Task | null>(null);
     const [deletingIdx, setDeletingIdx] = useState(-1);
-    const metricsAvailable = useAllowPlaybookAndRunMetrics();
-    const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
     const deleteBaseMessage = formatMessage({defaultMessage: 'If you delete this metric, the values for it will not be collected for any future runs.'});
     const deleteExistingMessage = deleteBaseMessage + ' ' + formatMessage({defaultMessage: 'You will still be able to access historical data for this metric.'});
@@ -179,60 +172,48 @@ const Metrics = ({
         metrics.splice(curEditingMetric.index, 1, curEditingMetric.metric);
     }
 
-    const addMetricMsg = formatMessage({defaultMessage: 'Add Metric'});
-    let addMetricButton = (
-        <UpgradeButton>
-            <TertiaryButton onClick={() => setShowUpgradeModal(true)}>
-                <i className='icon-plus'/>
-                {addMetricMsg}
-            </TertiaryButton>
-            <PositionedKeyVariantCircleIcon/>
-        </UpgradeButton>
-    );
-    if (metricsAvailable) {
-        addMetricButton = (
-            <ConditionalTooltip
-                show={metrics.length >= 4}
-                id={'max-metrics-tooltip'}
-                content={'You may only add up to 4 key metrics'}
-                disableChildrenOnShow={true}
+    const addMetricButton = (
+        <ConditionalTooltip
+            show={metrics.length >= 4}
+            id={'max-metrics-tooltip'}
+            content={'You may only add up to 4 key metrics'}
+            disableChildrenOnShow={true}
+        >
+            <DotMenu
+                dotMenuButton={TertiaryButton}
+                icon={
+                    <>
+                        <i className='icon-plus'/>
+                        {formatMessage({defaultMessage: 'Add Metric'})}
+                    </>
+                }
+                disabled={disabled || metrics.length >= 4}
+                placement='bottom-start'
             >
-                <DotMenu
-                    dotMenuButton={TertiaryButton}
-                    icon={
-                        <>
-                            <i className='icon-plus'/>
-                            {formatMessage({defaultMessage: 'Add Metric'})}
-                        </>
-                    }
-                    disabled={disabled || metrics.length >= 4}
-                    placement='bottom-start'
-                >
-                    <DropdownMenuItem onClick={() => requestAddMetric(MetricType.MetricDuration)}>
-                        <MetricTypeOption
-                            icon={<ClockOutline sizePx={18}/>}
-                            title={formatMessage({defaultMessage: 'Duration (in dd:hh:mm)'})}
-                            description={formatMessage({defaultMessage: 'e.g., Time to acknowledge, Time to resolve'})}
-                        />
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => requestAddMetric(MetricType.MetricCurrency)}>
-                        <MetricTypeOption
-                            icon={<DollarSign sizePx={18}/>}
-                            title={formatMessage({defaultMessage: 'Cost'})}
-                            description={formatMessage({defaultMessage: 'e.g., Sales impact, Purchases'})}
-                        />
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => requestAddMetric(MetricType.MetricInteger)}>
-                        <MetricTypeOption
-                            icon={<PoundSign sizePx={18}/>}
-                            title={formatMessage({defaultMessage: 'Integer'})}
-                            description={formatMessage({defaultMessage: 'e.g., Resource count, Customers affected'})}
-                        />
-                    </DropdownMenuItem>
-                </DotMenu>
-            </ConditionalTooltip>
-        );
-    }
+                <DropdownMenuItem onClick={() => requestAddMetric(MetricType.MetricDuration)}>
+                    <MetricTypeOption
+                        icon={<ClockOutline sizePx={18}/>}
+                        title={formatMessage({defaultMessage: 'Duration (in dd:hh:mm)'})}
+                        description={formatMessage({defaultMessage: 'e.g., Time to acknowledge, Time to resolve'})}
+                    />
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => requestAddMetric(MetricType.MetricCurrency)}>
+                    <MetricTypeOption
+                        icon={<DollarSign sizePx={18}/>}
+                        title={formatMessage({defaultMessage: 'Cost'})}
+                        description={formatMessage({defaultMessage: 'e.g., Sales impact, Purchases'})}
+                    />
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => requestAddMetric(MetricType.MetricInteger)}>
+                    <MetricTypeOption
+                        icon={<PoundSign sizePx={18}/>}
+                        title={formatMessage({defaultMessage: 'Integer'})}
+                        description={formatMessage({defaultMessage: 'e.g., Resource count, Customers affected'})}
+                    />
+                </DropdownMenuItem>
+            </DotMenu>
+        </ConditionalTooltip>
+    );
 
     return (
         <div>
@@ -275,11 +256,6 @@ const Metrics = ({
                 onConfirm={confirmedDelete}
                 onCancel={() => setDeletingIdx(-1)}
                 components={{FooterContainer: ConfirmModalFooter}}
-            />
-            <UpgradeModal
-                messageType={AdminNotificationType.PLAYBOOK_METRICS}
-                show={showUpgradeModal}
-                onHide={() => setShowUpgradeModal(false)}
             />
         </div>
     );
@@ -345,17 +321,6 @@ const ConfirmModalFooter = styled(DefaultFooterContainer)`
         background: rgba(var(--error-text-color-rgb), 0.08);
         color: var(--error-text);
     }
-`;
-
-const UpgradeButton = styled.div`
-    position: relative;
-`;
-
-const PositionedKeyVariantCircleIcon = styled(KeyVariantCircleIcon)`
-    position: absolute;
-    top: -4px;
-    margin-left: -12px;
-    color: var(--online-indicator);
 `;
 
 export default Metrics;

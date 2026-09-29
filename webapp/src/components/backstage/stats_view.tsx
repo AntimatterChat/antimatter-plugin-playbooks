@@ -13,13 +13,10 @@ import ClipboardsPlay from 'src/components/assets/icons/clipboards_play';
 import Profiles from 'src/components/assets/icons/profiles';
 import ClipboardsCheckmark from 'src/components/assets/icons/clipboards_checkmark';
 import {PlaybookStats} from 'src/types/stats';
-import {useAllowPlaybookStatsView} from 'src/hooks';
 
 import Pill from 'src/components/widgets/pill';
 import {Timestamp} from 'src/webapp_globals';
 import {DateTimeFormats} from 'src/constants';
-
-import UpgradePlaybookPlaceholder from './upgrade_playbook_placeholder';
 
 import BarGraph from './bar_graph';
 
@@ -34,16 +31,6 @@ interface Props {
 
 const StatsView = (props: Props) => {
     const {formatMessage} = useIntl();
-    const allowStatsView = useAllowPlaybookStatsView();
-
-    if (!allowStatsView) {
-        return (
-            <PlaceholderRow>
-                <UpgradePlaybookPlaceholder/>
-            </PlaceholderRow>
-        );
-    }
-
     const filterStarted = (index: number) => {
         if (index < 0) {
             clearFilter();
@@ -197,11 +184,6 @@ const percentageChange = (change: number) => {
         </PercentageChange>
     );
 };
-
-const PlaceholderRow = styled.div`
-    height: 260px;
-    margin: 32px 0;
-`;
 
 const BottomRow = styled.div`
     display: flex;

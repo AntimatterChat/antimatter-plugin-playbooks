@@ -3,7 +3,7 @@
 
 import {getTeam} from 'mattermost-redux/selectors/entities/teams';
 import {getProfilesInTeam, searchProfiles} from 'mattermost-redux/actions/users';
-import React, {ComponentProps, useState} from 'react';
+import React, {ComponentProps} from 'react';
 import {useIntl} from 'react-intl';
 
 import styled from 'styled-components';
@@ -11,14 +11,13 @@ import styled from 'styled-components';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import GenericModal from 'src/components/widgets/generic_modal';
-import {AdminNotificationType, PROFILE_CHUNK_SIZE} from 'src/constants';
-import {useAllowMakePlaybookPrivate, useEditPlaybook, useHasPlaybookPermission} from 'src/hooks';
+import {PROFILE_CHUNK_SIZE} from 'src/constants';
+import {useEditPlaybook, useHasPlaybookPermission} from 'src/hooks';
 import {Playbook, PlaybookMember, PlaybookWithChecklist} from 'src/types/playbook';
 
 import {PlaybookPermissionGeneral, PlaybookRole} from 'src/types/permissions';
 
 import SelectUsersBelow from './select_users_below';
-import UpgradeModal from './upgrade_modal';
 import useConfirmPlaybookConvertPrivateModal from './convert_private_playbook_modal';
 
 const ID = 'playbooks_access';
@@ -76,9 +75,7 @@ const PlaybookAccessModal = ({
     const [playbook, updatePlaybook] = useEditPlaybook(playbookId, refetch);
     const team = useAppSelector((state) => getTeam(state, playbook?.team_id || ''));
     const permissionToMakePrivate = useHasPlaybookPermission(PlaybookPermissionGeneral.Convert, playbook);
-    const licenseToMakePrivate = useAllowMakePlaybookPrivate();
 
-    const [showUpgradeModal, setShowUpgradeModal] = useState(false);
     const [confirmConvertPrivateModal, setShowMakePrivateConfirm] = useConfirmPlaybookConvertPrivateModal({playbookId, refetch, updater: updatePlaybook});
 
     const onChange = (update: Partial<PlaybookWithChecklist>) => {
@@ -159,7 +156,7 @@ const PlaybookAccessModal = ({
                     <HorizontalBlock>
                         <i className={'icon ' + (playbook.public ? 'icon-globe' : 'icon-lock-outline')}/>
                         <SubTitle>{getSubtitle(playbook)}</SubTitle>
-                        {(playbook.public && permissionToMakePrivate && licenseToMakePrivate) &&
+                        {(playbook.public && permissionToMakePrivate) &&
                         <>
                             <PrivateLink
                                 onClick={() => setShowMakePrivateConfirm(true)}
@@ -184,11 +181,6 @@ const PlaybookAccessModal = ({
                 }
             </SizedGenericModal>
             {confirmConvertPrivateModal}
-            <UpgradeModal
-                messageType={AdminNotificationType.PLAYBOOK_GRANULAR_ACCESS}
-                show={showUpgradeModal}
-                onHide={() => setShowUpgradeModal(false)}
-            />
         </>
     );
 };

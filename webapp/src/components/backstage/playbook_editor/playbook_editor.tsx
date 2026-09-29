@@ -29,7 +29,6 @@ import {isCurrentUserAdmin} from 'src/selectors';
 
 import {pluginErrorUrl} from 'src/browser_routing';
 import {useForceDocumentTitle, useStats} from 'src/hooks';
-import {useAllowPlaybookAttributes} from 'src/hooks/license';
 import {usePlaybook as useRestPlaybook} from 'src/hooks/crud';
 import {PlaybookRole} from 'src/types/permissions';
 import {ErrorPageTypes} from 'src/constants';
@@ -60,7 +59,6 @@ const PlaybookEditor = () => {
     const updatePlaybookFavorite = useUpdatePlaybookFavorite(playbook?.id);
     const stats = useStats(playbookId);
     const currentUserId = useAppSelector(getCurrentUserId);
-    const allowPlaybookAttributes = useAllowPlaybookAttributes();
     const isSystemAdmin = useAppSelector(isCurrentUserAdmin);
 
     useForceDocumentTitle(playbook?.title ? (playbook.title + ' - Playbooks') : 'Playbooks');
@@ -256,13 +254,11 @@ const PlaybookEditor = () => {
                 >
                     {formatMessage({defaultMessage: 'Usage'})}
                 </NavItem>
-                {allowPlaybookAttributes && (
-                    <NavItem
-                        to={generatePath(path, {playbookId, tab: 'attributes'})}
-                    >
-                        {formatMessage({defaultMessage: 'Attributes'})}
-                    </NavItem>
-                )}
+                <NavItem
+                    to={generatePath(path, {playbookId, tab: 'attributes'})}
+                >
+                    {formatMessage({defaultMessage: 'Attributes'})}
+                </NavItem>
                 <NavItem
                     to={generatePath(path, {playbookId, tab: 'outline'})}
                 >
@@ -284,17 +280,15 @@ const PlaybookEditor = () => {
                         stats={stats}
                     />
                 </Route>
-                {allowPlaybookAttributes && (
-                    <Route
-                        path={generatePath(path, {playbookId, tab: 'attributes'})}
-                        exact={true}
-                    >
-                        <PlaybookProperties
-                            playbookID={playbook.id}
-                            canEdit={canEdit}
-                        />
-                    </Route>
-                )}
+                <Route
+                    path={generatePath(path, {playbookId, tab: 'attributes'})}
+                    exact={true}
+                >
+                    <PlaybookProperties
+                        playbookID={playbook.id}
+                        canEdit={canEdit}
+                    />
+                </Route>
                 <Route
                     path={generatePath(path, {playbookId, tab: 'outline'})}
                     exact={true}

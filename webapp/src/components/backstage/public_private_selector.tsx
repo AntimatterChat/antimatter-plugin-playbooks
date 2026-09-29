@@ -6,12 +6,6 @@ import {useIntl} from 'react-intl';
 
 import styled from 'styled-components';
 
-import {KeyVariantCircleIcon} from '@mattermost/compass-icons/components';
-
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
-import {useAllowPrivatePlaybooks} from 'src/hooks';
-
 type Props = {
     public: boolean
     setPlaybookPublic: (pub: boolean) => void
@@ -87,12 +81,6 @@ const SmallText = styled.div`
 	line-height: 16px;
 `;
 
-const PositionedKeyVariantCircleIcon = styled(KeyVariantCircleIcon)`
-    margin-left: 8px;
-    color: var(--online-indicator);
-    vertical-align: sub;
-`;
-
 const PublicPrivateSelector = (props: Props) => {
     const {formatMessage} = useIntl();
 
@@ -140,12 +128,11 @@ const PublicPrivateSelector = (props: Props) => {
 
 const PrivateButton = (props: {public: boolean, publicButtonDisabled: boolean, privateButtonDisabled: boolean, onClick: (e: any) => void}) => {
     const {formatMessage} = useIntl();
-    const privatePlaybooksAllowed = useAllowPrivatePlaybooks();
 
-    const button = (
+    return (
         <BigButton
             onClick={props.onClick}
-            disabled={!privatePlaybooksAllowed || props.privateButtonDisabled}
+            disabled={props.privateButtonDisabled}
             title={props.publicButtonDisabled ? formatMessage({defaultMessage: 'You do not have permissions'}) : formatMessage({defaultMessage: 'Private'})}
         >
             <GiantIcon
@@ -155,9 +142,6 @@ const PrivateButton = (props: {public: boolean, publicButtonDisabled: boolean, p
             <StackedText>
                 <BigText>
                     {formatMessage({defaultMessage: 'Private playbook'})}
-                    {!privatePlaybooksAllowed &&
-                    <PositionedKeyVariantCircleIcon/>
-                    }
                 </BigText>
                 <SmallText>{formatMessage({defaultMessage: 'Only invited members'})}</SmallText>
             </StackedText>
@@ -167,19 +151,6 @@ const PrivateButton = (props: {public: boolean, publicButtonDisabled: boolean, p
             />
             }
         </BigButton>
-    );
-
-    if (privatePlaybooksAllowed) {
-        return button;
-    }
-
-    return (
-        <WithTooltip
-            id={'private-playbooks-upgrade-badge'}
-            title={formatMessage({defaultMessage: 'Private playbooks are only available in Mattermost Enterprise'})}
-        >
-            {button}
-        </WithTooltip>
     );
 };
 

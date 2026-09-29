@@ -11,10 +11,7 @@ const renderWithIntl = (element: React.ReactElement) => renderer.create(
     <IntlProvider locale='en'>{element}</IntlProvider>,
 );
 
-const mockUseAllowRetrospectiveAccess = jest.fn().mockReturnValue(true);
-
 jest.mock('src/hooks', () => ({
-    useAllowRetrospectiveAccess: (...args: any[]) => mockUseAllowRetrospectiveAccess(...args),
     usePlaybookAttributes: () => [],
 }));
 
@@ -51,25 +48,7 @@ const makePlaybook = (overrides: Record<string, unknown> = {}): any => ({
     ...overrides,
 });
 
-beforeEach(() => {
-    mockUseAllowRetrospectiveAccess.mockReturnValue(true);
-});
-
 describe('SectionRetrospective', () => {
-    it('renders null when retrospective access is denied', () => {
-        mockUseAllowRetrospectiveAccess.mockReturnValue(false);
-        const playbook = makePlaybook();
-
-        const tree = renderWithIntl(
-            <SectionRetrospective
-                playbook={playbook}
-                refetch={jest.fn()}
-            />,
-        ).toJSON();
-
-        expect(tree).toBeNull();
-    });
-
     it('renders the placeholder and no input controls when retrospective_enabled is false', () => {
         const playbook = makePlaybook({retrospective_enabled: false});
 

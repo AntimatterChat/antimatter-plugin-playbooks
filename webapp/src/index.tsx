@@ -17,11 +17,11 @@ import {getCurrentChannel} from 'mattermost-redux/selectors/entities/channels';
 import {Store} from 'src/types/store';
 
 import appIcon from 'src/components/assets/app-bar-icon.png';
-import {isConfiguredForDevelopment} from 'src/license';
 import {GlobalSelectStyle} from 'src/components/backstage/styles';
 import GlobalHeaderRight from 'src/components/global_header_right';
 import LoginHook from 'src/components/login_hook';
 import BetaFeaturesSetting from 'src/components/backstage/beta_features_setting';
+import {isConfiguredForDevelopment} from 'src/selectors';
 import {makeRHSOpener} from 'src/rhs_opener';
 import {makeWelcomeMessagePoster} from 'src/welcome_message_poster';
 import {makeSlashCommandHook} from 'src/slash_command';
@@ -31,7 +31,6 @@ import {ChannelHeaderButton, ChannelHeaderText, ChannelHeaderTooltip} from 'src/
 import RightHandSidebar from 'src/components/rhs/rhs_main';
 import {makeAttachToPlaybookRunAction, makeStartPlaybookRunAction} from 'src/components/post_menu';
 import Backstage from 'src/components/backstage/backstage';
-import PostMenuModal from 'src/components/post_menu_modal';
 import ChannelActionsModal from 'src/components/channel_actions_modal';
 import {
     actionSetGlobalSettings,
@@ -77,7 +76,6 @@ import {
     notifyConnect,
     setSiteUrl,
 } from 'src/client';
-import {CloudUpgradePost} from 'src/components/cloud_upgrade_post';
 import {UpdatePost} from 'src/components/update_post';
 import UpdateRequestPost from 'src/components/update_request_post';
 
@@ -215,7 +213,6 @@ export default class Plugin {
         registry.registerChannelHeaderMenuAction('Channel Actions', () => store.dispatch(showChannelActionsModal()), shouldRender);
         registry.registerPostDropdownMenuAction(makeStartPlaybookRunAction(store));
         registry.registerPostDropdownMenuAction(makeAttachToPlaybookRunAction(store));
-        registry.registerRootComponent(PostMenuModal);
         registry.registerRootComponent(ChannelActionsModal);
         registry.registerRootComponent(LoginHook);
 
@@ -278,7 +275,6 @@ export default class Plugin {
         // Custom post types
         registry.registerPostTypeComponent('custom_retro_rem_first', RetrospectiveFirstReminder);
         registry.registerPostTypeComponent('custom_retro_rem', RetrospectiveReminder);
-        registry.registerPostTypeComponent('custom_cloud_upgrade', CloudUpgradePost);
         registry.registerPostTypeComponent('custom_run_update', UpdatePost);
         registry.registerPostTypeComponent('custom_update_status', UpdateRequestPost);
         registry.registerPostTypeComponent('custom_retro', RetrospectivePost);

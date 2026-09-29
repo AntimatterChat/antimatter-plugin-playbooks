@@ -39,7 +39,6 @@ jest.mock('react-redux', () => ({
 }));
 
 jest.mock('src/hooks', () => ({
-    useAllowChannelExport: jest.fn(() => true),
     useExportLogAvailable: jest.fn(() => false),
     usePlaybooksRouting: jest.fn(() => ({})),
 }));

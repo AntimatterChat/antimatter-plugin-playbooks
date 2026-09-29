@@ -25,8 +25,6 @@ import {SemiBoldHeading} from 'src/styles/headings';
 import {useManageRunMembership} from 'src/graphql/hooks';
 import {useToaster} from 'src/components/backstage/toast_banner';
 import {ToastStyle} from 'src/components/backstage/toast';
-import UpgradeModal from 'src/components/backstage/upgrade_modal';
-import {AdminNotificationType} from 'src/constants';
 import {Role, Separator} from 'src/components/backstage/playbook_runs/shared';
 import ConfirmModal from 'src/components/widgets/confirmation_modal';
 import {PlaybookRunType} from 'src/graphql/generated/graphql';
@@ -71,7 +69,6 @@ export const ContextMenu = ({playbookRun, hasPermanentViewerAccess, role, isFavo
     const dispatch = useAppDispatch();
     const currentUserId = useAppSelector(getCurrentUserId);
     const {leaveRunConfirmModal, showLeaveRunConfirm} = useLeaveRun(hasPermanentViewerAccess, playbookRun.id, playbookRun.owner_user_id, isFollowing);
-    const [showExportModal, setShowExportModal] = useState(false);
     const showRunActionsFromRedux = useAppSelector(isRunActionsModalVisible);
     const [showRunActionsFromMenu, setShowRunActionsFromMenu] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -159,7 +156,6 @@ export const ContextMenu = ({playbookRun, hasPermanentViewerAccess, role, isFavo
                     />
                     <ExportChannelLogsMenuItem
                         channelId={playbookRun.channel_id}
-                        setShowModal={setShowExportModal}
                     />
                     <SaveAsPlaybookMenuItem
                         playbookRun={playbookRun}
@@ -194,11 +190,6 @@ export const ContextMenu = ({playbookRun, hasPermanentViewerAccess, role, isFavo
                     />
                 </DropdownMenu>
             </Dropdown>
-            <UpgradeModal
-                messageType={AdminNotificationType.EXPORT_CHANNEL}
-                show={showExportModal}
-                onHide={() => setShowExportModal(false)}
-            />
             <RunActionsModal
                 playbookRun={playbookRun}
                 readOnly={!canModify}

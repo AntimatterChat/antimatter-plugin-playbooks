@@ -31,12 +31,7 @@ import {createGlobalState} from 'react-use';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import {navigateToPluginUrl, pluginUrl} from 'src/browser_routing';
-import {
-    PlaybookPermissionsMember,
-    useAllowMakePlaybookPrivate,
-    useHasPlaybookPermission,
-    useHasTeamPermission,
-} from 'src/hooks';
+import {PlaybookPermissionsMember, useHasPlaybookPermission, useHasTeamPermission} from 'src/hooks';
 import {useToaster} from 'src/components/backstage/toast_banner';
 import {
     archivePlaybook,
@@ -378,8 +373,7 @@ const TitleMenuImpl = ({playbook, children, className, editTitle, refetch, canEd
 
     const permissionForDuplicate = useHasTeamPermission(playbook.team_id, 'playbook_public_create');
     const permissionToMakePrivate = useHasPlaybookPermission(PlaybookPermissionGeneral.Convert, playbook);
-    const licenseToMakePrivate = useAllowMakePlaybookPrivate();
-    const isEligibleToMakePrivate = currentUserMember && playbook.public && permissionToMakePrivate && licenseToMakePrivate;
+    const isEligibleToMakePrivate = currentUserMember && playbook.public && permissionToMakePrivate;
 
     const {leave} = usePlaybookMembership(playbook.id, currentUserId);
 

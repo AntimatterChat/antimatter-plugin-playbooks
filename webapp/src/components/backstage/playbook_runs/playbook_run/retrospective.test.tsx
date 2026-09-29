@@ -37,11 +37,6 @@ jest.mock('react-intl', () => {
     };
 });
 
-jest.mock('src/hooks', () => ({
-    useAllowRetrospectiveAccess: () => true,
-    useAllowPlaybookAndRunMetrics: () => false,
-}));
-
 jest.mock('src/client', () => ({
     publishRetrospective: (...args: any[]) => mockPublishRetrospective(...args),
     fetchPlaybookRun: (...args: any[]) => mockFetchPlaybookRun(...args),
@@ -68,11 +63,6 @@ jest.mock('src/components/backstage/playbook_runs/playbook_run/retrospective/rep
 jest.mock('src/components/backstage/playbook_runs/playbook_run/metrics/metrics_data', () => ({
     __esModule: true,
     default: jest.fn().mockReturnValue(null),
-}));
-
-jest.mock('src/components/upgrade_banner', () => ({
-    __esModule: true,
-    default: () => <div data-testid='upgrade-banner'/>,
 }));
 
 jest.mock('src/webapp_globals', () => ({

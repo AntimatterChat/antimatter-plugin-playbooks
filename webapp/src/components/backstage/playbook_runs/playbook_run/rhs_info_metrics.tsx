@@ -13,7 +13,6 @@ import {Section, SectionHeader} from 'src/components/backstage/playbook_runs/pla
 import {RunMetricData} from 'src/types/playbook_run';
 import {Metric, MetricType} from 'src/types/playbook';
 import {formatDuration} from 'src/components/formatted_duration';
-import {useAllowPlaybookAndRunMetrics} from 'src/hooks';
 
 interface Props {
     runID: string;
@@ -24,14 +23,13 @@ interface Props {
 
 const RHSInfoMetrics = ({runID, metricsData, metricsConfig, editable}: Props) => {
     const {formatMessage} = useIntl();
-    const metricsAvailable = useAllowPlaybookAndRunMetrics();
 
     const metricDataByID = {} as Record<string, RunMetricData>;
     metricsData.forEach((mc) => {
         metricDataByID[mc.metric_config_id] = mc;
     });
 
-    if (!metricsAvailable || !metricsConfig || metricsConfig.length === 0) {
+    if (!metricsConfig || metricsConfig.length === 0) {
         return null;
     }
 

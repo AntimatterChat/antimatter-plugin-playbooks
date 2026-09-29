@@ -25,10 +25,6 @@ import {
 import {ChecklistHoverMenuButton} from 'src/components/rhs/rhs_shared';
 
 import {Timestamp} from 'src/webapp_globals';
-import {useAllowSetTaskDueDate} from 'src/hooks';
-import UpgradeModal from 'src/components/backstage/upgrade_modal';
-
-import {AdminNotificationType} from 'src/constants';
 
 interface Props {
     date?: number;
@@ -75,9 +71,6 @@ export const DueDateHoverMenuButton = ({
     mode,
     ...props
 }: Props) => {
-    const tooltipId = useId();
-    const {formatMessage} = useIntl();
-    const dueDateEditAvailable = useAllowSetTaskDueDate();
     const makeOption = useMakeOption(Mode.DurationValue);
 
     let suggestedOptions = [];
@@ -90,37 +83,16 @@ export const DueDateHoverMenuButton = ({
         }
     }
 
-    const licenseControl = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (!dueDateEditAvailable) {
-            e.stopPropagation();
-        }
-    };
     const [dateTimeSelectorToggle, setDateTimeSelectorToggle] = useState(false);
     const resetDueDate = () => {
         props.onSelectedChange();
         setDateTimeSelectorToggle(!dateTimeSelectorToggle);
     };
 
-    const hoverMenuButton = (
+    const placeholder = (
         <ChecklistHoverMenuButton
-            $disabled={!dueDateEditAvailable}
             className={'icon-calendar-outline icon-12 btn-icon'}
-            onClick={licenseControl}
         />
-    );
-
-    const toolTip = formatMessage({defaultMessage: 'Due date (Available in the Professional plan)'});
-
-    // if feature is not available display license info on hover
-    const placeholder = dueDateEditAvailable ? (
-        hoverMenuButton
-    ) : (
-        <WithTooltip
-            id={`due-date-hover-menu-tooltip-${tooltipId}`}
-            title={toolTip}
-        >
-            {hoverMenuButton}
-        </WithTooltip>
     );
 
     return (
@@ -151,8 +123,6 @@ export const DueDateButton = ({
 }: Props) => {
     const tooltipId = useId();
     const {formatMessage} = useIntl();
-    const dueDateEditAvailable = useAllowSetTaskDueDate();
-    const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
     const makeOption = useMakeOption(Mode.DurationValue);
 
@@ -171,12 +141,6 @@ export const DueDateButton = ({
     const handleButtonClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         if (!props.editable) {
             e.stopPropagation();
-            return;
-        }
-
-        if (!dueDateEditAvailable) {
-            e.stopPropagation();
-            setShowUpgradeModal(true);
         }
     };
 
@@ -185,14 +149,6 @@ export const DueDateButton = ({
         props.onSelectedChange();
         setDateTimeSelectorToggle(!dateTimeSelectorToggle);
     };
-
-    const upgradeModal = (
-        <UpgradeModal
-            messageType={AdminNotificationType.CHECKLIST_ITEM_DUE_DATE}
-            show={showUpgradeModal}
-            onHide={() => setShowUpgradeModal(false)}
-        />
-    );
 
     const dueSoon = !ignoreOverdue && mode === Mode.DateTimeValue && isDueSoon(date);
     const overdue = !ignoreOverdue && mode === Mode.DateTimeValue && isOverdue(date);
@@ -260,24 +216,21 @@ export const DueDateButton = ({
     }
 
     return (
-        <>
-            <DateTimeSelector
-                placeholder={dueDateButton}
-                date={date}
-                mode={mode}
-                onlyPlaceholder={true}
-                suggestedOptions={suggestedOptions}
-                onSelectedChange={props.onSelectedChange}
-                customControl={controlComponentDueDate(mode === Mode.DateTimeValue)}
-                customControlProps={{
-                    showCustomReset: Boolean(date),
-                    onCustomReset: resetDueDate,
-                }}
-                controlledOpenToggle={dateTimeSelectorToggle}
-                placement={props.placement}
-            />
-            {upgradeModal}
-        </>
+        <DateTimeSelector
+            placeholder={dueDateButton}
+            date={date}
+            mode={mode}
+            onlyPlaceholder={true}
+            suggestedOptions={suggestedOptions}
+            onSelectedChange={props.onSelectedChange}
+            customControl={controlComponentDueDate(mode === Mode.DateTimeValue)}
+            customControlProps={{
+                showCustomReset: Boolean(date),
+                onCustomReset: resetDueDate,
+            }}
+            controlledOpenToggle={dateTimeSelectorToggle}
+            placement={props.placement}
+        />
     );
 };
 

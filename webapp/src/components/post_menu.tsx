@@ -4,8 +4,6 @@
 import React from 'react';
 import {Store} from 'redux';
 
-import styled from 'styled-components';
-
 import {GlobalState} from '@mattermost/types/store';
 import {isSystemMessage} from 'mattermost-redux/utils/post_utils';
 import {getPost} from 'mattermost-redux/selectors/entities/posts';
@@ -13,14 +11,9 @@ import {getChannel} from 'mattermost-redux/selectors/entities/channels';
 
 import {FormattedMessage} from 'react-intl';
 
-import {KeyVariantCircleIcon} from '@mattermost/compass-icons/components';
-
 import PlaybookRunPostMenuIcon from 'src/components/assets/icons/post_menu_icon';
 
-import {addToTimeline, showPostMenuModal, startPlaybookRun} from 'src/actions';
-
-import {useAllowAddMessageToTimelineInCurrentTeam} from 'src/hooks';
-import {isProfessionalLicensedOrDevelopment} from 'src/license';
+import {addToTimeline, startPlaybookRun} from 'src/actions';
 
 function shouldShowPostMenuForPost(store: Store, postId: string) {
     const state = store.getState() as GlobalState;
@@ -37,19 +30,11 @@ export const StartPlaybookRunPostMenuText = () => {
     );
 };
 
-const PositionedKeyVariantCircleIcon = styled(KeyVariantCircleIcon)`
-    margin-bottom: -3px;
-    margin-left: 16px;
-    color: var(--online-indicator);
-`;
-
 export const AttachToPlaybookRunPostMenuText = () => {
-    const allowMessage = useAllowAddMessageToTimelineInCurrentTeam();
     return (
         <>
             <PlaybookRunPostMenuIcon/>
             <FormattedMessage defaultMessage='Add to run timeline'/>
-            {!allowMessage && <PositionedKeyVariantCircleIcon/>}
         </>
     );
 };
@@ -79,12 +64,7 @@ export function makeAttachToPlaybookRunAction(store: Store) {
     return {
         text: AttachToPlaybookRunPostMenuText,
         action: (postId: string) => {
-            const state = store.getState() as GlobalState;
-            if (isProfessionalLicensedOrDevelopment(state)) {
-                store.dispatch(addToTimeline(postId) as any);
-            } else {
-                store.dispatch(showPostMenuModal() as any);
-            }
+            store.dispatch(addToTimeline(postId) as any);
         },
         filter: (postId: string) => {
             return shouldShowPostMenuForPost(store, postId);

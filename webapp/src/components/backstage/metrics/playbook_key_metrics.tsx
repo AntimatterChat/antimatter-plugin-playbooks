@@ -5,7 +5,7 @@ import React, {HTMLAttributes, useEffect} from 'react';
 import styled from 'styled-components';
 
 import {PlaybookStats} from 'src/types/stats';
-import {useAllowPlaybookAndRunMetrics, useRunsList} from 'src/hooks';
+import {useRunsList} from 'src/hooks';
 
 import {BACKSTAGE_LIST_PER_PAGE} from 'src/constants';
 import {PlaybookRunStatus} from 'src/types/playbook_run';
@@ -15,7 +15,6 @@ import {Metric} from 'src/types/playbook';
 import NoMetricsPlaceholder from './no_metrics_placeholder';
 import MetricsRunList from './metrics_run_list';
 import MetricsStatsView from './metrics_stats_view';
-import UpgradeKeyMetricsPlaceholder from './upgrade_key_metrics_placeholder';
 
 const defaultPlaybookFetchParams = {
     page: 0,
@@ -41,7 +40,6 @@ const PlaybookKeyMetrics = ({
     canEdit = true,
     ...attrs
 }: Props & Attrs) => {
-    const allowStatsView = useAllowPlaybookAndRunMetrics();
     const [playbookRuns, totalCount, fetchParams, setFetchParams] = useRunsList(defaultPlaybookFetchParams);
 
     useEffect(() => {
@@ -52,13 +50,7 @@ const PlaybookKeyMetrics = ({
 
     let content;
 
-    if (!allowStatsView) {
-        content = (
-            <PlaceholderRow>
-                <UpgradeKeyMetricsPlaceholder/>
-            </PlaceholderRow>
-        );
-    } else if (playbookMetrics.length === 0) {
+    if (playbookMetrics.length === 0) {
         content = <NoMetricsPlaceholder canEdit={canEdit}/>;
     } else {
         content = (
@@ -88,11 +80,6 @@ const PlaybookKeyMetrics = ({
         </OuterContainer>
     );
 };
-
-const PlaceholderRow = styled.div`
-    height: 260px;
-    margin: 32px 0;
-`;
 
 const OuterContainer = styled.div`
     height: 100%;

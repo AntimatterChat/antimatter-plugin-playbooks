@@ -20,7 +20,6 @@ import {FullPlaybook, Loaded, useUpdatePlaybook} from 'src/graphql/hooks';
 import {clientFetchPlaybook, savePlaybook} from 'src/client';
 import {useToaster} from 'src/components/backstage/toast_banner';
 import {ToastStyle} from 'src/components/backstage/toast';
-import {useAllowRetrospectiveAccess} from 'src/hooks';
 import {PlaybookWithChecklist} from 'src/types/playbook';
 import OwnerGroupOnlyActionsToggle from 'src/components/backstage/playbook_editor/owner_group_only_actions_toggle';
 
@@ -45,7 +44,6 @@ type StyledAttrs = {className?: string};
 const Outline = ({playbook, refetch, canEdit = true, adminOnlyEdit, showAdminSettings = false, restPlaybook}: Props) => {
     const {formatMessage} = useIntl();
     const updatePlaybook = useUpdatePlaybook(playbook.id);
-    const retrospectiveAccess = useAllowRetrospectiveAccess();
     const toaster = useToaster();
     const [adminOnlyEditOverride, setAdminOnlyEditOverride] = useState<boolean | undefined>(undefined);
     const effectiveAdminOnlyEdit = adminOnlyEditOverride ?? adminOnlyEdit ?? false;
@@ -141,7 +139,7 @@ const Outline = ({playbook, refetch, canEdit = true, adminOnlyEdit, showAdminSet
     };
 
     const toggleRetrospective = () => {
-        if (archived || !canEdit || !retrospectiveAccess) {
+        if (archived || !canEdit) {
             return;
         }
         updatePlaybook({
@@ -271,12 +269,12 @@ const Outline = ({playbook, refetch, canEdit = true, adminOnlyEdit, showAdminSet
             <Section
                 id={'retrospective'}
                 title={formatMessage({defaultMessage: 'Retrospective'})}
-                hasSubtitle={retrospectiveAccess && !playbook.retrospective_enabled}
+                hasSubtitle={!playbook.retrospective_enabled}
                 hoverEffect={true}
                 headerRight={(
                     <HoverMenuContainer data-testid='retrospective-toggle'>
                         <Toggle
-                            disabled={archived || !canEdit || !retrospectiveAccess}
+                            disabled={archived || !canEdit}
                             isChecked={playbook.retrospective_enabled}
                             onChange={toggleRetrospective}
                         />

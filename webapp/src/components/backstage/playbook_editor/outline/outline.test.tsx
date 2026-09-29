@@ -39,7 +39,7 @@ let capturedOnAutoArchiveChange: ((u: {auto_archive_channel: boolean}) => void) 
 
 jest.mock('src/client', () => ({savePlaybook: jest.fn(), clientFetchPlaybook: jest.fn(), getSiteUrl: () => ''}));
 jest.mock('src/graphql/hooks', () => ({useUpdatePlaybook: jest.fn(() => jest.fn())}));
-jest.mock('src/hooks', () => ({useAllowRetrospectiveAccess: jest.fn(() => false)}));
+jest.mock('src/hooks', () => ({}));
 jest.mock('src/components/backstage/toast_banner', () => ({useToaster: () => ({add: jest.fn()})}));
 jest.mock('react-intl', () => {
     const reactIntl = jest.requireActual('react-intl');

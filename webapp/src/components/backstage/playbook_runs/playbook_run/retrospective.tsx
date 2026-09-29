@@ -11,9 +11,6 @@ import {PlaybookWithChecklist} from 'src/types/playbook';
 import {fetchPlaybookRun, publishRetrospective, updateRetrospective} from 'src/client';
 import {playbookRunUpdated} from 'src/actions';
 import {useAppDispatch} from 'src/hooks/redux';
-import {useAllowPlaybookAndRunMetrics, useAllowRetrospectiveAccess} from 'src/hooks';
-import UpgradeBanner from 'src/components/upgrade_banner';
-import {AdminNotificationType} from 'src/constants';
 import {Timestamp} from 'src/webapp_globals';
 import {AnchorLinkTitle, Content, Role} from 'src/components/backstage/playbook_runs/shared';
 import MetricsData from 'src/components/backstage/playbook_runs/playbook_run/metrics/metrics_data';
@@ -40,11 +37,9 @@ const Retrospective = ({
     focusMetricId,
 }: Props) => {
     const dispatch = useAppDispatch();
-    const allowRetrospectiveAccess = useAllowRetrospectiveAccess();
     const {formatMessage} = useIntl();
     const [showConfirmation, setShowConfirmation] = useState(false);
     const childRef = useRef<any>(null);
-    const metricsAvailable = useAllowPlaybookAndRunMetrics();
 
     const onMetricsChange = useMemo(
         () => debounce((metrics_data: RunMetricData[]) => {
@@ -61,30 +56,6 @@ const Retrospective = ({
 
     if (!playbookRun.retrospective_enabled) {
         return null;
-    }
-
-    if (!allowRetrospectiveAccess) {
-        return (
-            <Container
-                id={id}
-                data-testid={'run-retrospective-section'}
-            >
-                <AnchorLinkTitle
-                    title={formatMessage({defaultMessage: 'Retrospective'})}
-                    id={id}
-                />
-                <BannerWrapper>
-                    <UpgradeBanner
-                        background={<></>}
-                        titleText={formatMessage({defaultMessage: 'Publish retrospective report and access the timeline'})}
-                        helpText={formatMessage({defaultMessage: 'Celebrate success and learn from mistakes with retrospective reports. Filter timeline events for process review, stakeholder engagement, and auditing purposes.'})}
-                        notificationType={AdminNotificationType.RETROSPECTIVE}
-                        verticalAdjustment={0}
-                        vertical={true}
-                    />
-                </BannerWrapper>
-            </Container>
-        );
     }
 
     const onConfirmPublish = async () => {
@@ -153,7 +124,7 @@ const Retrospective = ({
                     ) : null}
                 </Header>
                 <StyledContent>
-                    {playbook?.metrics && metricsAvailable &&
+                    {playbook?.metrics &&
                         <MetricsData
                             idPrefix={id}
                             ref={childRef}
@@ -217,12 +188,4 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-`;
-
-const BannerWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 30px 0;
-    margin-top: 8px;
-    box-shadow: rgba(0 0 0 / 0.05) 0 0 0 1px;
 `;

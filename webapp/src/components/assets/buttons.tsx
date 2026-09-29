@@ -1,10 +1,8 @@
 // Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import React from 'react';
 import styled from 'styled-components';
 
-import {KeyVariantCircleIcon} from '@mattermost/compass-icons/components';
 import {Button} from '@mattermost/shared/components/button';
 
 export const PrimaryButton = styled(Button).attrs({emphasis: 'primary'})`
@@ -21,25 +19,6 @@ export const SecondaryButton = styled(Button).attrs({emphasis: 'secondary'})`
 
 export const DestructiveButton = styled(Button).attrs({emphasis: 'primary', variant: 'destructive'})`
     /* This allows this component to be styled by other components using styled-components */
-`;
-
-export type UpgradeButtonProps = React.ComponentProps<typeof TertiaryButton>;
-
-export const UpgradeTertiaryButton = (props: UpgradeButtonProps & {className?: string}) => {
-    const {children, ...rest} = props;
-    return (
-        <TertiaryButton {...rest}>
-            {children}
-            <PositionedKeyVariantCircleIcon/>
-        </TertiaryButton>
-    );
-};
-
-const PositionedKeyVariantCircleIcon = styled(KeyVariantCircleIcon)`
-    position: absolute;
-    top: -4px;
-    right: -6px;
-    color: var(--online-indicator);
 `;
 
 export const ButtonIcon = styled.button`

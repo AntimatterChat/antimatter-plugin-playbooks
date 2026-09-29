@@ -262,6 +262,14 @@ export const isTeamEdition = createSelector(
     (config) => config.BuildEnterpriseReady !== 'true',
 );
 
+// isConfiguredForDevelopment returns true when the server has `EnableDeveloper` and
+// `EnableTesting` configuration settings enabled, signaling a non-production, developer mode.
+export const isConfiguredForDevelopment = (state: GlobalState): boolean => {
+    const config = getConfig(state);
+
+    return config.EnableTesting === 'true' && config.EnableDeveloper === 'true';
+};
+
 const rhsAboutCollapsedState = (state: GlobalState): Record<string, boolean> => pluginState(state).rhsAboutCollapsedByRun;
 
 export const currentRHSAboutCollapsedState = (runId: string) => createSelector(

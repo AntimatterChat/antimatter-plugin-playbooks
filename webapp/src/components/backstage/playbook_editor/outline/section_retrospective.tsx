@@ -5,7 +5,7 @@ import React, {useState} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import styled from 'styled-components';
 
-import {useAllowRetrospectiveAccess, usePlaybookAttributes} from 'src/hooks';
+import {usePlaybookAttributes} from 'src/hooks';
 import {FullPlaybook, Loaded, useUpdatePlaybook} from 'src/graphql/hooks';
 import {Metric, PlaybookWithChecklist} from 'src/types/playbook';
 import {SidebarBlock} from 'src/components/backstage/playbook_edit/styles';
@@ -48,16 +48,11 @@ interface Props {
 
 const SectionRetrospective = ({playbook, refetch, canEdit = true}: Props) => {
     const {formatMessage} = useIntl();
-    const retrospectiveAccess = useAllowRetrospectiveAccess();
     const [curEditingMetric, setCurEditingMetric] = useState<EditingMetric | null>(null);
     const updatePlaybook = useUpdatePlaybook(playbook.id);
     const propertyFields = usePlaybookAttributes(playbook.id);
     const archived = playbook.delete_at !== 0;
     const inputsDisabled = !playbook.retrospective_enabled || archived || !canEdit;
-
-    if (!retrospectiveAccess) {
-        return null;
-    }
 
     if (!playbook.retrospective_enabled) {
         return (<RetrospectiveTextContainer>
