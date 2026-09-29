@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DB_SETUP_SQL_PATH=${DB_SETUP_SQL_PATH:-e2e-tests/cypress/db-setup/mattermost.sql}
+DB_SETUP_SQL_PATH=${DB_SETUP_SQL_PATH:-e2e-tests/cypress/db-setup/antimatter.sql}
 
 psql -d "$TEST_DATABASE_URL" -v "ON_ERROR_STOP=1" -c "CREATE DATABASE migrated;";
 psql -d "$TEST_DATABASE_URL" -v "ON_ERROR_STOP=1" -c "CREATE DATABASE latest;";

@@ -8,7 +8,7 @@
 // See https://jsdoc.app/index.html for reference.
 // Basic requirements for documentation are the following:
 // - Meaningful description
-// - Specific link to https://api.mattermost.com
+// - Specific link to https://docs.antimatter.example
 // - Each parameter with `@params`
 // - Return value with `@returns`
 // - Example usage with `@example`
@@ -20,7 +20,7 @@ declare namespace Cypress {
 
         /**
          * Login to server via API.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1login/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1login/post
          * @param {string} user.username - username of a user
          * @param {string} user.password - password of  user
          * @returns {UserProfile} out.user: `UserProfile` object
@@ -32,7 +32,7 @@ declare namespace Cypress {
 
         /**
          * Login to server via API.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1login/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1login/post
          * @param {string} user.username - username of a user
          * @param {string} user.password - password of  user
          * @param {string} token - MFA token for the session
@@ -45,7 +45,7 @@ declare namespace Cypress {
 
         /**
          * Login as admin via API.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1login/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1login/post
          * @param {Object} requestOptions - cypress' request options object, see https://docs.cypress.io/api/commands/request#Arguments
          * @returns {UserProfile} out.user: `UserProfile` object
          *
@@ -56,7 +56,7 @@ declare namespace Cypress {
 
         /**
          * Login as admin via API.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1login/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1login/post
          * @param {string} token - MFA token for the session
          * @returns {UserProfile} out.user: `UserProfile` object
          *
@@ -67,7 +67,7 @@ declare namespace Cypress {
 
         /**
          * Logout a user's active session from server via API.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1logout/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1logout/post
          * Clears all cookies especially `MMAUTHTOKEN`, `MMUSERID` and `MMCSRF`.
          *
          * @example
@@ -77,7 +77,7 @@ declare namespace Cypress {
 
         /**
          * Get current user.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}/get
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}/get
          * @returns {user: UserProfile} out.user: `UserProfile` object
          *
          * @example
@@ -89,7 +89,7 @@ declare namespace Cypress {
 
         /**
          * Get a user by ID.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}/get
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}/get
          * @param {String} userId - ID of a user to get profile
          * @returns {UserProfile} out.user: `UserProfile` object
          *
@@ -102,7 +102,7 @@ declare namespace Cypress {
 
         /**
          * Get a user by email.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1email~1{email}/get
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1email~1{email}/get
          * @param {String} email - email address of a user to get profile
          * @returns {UserProfile} out.user: `UserProfile` object
          *
@@ -115,7 +115,7 @@ declare namespace Cypress {
 
         /**
          * Get users by usernames.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1usernames/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1usernames/post
          * @param {String[]} usernames - list of usernames to get profiles
          * @returns {UserProfile[]} out.users: list of `UserProfile` objects
          *
@@ -128,7 +128,7 @@ declare namespace Cypress {
 
         /**
          * Patch a user.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1patch/put
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1patch/put
          * @param {String} userId - ID of user to patch
          * @param {UserProfile} userData - user profile to be updated
          * @param {string} userData.email
@@ -152,7 +152,7 @@ declare namespace Cypress {
 
         /**
          * Convenient command to patch a current user.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1patch/put
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1patch/put
          * @param {UserProfile} userData - user profile to be updated
          * @param {string} userData.email
          * @param {string} userData.username
@@ -228,7 +228,7 @@ declare namespace Cypress {
 
         /**
          * Revoke all active sessions for a user.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1sessions~1revoke~1all/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1sessions~1revoke~1all/post
          * @param {String} userId - ID of a user
          * @returns {Object} `out.data` as response status
          *
@@ -239,7 +239,7 @@ declare namespace Cypress {
 
         /**
          * Get list of users based on query parameters
-         * See https://api.mattermost.com/#tag/users/paths/~1users/get
+         * See https://docs.antimatter.example/#tag/users/paths/~1users/get
          * @param {String} queryParams - see link on available query parameters
          * @returns {UserProfile[]} `out.users` as `UserProfile[]` object
          *
@@ -252,7 +252,7 @@ declare namespace Cypress {
 
         /**
          * Get list of users that are not team members.
-         * See https://api.mattermost.com/#tag/users/paths/~1users/get
+         * See https://docs.antimatter.example/#tag/users/paths/~1users/get
          * @param {String} queryParams.teamId - Team ID
          * @param {String} queryParams.page - Page to select, 0 (default)
          * @param {String} queryParams.perPage - The number of users per page, 60 (default)
@@ -277,7 +277,7 @@ declare namespace Cypress {
 
         /**
          * Deactivate a user account.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}/delete
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}/delete
          * @param {string} userId - User ID
          * @returns {Response} response: Cypress-chainable response which should have successful HTTP status of 200 OK to continue or pass.
          *
@@ -288,7 +288,7 @@ declare namespace Cypress {
 
         /**
          * Convert a regular user into a guest. This will convert the user into a guest for the whole system while retaining their existing team and channel memberships.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1demote/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1demote/post
          * @param {string} userId - User ID
          * @returns {UserProfile} out.user: `UserProfile` object
          *
@@ -299,7 +299,7 @@ declare namespace Cypress {
 
         /**
          * Convert a guest into a regular user. This will convert the guest into a user for the whole system while retaining any team and channel memberships and automatically joining them to the default channels.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1promote/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1promote/post
          * @param {string} userId - User ID
          * @returns {UserProfile} out.user: `UserProfile` object
          *
@@ -310,7 +310,7 @@ declare namespace Cypress {
 
         /**
          * Verifies a user's email via userId without having to go to the user's email inbox.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1email~1verify~1member/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1email~1verify~1member/post
          * @param {string} userId - User ID
          * @returns {UserProfile} out.user: `UserProfile` object
          *
@@ -323,7 +323,7 @@ declare namespace Cypress {
 
         /**
          * Update a user MFA.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1mfa/put
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1mfa/put
          * @param {String} userId - ID of user to patch
          * @param {boolean} activate - Whether MFA is going to be enabled or disabled
          * @param {string} token - MFA token/code
@@ -334,7 +334,7 @@ declare namespace Cypress {
 
         /**
          * Create a user access token
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1tokens/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1tokens/post
          * @param {String} userId - ID of user for whom to generate token
          * @param {String} description - The description of the token usage
          * @example
@@ -344,7 +344,7 @@ declare namespace Cypress {
 
         /**
          * Revoke a user access token
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1tokens~1revoke/post
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1tokens~1revoke/post
          * @param {String} tokenId - The id of the token to revoke
          * @example
          *   cy.apiRevokeAccessToken('token-id')
@@ -353,7 +353,7 @@ declare namespace Cypress {
 
         /**
          * Update a user auth method.
-         * See https://api.mattermost.com/#tag/users/paths/~1users~1{user_id}~1mfa/put
+         * See https://docs.antimatter.example/#tag/users/paths/~1users~1{user_id}~1mfa/put
          * @param {String} userId - ID of user to patch
          * @param {String} authData
          * @param {String} password
@@ -365,7 +365,7 @@ declare namespace Cypress {
 
         /**
          * Get total count of users in the system
-         * See https://api.mattermost.com/#operation/GetTotalUsersStats
+         * See https://docs.antimatter.example/#operation/GetTotalUsersStats
          *
          * @returns {number} - total count of all users
          *

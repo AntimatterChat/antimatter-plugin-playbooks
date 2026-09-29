@@ -3,7 +3,7 @@
 
 // *****************************************************************************
 // Data Retention
-// https://api.mattermost.com/#tag/data-retention
+// https://docs.antimatter.example/#tag/data-retention
 // *****************************************************************************
 
 /**

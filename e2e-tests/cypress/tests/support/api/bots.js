@@ -5,7 +5,7 @@ import {getRandomId} from '../../utils';
 
 // *****************************************************************************
 // Bots
-// https://api.mattermost.com/#tag/bots
+// https://docs.antimatter.example/#tag/bots
 // *****************************************************************************
 
 Cypress.Commands.add('apiCreateBot', ({prefix, bot = createBotPatch(prefix)} = {}) => {

@@ -3,7 +3,7 @@
 
 // *****************************************************************************
 // Brand
-// https://api.mattermost.com/#tag/brand
+// https://docs.antimatter.example/#tag/brand
 // *****************************************************************************
 
 Cypress.Commands.add('apiDeleteBrandImage', () => {

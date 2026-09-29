@@ -8,7 +8,7 @@ import {requestedWith} from './client';
 
 // Logs in (via API) on the page's browser context, so subsequent navigations
 // are authenticated. Used to test as a non-admin user without driving the
-// Mattermost login UI.
+// Antimatter login UI.
 export async function loginAs(page: Page, loginId: string, password: string) {
     const response = await page.request.post('/api/v4/users/login', {
         ...requestedWith,

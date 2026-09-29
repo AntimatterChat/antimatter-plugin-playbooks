@@ -32,7 +32,7 @@
         "CollapsedThreads": "disabled"
     },
     "TeamSettings": {
-        "SiteName": "Mattermost",
+        "SiteName": "Antimatter",
         "MaxUsersPerTeam": 2000,
         "EnableUserCreation": true,
         "EnableOpenServer": true,

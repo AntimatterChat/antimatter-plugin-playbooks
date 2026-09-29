@@ -7,7 +7,7 @@ import {defaultRolesPermissions} from './default_roles_permissions';
 
 // *****************************************************************************
 // Preferences
-// https://api.mattermost.com/#tag/roles
+// https://docs.antimatter.example/#tag/roles
 // *****************************************************************************
 
 export {defaultRolesPermissions};
@@ -49,7 +49,7 @@ Cypress.Commands.add('apiPatchRole', (roleID, patch) => {
 
 Cypress.Commands.add('apiResetRoles', () => {
     cy.apiGetRolesByNames().then(({roles}) => {
-        // Only patch permissions the server currently recognizes. Mattermost
+        // Only patch permissions the server currently recognizes. Antimatter
         // rejects the whole role when a removed permission is included.
         const knownPermissions = new Set(roles.flatMap((role) => role.permissions || []));
 

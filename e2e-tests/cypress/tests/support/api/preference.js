@@ -5,7 +5,7 @@ import theme from '../../fixtures/theme.json';
 
 // *****************************************************************************
 // Preferences
-// https://api.mattermost.com/#tag/preferences
+// https://docs.antimatter.example/#tag/preferences
 // *****************************************************************************
 
 /**

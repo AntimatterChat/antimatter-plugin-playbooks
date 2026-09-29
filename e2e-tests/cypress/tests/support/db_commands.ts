@@ -10,9 +10,9 @@ const dbConfig = {
     connection: dbConnection,
 };
 
-const message = `Compare "cypress.json" against "config.json" of mattermost-server. It should match database driver and connection string.
+const message = `Compare "cypress.json" against "config.json" of the Antimatter server. It should match database driver and connection string.
 
-The value at "cypress.json" is based on default mattermost-server's local database: 
+The value at "cypress.json" is based on the default Antimatter server's local database: 
 {"dbClient": "${dbClient}", "dbConnection": "${dbConnection}"}
 
 If your server is using database other than the default, you may export those as env variables, like:

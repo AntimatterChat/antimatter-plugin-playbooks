@@ -10,7 +10,7 @@ import {buildQueryString} from './helpers';
 
 // *****************************************************************************
 // Users
-// https://api.mattermost.com/#tag/users
+// https://docs.antimatter.example/#tag/users
 // *****************************************************************************
 
 Cypress.Commands.add('apiLogin', (user, requestOptions = {}) => {

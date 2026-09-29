@@ -144,7 +144,7 @@ describe('runs > run_attributes', {testIsolation: true}, () => {
 
             it('can edit URL attribute and displays as clickable link', () => {
                 // # Edit URL attribute with a real URL
-                const testUrl = 'https://docs.mattermost.com';
+                const testUrl = 'https://docs.antimatter.example';
                 editTextAttribute('Documentation', testUrl);
                 cy.wait(500);
 
@@ -168,7 +168,7 @@ describe('runs > run_attributes', {testIsolation: true}, () => {
                 });
 
                 // * Verify navigation occurred (wait for new page to load)
-                cy.url().should('include', 'docs.mattermost.com');
+                cy.url().should('include', 'docs.antimatter.example');
 
                 // # Go back to the run page
                 cy.go('back');
@@ -192,7 +192,7 @@ describe('runs > run_attributes', {testIsolation: true}, () => {
                 });
 
                 // # Update the URL
-                const newUrl = 'https://github.com/mattermost';
+                const newUrl = 'https://github.com/antimatterchat';
                 cy.focused().clear().type(newUrl);
                 cy.get('body').click(0, 0);
                 cy.wait(500);
@@ -349,7 +349,7 @@ describe('runs > run_attributes', {testIsolation: true}, () => {
 
             it('can edit URL attribute and displays as clickable link', () => {
                 // # Edit URL attribute with a real URL
-                const testUrl = 'https://docs.mattermost.com';
+                const testUrl = 'https://docs.antimatter.example';
                 editTextAttribute('Documentation', testUrl);
                 cy.wait(500);
 
@@ -373,7 +373,7 @@ describe('runs > run_attributes', {testIsolation: true}, () => {
                 });
 
                 // * Verify navigation occurred (wait for new page to load)
-                cy.url().should('include', 'docs.mattermost.com');
+                cy.url().should('include', 'docs.antimatter.example');
 
                 // # Go back to the channel
                 cy.go('back');
@@ -397,7 +397,7 @@ describe('runs > run_attributes', {testIsolation: true}, () => {
                 });
 
                 // # Update the URL
-                const newUrl = 'https://github.com/mattermost';
+                const newUrl = 'https://github.com/antimatterchat';
                 cy.focused().clear().type(newUrl);
                 cy.get('body').click(0, 0);
                 cy.wait(500);

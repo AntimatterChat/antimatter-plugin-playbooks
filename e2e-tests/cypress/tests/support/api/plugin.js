@@ -5,7 +5,7 @@ import * as TIMEOUTS from '../../fixtures/timeouts';
 
 // *****************************************************************************
 // Plugins
-// https://api.mattermost.com/#tag/plugins
+// https://docs.antimatter.example/#tag/plugins
 // *****************************************************************************
 
 Cypress.Commands.add('apiGetAllPlugins', () => {

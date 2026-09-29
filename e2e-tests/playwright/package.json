@@ -1,5 +1,5 @@
 {
-  "name": "mattermost-plugin-playbooks-e2e-playwright",
+  "name": "antimatter-plugin-playbooks-e2e-playwright",
   "private": true,
   "engines": {
     "node": "20.x || 22.x || >=24.0.0",

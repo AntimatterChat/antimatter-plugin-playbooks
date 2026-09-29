@@ -96,7 +96,7 @@ describe('channels > post type components', {testIsolation: true}, () => {
             });
         });
 
-        // https://mattermost.atlassian.net/browse/MM-63645
+        // MM-63645
         // eslint-disable-next-line no-only-tests/no-only-tests
         it.skip('displays when permalinked in a different channel, even if not a member of the original channel', () => {
             // # Go to the playbook run channel

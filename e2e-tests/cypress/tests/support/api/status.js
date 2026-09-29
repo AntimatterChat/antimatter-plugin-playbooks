@@ -3,7 +3,7 @@
 
 // *****************************************************************************
 // Status
-// https://api.mattermost.com/#tag/status
+// https://docs.antimatter.example/#tag/status
 // *****************************************************************************
 
 Cypress.Commands.add('apiUpdateUserStatus', (status = 'online') => {

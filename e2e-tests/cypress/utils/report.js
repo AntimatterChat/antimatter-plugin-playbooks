@@ -179,12 +179,12 @@ function generateTestReport(summary, isUploadedToS3, reportLink, environment, te
 
         return {
             username: 'Cypress UI Test',
-            icon_url: 'https://mattermost.com/wp-content/uploads/2022/02/icon_WS.png',
+            icon_url: 'https://docs.antimatter.example/wp-content/uploads/2022/02/icon_WS.png',
             attachments: [{
                 color: testResult.color,
                 author_name: 'Webapp End-to-end Testing',
-                author_icon: 'https://mattermost.com/wp-content/uploads/2022/02/icon_WS.png',
-                author_link: 'https://www.mattermost.com',
+                author_icon: 'https://docs.antimatter.example/wp-content/uploads/2022/02/icon_WS.png',
+                author_link: 'https://docs.antimatter.example',
                 title,
                 fields: [
                     {
@@ -222,12 +222,12 @@ function generateTestReport(summary, isUploadedToS3, reportLink, environment, te
 
     return {
         username: 'Cypress UI Test',
-        icon_url: 'https://mattermost.com/wp-content/uploads/2022/02/icon_WS.png',
+        icon_url: 'https://docs.antimatter.example/wp-content/uploads/2022/02/icon_WS.png',
         attachments: [{
             color: testResult.color,
             author_name: 'Webapp End-to-end Testing',
-            author_icon: 'https://mattermost.com/wp-content/uploads/2022/02/icon_WS.png',
-            author_link: 'https://www.mattermost.com/',
+            author_icon: 'https://docs.antimatter.example/wp-content/uploads/2022/02/icon_WS.png',
+            author_link: 'https://docs.antimatter.example/',
             title,
             text: `${quickSummary} | ${statsDuration} ${testCycleLink}\n${runnerEnvValue}${SERVER_TYPE ? '\nTest server: ' + SERVER_TYPE : ''}${MM_ENV ? '\nTest server override: ' + MM_ENV : ''}`,
         }],
@@ -287,12 +287,12 @@ function generateDiagnosticReport(summary, serverInfo) {
 
     return {
         username: 'Cypress UI Test',
-        icon_url: 'https://mattermost.com/wp-content/uploads/2022/02/icon_WS.png',
+        icon_url: 'https://docs.antimatter.example/wp-content/uploads/2022/02/icon_WS.png',
         attachments: [{
             color: '#43A047',
             author_name: 'Cypress UI Test',
-            author_icon: 'https://mattermost.com/wp-content/uploads/2022/02/icon_WS.png',
-            author_link: 'https://community.mattermost.com/core/channels/ui-test-automation',
+            author_icon: 'https://docs.antimatter.example/wp-content/uploads/2022/02/icon_WS.png',
+            author_link: 'https://docs.antimatter.example/core/channels/ui-test-automation',
             title: `Cypress UI Test Automation #${BUILD_ID}, **${BRANCH}** branch`,
             fields: [{
                 short: false,

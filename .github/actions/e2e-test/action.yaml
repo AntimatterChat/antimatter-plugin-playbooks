@@ -49,7 +49,7 @@ runs:
       uses: docker://postgres:14
       env:
         TEST_DATABASE_URL: postgres://mmuser:mostest@postgres:5432/mattermost_test
-        DB_SETUP_SQL_PATH: e2e-tests/cypress/db-setup/mattermost.sql
+        DB_SETUP_SQL_PATH: e2e-tests/cypress/db-setup/antimatter.sql
       with:
         entrypoint: ./.github/actions/e2e-test/generate-test-data.sh
 

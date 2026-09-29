@@ -3,7 +3,7 @@
 
 import type {APIResponse} from '@playwright/test';
 
-// Mattermost rejects API calls without this header as potential CSRF.
+// Antimatter rejects API calls without this header as potential CSRF.
 export const requestedWith = {headers: {'X-Requested-With': 'XMLHttpRequest'}};
 
 // Carries the HTTP status so callers can branch on it (e.g. a 501 license gate)
@@ -35,7 +35,7 @@ export function uniqueSuffix(): string {
     return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-// Normalizes a label into a valid Mattermost team/user name segment.
+// Normalizes a label into a valid Antimatter team/user name segment.
 export function slugify(prefix: string, fallback: string): string {
     return prefix.
         toLowerCase().

@@ -3,7 +3,7 @@
 
 // *****************************************************************************
 // SAML
-// https://api.mattermost.com/#tag/SAML
+// https://docs.antimatter.example/#tag/SAML
 // *****************************************************************************
 
 Cypress.Commands.add('apiGetSAMLCertificateStatus', () => {

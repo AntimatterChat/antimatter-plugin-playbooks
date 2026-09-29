@@ -8,12 +8,12 @@ import {getAdminAccount, User} from './env';
 // *****************************************************************************
 // Read more:
 // - https://on.cypress.io/custom-commands on writing Cypress commands
-// - https://api.mattermost.com/ for Mattermost API reference
+// - https://docs.antimatter.example/ for Antimatter API reference
 // *****************************************************************************
 
 // *****************************************************************************
 // Commands
-// https://api.mattermost.com/#tag/commands
+// https://docs.antimatter.example/#tag/commands
 // *****************************************************************************
 
 type CypressResponseAny = Cypress.Response<any>
@@ -50,7 +50,7 @@ Cypress.Commands.add('apiEmailTest', apiEmailTest);
 
 // *****************************************************************************
 // Posts
-// https://api.mattermost.com/#tag/posts
+// https://docs.antimatter.example/#tag/posts
 // *****************************************************************************
 
 function apiCreatePost(channelId: string, message: string, rootId: string, props: Record<string, any>, token = '', failOnStatusCode = true): ResponseT {
@@ -118,7 +118,7 @@ Cypress.Commands.add('apiUnpinPosts', apiUnpinPosts);
 
 // *****************************************************************************
 // Webhooks
-// https://api.mattermost.com/#tag/webhooks
+// https://docs.antimatter.example/#tag/webhooks
 // *****************************************************************************
 
 function apiCreateWebhook(hook: Record<string, any> = {}, isIncoming = true): ChainableT<{data: CypressResponseAny['body']; url: string}> {
@@ -184,7 +184,7 @@ Cypress.Commands.add('apiGetLDAPSync', apiGetLDAPSync);
 
 // *****************************************************************************
 // Groups
-// https://api.mattermost.com/#tag/groups
+// https://docs.antimatter.example/#tag/groups
 // *****************************************************************************
 function apiGetGroups(page = 0, perPage = 100): ResponseT {
     return cy.request({

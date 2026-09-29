@@ -10,7 +10,7 @@ import cloudDefaultConfig from './cloud_default_config.json';
 
 // *****************************************************************************
 // System
-// https://api.mattermost.com/#tag/system
+// https://docs.antimatter.example/#tag/system
 // *****************************************************************************
 
 function hasLicenseForFeature(license, key) {
@@ -88,8 +88,8 @@ Cypress.Commands.add('apiInstallTrialLicense', (contactEmail) => {
             // Enriched fields required for trial license as of v10.7
             company_country: 'US',
             contact_email: contactEmail,
-            contact_name: 'Test Mattermost',
-            company_name: 'MattermostTest',
+            contact_name: 'Test Antimatter',
+            company_name: 'AntimatterTest',
             company_size: '1-10',
         },
     }).then((response) => {

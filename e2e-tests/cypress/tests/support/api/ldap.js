@@ -3,7 +3,7 @@
 
 // *****************************************************************************
 // LDAP
-// https://api.mattermost.com/#tag/LDAP
+// https://docs.antimatter.example/#tag/LDAP
 // *****************************************************************************
 
 Cypress.Commands.add('apiLDAPSync', () => {

@@ -3,7 +3,7 @@
 
 // *****************************************************************************
 // Schemes
-// https://api.mattermost.com/#tag/schemes
+// https://docs.antimatter.example/#tag/schemes
 // *****************************************************************************
 
 Cypress.Commands.add('apiGetSchemes', (scope) => {

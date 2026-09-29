@@ -11,7 +11,7 @@ import {FIVE_SEC} from '../../fixtures/timeouts';
 // Stage: @prod
 // Group: @playbooks
 
-// https://mattermost.atlassian.net/browse/MM-63692
+// MM-63692
 // eslint-disable-next-line no-only-tests/no-only-tests
 describe.skip('digest messages', {testIsolation: true}, () => {
     let testTeam;

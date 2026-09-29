@@ -80,7 +80,7 @@
         "CollapsedThreads": "disabled"
     },
     "TeamSettings": {
-        "SiteName": "Mattermost",
+        "SiteName": "Antimatter",
         "MaxUsersPerTeam": 2000,
         "EnableUserCreation": true,
         "EnableOpenServer": true,
@@ -220,11 +220,11 @@
         "ShowFullName": true
     },
     "SupportSettings": {
-        "TermsOfServiceLink": "https://mattermost.com/pl/terms-of-use/",
-        "PrivacyPolicyLink": "https://mattermost.com/pl/privacy-policy/",
-        "AboutLink": "https://docs.mattermost.com/pl/about-mattermost",
-        "HelpLink": "https://mattermost.com/pl/help/",
-        "ReportAProblemLink": "https://mattermost.com/pl/report-a-bug",
+        "TermsOfServiceLink": "https://docs.antimatter.example/pl/terms-of-use/",
+        "PrivacyPolicyLink": "https://docs.antimatter.example/pl/privacy-policy/",
+        "AboutLink": "https://docs.antimatter.example/pl/about-antimatter",
+        "HelpLink": "https://docs.antimatter.example/pl/help/",
+        "ReportAProblemLink": "https://docs.antimatter.example/pl/report-a-bug",
         "SupportEmail": "",
         "CustomTermsOfServiceEnabled": false,
         "CustomTermsOfServiceReAcceptancePeriod": 365,
@@ -353,9 +353,9 @@
         "LoginButtonTextColor": "#ffffff"
     },
     "NativeAppSettings": {
-        "AppDownloadLink": "https://mattermost.com/pl/download-apps",
-        "AndroidAppDownloadLink": "https://mattermost.com/pl/android-app/",
-        "IosAppDownloadLink": "https://mattermost.com/pl/ios-app/"
+        "AppDownloadLink": "https://docs.antimatter.example/pl/download-apps",
+        "AndroidAppDownloadLink": "https://docs.antimatter.example/pl/android-app/",
+        "IosAppDownloadLink": "https://docs.antimatter.example/pl/ios-app/"
     },
     "MetricsSettings": {
         "Enable": false,

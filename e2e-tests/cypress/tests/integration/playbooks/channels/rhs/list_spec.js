@@ -242,7 +242,7 @@ describe('channels > rhs > runlist', {testIsolation: true}, () => {
             });
         });
 
-        // https://mattermost.atlassian.net/browse/MM-63692
+        // MM-63692
         // eslint-disable-next-line no-only-tests/no-only-tests
         it('can change linked channel', () => {
             // # Click on the first run's dotmenu button
