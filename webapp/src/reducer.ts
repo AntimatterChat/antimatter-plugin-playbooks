@@ -26,10 +26,8 @@ import {
     DeletedPlaybookPropertyField,
     HIDE_CHANNEL_ACTIONS_MODAL,
     HIDE_PLAYBOOK_ACTIONS_MODAL,
-    HIDE_POST_MENU_MODAL,
     HIDE_RUN_ACTIONS_MODAL,
     HidePlaybookActionsModal,
-    HidePostMenuModal,
     HideRunActionsModal,
     OPEN_BACKSTAGE_RHS,
     OpenBackstageRHS,
@@ -65,7 +63,6 @@ import {
     SET_RHS_OPEN,
     SHOW_CHANNEL_ACTIONS_MODAL,
     SHOW_PLAYBOOK_ACTIONS_MODAL,
-    SHOW_POST_MENU_MODAL,
     SHOW_RUN_ACTIONS_MODAL,
     SetAllChecklistsCollapsedState,
     SetChecklistCollapsedState,
@@ -77,7 +74,6 @@ import {
     SetRHSOpen,
     ShowChannelActionsModal,
     ShowPlaybookActionsModal,
-    ShowPostMenuModal,
     ShowRunActionsModal,
     UPDATED_PLAYBOOK_PROPERTY_FIELD,
     UpdatedPlaybookPropertyField,
@@ -426,17 +422,6 @@ const globalSettings = (state: GlobalSettings | null = null, action: ReceivedGlo
     }
 };
 
-const postMenuModalVisibility = (state = false, action: ShowPostMenuModal | HidePostMenuModal) => {
-    switch (action.type) {
-    case SHOW_POST_MENU_MODAL:
-        return true;
-    case HIDE_POST_MENU_MODAL:
-        return false;
-    default:
-        return state;
-    }
-};
-
 const channelActionsModalVisibility = (state = false, action: ShowChannelActionsModal) => {
     switch (action.type) {
     case SHOW_CHANNEL_ACTIONS_MODAL:
@@ -662,7 +647,6 @@ const reducer = combineReducers({
     propertyFields,
     propertyFieldsPerPlaybook,
     globalSettings,
-    postMenuModalVisibility,
     channelActionsModalVisibility,
     runActionsModalVisibility,
     playbookActionsModalVisibility,

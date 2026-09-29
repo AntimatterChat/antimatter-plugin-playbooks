@@ -20,7 +20,6 @@ describe('playbooks > edit > retrospective toggle', {testIsolation: true}, () =>
     let createdPlaybookIds = [];
 
     before(() => {
-        cy.apiRequireLicense();
         cy.apiInitSetup().then(({team, user}) => {
             testTeam = team;
             testUser = user;

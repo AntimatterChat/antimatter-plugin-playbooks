@@ -217,9 +217,6 @@ export const getProfileSetForChannel = (state: GlobalState, channelId: string) =
     return sortAndInjectProfiles(profiles, profileSet);
 };
 
-export const isPostMenuModalVisible = (state: GlobalState): boolean =>
-    pluginState(state).postMenuModalVisibility;
-
 export const isChannelActionsModalVisible = (state: GlobalState): boolean =>
     pluginState(state).channelActionsModalVisibility;
 
@@ -255,12 +252,6 @@ export const isCurrentUserChannelMember = (channelId: string) => createSelector(
 );
 
 export const hasViewedByChannelID = (state: GlobalState) => pluginState(state).hasViewedByChannel;
-
-export const isTeamEdition = createSelector(
-    'isTeamEdition',
-    getConfig,
-    (config) => config.BuildEnterpriseReady !== 'true',
-);
 
 // isConfiguredForDevelopment returns true when the server has `EnableDeveloper` and
 // `EnableTesting` configuration settings enabled, signaling a non-production, developer mode.

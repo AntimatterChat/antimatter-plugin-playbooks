@@ -19,7 +19,6 @@ describe('runs > run details page > retrospective toggle (context menu)', {testI
     let createdPlaybookIds = [];
 
     before(() => {
-        cy.apiRequireLicense();
         cy.apiInitSetup().then(({team, user}) => {
             testTeam = team;
             testUser = user;

@@ -38,11 +38,9 @@ import {
     DELETED_PLAYBOOK_PROPERTY_FIELD,
     HIDE_CHANNEL_ACTIONS_MODAL,
     HIDE_PLAYBOOK_ACTIONS_MODAL,
-    HIDE_POST_MENU_MODAL,
     HIDE_RUN_ACTIONS_MODAL,
     HideChannelActionsModal,
     HidePlaybookActionsModal,
-    HidePostMenuModal,
     HideRunActionsModal,
     OPEN_BACKSTAGE_RHS,
     OpenBackstageRHS,
@@ -84,7 +82,6 @@ import {
     SET_RHS_OPEN,
     SHOW_CHANNEL_ACTIONS_MODAL,
     SHOW_PLAYBOOK_ACTIONS_MODAL,
-    SHOW_POST_MENU_MODAL,
     SHOW_RUN_ACTIONS_MODAL,
     SetAllChecklistsCollapsedState,
     SetChecklistCollapsedState,
@@ -97,7 +94,6 @@ import {
     SetTriggerId,
     ShowChannelActionsModal,
     ShowPlaybookActionsModal,
-    ShowPostMenuModal,
     ShowRunActionsModal,
     UPDATED_PLAYBOOK_PROPERTY_FIELD,
     WEBSOCKET_PLAYBOOK_RUN_INCREMENTAL_UPDATE_RECEIVED,
@@ -313,14 +309,6 @@ export const removedFromPlaybookRunChannel = (channelId: string): RemovedFromCha
 export const actionSetGlobalSettings = (settings: GlobalSettings): ReceivedGlobalSettings => ({
     type: RECEIVED_GLOBAL_SETTINGS,
     settings,
-});
-
-export const showPostMenuModal = (): ShowPostMenuModal => ({
-    type: SHOW_POST_MENU_MODAL,
-});
-
-export const hidePostMenuModal = (): HidePostMenuModal => ({
-    type: HIDE_POST_MENU_MODAL,
 });
 
 export const showChannelActionsModal = (): ShowChannelActionsModal => ({

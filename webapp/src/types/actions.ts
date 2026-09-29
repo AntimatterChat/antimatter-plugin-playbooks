@@ -25,8 +25,6 @@ export const RECEIVED_TEAM_PLAYBOOK_RUNS = manifest.id + '_received_team_playboo
 export const RECEIVED_TEAM_PLAYBOOK_RUN_CONNECTIONS = manifest.id + '_received_team_playbook_run_connections';
 export const REMOVED_FROM_CHANNEL = manifest.id + '_removed_from_playbook_run_channel';
 export const RECEIVED_GLOBAL_SETTINGS = manifest.id + '_received_global_settings';
-export const SHOW_POST_MENU_MODAL = manifest.id + '_show_post_menu_modal';
-export const HIDE_POST_MENU_MODAL = manifest.id + '_hide_post_menu_modal';
 export const SHOW_CHANNEL_ACTIONS_MODAL = manifest.id + '_show_channel_actions_modal';
 export const HIDE_CHANNEL_ACTIONS_MODAL = manifest.id + '_hide_channel_actions_modal';
 export const SHOW_RUN_ACTIONS_MODAL = manifest.id + '_show_run_actions_modal';
@@ -154,14 +152,6 @@ export interface RemovedFromChannel {
 export interface ReceivedGlobalSettings {
     type: typeof RECEIVED_GLOBAL_SETTINGS;
     settings: GlobalSettings;
-}
-
-export interface ShowPostMenuModal {
-    type: typeof SHOW_POST_MENU_MODAL;
-}
-
-export interface HidePostMenuModal {
-    type: typeof HIDE_POST_MENU_MODAL;
 }
 
 export interface ShowChannelActionsModal {

@@ -31,7 +31,6 @@ import {
     Playbook,
     PlaybookWithChecklist,
 } from 'src/types/playbook';
-import {AdminNotificationType} from 'src/constants';
 import {ChannelAction} from 'src/types/channel_actions';
 import {EmptyPlaybookStats, PlaybookStats, SiteStats} from 'src/types/stats';
 
@@ -596,16 +595,6 @@ export function exportChannelUrl(channelId: string) {
 
     return `${exportPluginUrl}/export${queryParams}`;
 }
-
-export const postMessageToAdmins = async (messageType: AdminNotificationType) => {
-    const body = `{"message_type": "${messageType}"}`;
-    try {
-        const response = await doPost(`${apiUrl}/bot/notify-admins`, body);
-        return {data: response};
-    } catch (e) {
-        return {error: e.message};
-    }
-};
 
 export const notifyConnect = async () => {
     await doFetchWithoutResponse(`${apiUrl}/bot/connect`, {

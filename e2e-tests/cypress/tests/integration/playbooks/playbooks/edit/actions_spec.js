@@ -13,7 +13,6 @@
 
 import * as TIMEOUTS from '../../../../fixtures/timeouts';
 
-// assumes that E20 license is uploaded
 describe('playbooks > edit', {testIsolation: true}, () => {
     let testTeam;
     let testSysadmin;
