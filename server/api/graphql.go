@@ -65,7 +65,6 @@ type GraphQLHandler struct {
 	permissions        *app.PermissionsService
 	playbookStore      app.PlaybookStore
 	runStore           app.PlaybookRunStore
-	licenceChecker     app.LicenseChecker
 
 	schema *graphql.Schema
 }
@@ -84,7 +83,6 @@ func NewGraphQLHandler(
 	permissions *app.PermissionsService,
 	playbookStore app.PlaybookStore,
 	runStore app.PlaybookRunStore,
-	licenceChecker app.LicenseChecker,
 ) *GraphQLHandler {
 	handler := &GraphQLHandler{
 		ErrorHandler:       &ErrorHandler{},
@@ -97,7 +95,6 @@ func NewGraphQLHandler(
 		permissions:        permissions,
 		playbookStore:      playbookStore,
 		runStore:           runStore,
-		licenceChecker:     licenceChecker,
 	}
 
 	opts := []graphql.SchemaOpt{
@@ -140,7 +137,6 @@ type GraphQLContext struct {
 	logger               logrus.FieldLogger
 	config               config.Service
 	permissions          *app.PermissionsService
-	licenceChecker       app.LicenseChecker
 	recordBudget         *recordBudget
 	favoritesLoader      *dataloader.Loader[favoriteInfo, bool]
 	playbooksLoader      *dataloader.Loader[playbookInfo, *app.Playbook]
@@ -190,7 +186,6 @@ func (h *GraphQLHandler) graphQL(c *Context, w http.ResponseWriter, r *http.Requ
 		permissions:          h.permissions,
 		playbookStore:        h.playbookStore,
 		runStore:             h.runStore,
-		licenceChecker:       h.licenceChecker,
 		recordBudget:         &recordBudget{limit: maxRecordsPerRequest},
 		favoritesLoader:      favoritesLoader,
 		playbooksLoader:      playbooksLoader,

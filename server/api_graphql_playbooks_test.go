@@ -653,7 +653,6 @@ func gqlTestPlaybookUpdateGuest(e *TestEnvironment, t *testing.T, playbookID str
 
 func TestGraphQLPlaybooksGuests(t *testing.T) {
 	e := Setup(t)
-	e.SetEnterpriseLicence()
 	e.CreateBasic()
 	e.CreateGuest()
 
@@ -731,7 +730,6 @@ func gqlDoPlaybookUpdate(c *client.Client, playbookID string, updates map[string
 func TestAdminOnlyEdit_GraphQL(t *testing.T) {
 	e := Setup(t)
 	e.CreateBasic()
-	e.SetEnterpriseLicence()
 
 	updatePlaybookID, err := e.PlaybooksAdminClient.Playbooks.Create(context.Background(), client.PlaybookCreateOptions{
 		Title:  "AdminOnlyEdit GraphQL Test Playbook",

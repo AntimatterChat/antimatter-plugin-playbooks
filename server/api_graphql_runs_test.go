@@ -1869,8 +1869,6 @@ func TestFinishedRunGraphQLWriteOperationsBlocked(t *testing.T) {
 	})
 
 	t.Run("set property value fails", func(t *testing.T) {
-		e.SetEnterpriseLicence()
-
 		pbID, err := e.PlaybooksAdminClient.Playbooks.Create(context.Background(), client.PlaybookCreateOptions{
 			Title:  "Finished Run GraphQL Property Playbook",
 			TeamID: e.BasicTeam.Id,

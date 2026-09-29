@@ -381,6 +381,9 @@ func bootServer(tb testing.TB) (*serverInstance, func()) {
 	// Create a server with our specified options
 	require.NoError(tb, utils.TranslationsPreInit())
 
+	// The plugin itself no longer checks any license. The upstream Mattermost test server
+	// used by these integration tests still gates some of its own features (e.g. guest
+	// accounts) behind a license, so give it a test license.
 	license := model.NewTestLicense()
 	license.SkuShortName = model.LicenseShortSkuEnterpriseAdvanced
 
@@ -440,11 +443,7 @@ func bootServer(tb testing.TB) (*serverInstance, func()) {
 // SetupIsolated instead if a test genuinely requires a globally-empty server.
 func Setup(t *testing.T) *TestEnvironment {
 	t.Helper()
-	env := newEnv(t, ensureSharedServer(t))
-	// Reset the shared server's license to the default so license changes made
-	// by a previous test (e.g. RemoveLicence) do not leak into this one.
-	env.SetEnterpriseAdvancedLicence()
-	return env
+	return newEnv(t, ensureSharedServer(t))
 }
 
 // SetupIsolated boots a dedicated server on its own database for tests that
@@ -839,34 +838,11 @@ func (e *TestEnvironment) CreateGuest() {
 	e.PlaybooksClientGuest = playbooksClientGuest
 }
 
-func (e *TestEnvironment) RemoveLicence() {
-	e.Srv.SetLicense(nil)
-}
-
-func (e *TestEnvironment) SetProfessoinalLicence() {
-	license := model.NewTestLicense()
-	license.SkuShortName = model.LicenseShortSkuProfessional
-	e.Srv.SetLicense(license)
-}
-
-func (e *TestEnvironment) SetEnterpriseLicence() {
-	license := model.NewTestLicense()
-	license.SkuShortName = model.LicenseShortSkuEnterprise
-	e.Srv.SetLicense(license)
-}
-
-func (e *TestEnvironment) SetEnterpriseAdvancedLicence() {
-	license := model.NewTestLicense()
-	license.SkuShortName = model.LicenseShortSkuEnterpriseAdvanced
-	e.Srv.SetLicense(license)
-}
-
 func (e *TestEnvironment) CreateBasic() {
 	e.T.Helper()
 
 	e.CreateClients()
 	e.CreateBasicServer()
-	e.SetEnterpriseAdvancedLicence()
 	e.CreateBasicPlaybook()
 	e.CreateBasicRun()
 	e.CreateAdditionalPlaybooks()

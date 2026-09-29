@@ -26,9 +26,6 @@ var ErrAssigneeOnlyChangeAssignee = errors.Wrap(ErrNoPermissions, "only the assi
 // ErrAssigneeRequiredForLock is returned when enabling assignee-only completion without an assignee.
 var ErrAssigneeRequiredForLock = errors.New("assign someone before locking this task")
 
-// ErrLicensedFeature if the error is caused by the server not having the needed license for the feature
-var ErrLicensedFeature = errors.New("not covered by current server license")
-
 // ErrChannelDisplayNameInvalid is used when a channel name is too long.
 var ErrChannelDisplayNameInvalid = errors.New("channel name is invalid or too long")
 

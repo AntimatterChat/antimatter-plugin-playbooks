@@ -25,17 +25,15 @@ type StatsHandler struct {
 	statsStore      *sqlstore.StatsStore
 	playbookService app.PlaybookService
 	permissions     *app.PermissionsService
-	licenseChecker  app.LicenseChecker
 }
 
-func NewStatsHandler(router *mux.Router, api *pluginapi.Client, statsStore *sqlstore.StatsStore, playbookService app.PlaybookService, permissions *app.PermissionsService, licenseChecker app.LicenseChecker) *StatsHandler {
+func NewStatsHandler(router *mux.Router, api *pluginapi.Client, statsStore *sqlstore.StatsStore, playbookService app.PlaybookService, permissions *app.PermissionsService) *StatsHandler {
 	handler := &StatsHandler{
 		ErrorHandler:    &ErrorHandler{},
 		pluginAPI:       api,
 		statsStore:      statsStore,
 		playbookService: playbookService,
 		permissions:     permissions,
-		licenseChecker:  licenseChecker,
 	}
 
 	statsRouter := router.PathPrefix("/stats").Subrouter()

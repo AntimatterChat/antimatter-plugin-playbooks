@@ -16,22 +16,11 @@ import (
 	"github.com/mattermost/mattermost-plugin-playbooks/server/config"
 )
 
-type LicenseChecker interface {
-	PlaybookAllowed(isPlaybookPublic bool) bool
-	RetrospectiveAllowed() bool
-	TimelineAllowed() bool
-	StatsAllowed() bool
-	ChecklistItemDueDateAllowed() bool
-	PlaybookAttributesAllowed() bool
-	ConditionalPlaybooksAllowed() bool
-}
-
 type PermissionsService struct {
 	playbookService PlaybookService
 	runService      PlaybookRunService
 	pluginAPI       *pluginapi.Client
 	configService   config.Service
-	licenseChecker  LicenseChecker
 }
 
 func NewPermissionsService(
@@ -39,14 +28,12 @@ func NewPermissionsService(
 	runService PlaybookRunService,
 	pluginAPI *pluginapi.Client,
 	configService config.Service,
-	licenseChecker LicenseChecker,
 ) *PermissionsService {
 	return &PermissionsService{
 		playbookService,
 		runService,
 		pluginAPI,
 		configService,
-		licenseChecker,
 	}
 }
 

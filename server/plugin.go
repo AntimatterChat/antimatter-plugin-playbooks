@@ -27,7 +27,6 @@ import (
 	"github.com/mattermost/mattermost-plugin-playbooks/server/bot"
 	"github.com/mattermost/mattermost-plugin-playbooks/server/command"
 	"github.com/mattermost/mattermost-plugin-playbooks/server/config"
-	"github.com/mattermost/mattermost-plugin-playbooks/server/enterprise"
 	"github.com/mattermost/mattermost-plugin-playbooks/server/metrics"
 	"github.com/mattermost/mattermost-plugin-playbooks/server/scheduler"
 	"github.com/mattermost/mattermost-plugin-playbooks/server/sqlstore"
@@ -56,7 +55,6 @@ type Plugin struct {
 	bot                  *bot.Bot
 	pluginAPI            *pluginapi.Client
 	userInfoStore        app.UserInfoStore
-	licenseChecker       app.LicenseChecker
 	metricsService       *metrics.Metrics
 	mcpServer            *mcphelper.Server
 	mcpExposeExternal    bool
@@ -108,13 +106,6 @@ func (p *Plugin) OnActivate() error {
 	p.metricsService = p.newMetricsInstance()
 	pluginAPIClient := pluginapi.NewClient(p.API, p.Driver)
 	p.pluginAPI = pluginAPIClient
-
-	if !pluginapi.IsE10LicensedOrDevelopment(
-		pluginAPIClient.Configuration.GetConfig(),
-		pluginAPIClient.System.GetLicense(),
-	) {
-		return errors.New("this plugin requires a professional license or higher")
-	}
 
 	p.config = config.NewConfigService(pluginAPIClient, manifest)
 
@@ -188,8 +179,6 @@ func (p *Plugin) OnActivate() error {
 	keywordsThreadIgnorer := app.NewKeywordsThreadIgnorer()
 	p.channelActionService = app.NewChannelActionsService(pluginAPIClient, p.bot, p.config, channelActionStore, p.playbookService, keywordsThreadIgnorer)
 
-	p.licenseChecker = enterprise.NewLicenseChecker(pluginAPIClient)
-
 	p.playbookRunService = app.NewPlaybookRunService(
 		pluginAPIClient,
 		playbookRunStore,
@@ -199,7 +188,6 @@ func (p *Plugin) OnActivate() error {
 		p.API,
 		p.playbookService,
 		p.channelActionService,
-		p.licenseChecker,
 		p.metricsService,
 		p.propertyService,
 		p.conditionService,
@@ -224,7 +212,7 @@ func (p *Plugin) OnActivate() error {
 	}
 	mutex.Unlock()
 
-	p.permissions = app.NewPermissionsService(p.playbookService, p.playbookRunService, pluginAPIClient, p.config, p.licenseChecker)
+	p.permissions = app.NewPermissionsService(p.playbookService, p.playbookRunService, pluginAPIClient, p.config)
 
 	api.NewGraphQLHandler(
 		p.handler.APIRouter,
@@ -237,7 +225,6 @@ func (p *Plugin) OnActivate() error {
 		p.permissions,
 		playbookStore,
 		playbookRunStore,
-		p.licenseChecker,
 	)
 	api.NewPlaybookHandler(
 		p.handler.APIRouter,
@@ -246,7 +233,6 @@ func (p *Plugin) OnActivate() error {
 		pluginAPIClient,
 		p.config,
 		p.permissions,
-		p.licenseChecker,
 	)
 	api.NewPlaybookRunHandler(
 		p.handler.APIRouter,
@@ -254,12 +240,11 @@ func (p *Plugin) OnActivate() error {
 		p.playbookService,
 		p.propertyService,
 		p.permissions,
-		p.licenseChecker,
 		pluginAPIClient,
 		p.bot,
 		p.config,
 	)
-	api.NewStatsHandler(p.handler.APIRouter, pluginAPIClient, statsStore, p.playbookService, p.permissions, p.licenseChecker)
+	api.NewStatsHandler(p.handler.APIRouter, pluginAPIClient, statsStore, p.playbookService, p.permissions)
 	api.NewBotHandler(p.handler.APIRouter, pluginAPIClient, p.bot, p.config, p.playbookRunService, p.userInfoStore)
 	api.NewSignalHandler(p.handler.APIRouter, pluginAPIClient, p.playbookRunService, p.playbookService, keywordsThreadIgnorer, p.bot)
 	api.NewSettingsHandler(p.handler.APIRouter, pluginAPIClient, p.config)

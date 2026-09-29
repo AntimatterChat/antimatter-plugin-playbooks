@@ -32,7 +32,6 @@ type PlaybookHandler struct {
 	pluginAPI       *pluginapi.Client
 	config          config.Service
 	permissions     *app.PermissionsService
-	licenseChecker  app.LicenseChecker
 }
 
 const SettingsKey = "global_settings"
@@ -59,7 +58,7 @@ type PropertyFieldRequest struct {
 }
 
 // NewPlaybookHandler returns a new playbook api handler
-func NewPlaybookHandler(router *mux.Router, playbookService app.PlaybookService, propertyService app.PropertyServiceReader, api *pluginapi.Client, configService config.Service, permissions *app.PermissionsService, licenseChecker app.LicenseChecker) *PlaybookHandler {
+func NewPlaybookHandler(router *mux.Router, playbookService app.PlaybookService, propertyService app.PropertyServiceReader, api *pluginapi.Client, configService config.Service, permissions *app.PermissionsService) *PlaybookHandler {
 	handler := &PlaybookHandler{
 		ErrorHandler:    &ErrorHandler{},
 		playbookService: playbookService,
@@ -67,7 +66,6 @@ func NewPlaybookHandler(router *mux.Router, playbookService app.PlaybookService,
 		pluginAPI:       api,
 		config:          configService,
 		permissions:     permissions,
-		licenseChecker:  licenseChecker,
 	}
 
 	playbooksRouter := router.PathPrefix("/playbooks").Subrouter()

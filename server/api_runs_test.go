@@ -2137,8 +2137,6 @@ func TestChecklisItem_SetAssignee(t *testing.T) {
 	})
 
 	t.Run("set property_user assignee dispatches to SetPropertyUserAssignee", func(t *testing.T) {
-		e.SetEnterpriseLicence()
-
 		// Create a playbook with a user-type property field so we have a valid field ID.
 		pbID, err := e.PlaybooksClient.Playbooks.Create(context.Background(), client.PlaybookCreateOptions{
 			Title:  "Dispatch Test Playbook",
@@ -2219,8 +2217,6 @@ func TestChecklisItem_SetAssignee(t *testing.T) {
 	})
 
 	t.Run("property field of non-user type rejected", func(t *testing.T) {
-		e.SetEnterpriseLicence()
-
 		freshPlaybookID, err := e.PlaybooksClient.Playbooks.Create(context.Background(), client.PlaybookCreateOptions{
 			Title:  "PropType Test Playbook",
 			TeamID: e.BasicTeam.Id,
@@ -2280,8 +2276,6 @@ func TestChecklisItem_SetAssignee(t *testing.T) {
 	})
 
 	t.Run("SetPropertyUserAssignee creates AssigneeChanged timeline event", func(t *testing.T) {
-		e.SetEnterpriseLicence()
-
 		freshPlaybookID, err := e.PlaybooksClient.Playbooks.Create(context.Background(), client.PlaybookCreateOptions{
 			Title:  "PropUser Timeline Test Playbook",
 			TeamID: e.BasicTeam.Id,
@@ -2339,8 +2333,6 @@ func TestChecklisItem_SetAssignee(t *testing.T) {
 	})
 
 	t.Run("mutually exclusive fields rejected with 400", func(t *testing.T) {
-		e.SetEnterpriseLicence()
-
 		// Create a playbook with a user-type property field so we have a valid field ID to use.
 		mePbID, err := e.PlaybooksClient.Playbooks.Create(context.Background(), client.PlaybookCreateOptions{
 			Title:  "Mutual Exclusion Test Playbook",
@@ -5354,7 +5346,6 @@ func TestRunCreationFromPlaybook_AssigneeTypePropagation(t *testing.T) {
 func TestRunCreationFromPlaybook_PropertyUserAssigneeType(t *testing.T) {
 	e := Setup(t)
 	e.CreateBasic()
-	e.SetEnterpriseLicence()
 
 	// Create a playbook with a user-type property field and a property_user checklist item.
 	pbID, err := e.PlaybooksAdminClient.Playbooks.Create(context.Background(), client.PlaybookCreateOptions{
@@ -5617,8 +5608,6 @@ func TestFinishedRunWriteOperationsBlocked(t *testing.T) {
 	})
 
 	t.Run("set property value fails", func(t *testing.T) {
-		e.SetEnterpriseLicence()
-
 		pbID, err := e.PlaybooksAdminClient.Playbooks.Create(context.Background(), client.PlaybookCreateOptions{
 			Title:  "Finished Run Property Playbook",
 			TeamID: e.BasicTeam.Id,
@@ -5786,11 +5775,10 @@ func TestChangeOwner_EmitsAssigneeChangedForOwnerRoleTasks(t *testing.T) {
 }
 
 // TestSetRunPropertyValue_UserField covers three related scenarios for user-type property
-// fields under a single server setup (enterprise license required for property fields).
+// fields under a single server setup.
 func TestSetRunPropertyValue_UserField(t *testing.T) {
 	e := Setup(t)
 	e.CreateBasic()
-	e.SetEnterpriseLicence()
 
 	// re-resolves: verifies the wiring from SetRunPropertyValue →
 	// resolvePropertyUserAssignmentsFromRun → store update.
@@ -6068,7 +6056,6 @@ func TestSetRunPropertyValue_UserField(t *testing.T) {
 func TestAssigneeAutoAddParticipant(t *testing.T) {
 	e := Setup(t)
 	e.CreateBasic()
-	e.SetEnterpriseLicence()
 
 	botID := e.Srv.Config().PluginSettings.Plugins[manifest.Id]["BotUserID"].(string)
 

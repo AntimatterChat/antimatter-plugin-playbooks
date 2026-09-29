@@ -34,7 +34,6 @@ type PlaybookRunHandler struct {
 	playbookService    app.PlaybookService
 	propertyService    app.PropertyServiceReader
 	permissions        *app.PermissionsService
-	licenseChecker     app.LicenseChecker
 	pluginAPI          *pluginapi.Client
 	poster             bot.Poster
 }
@@ -46,7 +45,6 @@ func NewPlaybookRunHandler(
 	playbookService app.PlaybookService,
 	propertyService app.PropertyServiceReader,
 	permissions *app.PermissionsService,
-	licenseChecker app.LicenseChecker,
 	api *pluginapi.Client,
 	poster bot.Poster,
 	configService config.Service,
@@ -60,7 +58,6 @@ func NewPlaybookRunHandler(
 		poster:             poster,
 		config:             configService,
 		permissions:        permissions,
-		licenseChecker:     licenseChecker,
 	}
 
 	playbookRunsRouter := router.PathPrefix("/runs").Subrouter()

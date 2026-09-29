@@ -187,7 +187,6 @@ type PlaybookRunServiceImpl struct {
 	playbookService  PlaybookService
 	actionService    ChannelActionService
 	permissions      *PermissionsService
-	licenseChecker   LicenseChecker
 	metricsService   *metrics.Metrics
 	propertyService  PropertyService
 	conditionService ConditionService
@@ -238,7 +237,6 @@ func NewPlaybookRunService(
 	api plugin.API,
 	playbookService PlaybookService,
 	channelActionService ChannelActionService,
-	licenseChecker LicenseChecker,
 	metricsService *metrics.Metrics,
 	propertyService PropertyService,
 	conditionService ConditionService,
@@ -253,13 +251,12 @@ func NewPlaybookRunService(
 		api:              api,
 		playbookService:  playbookService,
 		actionService:    channelActionService,
-		licenseChecker:   licenseChecker,
 		metricsService:   metricsService,
 		propertyService:  propertyService,
 		conditionService: conditionService,
 	}
 
-	service.permissions = NewPermissionsService(service.playbookService, service, service.pluginAPI, service.configService, service.licenseChecker)
+	service.permissions = NewPermissionsService(service.playbookService, service, service.pluginAPI, service.configService)
 
 	return service
 }
