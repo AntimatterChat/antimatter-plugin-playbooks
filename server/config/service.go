@@ -261,16 +261,6 @@ func (c *ServiceImpl) IsConfiguredForDevelopmentAndTesting() bool {
 		*config.ServiceSettings.EnableDeveloper
 }
 
-// IsCloud returns true when the server is on cloud, and false otherwise
-func (c *ServiceImpl) IsCloud() bool {
-	license := c.api.System.GetLicense()
-	if license == nil || license.Features == nil || license.Features.Cloud == nil {
-		return false
-	}
-
-	return *license.Features.Cloud
-}
-
 // SupportsGivingFeedback returns nil when the nps plugin is installed and enabled, thus enabling giving feedback.
 func (c *ServiceImpl) SupportsGivingFeedback() error {
 	pluginState := c.api.Configuration.GetConfig().PluginSettings.PluginStates[npsPluginID]

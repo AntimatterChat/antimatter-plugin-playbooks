@@ -34,9 +34,6 @@ type Service interface {
 	// `EnableTesting` configuration settings enabled.
 	IsConfiguredForDevelopmentAndTesting() bool
 
-	// IsCloud returns true when the server has a Cloud license.
-	IsCloud() bool
-
 	// SupportsGivingFeedback returns nil when the nps plugin is installed and enabled, thus enabling giving feedback.
 	SupportsGivingFeedback() error
 

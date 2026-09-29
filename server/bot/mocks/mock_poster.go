@@ -91,20 +91,6 @@ func (mr *MockPosterMockRecorder) IsFromPoster(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsFromPoster", reflect.TypeOf((*MockPoster)(nil).IsFromPoster), arg0)
 }
 
-// NotifyAdmins mocks base method.
-func (m *MockPoster) NotifyAdmins(arg0, arg1 string, arg2 bool) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NotifyAdmins", arg0, arg1, arg2)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// NotifyAdmins indicates an expected call of NotifyAdmins.
-func (mr *MockPosterMockRecorder) NotifyAdmins(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifyAdmins", reflect.TypeOf((*MockPoster)(nil).NotifyAdmins), arg0, arg1, arg2)
-}
-
 // Post mocks base method.
 func (m *MockPoster) Post(arg0 *model.Post) error {
 	m.ctrl.T.Helper()

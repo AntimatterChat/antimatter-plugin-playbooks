@@ -81,9 +81,6 @@ type Poster interface {
 	// users over the reliable, TCP-backed cluster channel. Use for essential, low-frequency events.
 	PublishWebsocketEventGlobalReliable(event string, payload interface{})
 
-	// NotifyAdmins sends a DM with the message to each admins
-	NotifyAdmins(message, authorUserID string, isTeamEdition bool) error
-
 	// IsFromPoster returns whether the provided post was sent by this poster
 	IsFromPoster(post *model.Post) bool
 }
