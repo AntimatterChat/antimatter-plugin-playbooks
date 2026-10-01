@@ -7,7 +7,7 @@ import PlaybooksProductIcon from './playbooks_product_icon';
 
 const PlaybookRunPostMenuIcon = () => (
     <span className='MenuItem__icon'>
-        <PlaybooksProductIcon/>
+        <PlaybooksProductIcon size={18}/>
     </span>
 );
 

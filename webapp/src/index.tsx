@@ -16,7 +16,7 @@ import {getCurrentChannel} from 'mattermost-redux/selectors/entities/channels';
 
 import {Store} from 'src/types/store';
 
-import appIcon from 'src/components/assets/app-bar-icon.png';
+import PlaybooksProductIcon, {playbooksAppIconURL} from 'src/components/assets/icons/playbooks_product_icon';
 import {GlobalSelectStyle} from 'src/components/backstage/styles';
 import GlobalHeaderRight from 'src/components/global_header_right';
 import LoginHook from 'src/components/login_hook';
@@ -188,7 +188,10 @@ export default class Plugin {
 
         registry.registerProduct(
             '/playbooks',
-            'product-playbooks',
+            <PlaybooksProductIcon
+                size={24}
+                colored={true}
+            />,
             'Playbooks',
             '/playbooks',
             BackstageWrapped,
@@ -223,7 +226,7 @@ export default class Plugin {
 
         // App Bar icon
         if (registry.registerAppBarComponent) {
-            registry.registerAppBarComponent(appIcon, boundToggleRHSAction, ChannelHeaderTooltip);
+            registry.registerAppBarComponent(playbooksAppIconURL, boundToggleRHSAction, ChannelHeaderTooltip);
         }
 
         // Site statistics handler

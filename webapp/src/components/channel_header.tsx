@@ -21,6 +21,7 @@ export const ChannelHeaderButton = () => {
         <PlaybooksProductIcon
             id='incidentIcon'
             ref={myRef}
+            colored={true}
         />
     );
 };

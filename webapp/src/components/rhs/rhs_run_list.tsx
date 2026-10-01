@@ -25,7 +25,6 @@ import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
-import appBarIcon from 'src/components/assets/app-bar-icon.png';
 import {useUpdateRun} from 'src/graphql/hooks';
 import {createPlaybookRun} from 'src/client';
 import {HamburgerButton} from 'src/components/assets/icons/three_dots_icon';
@@ -157,7 +156,10 @@ const RHSRunList = (props: Props) => {
         <>
             <RHSTitleRemoteRender>
                 <TitleContainer>
-                    <TitleIcon src={appBarIcon}/>
+                    <PlaybooksProductIcon
+                        size={24}
+                        colored={true}
+                    />
                     <RHSTitleText>
                         {/* product name; don't translate */}
                         {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
@@ -228,7 +230,7 @@ const RHSRunList = (props: Props) => {
                                     data-testid='go-to-playbooks'
                                 >
                                     <MenuItemIcon>
-                                        <PlaybooksProductIcon/>
+                                        <PlaybooksProductIcon size={18}/>
                                     </MenuItemIcon>
                                     <FormattedMessage defaultMessage='Go to Playbooks'/>
                                 </CreateChecklistMenuItem>
@@ -372,12 +374,6 @@ const ChannelNameText = styled.div`
     font-weight: 400;
     line-height: 20px;
     text-overflow: ellipsis;
-`;
-
-const TitleIcon = styled.img`
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
 `;
 
 const SegmentedButtonContainer = styled.div`
