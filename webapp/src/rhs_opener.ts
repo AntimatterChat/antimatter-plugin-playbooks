@@ -10,7 +10,7 @@ import {matchPath} from 'react-router-dom';
 
 import {Store} from 'src/types/store';
 
-import {currentPlaybookRun, inPlaybookRunChannel, isPlaybookRunRHSOpen} from 'src/selectors';
+import {inPlaybookRunChannel, isPlaybookRunRHSOpen} from 'src/selectors';
 import {PlaybookRunStatus} from 'src/types/playbook_run';
 
 import {receivedTeamPlaybookRunConnections, toggleRHS} from 'src/actions';
@@ -46,12 +46,8 @@ export function makeRHSOpener(store: Store, graphqlClient: ApolloClient<Normaliz
         const state = store.getState();
         const currentChannel = getCurrentChannel(state);
         const currentTeam = getCurrentTeam(state);
-        const playbookRun = currentPlaybookRun(state);
         const url = new URL(window.location.href);
         const isInChannel = matchPath(url.pathname, {path: '/:team/:path(channels|messages)/:identifier/:postid?'});
-
-        //@ts-ignore Views not in global state
-        const amRhsOpen = state.views.rhs.isSidebarOpen;
 
         // Wait for a valid team and channel before doing anything.
         if (!isInChannel || !currentChannel || !currentTeam) {
@@ -104,24 +100,11 @@ export function makeRHSOpener(store: Store, graphqlClient: ApolloClient<Normaliz
             return;
         }
 
-        // Should we force open the RHS?
+        // Antimatter: the panel opens when asked to (a link to the run, a click on its card in the chat), never just
+        // because the channel has a run: switching channels doesn't open apps.
         if (forceRHSOpen) {
             //@ts-ignore thunk
             store.dispatch(toggleRHS());
-            return;
         }
-
-        // Don't do anything if the playbook run is finished.
-        if (playbookRun && playbookRun.current_status === PlaybookRunStatus.Finished) {
-            return;
-        }
-
-        // Don't navigate away from an alternate sidebar that is open.
-        if (amRhsOpen) {
-            return;
-        }
-
-        //@ts-ignore thunk
-        store.dispatch(toggleRHS());
     };
 }
