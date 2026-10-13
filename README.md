@@ -30,6 +30,16 @@ and restart the server. Once done, the relevant `make` commands should be able t
 
 which are run from the repo root.
 
+## Feedback and support
+
+Found a bug in the Playbooks plugin, or missing a feature? Please [open an
+issue](https://github.com/AntimatterChat/community/issues/new/choose) in the [Antimatter community
+repository](https://github.com/AntimatterChat/community), where the feedback for every part of
+Antimatter is gathered. Questions and ideas are welcome in its
+[Discussions](https://github.com/AntimatterChat/community/discussions). Please report security
+problems privately, as explained in the [security
+policy](https://github.com/AntimatterChat/.github/blob/main/SECURITY.md).
+
 ## License
 
 This repository is licensed under the [Apache 2.0 License](LICENSE.txt). All features are available without any license key, subscription or trial.
