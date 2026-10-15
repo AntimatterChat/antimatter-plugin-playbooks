@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
   schedule:
     - cron: "0 03 * * 1-6" # Daily at 03:00 UTC from Monday through Saturday.
 
@@ -233,8 +233,8 @@ jobs:
         run: make dist
 
   dist-fips:
-    # Skip FIPS testing for forks, which won't have the chainguard identity.
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    # Skip FIPS testing for forks, which won't have the chainguard identity. Antimatter has none of Mattermost's FIPS infrastructure either.
+    if: github.repository_owner == 'mattermost' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-22.04
     needs:
       - buildenv
@@ -273,7 +273,7 @@ jobs:
           retention-days: 7 ## No need to keep build artifacts for more than 7 days
 
   upload:
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    if: github.repository_owner == 'mattermost' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-22.04
     needs:
       - dist
@@ -303,7 +303,7 @@ jobs:
           aws s3 cp dist/playbooks-*.tar.gz s3://${{ secrets.AWS_S3_BUCKET }}/antimatter-plugin-playbooks/antimatter-plugin-playbooks-${{ steps.short-sha.outputs.sha }}.tar.gz
 
   upload-fips:
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    if: github.repository_owner == 'mattermost' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-22.04
     needs:
       - dist-fips
@@ -371,8 +371,8 @@ jobs:
         uses: ./.github/actions/test-with-db
 
   test-fips:
-    # Skip FIPS testing for forks, which won't have docker login credentials.
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    # Skip FIPS testing for forks, which won't have docker login credentials. Antimatter has none of Mattermost's FIPS infrastructure either.
+    if: github.repository_owner == 'mattermost' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-22.04
     needs:
       - lint
@@ -414,6 +414,8 @@ jobs:
         uses: ./.github/actions/test-with-db
 
   generate-specs:
+    # Needs Mattermost's own infrastructure (official server images, FIPS builders, the S3 bucket).
+    if: github.repository_owner == 'mattermost'
     runs-on: ubuntu-22.04
     outputs:
       specs: ${{ steps.generate-specs.outputs.specs }}
@@ -430,6 +432,8 @@ jobs:
           search_path: tests/integration
 
   e2e-cypress-tests:
+    # Needs Mattermost's own infrastructure (official server images, FIPS builders, the S3 bucket).
+    if: github.repository_owner == 'mattermost'
     runs-on: ubuntu-22.04
     needs:
       - buildenv
@@ -540,7 +544,7 @@ jobs:
           SPECS: ${{ matrix.specs }}
 
   e2e-cypress-tests-fips:
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    if: github.repository_owner == 'mattermost' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-22.04
     needs:
       - buildenv
@@ -652,6 +656,8 @@ jobs:
           ARTIFACT_SUFFIX: -fips
 
   e2e-playwright-tests:
+    # Needs Mattermost's own infrastructure (official server images, FIPS builders, the S3 bucket).
+    if: github.repository_owner == 'mattermost'
     runs-on: ubuntu-22.04
     needs:
       - buildenv
@@ -755,7 +761,7 @@ jobs:
         uses: ./.github/actions/playwright-e2e-test
 
   report-test-results:
-    if: always() && github.event.pull_request.head.repo.full_name == github.repository
+    if: github.repository_owner == 'mattermost' && (always() && github.event.pull_request.head.repo.full_name == github.repository)
     needs:
       - e2e-cypress-tests
       - e2e-cypress-tests-fips
