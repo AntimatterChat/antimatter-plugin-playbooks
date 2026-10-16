@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/antimatterchat/antimatter-plugin-playbooks)](https://github.com/antimatterchat/antimatter-plugin-playbooks/releases/latest)
 
-Antimatter Playbooks allows your team to create and run playbooks from within Antimatter. For configuration and administration information visit our [documentation](https://docs.antimatter.example/guides/playbooks.html).
+Antimatter Playbooks allows your team to create and run playbooks from within Antimatter. For configuration and administration information visit our [documentation](https://antimatter.chat/docs/admins/apps.html#kanban-notes).
 
 ## Version Support
 
@@ -119,9 +119,9 @@ make tag-release patch       # Creates v2.6.2
 
 ## Contributing
 
-This plugin contains both a server and web app portion. Read our documentation about the [Developer Workflow](https://docs.antimatter.example/extend/plugins/developer-workflow/) and [Developer Setup](https://docs.antimatter.example/extend/plugins/developer-setup/) for more information about developing and extending plugins.
+This plugin contains both a server and web app portion. Read our documentation about the [Developer Workflow](https://antimatter.chat/docs/developers/apps.html) and [Developer Setup](https://antimatter.chat/docs/developers/building.html) for more information about developing and extending plugins.
 
-For more information about contributing to Antimatter, and the different ways you can contribute, see [https://docs.antimatter.example/contribute-to-antimatter](https://docs.antimatter.example/contribute/?redirect_source=mm-org).
+For more information about contributing to Antimatter, and the different ways you can contribute, see [antimatter.chat/docs/developers/contributing.html](https://antimatter.chat/docs/developers/contributing.html).
 
 ### Logging
 
@@ -164,4 +164,4 @@ All migrations in the `future` folder should have both migration directions - `u
 * [Help wanted tickets currently up for grab](https://github.com/antimatterchat/antimatter-plugin-playbooks/issues?q=is%3Aopen+is%3Aissue+label%3A%22Help+Wanted%22+label%3A%22Up+For+Grabs%22)
 * [Good first issue tickets](https://github.com/antimatterchat/antimatter-plugin-playbooks/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22)
 
-For more information, join the discussion in the [`Developers: Playbooks` channel](https://docs.antimatter.example/core/channels/developers-playbooks).
+For more information, join the discussion in [AntimatterChat/community Discussions](https://github.com/AntimatterChat/community/discussions).
