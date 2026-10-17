@@ -75,7 +75,7 @@ func (c *SimulController) OpenRHS(u ltuser.User, pbClient *client.Client) ltcont
 	}
 
 	// 5. Retrieve the run's metadata
-	// https://docs.antimatter.example/plugins/playbooks/api/v0/runs/fuhegiurtbb75fnfajaka98uuo/metadata
+	// https://chat.example.com/plugins/playbooks/api/v0/runs/fuhegiurtbb75fnfajaka98uuo/metadata
 	_, err = pbClient.PlaybookRuns.GetMetadata(ctx, currentRun.ID)
 	if err != nil {
 		return ltcontrol.UserActionResponse{Err: ltcontrol.NewUserError(err)}

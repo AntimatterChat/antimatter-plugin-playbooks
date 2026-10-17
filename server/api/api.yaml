@@ -5,7 +5,7 @@ info:
   title: Playbooks API
   contact:
     name: Antimatter
-    url: https://docs.antimatter.example/
+    url: https://antimatter.chat/docs/
     email: support@antimatter.example
 servers:
   - url: http://localhost:8065/plugins/playbooks/api/v0
@@ -224,7 +224,7 @@ paths:
   /plugins/playbooks/api/v0/runs/dialog:
     post:
       summary: Create a new playbook run from dialog
-      description: This is an internal endpoint to create a playbook run from the submission of an interactive dialog, filled by a user in the webapp. See [Interactive Dialogs](https://docs.antimatter.example/developer/interactive-dialogs.html) for more information.
+      description: This is an internal endpoint to create a playbook run from the submission of an interactive dialog, filled by a user in the webapp. See [Dialogs](https://antimatter.chat/docs/developers/bots.html#dialogs) for more information.
       operationId: createPlaybookRunFromDialog
       security:
         - BearerAuth: []

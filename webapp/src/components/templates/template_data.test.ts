@@ -1,6 +1,8 @@
 // Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
+import {defaultMessageOnJoin} from 'src/types/playbook';
+
 import TemplateData from './template_data';
 
 describe('TemplateData', () => {
@@ -22,5 +24,13 @@ describe('TemplateData', () => {
                 TemplateData.find((template) => template.title.trim() === templateName),
             ).not.toBeUndefined();
         });
+    });
+
+    // The built-in templates and the default welcome message don't link to the dead
+    // docs.antimatter.example of the rebrand.
+    it('has no docs.antimatter.example links', () => {
+        expect(JSON.stringify(TemplateData)).not.toContain('docs.antimatter.example');
+        expect(defaultMessageOnJoin).not.toContain('docs.antimatter.example');
+        expect(defaultMessageOnJoin).toContain('https://antimatter.chat/docs/users/apps.html#playbooks');
     });
 });

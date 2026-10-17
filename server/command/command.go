@@ -37,7 +37,7 @@ const helpText = "###### Antimatter Playbooks Plugin - Slash Command Help\n" +
 	"* `/playbook settings digest [on/off]` - turn daily digest on/off. \n" +
 	"* `/playbook settings weekly-digest [on/off]` - turn weekly digest on/off. \n" +
 	"\n" +
-	"Learn more [in our documentation](https://docs.antimatter.example/pl/default-incident-response-app-documentation). \n" +
+	"Learn more [in our documentation](https://antimatter.chat/docs/users/apps.html#playbooks). \n" +
 	""
 
 const confirmPrompt = "CONFIRM"

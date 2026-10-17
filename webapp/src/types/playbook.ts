@@ -331,11 +331,11 @@ export const newMetric = (type: MetricType, title = '', description = '', target
     target,
 });
 
-export const defaultMessageOnJoin = `Welcome! This channel was automatically created as part of a playbook run. You can [learn more about playbooks here](https://docs.antimatter.example/guides/playbooks.html). To see information about this run, such as current owner and checklist of tasks, select the shield icon in the channel header.
+export const defaultMessageOnJoin = `Welcome! This channel was automatically created as part of a playbook run. You can [learn more about playbooks here](https://antimatter.chat/docs/users/apps.html#playbooks). To see information about this run, such as current owner and checklist of tasks, select the shield icon in the channel header.
 
 Here are some resources that you may find helpful:
-[Antimatter community channel](https://docs.antimatter.example/core/channels/developers-playbooks)
-[User guide and documentation](https://docs.antimatter.example/guides/playbooks.html)`;
+[Antimatter community](https://github.com/AntimatterChat/community)
+[User guide and documentation](https://antimatter.chat/docs/users/apps.html#playbooks)`;
 
 export const defaultRetrospectiveTemplate = `### Summary
 This should contain 2-3 sentences that give a reader an overview of what happened, what was the cause, and what was done. The briefer the better as this is what future teams will look at first for reference.
