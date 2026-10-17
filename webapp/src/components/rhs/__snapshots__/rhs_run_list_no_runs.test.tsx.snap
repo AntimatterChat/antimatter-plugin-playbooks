@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the channel's runs when the filter leaves none keeps its structure 1`] = `
+<div
+  className="Container-imVVdw cXAoAx"
+  data-empty-state={true}
+  data-testid="no-active-runs"
+  ref={null}
+>
+  <span
+    className="IconTile-kYqpUY imoVLX"
+    data-testid="empty-state-icon"
+    ref={null}
+  >
+    <i
+      aria-hidden="true"
+      className="icon icon-check-all"
+      data-fusion-icon="checkbox"
+      style={
+        {
+          "fontSize": 22,
+        }
+      }
+    />
+  </span>
+  <h3
+    className="Title-gqksKv hewnDQ"
+    ref={null}
+  >
+    Nothing in progress
+  </h3>
+  <p
+    className="Text-jBKhDe jImyRG"
+    ref={null}
+  >
+    Every checklist in this channel is finished.
+  </p>
+  <div
+    className="Actions-gjNmbu kDOnBS"
+    ref={null}
+  >
+    <button
+      className="btn btn-primary PrimaryButton-bSzsdJ jFjrEK"
+      data-testid="create-blank-checklist"
+      onClick={[MockFunction]}
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-plus"
+        data-fusion-icon="plus"
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      />
+      New checklist
+    </button>
+  </div>
+  <button
+    className="btn btn-tertiary TertiaryButton-dMQxbd PlainButton-iZQiJT bzJcCG eKDRNj"
+    data-testid="view-finished-runs"
+    onClick={[Function]}
+    ref={null}
+  >
+    View finished
+  </button>
+</div>
+`;
