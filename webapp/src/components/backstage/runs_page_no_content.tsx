@@ -2,8 +2,7 @@
 // See LICENSE.txt for license information.
 
 import React, {useEffect, useState} from 'react';
-import {FormattedMessage} from 'react-intl';
-import styled from 'styled-components';
+import {useIntl} from 'react-intl';
 
 import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 
@@ -12,61 +11,18 @@ import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 import {BACKSTAGE_LIST_PER_PAGE} from 'src/constants';
 import {Playbook} from 'src/types/playbook';
 
-import PlaybookListSvg from 'src/components/assets/illustrations/playbook_list_svg';
 import {openPlaybookRunModal} from 'src/actions';
 import {navigateToPluginUrl} from 'src/browser_routing';
 import {useCanCreatePlaybooksInTeam, usePlaybooksCrud, usePlaybooksRouting} from 'src/hooks';
-import {PrimaryButton} from 'src/components/assets/buttons';
+import EmptyState from 'src/components/fusion/empty_state';
 
 import {clientHasPlaybooks} from 'src/client';
 import {useLHSRefresh} from 'src/components/backstage/lhs_navigation';
-import {useCompactList} from 'src/panel/panel_width';
-
-const NoContentContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 0 16px;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-`;
-
-const NoContentTextContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 40px 0 20px;
-`;
-
-const NoContentTitle = styled.h2`
-    font-family: "Open Sans";
-    font-style: normal;
-    letter-spacing: -0.02em;
-    font-size: 28px;
-    color: var(--center-channel-color);
-    text-align: left;
-`;
-
-const NoContentDescription = styled.h5`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
-    font-family: "Open Sans";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 24px;
-    text-align: left;
-`;
-
-const NoContentPlaybookRunSvgContainer = styled.div`
-    flex: none;
-`;
 
 const NoContentPage = () => {
+    const {formatMessage} = useIntl();
     const dispatch = useAppDispatch();
     const teamId = useAppSelector(getCurrentTeamId);
-
-    // The illustration only beside the text in a wide panel (it hid on narrow windows).
-    const compact = useCompactList();
     const [playbookExist, setPlaybookExist] = useState(false);
     const {setSelectedPlaybook} = usePlaybooksCrud({team_id: '', per_page: BACKSTAGE_LIST_PER_PAGE});
     const {create} = usePlaybooksRouting<Playbook>({onGo: setSelectedPlaybook});
@@ -97,27 +53,27 @@ const NoContentPage = () => {
         }
     };
 
+    // A Fusion empty state (it was a Mattermost illustration beside a large title).
     return (
-        <NoContentContainer>
-            <NoContentTextContainer>
-                <NoContentTitle><FormattedMessage defaultMessage='What are playbook runs?'/></NoContentTitle>
-                <NoContentDescription><FormattedMessage defaultMessage='Running a playbook orchestrates workflows for your team and tools.'/></NoContentDescription>
-                {(canCreatePlaybooks || playbookExist) &&
-                <PrimaryButton
-                    className='mt-6'
-                    onClick={handleClick}
-                >
-                    <i className='icon-plus'/>
-                    {playbookExist ? <FormattedMessage defaultMessage='Run playbook'/> : <FormattedMessage defaultMessage='Create playbook'/>}
-                </PrimaryButton>
-                }
-            </NoContentTextContainer>
-            {!compact && (
-                <NoContentPlaybookRunSvgContainer>
-                    <PlaybookListSvg/>
-                </NoContentPlaybookRunSvgContainer>
-            )}
-        </NoContentContainer>
+        <EmptyState
+            data-testid='runs-no-content'
+            icon='runbook'
+            fill={true}
+            title={formatMessage({
+                defaultMessage: 'No runs yet',
+                description: 'Playbooks side panel: the title of the list of runs when there is none.',
+            })}
+            text={formatMessage({
+                defaultMessage: 'Run a playbook to coordinate your team and tools, and keep a record of every step.',
+                description: 'Playbooks side panel: what a run is, in the list of runs when there is none.',
+            })}
+            action={(canCreatePlaybooks || playbookExist) ? {
+                label: playbookExist ? formatMessage({defaultMessage: 'Run playbook'}) : formatMessage({defaultMessage: 'Create playbook'}),
+                icon: playbookExist ? 'runbook' : 'plus',
+                onClick: handleClick,
+                testId: 'runs-no-content-action',
+            } : undefined}
+        />
     );
 };
 

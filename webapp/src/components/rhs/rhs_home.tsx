@@ -3,145 +3,35 @@
 
 import React from 'react';
 
-import Scrollbars from 'react-custom-scrollbars';
 import styled from 'styled-components';
 import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
-import {ArrowDownIcon, PlusIcon} from '@mattermost/compass-icons/components';
-import {FormattedMessage} from 'react-intl';
+import {useIntl} from 'react-intl';
 
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import {PresetTemplates} from 'src/components/templates/template_data';
+import TemplateRow from 'src/components/templates/template_row';
+import EmptyState from 'src/components/fusion/empty_state';
 import {DraftPlaybookWithChecklist} from 'src/types/playbook';
-import {SemiBoldHeading} from 'src/styles/headings';
-import {
-    RHSContainer,
-    RHSContent,
-    renderThumbVertical,
-    renderTrackHorizontal,
-    renderView,
-} from 'src/components/rhs/rhs_shared';
 import {displayPlaybookCreateModal} from 'src/actions';
 import {useCanCreatePlaybooksInTeam} from 'src/hooks';
-import {RHSHomeTemplate} from 'src/components/rhs/rhs_home_item';
-import PlaybookListSvg from 'src/components/assets/illustrations/playbook_list_svg';
-import {PrimaryButton} from 'src/components/assets/buttons';
 import {RHSTitleRemoteRender} from 'src/rhs_title_remote_render';
 
 import {RHSTitleText} from './rhs_title_common';
 
-const WelcomeBlock = styled.div`
-    padding: 4rem 3rem 2rem;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
-`;
-
-const WelcomeDesc = styled.p`
-    margin-bottom: 3rem;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 21px;
-`;
-
-const WelcomeCreateAlt = styled.span`
-    display: inline-flex;
-    align-items: center;
-    padding: 1rem 0;
-    vertical-align: top;
-
-    > svg {
-        margin-left: 0.5em;
-    }
-`;
-
-const WelcomeButtonCreate = styled(PrimaryButton)`
-    margin-right: 2rem;
-    margin-bottom: 1rem;
-`;
-
-const WelcomeWarn = styled(WelcomeDesc)`
-    color: rgba(var(--error-text-color-rgb), 0.72);
-`;
-
-const Header = styled.div`
-    display: grid;
-    min-height: 13rem;
-    margin-bottom: 4rem;
-`;
-
-const Heading = styled.h3`
-    ${SemiBoldHeading}
-    font-size: 30px;
-    color: var(--center-channel-color);
-    letter-spacing: -0.01em;
-`;
-
-const ListHeading = styled.h4`
-    ${SemiBoldHeading}
-    font-size: 18px;
-    padding-left: 2.75rem;
-    letter-spacing: -0.005em;
-`;
-
-const ListSection = styled.div`
-    position: relative;
-    display: grid;
-    margin-top: 1rem;
-    margin-bottom: 5rem;
-    box-shadow: 0 -1px 0 rgba(var(--center-channel-color-rgb), 0.08);
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
-
-    &::after {
-        position: absolute;
-        bottom: 0;
-        display: block;
-        width: 100%;
-        height: 1px;
-        box-shadow: 0 -1px 0 rgba(var(--center-channel-color-rgb), 0.08);
-        content: '';
-    }
-`;
-
+/**
+ * RHSHome is the panel's first view outside a channel: what Playbooks is, the button to create a playbook, and the
+ * templates to start one from. It's drawn as the Fusion UI's app panels: a small empty state, then a list of rows
+ * (it was a large Mattermost illustration over a grid of cards).
+ */
 const RHSHome = () => {
+    const {formatMessage} = useIntl();
     const dispatch = useAppDispatch();
     const currentTeamId = useAppSelector(getCurrentTeamId);
     const canCreatePlaybooks = useCanCreatePlaybooksInTeam(currentTeamId || '');
     const newPlaybook = (template?: DraftPlaybookWithChecklist) => {
         dispatch(displayPlaybookCreateModal({startingTemplate: template?.title}));
     };
-
-    const headerContent = (
-        <WelcomeBlock>
-            <PlaybookListSvg size={119}/>
-            <Heading>
-                <FormattedMessage defaultMessage='Welcome to Playbooks!'/>
-            </Heading>
-            <WelcomeDesc>
-                <FormattedMessage
-                    defaultMessage='A playbook prescribes the checklists, automations, and templates for any repeatable procedures. {br} It helps teams reduce errors, earn trust with stakeholders, and become more effective with every iteration.'
-                    values={{br: <br/>}}
-                />
-            </WelcomeDesc>
-            {canCreatePlaybooks ? (
-                <div>
-                    <WelcomeButtonCreate
-                        onClick={() => newPlaybook()}
-                    >
-                        <PlusIcon size={16}/>
-                        <FormattedMessage defaultMessage='Create playbook'/>
-                    </WelcomeButtonCreate>
-                    <WelcomeCreateAlt>
-                        <FormattedMessage defaultMessage='…or start with an example'/>
-                        <ArrowDownIcon size={16}/>
-                    </WelcomeCreateAlt>
-                </div>
-            ) : (
-                <WelcomeWarn>
-                    <FormattedMessage defaultMessage="You don't have permission to create playbooks in this workspace."/>
-                </WelcomeWarn>
-            )}
-        </WelcomeBlock>
-    );
 
     return (
         <>
@@ -152,38 +42,74 @@ const RHSHome = () => {
                     {'Playbooks'}
                 </RHSTitleText>
             </RHSTitleRemoteRender>
-            <RHSContainer>
-                <RHSContent>
-                    <Scrollbars
-                        autoHide={true}
-                        autoHideTimeout={500}
-                        autoHideDuration={500}
-                        renderThumbVertical={renderThumbVertical}
-                        renderView={renderView}
-                        renderTrackHorizontal={renderTrackHorizontal}
-                        style={{position: 'absolute'}}
-                    >
-                        {<Header>{headerContent}</Header>}
-                        {canCreatePlaybooks && (
-                            <>
-                                <ListHeading><FormattedMessage defaultMessage='Playbook Examples'/></ListHeading>
-                                <ListSection>
-                                    {PresetTemplates.map(({title, template}) => (
-                                        <RHSHomeTemplate
-                                            key={title}
-                                            title={title}
-                                            template={template}
-                                            onUse={newPlaybook}
-                                        />
-                                    ))}
-                                </ListSection>
-                            </>
-                        )}
-                    </Scrollbars>
-                </RHSContent>
-            </RHSContainer>
+            <Panel
+                className='am-app-panel'
+                data-testid='playbooks-rhs-home'
+            >
+                <EmptyState
+                    icon='runbook'
+                    data-testid='playbooks-rhs-welcome'
+                    title={formatMessage({
+                        defaultMessage: 'Welcome to Playbooks',
+                        description: 'Playbooks side panel: the title of its first view, shown outside a channel.',
+                    })}
+                    text={formatMessage({
+                        defaultMessage: 'A playbook is a checklist you can run again and again, with its own automations. Each run keeps a record of what happened.',
+                        description: 'Playbooks side panel: what a playbook is, under the welcome title.',
+                    })}
+                    action={canCreatePlaybooks ? {
+                        label: formatMessage({defaultMessage: 'Create playbook'}),
+                        icon: 'plus',
+                        onClick: () => newPlaybook(),
+                        testId: 'playbooks-rhs-create',
+                    } : undefined}
+                    note={canCreatePlaybooks ? undefined : formatMessage({
+                        defaultMessage: 'You can’t create playbooks in this community.',
+                        description: 'Playbooks side panel: shown instead of the create button to people without the permission to create playbooks.',
+                    })}
+                />
+                {canCreatePlaybooks && (
+                    <>
+                        <Heading className='am-app-h'>
+                            {formatMessage({
+                                defaultMessage: 'Start from a template',
+                                description: 'Playbooks side panel: the heading of the list of templates a new playbook can start from.',
+                            })}
+                        </Heading>
+                        {PresetTemplates.map(({title, icon, template}) => (
+                            <TemplateRow
+                                key={title}
+                                title={title}
+                                icon={icon}
+                                template={template}
+                                onSelect={() => newPlaybook(template)}
+                            />
+                        ))}
+                    </>
+                )}
+            </Panel>
         </>
     );
 };
+
+// The Fusion UI styles .am-app-panel and .am-app-h; these are the classic UI's look for them.
+const Panel = styled.div`
+    display: grid;
+    align-content: start;
+    padding: 10px 12px 16px;
+    gap: 6px;
+`;
+
+const Heading = styled.h4`
+    display: flex;
+    align-items: center;
+    margin: 6px 2px 0;
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
+    font-size: 11px;
+    font-weight: 700;
+    gap: 8px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+`;
 
 export default RHSHome;

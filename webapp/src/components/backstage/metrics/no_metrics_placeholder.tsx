@@ -2,64 +2,32 @@
 // See LICENSE.txt for license information.
 
 import React from 'react';
-import styled from 'styled-components';
 import {useIntl} from 'react-intl';
 import {useRouteMatch} from 'react-router-dom';
 
-import NoMetricsSvg from 'src/components/assets/no_metrics_svg';
-import {SecondaryButton} from 'src/components/assets/buttons';
+import EmptyState from 'src/components/fusion/empty_state';
 import {navigateToUrl} from 'src/browser_routing';
 
+// NoMetricsPlaceholder is a playbook's reports without metrics: a Fusion empty state (it was a Mattermost
+// illustration), with the way to configure them for those who can edit the playbook.
 const NoMetricsPlaceholder = ({canEdit = true}: {canEdit?: boolean}) => {
     const match = useRouteMatch();
     const {formatMessage} = useIntl();
 
     return (
-        <Container>
-            <InnerContainer>
-                <NoMetricsSvg/>
-                <Title>{formatMessage({defaultMessage: 'Track key metrics and measure value'})}</Title>
-                <Text>{formatMessage({defaultMessage: 'Use metrics to understand patterns and progress across runs, and track performance.'})}</Text>
-                {canEdit && (
-                    <SecondaryButton
-                        onClick={() => {
-                            navigateToUrl(match.url.replace('/reports', '/outline#retrospective'));
-                        }}
-                    >
-                        {formatMessage({defaultMessage: 'Configure metrics in Retrospective'})}
-                    </SecondaryButton>
-                )}
-            </InnerContainer>
-        </Container>
+        <EmptyState
+            data-testid='no-metrics-placeholder'
+            icon='flag'
+            title={formatMessage({defaultMessage: 'Track key metrics and measure value'})}
+            text={formatMessage({defaultMessage: 'Use metrics to understand patterns and progress across runs, and track performance.'})}
+            action={canEdit ? {
+                label: formatMessage({defaultMessage: 'Configure metrics in Retrospective'}),
+                onClick: () => {
+                    navigateToUrl(match.url.replace('/reports', '/outline#retrospective'));
+                },
+            } : undefined}
+        />
     );
 };
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 96px;
-`;
-
-const InnerContainer = styled.div`
-    max-width: 523px;
-    text-align: center;
-`;
-
-const Title = styled.div`
-    font-size: 22px;
-    font-weight: 600;
-    line-height: 28px;
-    margin-top: 24px;
-    font-family: Metropolis, sans-serif;
-    letter-spacing: -0.02em;
-`;
-
-const Text = styled.div`
-    margin: 8px 0 24px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-`;
 
 export default NoMetricsPlaceholder;

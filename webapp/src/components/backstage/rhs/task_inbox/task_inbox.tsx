@@ -21,6 +21,7 @@ import {isTaskOverdue, selectMyTasks} from 'src/selectors';
 import {receivedPlaybookRuns} from 'src/actions';
 
 import {useEnsureProfiles} from 'src/hooks';
+import EmptyState from 'src/components/fusion/empty_state';
 
 import Task from './task';
 
@@ -92,7 +93,10 @@ const TaskInbox = () => {
         if (myTasksNum === 0) {
             return [
                 formatMessage({defaultMessage: 'No assigned tasks'}),
-                formatMessage({defaultMessage: 'You don\'t have any pending task assigned.'}),
+                formatMessage({
+                    defaultMessage: 'You have no open tasks.',
+                    description: 'Playbooks side panel: the text of "Your tasks" when no open task is assigned to the user.',
+                }),
             ];
         }
         if (myTasksNum > 0 && filteredTasksNum === 0) {
@@ -158,13 +162,13 @@ const TaskInbox = () => {
                 </DotMenu>
             </Filters>
             {tasks.length === 0 ? (
-                <ZeroCase>
-                    <ZeroCaseIconWrapper>
-                        <ZeroCaseIcon/>
-                    </ZeroCaseIconWrapper>
-                    <ZeroCaseTitle>{zerocaseTitle}</ZeroCaseTitle>
-                    <ZeroCaseDescription>{zerocaseSubtitle}</ZeroCaseDescription>
-                </ZeroCase>
+                <EmptyState
+                    data-testid='tasks-zero-case'
+                    icon='checkbox'
+                    fill={true}
+                    title={zerocaseTitle}
+                    text={zerocaseSubtitle}
+                />
             ) : (
                 <InfiniteScrollContainer>
                     <InfiniteScroll
@@ -205,8 +209,8 @@ const Filters = styled.div`
     flex-direction: row;
     align-items: center;
     padding: 0 10px;
-    border-top: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-top: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     background-color: rgba(var(--center-channel-color-rgb),0.04);
 `;
 
@@ -277,56 +281,6 @@ export const StyledDropdownMenuItem = styled(DropdownMenuItem)<{checked: boolean
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
-`;
-
-const ZeroCase = styled.div`
-    display: flex;
-    max-height: 350px;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-`;
-
-const ZeroCaseIconWrapper = styled.div`
-    display: flex;
-    width: 120px;
-    height: 120px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    margin: 22px;
-    background-color: rgba(var(--center-channel-color-rgb), 0.08);
-`;
-
-const ZeroCaseIcon = styled.span`
-    &::after {
-        color: var(--button-bg);
-        content: '\f0139';
-        font-family: compass-icons, mattermosticons;
-        font-size: 48px;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-`;
-
-const ZeroCaseTitle = styled.h3`
-    margin: 0;
-    margin-bottom: 15px;
-    color: var(--center-channel-color);
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 20px;
-`;
-
-const ZeroCaseDescription = styled.div`
-    display: flex;
-    align-items: center;
-    padding: 0 30px;
-    font-size: 14px;
-    text-align: center;
-    /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
-    word-break: break-word;
 `;
 
 const InfiniteScrollContainer = styled.div`

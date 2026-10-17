@@ -17,7 +17,7 @@ import {usePlaybooksRouting} from 'src/hooks';
 
 import {useLHSRefresh} from 'src/components/backstage/lhs_navigation';
 
-import TemplateItem from './template_item';
+import TemplateRow from './template_row';
 import PresetTemplates, {PresetTemplate} from './template_data';
 
 const presetTemplateOptions = PresetTemplates.map((template: PresetTemplate) => ({label: template.title, value: template.title}));
@@ -52,12 +52,11 @@ export const TemplateDropdown = (props: TemplateDropdownProps) => {
     );
 };
 
-const SelectorGrid = styled.div`
-	display: grid;
-    padding: 0 0 100px;
-    gap: 2.5rem;
-	grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    place-items: flex-start center;
+// The templates, one row each as the side panel's other lists (they were big illustrated cards).
+const SelectorList = styled.div`
+    display: grid;
+    padding: 8px 0 32px;
+    gap: 6px;
 `;
 
 const instantCreatePlaybook = async (template: PresetTemplate, teamID: string, username: string): Promise<string> => {
@@ -79,17 +78,16 @@ const TemplateSelector = ({templates = PresetTemplates}: Props) => {
     const refreshLHS = useLHSRefresh();
 
     return (
-        <SelectorGrid>
+        <SelectorList data-testid='template-selector'>
             {templates.map((template: PresetTemplate) => (
-                <TemplateItem
+                <TemplateRow
                     key={template.title}
                     label={template.label}
                     title={template.title}
-                    description={template.description ?? ''}
-                    color={template.color}
+                    description={template.description}
                     icon={template.icon}
-                    author={template.author}
-                    labelColor={template.labelColor}
+                    template={template.template}
+                    data-testid='template-item'
                     onSelect={async () => {
                         let username = currentUser.username;
                         const isTutorial = template.title === 'Learn how to use playbooks';
@@ -102,8 +100,7 @@ const TemplateSelector = ({templates = PresetTemplates}: Props) => {
                     }}
                 />
             ))}
-
-        </SelectorGrid>
+        </SelectorList>
     );
 };
 

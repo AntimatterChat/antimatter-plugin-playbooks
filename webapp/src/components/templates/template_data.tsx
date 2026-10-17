@@ -1,31 +1,18 @@
 // Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import React, {ReactNode} from 'react';
-
 import {mtrim} from 'js-trim-multiline-string';
 
 import {DraftPlaybookWithChecklist, emptyPlaybook, newChecklistItem} from 'src/types/playbook';
-
-import AntimatterLogo from 'src/components/assets/antimatter_logo';
-import ClipboardChecklist from 'src/components/assets/illustrations/clipboard_checklist_svg';
-import ProductRelease from 'src/components/assets/illustrations/product_release_svg';
-import BugBash from 'src/components/assets/illustrations/bug_bash_svg';
-import LearnPlaybooks from 'src/components/assets/illustrations/learn_playbooks_svg';
-import IncidentResolutionSvg from 'src/components/assets/illustrations/incident_resolution_svg';
-import FeatureLifecycle from 'src/components/assets/illustrations/feature_lifecycle_svg';
-import CustomerOnboarding from 'src/components/assets/illustrations/customer_onboarding_svg';
-import EmployeeOnboarding from 'src/components/assets/illustrations/employee_onboarding_svg';
+import type {FusionIconName} from 'src/components/fusion/icon';
 
 export interface PresetTemplate {
     label?: string;
-    labelColor?: string;
     title: string;
     description?: string;
 
-    author?: ReactNode;
-    icon: ReactNode;
-    color?: string;
+    // A line icon of Fusion's set (the classic UI shows the matching Compass icon).
+    icon: FusionIconName;
     template: DraftPlaybookWithChecklist;
 }
 
@@ -54,8 +41,7 @@ const preprocessTemplates = (presetTemplates: PresetTemplate[]): PresetTemplate[
 export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
     {
         title: 'Blank',
-        icon: <ClipboardChecklist/>,
-        color: '#FFBC1F14',
+        icon: 'plus',
         description: 'Start with a blank state and create your own masterpiece.',
         template: {
             ...emptyPlaybook(),
@@ -66,9 +52,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
     {
         title: 'Product Release',
         description: 'Perfect your release process from ideation to production.',
-        icon: <ProductRelease/>,
-        color: '#C4313314',
-        author: <AntimatterLogo/>,
+        icon: 'flag',
         template: {
             ...emptyPlaybook(),
             title: 'Product Release',
@@ -153,9 +137,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
     {
         title: 'Incident Resolution',
         description: 'Resolving incidents requires speed and accuracy. Streamline your processes for rapid response and resolution.',
-        icon: <IncidentResolutionSvg/>,
-        author: <AntimatterLogo/>,
-        color: '#33997014',
+        icon: 'flame',
         template: {
             ...emptyPlaybook(),
             title: 'Incident Resolution',
@@ -244,9 +226,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
     {
         title: 'Customer Onboarding',
         description: 'Create a standardized, smooth onboarding experience for new customers to get them up and running quickly. ',
-        icon: <CustomerOnboarding/>,
-        color: '#3C507A14',
-        author: <AntimatterLogo/>,
+        icon: 'users',
         template: {
             ...emptyPlaybook(),
             title: 'Customer Onboarding',
@@ -336,9 +316,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
     {
         title: 'Employee Onboarding',
         description: 'Set your new hires up for success with input from your entire organization, in one smooth process.',
-        icon: <EmployeeOnboarding/>,
-        color: '#FFBC1F14',
-        author: <AntimatterLogo/>,
+        icon: 'user-plus',
         template: {
             ...emptyPlaybook(),
             title: 'Employee Onboarding',
@@ -441,9 +419,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
     {
         title: 'Feature Lifecycle',
         description: 'Create transparent workflows across development teams to ensure your feature development process is seamless.',
-        icon: <FeatureLifecycle/>,
-        color: '#62697E14',
-        author: <AntimatterLogo/>,
+        icon: 'sparkle',
         template: {
             ...emptyPlaybook(),
             title: 'Feature Lifecycle',
@@ -564,9 +540,7 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
     {
         title: 'Bug Bash',
         description: 'Customize this playbook to reflect your own bug bash process.',
-        icon: <BugBash/>,
-        color: '#7A560014',
-        author: <AntimatterLogo/>,
+        icon: 'ticket',
         template: {
             ...emptyPlaybook(),
             title: 'Bug Bash',
@@ -721,11 +695,8 @@ export const PresetTemplates: PresetTemplate[] = preprocessTemplates([
     },
     {
         title: 'Learn how to use playbooks',
-        label: 'Recommended For Beginners',
-        labelColor: '#E5AA1F29-#A37200',
-        icon: <LearnPlaybooks/>,
-        color: '#FFBC1F14',
-        author: <AntimatterLogo/>,
+        label: 'Recommended for beginners',
+        icon: 'compass',
         description: 'New to playbooks? This playbook will help you get familiar with playbooks, configurations, and playbook runs.',
         template: {
             ...emptyPlaybook(),

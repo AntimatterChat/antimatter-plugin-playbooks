@@ -78,7 +78,7 @@ describe('channels > rhs > home', {testIsolation: true}, () => {
 
                 // * Verify we see the new checklist UI for empty channels
                 cy.get('#rhsContainer').within(() => {
-                    cy.findByText('Get started with a checklist for this channel').should('be.visible');
+                    cy.findByText('No checklists in this channel yet').should('be.visible');
 
                     // # First create a blank checklist so the header with dropdown appears
                     cy.findByTestId('create-blank-checklist').click();

@@ -9,7 +9,7 @@ import qs from 'qs';
 
 import {FormattedMessage} from 'react-intl';
 
-import WarningIcon from 'src/components/assets/icons/warning_icon';
+import EmptyState from 'src/components/fusion/empty_state';
 import {ErrorPageTypes} from 'src/constants';
 import {pluginUrl} from 'src/browser_routing';
 
@@ -46,59 +46,39 @@ const ErrorPage = () => {
         );
         break;
     case ErrorPageTypes.PLAYBOOKS:
-        title = <FormattedMessage defaultMessage='Playbook Not Found'/>;
+        title = (
+            <FormattedMessage
+                defaultMessage='Playbook not found'
+                description='Playbooks side panel: the title shown for a link to a playbook that is private or does not exist.'
+            />
+        );
         message = <FormattedMessage defaultMessage="The playbook you're requesting is private or does not exist."/>;
         returnTo = pluginUrl('/playbooks');
         returnToMsg = <FormattedMessage defaultMessage='Back to playbooks'/>;
         break;
     }
 
+    // A Fusion empty state in the error colour, with the way back to the list.
     return (
-        <Container data-testid='playbooks-panel-error'>
-            <Icon>
-                <WarningIcon/>
-            </Icon>
-            <h2 data-testid='errorMessageTitle'>
-                <span>{title}</span>
-            </h2>
-            <p>
-                <span>{message}</span>
-            </p>
-            <Link to={returnTo}>
-                {returnToMsg}
-            </Link>
-        </Container>
+        <EmptyState
+            data-testid='playbooks-panel-error'
+            icon='ban'
+            tone='danger'
+            title={<span data-testid='errorMessageTitle'>{title}</span>}
+            text={message}
+            note={(
+                <BackLink to={returnTo}>
+                    {returnToMsg}
+                </BackLink>
+            )}
+        />
     );
 };
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 48px 24px;
-    color: var(--center-channel-color);
-    text-align: center;
-
-    h2 {
-        margin: 16px 0 8px;
-        font-size: 20px;
+const BackLink = styled(Link)`
+    &&& {
+        color: var(--am-anti, var(--link-color));
         font-weight: 600;
-    }
-
-    p {
-        margin-bottom: 16px;
-        color: rgba(var(--center-channel-color-rgb), 0.72);
-    }
-`;
-
-const Icon = styled.div`
-    width: 48px;
-    height: 48px;
-    color: var(--error-text);
-
-    svg {
-        width: 100%;
-        height: 100%;
     }
 `;
 

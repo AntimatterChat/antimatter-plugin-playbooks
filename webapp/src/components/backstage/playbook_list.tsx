@@ -17,7 +17,7 @@ import {PrimaryButton, TertiaryButton} from 'src/components/assets/buttons';
 import BackstageListHeader from 'src/components/backstage/backstage_list_header';
 import PlaybookListRow from 'src/components/backstage/playbook_list_row';
 import SearchInput from 'src/components/backstage/search_input';
-import {BackstageSubheader, HorizontalSpacer} from 'src/components/backstage/styles';
+import {HorizontalSpacer} from 'src/components/backstage/styles';
 import TemplateSelector from 'src/components/templates/template_selector';
 import {PaginationRow} from 'src/components/pagination_row';
 import {SortableColHeader} from 'src/components/sortable_col_header';
@@ -26,7 +26,8 @@ import {useCanCreatePlaybooksInTeam, usePlaybooksCrud, usePlaybooksRouting} from
 import {useImportPlaybook} from 'src/components/backstage/import_playbook';
 import {Playbook} from 'src/types/playbook';
 import PresetTemplates from 'src/components/templates/template_data';
-import {RegularHeading} from 'src/styles/headings';
+import EmptyState from 'src/components/fusion/empty_state';
+import FusionIcon from 'src/components/fusion/icon';
 import {pluginUrl} from 'src/browser_routing';
 
 import Header from 'src/components/widgets/header';
@@ -46,14 +47,14 @@ import NoContentPage from './playbook_list_getting_started';
 import useConfirmPlaybookRestoreModal from './restore_playbook_modal';
 
 const ContainerMedium = styled.article`
-    padding: 0 20px;
+    padding: 8px 12px 0;
     scroll-margin-top: 20px;
 `;
 
 const PlaybookListContainer = styled.div`
     position: relative;
     height: 100%;
-    color: rgba(var(--center-channel-color-rgb), 0.9);
+    color: var(--am-text, rgba(var(--center-channel-color-rgb), 0.9));
     overflow-y: hidden;
 `;
 
@@ -67,65 +68,41 @@ const TableContainer = styled.div`
     overflow-x: clip;
 `;
 
-const CreatePlaybookHeader = styled(BackstageSubheader)`
-    display: grid;
-    padding: 4rem 0 3.2rem;
-    margin-top: 4rem;
-`;
-
-export const Heading = styled.h1`
-    ${RegularHeading};
-
-    font-size: 2.8rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 3.6rem;
-    margin: 0;
-`;
-
-const Sub = styled.p`
-    max-width: 650px;
-    margin-top: 12px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-`;
-
-const AltCreatePlaybookHeader = styled(BackstageSubheader)`
+// The heading of the templates under the list, as the Fusion UI's section headings (.am-app-h).
+const TemplatesHeading = styled.h4`
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding-top: 0;
-    margin-top: 1rem;
-`;
+    margin: 16px 2px 8px;
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
+    font-size: 11px;
+    font-weight: 700;
+    gap: 8px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
 
-export const AltHeading = styled(Heading)`
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 28px;
-    text-align: center;
-`;
-
-const AltSub = styled(Sub)`
-    margin-bottom: 36px;
-    text-align: center;
+    .am-grow {
+        flex: 1;
+    }
 `;
 
 const TitleActions = styled.div`
     display: flex;
 `;
 
-const ImportSub = styled(Sub)`
-    margin-top: 8px;
-    margin-bottom: 0;
-    color: inherit;
-    font-size: 14px;
-    line-height: 20px;
-`;
+const ImportLink = styled.button`
+    padding: 0 6px;
+    border: 0;
+    border-radius: 6px;
+    background: none;
+    color: var(--am-matter, var(--button-bg));
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
 
-const ImportLink = styled.a`
-    font-weight: 600;
+    &:hover {
+        background: var(--am-matter-soft, rgba(var(--button-bg-rgb), 0.08));
+    }
 `;
 
 const PlaybooksListFilters = styled.div`
@@ -215,9 +192,11 @@ const PlaybookList = (props: { firstTimeUserExperience?: boolean }) => {
     let listBody: JSX.Element | JSX.Element[] | null = null;
     if (!hasPlaybooks && isFiltering) {
         listBody = (
-            <div className='text-center pt-8'>
-                <FormattedMessage defaultMessage='There are no playbooks matching those filters.'/>
-            </div>
+            <EmptyState
+                icon='search'
+                data-testid='playbooks-no-match'
+                title={formatMessage({defaultMessage: 'There are no playbooks matching those filters.'})}
+            />
         );
     } else if (playbooks) {
         listBody = playbooks.map((p: Playbook) => (
@@ -270,7 +249,7 @@ const PlaybookList = (props: { firstTimeUserExperience?: boolean }) => {
                         </TitleActions>
                     )}
                     style={{
-                        borderBottom: '1px solid rgba(var(--center-channel-color-rgb), 0.16)',
+                        borderBottom: '1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16))',
                     }}
                 />
                 <PlaybooksListFilters>
@@ -367,36 +346,18 @@ const PlaybookList = (props: { firstTimeUserExperience?: boolean }) => {
                         <ContainerMedium
                             ref={selectorRef}
                         >
-                            {props.firstTimeUserExperience || (!hasPlaybooks && !isFiltering) ? (
-                                <AltCreatePlaybookHeader>
-                                    <AltHeading>
-                                        {formatMessage({defaultMessage: 'Choose a template'})}
-                                    </AltHeading>
-                                    <ImportSub>
-                                        {formatMessage({defaultMessage: 'or <ImportPlaybookButton>Import a playbook</ImportPlaybookButton>'}, {
-                                            ImportPlaybookButton: (chunks) => (
-                                                <ImportLinkButton
-                                                    onClick={handleImportClick}
-                                                >
-                                                    {chunks}
-                                                </ImportLinkButton>
-                                            ),
-                                        })}
-                                    </ImportSub>
-                                    <AltSub>
-                                        {formatMessage({defaultMessage: 'There are pre-built playbooks for a range of use cases and events. You can use a pre-built playbook as-is or customize it—then share it with your team.'})}
-                                    </AltSub>
-                                </AltCreatePlaybookHeader>
-                            ) : (
-                                <CreatePlaybookHeader>
-                                    <Heading>
-                                        {formatMessage({defaultMessage: 'Do more with Playbooks'})}
-                                    </Heading>
-                                    <Sub>
-                                        {formatMessage({defaultMessage: 'There are pre-built playbooks for a range of use cases and events. You can use a pre-built playbook as-is or customize it—then share it with your team.'})}
-                                    </Sub>
-                                </CreatePlaybookHeader>
-                            )}
+                            <TemplatesHeading className='am-app-h'>
+                                {formatMessage({
+                                    defaultMessage: 'Start from a template',
+                                    description: 'Playbooks side panel: the heading of the list of templates a new playbook can start from.',
+                                })}
+                                <span className='am-grow'/>
+                                {(props.firstTimeUserExperience || (!hasPlaybooks && !isFiltering)) && (
+                                    <ImportLinkButton onClick={handleImportClick}>
+                                        <FormattedMessage defaultMessage='Import'/>
+                                    </ImportLinkButton>
+                                )}
+                            </TemplatesHeading>
                             <TemplateSelector
                                 templates={props.firstTimeUserExperience || (!hasPlaybooks && !isFiltering) ? swapEnds(PresetTemplates) : PresetTemplates}
                             />
@@ -428,7 +389,11 @@ const ImportButton = (props: ImportButtonProps) => {
 
 const ImportLinkButton = (props: PropsWithChildren<ImportButtonProps>) => {
     return (
-        <ImportLink {...props}/>
+        <ImportLink
+            type='button'
+            data-testid='playbooks-import-link'
+            {...props}
+        />
     );
 };
 
@@ -440,7 +405,10 @@ const PlaybookModalButton = () => {
         <PrimaryButton
             onClick={() => dispatch(displayPlaybookCreateModal({}))}
         >
-            <i className='icon-plus'/>
+            <FusionIcon
+                name='plus'
+                size='sm'
+            />
             {formatMessage({defaultMessage: 'Create playbook'})}
         </PrimaryButton>
     );

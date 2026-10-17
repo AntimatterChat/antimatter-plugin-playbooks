@@ -13,11 +13,6 @@ jest.mock('src/browser_routing', () => ({
     navigateToUrl: jest.fn(),
 }));
 
-jest.mock('src/components/assets/no_metrics_svg', () => ({
-    __esModule: true,
-    default: () => null,
-}));
-
 import NoMetricsPlaceholder from './no_metrics_placeholder';
 
 const render = (canEdit?: boolean) =>
@@ -41,5 +36,14 @@ describe('NoMetricsPlaceholder > canEdit prop', () => {
 
     it('shows the configure metrics button by default when canEdit is not provided', () => {
         expect(hasConfigureButton(render())).toBe(true);
+    });
+});
+
+describe('NoMetricsPlaceholder > Fusion empty state', () => {
+    it('draws an empty state with a line icon, not an illustration', () => {
+        const tree = JSON.stringify(render(true));
+        expect(tree).toContain('"data-empty-state":true');
+        expect(tree).toContain('"data-fusion-icon":"flag"');
+        expect(tree).not.toContain('"type":"svg"');
     });
 });

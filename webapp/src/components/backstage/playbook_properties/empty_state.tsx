@@ -2,71 +2,34 @@
 // See LICENSE.txt for license information.
 
 import React from 'react';
-import styled from 'styled-components';
 
-import {SecondaryButton} from 'src/components/assets/buttons';
+import FusionEmptyState from 'src/components/fusion/empty_state';
 
 interface Props {
     title: React.ReactNode;
     description: React.ReactNode;
     buttonText?: React.ReactNode;
     onButtonClick?: () => void;
-    icon?: React.ReactNode;
 }
 
+// EmptyState is a playbook's attributes before there are any: the app's Fusion empty state.
 const EmptyState = ({
     title,
     description,
     buttonText,
     onButtonClick,
-    icon,
-}: Props) => {
-    return (
-        <Container>
-            <InnerContainer>
-                {icon && <IconContainer>{icon}</IconContainer>}
-                <Title>{title}</Title>
-                <Description>{description}</Description>
-                {buttonText && (
-                    <SecondaryButton onClick={onButtonClick}>
-                        {buttonText}
-                    </SecondaryButton>
-                )}
-            </InnerContainer>
-        </Container>
-    );
-};
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 48px 32px;
-`;
-
-const InnerContainer = styled.div`
-    max-width: 523px;
-    text-align: center;
-`;
-
-const IconContainer = styled.div`
-    margin-bottom: 24px;
-`;
-
-const Title = styled.div`
-    font-size: 22px;
-    font-weight: 600;
-    line-height: 28px;
-    margin-top: 0;
-    font-family: Metropolis, sans-serif;
-    letter-spacing: -0.02em;
-`;
-
-const Description = styled.div`
-    margin: 8px 0 24px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-`;
+}: Props) => (
+    <FusionEmptyState
+        data-testid='attributes-empty-state'
+        icon='tag'
+        title={title}
+        text={description}
+        action={buttonText && onButtonClick ? {
+            label: buttonText,
+            icon: 'plus',
+            onClick: onButtonClick,
+        } : undefined}
+    />
+);
 
 export default EmptyState;

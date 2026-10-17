@@ -6,36 +6,26 @@ import {FormattedMessage, useIntl} from 'react-intl';
 
 import styled from 'styled-components';
 import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
-import {
-    BookOutlineIcon,
-    CheckAllIcon,
-    CheckIcon,
-    LinkVariantIcon,
-    PlayBoxMultipleOutlineIcon,
-    PlayOutlineIcon,
-    PlusIcon,
-    SortAscendingIcon,
-} from '@mattermost/compass-icons/components';
 import Scrollbars from 'react-custom-scrollbars';
 import {DateTime} from 'luxon';
 import {debounce} from 'lodash';
 import {getCurrentChannel, getCurrentChannelId} from 'mattermost-redux/selectors/entities/channels';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/common';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import {useUpdateRun} from 'src/graphql/hooks';
 import {createPlaybookRun} from 'src/client';
 import {HamburgerButton} from 'src/components/assets/icons/three_dots_icon';
-import {SemiBoldHeading} from 'src/styles/headings';
 import {openPlaybookRunModal, openUpdateRunChannelModal} from 'src/actions';
 import Profile from 'src/components/profile/profile';
 import DotMenu, {DotMenuButton, DropdownMenuItem, TitleButton} from 'src/components/dot_menu';
-import {PrimaryButton, TertiaryButton} from 'src/components/assets/buttons';
+import {TertiaryButton} from 'src/components/assets/buttons';
 import {RHSTitleRemoteRender} from 'src/rhs_title_remote_render';
-import ClipboardChecklist from 'src/components/assets/illustrations/clipboard_checklist_svg';
+import EmptyState from 'src/components/fusion/empty_state';
+import FusionIcon from 'src/components/fusion/icon';
+import Tip from 'src/components/fusion/tip';
+import {FUSION} from 'src/components/fusion/web_ui';
 import LoadingSpinner from 'src/components/assets/loading_spinner';
 import PlaybooksProductIcon from 'src/components/assets/icons/playbooks_product_icon';
 import {navigateToPluginUrl} from 'src/browser_routing';
@@ -172,7 +162,7 @@ const RHSRunList = (props: Props) => {
                     <ChannelNameText>
                         {currentChannelName}
                     </ChannelNameText>
-                    <WithTooltip
+                    <Tip
                         id='playbooks-browse-button'
                         title={browseLabel}
                     >
@@ -182,9 +172,12 @@ const RHSRunList = (props: Props) => {
                             aria-label={browseLabel}
                             data-testid='playbooks-browse-button'
                         >
-                            <PlayBoxMultipleOutlineIcon size={18}/>
+                            <FusionIcon
+                                name='apps'
+                                size={18}
+                            />
                         </BrowseButton>
-                    </WithTooltip>
+                    </Tip>
                 </TitleContainer>
             </RHSTitleRemoteRender>
             <Container>
@@ -196,7 +189,11 @@ const RHSRunList = (props: Props) => {
                             icon={
                                 <FilterMenuTitle data-testid='rhs-runs-filter-menu'>
                                     {filterMenuTitleText}
-                                    <i className={'icon icon-chevron-down'}/>
+                                    <FusionIcon
+                                        name='chev'
+                                        size='sm'
+                                        className='icon-chevron-down'
+                                    />
                                 </FilterMenuTitle>
                             }
                         >
@@ -223,20 +220,32 @@ const RHSRunList = (props: Props) => {
                                 onClick={handleCreateBlankChecklist}
                                 data-testid='create-blank-checklist'
                             >
-                                <PlusIcon size={18}/>
+                                <FusionIcon
+                                    name='plus'
+                                    size='sm'
+                                />
                                 {formatMessage({defaultMessage: 'New checklist'})}
                             </PrimaryActionButton>
                             <DotMenu
                                 dotMenuButton={DropdownTriggerButton}
                                 placement='bottom-start'
-                                icon={<i className={'icon icon-chevron-down'}/>}
+                                icon={(
+                                    <FusionIcon
+                                        name='chev'
+                                        size='sm'
+                                        className='icon-chevron-down'
+                                    />
+                                )}
                             >
                                 <CreateChecklistMenuItem
                                     onClick={handleStartRun}
                                     data-testid='create-from-playbook'
                                 >
                                     <MenuItemIcon>
-                                        <PlayOutlineIcon size={18}/>
+                                        <FusionIcon
+                                            name='runbook'
+                                            size={18}
+                                        />
                                     </MenuItemIcon>
                                     <FormattedMessage defaultMessage='Run a playbook'/>
                                 </CreateChecklistMenuItem>
@@ -246,7 +255,10 @@ const RHSRunList = (props: Props) => {
                                     data-testid='go-to-playbooks'
                                 >
                                     <MenuItemIcon>
-                                        <PlaybooksProductIcon size={18}/>
+                                        <FusionIcon
+                                            name='playbook'
+                                            size={18}
+                                        />
                                     </MenuItemIcon>
                                     <FormattedMessage defaultMessage='Go to Playbooks'/>
                                 </CreateChecklistMenuItem>
@@ -255,7 +267,12 @@ const RHSRunList = (props: Props) => {
                         <DotMenu
                             dotMenuButton={SortDotMenuButton}
                             placement='bottom-start'
-                            icon={<SortAscendingIcon size={18}/>}
+                            icon={(
+                                <FusionIcon
+                                    name='rank'
+                                    size={18}
+                                />
+                            )}
                         >
                             <SortMenuTitle>{formatMessage({defaultMessage: 'Sort by'})}</SortMenuTitle>
                             <SortMenuItem
@@ -352,10 +369,17 @@ const NoRunsWrapper = styled.div`
 `;
 
 const FilterMenuTitle = styled.div`
-    font-family: Metropolis;
+    display: flex;
+    align-items: center;
+    font-family: var(--am-font-display, Metropolis), sans-serif;
     font-size: 16px;
     font-weight: 600;
+    gap: 4px;
     line-height: 24px;
+
+    ${FUSION} & {
+        font-size: 15px;
+    }
 `;
 
 const Spacer = styled.div`
@@ -389,11 +413,22 @@ const BrowseButton = styled.button`
     border-radius: 4px;
     margin-left: auto;
     background: none;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 
     &:hover {
         background: rgba(var(--center-channel-color-rgb), 0.08);
-        color: rgba(var(--center-channel-color-rgb), 0.72);
+        color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
+    }
+
+    /* The title bar's icon buttons in the Fusion UI (.sidebar--right__header .btn-icon). */
+    ${FUSION} & {
+        border-radius: 8px;
+        color: var(--am-muted);
+    }
+
+    ${FUSION} &:hover {
+        background: var(--am-hover);
+        color: var(--am-text);
     }
 `;
 
@@ -401,12 +436,18 @@ const VerticalLine = styled.div`
     height: 24px;
     border-left: 1px solid var(--center-channel-color);
     opacity: 0.16;
+
+    /* Fusion's dividers: its line colour, opaque. */
+    ${FUSION} & {
+        border-left-color: var(--am-line);
+        opacity: 1;
+    }
 `;
 
 const ChannelNameText = styled.div`
     overflow: hidden;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
-    font-family: "Open Sans", sans-serif;
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
+    font-family: var(--am-font-ui, "Open Sans"), sans-serif;
     font-size: 12px;
     font-weight: 400;
     line-height: 20px;
@@ -445,6 +486,21 @@ const PrimaryActionButton = styled.button`
     &:active {
         background: rgba(var(--button-bg-rgb), 0.16);
     }
+
+    /* Fusion's soft accent buttons (the selected tools of its toolbars). */
+    ${FUSION} & {
+        border-right-color: color-mix(in srgb, var(--am-matter) 24%, transparent);
+        background: var(--am-matter-soft);
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+        color: var(--am-matter);
+        font-family: var(--am-font-ui), sans-serif;
+        font-size: 12.5px;
+    }
+
+    ${FUSION} &:hover {
+        background: color-mix(in srgb, var(--am-matter) 26%, transparent);
+    }
 `;
 
 const DropdownTriggerButton = styled(TitleButton)`
@@ -472,6 +528,16 @@ const DropdownTriggerButton = styled(TitleButton)`
             font-size: 18px;
         }
     }
+
+    ${FUSION} && {
+        border-radius: 0 8px 8px 0;
+        background: var(--am-matter-soft);
+        color: var(--am-matter);
+    }
+
+    ${FUSION} &&:hover {
+        background: color-mix(in srgb, var(--am-matter) 26%, transparent);
+    }
 `;
 
 const CreateChecklistMenuItem = styled(DropdownMenuItem)`
@@ -486,7 +552,7 @@ const MenuItemIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     flex-shrink: 0;
     width: 24px;
 
@@ -502,11 +568,19 @@ const SortDotMenuButton = styled(DotMenuButton)`
 
 const SortMenuTitle = styled.div`
     margin: 5px 18px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
     text-transform: uppercase;
+
+    /* Fusion's menu headings. */
+    ${FUSION} & {
+        margin: 4px 10px 6px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+    }
 `;
 
 const FilterMenuItem = styled(DropdownMenuItem)`
@@ -546,13 +620,21 @@ const SortMenuItem = (props: SortMenuItemProps) => {
 };
 
 const FilterMenuNumericValue = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 `;
 
-const BlueCheckmark = styled(CheckIcon)`
-    width: 18px;
-    height: 18px;
-    color: var(--button-bg);
+const BlueCheckmark = () => (
+    <Checkmark>
+        <FusionIcon
+            name='check'
+            size={18}
+        />
+    </Checkmark>
+);
+
+const Checkmark = styled.span`
+    display: flex;
+    color: var(--am-matter, var(--button-bg));
 `;
 
 interface RHSRunListCardProps extends RunToDisplay {
@@ -583,7 +665,12 @@ const RHSRunListCard = (props: RHSRunListCardProps) => {
     const [movedChannel, setMovedChannel] = useState({channelId: '', channelName: ''});
     const updateRun = useUpdateRun(props.id);
     const isPlaybookRun = props.type === PlaybookRunType.Playbook;
-    const icon = isPlaybookRun ? <PlayOutlineIcon size={22}/> : <CheckAllIcon size={22}/>;
+    const icon = (
+        <FusionIcon
+            name={isPlaybookRun ? 'runbook' : 'checkbox'}
+            size={20}
+        />
+    );
 
     return (
         <CardWrapper
@@ -609,12 +696,12 @@ const RHSRunListCard = (props: RHSRunListCardProps) => {
                         {icon}
                     </IconWrapper>
                     {isTitleOverflowing ? (
-                        <WithTooltip
+                        <Tip
                             id={`run-title-tooltip-${props.id}`}
                             title={props.name}
                         >
                             <TitleRow ref={titleRef}>{props.name}</TitleRow>
-                        </WithTooltip>
+                        </Tip>
                     ) : (
                         <TitleRow ref={titleRef}>{props.name}</TitleRow>
                     )}
@@ -670,7 +757,7 @@ const RHSRunListCard = (props: RHSRunListCardProps) => {
                         )}
                     </LastUpdatedText>
                     {props.playbook && isPlaybookRun &&
-                        <WithTooltip
+                        <Tip
                             id={`playbook-chip-${props.id}`}
                             title={formatMessage(
                                 {defaultMessage: 'Checklist created from {playbook} playbook'},
@@ -678,12 +765,13 @@ const RHSRunListCard = (props: RHSRunListCardProps) => {
                             )}
                         >
                             <PlaybookChip>
-                                <StyledBookOutlineIcon
-                                    size={11}
+                                <FusionIcon
+                                    name='playbook'
+                                    size={12}
                                 />
                                 <PlaybookChipText>{props.playbook.title}</PlaybookChipText>
                             </PlaybookChip>
-                        </WithTooltip>
+                        </Tip>
                     }
                 </InfoRow>
             </CardContainer>
@@ -702,25 +790,19 @@ const CardWrapper = styled.div<{ progress: number }>`
         bottom: 1px;
         left: 1px;
         display: block;
-        border-bottom: 2px solid var(--online-indicator);
+        border-bottom: 2px solid var(--am-ok, var(--online-indicator));
         border-bottom-left-radius: inherit;
         border-bottom-right-radius: ${({progress}) => (progress < 100 ? 0 : 'inherit')};
         content: ''
     }
 
+    ${FUSION} & {
+        border-radius: 10px;
+    }
+
     &.removed {
         animation: disapear 0.7s;
         animation-fill-mode: forwards;
-    }
-
-    @keyframes disapear{
-        35% {
-            transform: translateY(5%);
-        }
-
-        100% {
-            transform: translateY(-1000%);
-        }
     }
 
     @keyframes disapear{
@@ -738,7 +820,7 @@ const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 16px 20px 20px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 4px;
     box-shadow: 0 2px 3px 0 rgba(0 0 0 / 0.08);
     cursor: pointer;
@@ -751,6 +833,20 @@ const CardContainer = styled.div`
     &:active {
         box-shadow: inset 0 2px 3px rgba(0 0 0 / 0.08);
     }
+
+    /* A row of the Fusion UI's app panels (.am-app-row): flat, on the side surface. */
+    ${FUSION} & {
+        padding: 12px 14px 14px;
+        border-color: var(--am-line);
+        border-radius: 10px;
+        background: var(--am-side);
+        box-shadow: none;
+    }
+
+    ${FUSION} &:hover {
+        background: var(--am-raise);
+        box-shadow: none;
+    }
 `;
 const CardTitleContainer = styled.div`
     display: flex;
@@ -760,6 +856,7 @@ const CardTitleContainer = styled.div`
 `;
 const TitleRow = styled.div`
     overflow: hidden;
+    color: var(--am-text, inherit);
     font-size: 14px;
     font-weight: 600;
     text-overflow: ellipsis;
@@ -776,7 +873,7 @@ const InfoRow = styled.div`
     justify-content: space-between;
 `;
 const LastUpdatedText = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 11px;
     font-weight: 400;
     line-height: 16px;
@@ -789,11 +886,18 @@ const PlaybookChip = styled.div`
     padding: 0 4px;
     border-radius: 4px;
     background: rgba(var(--center-channel-color-rgb), 0.08);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     gap: 4px;
+
+    ${FUSION} & {
+        padding: 1px 7px;
+        border-radius: 10px;
+        background: var(--am-raise-2);
+    }
 `;
 const PlaybookChipText = styled.span`
     overflow: hidden;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 10px;
     font-weight: 600;
     line-height: 16px;
@@ -805,7 +909,7 @@ const OwnerProfileChip = styled(Profile)`
     flex-grow: 0;
     padding: 2px 10px 2px 2px;
     border-radius: 12px;
-    background: rgba(var(--center-channel-color-rgb), 0.08);
+    background: var(--am-raise-2, rgba(var(--center-channel-color-rgb), 0.08));
     font-size: 11px;
     font-weight: 400;
     line-height: 15px;
@@ -825,10 +929,6 @@ const ThreeDotsIcon = styled(HamburgerButton)`
     font-size: 18px;
 `;
 
-const StyledBookOutlineIcon = styled(BookOutlineIcon)`
-    flex-shrink: 0;
-`;
-
 const StyledDotMenuButton = styled(DotMenuButton)`
     width: 28px;
     height: 28px;
@@ -843,13 +943,15 @@ const Separator = styled.hr`
     display: flex;
     width: 100%;
     align-content: center;
-    border-top: 1px solid var(--center-channel-color-08);
+    border-top: 1px solid var(--am-line, var(--center-channel-color-08));
     margin: 5px auto;
 `;
 
 const IconWrapper = styled.div<{$margin?: string}>`
+    display: flex;
+    align-items: center;
     margin-right: ${({$margin}) => ($margin || '11px')};
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 
     svg {
         vertical-align: middle;
@@ -864,71 +966,73 @@ interface NoRunsProps {
     setOptions: React.Dispatch<React.SetStateAction<RunListOptions>>
 }
 
-const NoRuns = (props: NoRunsProps) => {
+// NoRuns is what the list shows when the filter leaves nothing: a Fusion empty state, with the other filter's runs
+// one click away when there are some.
+export const NoRuns = (props: NoRunsProps) => {
     const {formatMessage} = useIntl();
 
-    let text = formatMessage({defaultMessage: 'Get started with a checklist for this channel'});
+    let title = formatMessage({
+        defaultMessage: 'No checklists in this channel yet',
+        description: 'Playbooks side panel: the title shown when a channel has no checklist or run at all.',
+    });
+    let text = formatMessage({
+        defaultMessage: 'Start a checklist to track tasks here, or run a playbook.',
+        description: 'Playbooks side panel: the text under the title shown when a channel has no checklist or run at all.',
+    });
 
     // DM/GM channels now support checklists, so use the same messaging
     if (props.active && props.numFinished > 0) {
-        text = formatMessage({defaultMessage: 'There are no in progress checklists in this channel'});
+        title = formatMessage({
+            defaultMessage: 'Nothing in progress',
+            description: 'Playbooks side panel: the title shown when a channel has only finished checklists and runs.',
+        });
+        text = formatMessage({
+            defaultMessage: 'Every checklist in this channel is finished.',
+            description: 'Playbooks side panel: the text shown when a channel has only finished checklists and runs.',
+        });
     } else if (!props.active) {
-        text = formatMessage({defaultMessage: 'There are no finished checklists linked to this channel'});
+        title = formatMessage({
+            defaultMessage: 'Nothing finished yet',
+            description: 'Playbooks side panel: the title shown in the list of finished checklists when there is none.',
+        });
+        text = formatMessage({
+            defaultMessage: 'Finished checklists of this channel will show here.',
+            description: 'Playbooks side panel: the text shown in the list of finished checklists when there is none.',
+        });
+    }
+
+    let secondary;
+    if (props.active && props.numFinished > 0) {
+        secondary = {
+            label: formatMessage({defaultMessage: 'View finished'}),
+            onClick: () => props.setOptions((oldOptions) => ({...oldOptions, filter: FilterType.Finished})),
+            testId: 'view-finished-runs',
+        };
+    } else if (!props.active && props.numInProgress > 0) {
+        secondary = {
+            label: formatMessage({defaultMessage: 'View in progress'}),
+            onClick: () => props.setOptions((oldOptions) => ({...oldOptions, filter: FilterType.InProgress})),
+            testId: 'view-in-progress-runs',
+        };
     }
 
     return (
-        <NoActiveRunsContainer data-testid={'no-active-runs'}>
-            <StyledClipboardChecklist/>
-            <NoRunsText>
-                {text}
-            </NoRunsText>
-            <PrimaryButton
-                onClick={props.onCreateChecklistClicked}
-                data-testid='create-blank-checklist'
-            >
-                <PlusIcon size={18}/>
-                <FormattedMessage defaultMessage={'New checklist'}/>
-            </PrimaryButton>
-            {props.active && props.numFinished > 0 &&
-                <ViewOtherRunsButton
-                    onClick={() => props.setOptions((oldOptions) => ({...oldOptions, filter: FilterType.Finished}))}
-                >
-                    {formatMessage({defaultMessage: 'View finished'})}
-                </ViewOtherRunsButton>
-            }
-            {!props.active && props.numInProgress > 0 &&
-                <ViewOtherRunsButton
-                    onClick={() => props.setOptions((oldOptions) => ({...oldOptions, filter: FilterType.InProgress}))}
-                >
-                    {formatMessage({defaultMessage: 'View in progress'})}
-                </ViewOtherRunsButton>
-            }
-        </NoActiveRunsContainer>
+        <EmptyState
+            data-testid='no-active-runs'
+            icon='checkbox'
+            title={title}
+            text={text}
+            fill={true}
+            action={{
+                label: formatMessage({defaultMessage: 'New checklist'}),
+                icon: 'plus',
+                onClick: props.onCreateChecklistClicked,
+                testId: 'create-blank-checklist',
+            }}
+            secondary={secondary}
+        />
     );
 };
-
-const NoActiveRunsContainer = styled.div`
-    display: flex;
-    max-width: 325px;
-    flex-direction: column;
-    align-items: center;
-    align-self: center;
-    margin: auto;
-    gap: 24px;
-`;
-const NoRunsText = styled.div`
-    ${SemiBoldHeading}
-    font-size: 20px;
-    line-height: 28px;
-    text-align: center;
-`;
-const ViewOtherRunsButton = styled(TertiaryButton)`
-    background: none;
-`;
-const StyledClipboardChecklist = styled(ClipboardChecklist)`
-    width: 189.33px;
-    height: 106.67px;
-`;
 
 interface ContextMenuProps {
     runType: PlaybookRunType;
@@ -957,13 +1061,19 @@ const ContextMenu = (props: ContextMenuProps) => {
         >
             <StyledDropdownMenuItem onClick={props.onClick}>
                 <IconWrapper>
-                    {isPlaybookRun ? <PlayOutlineIcon size={22}/> : <CheckAllIcon size={22}/>}
+                    <FusionIcon
+                        name={isPlaybookRun ? 'runbook' : 'checkbox'}
+                        size={18}
+                    />
                 </IconWrapper>
                 <FormattedMessage defaultMessage='Open'/>
             </StyledDropdownMenuItem>
             <StyledDropdownMenuItem onClick={() => navigateToPluginUrl(overviewURL)}>
                 <IconWrapper>
-                    {isPlaybookRun ? <PlayOutlineIcon size={22}/> : <CheckAllIcon size={22}/>}
+                    <FusionIcon
+                        name='eye'
+                        size={18}
+                    />
                 </IconWrapper>
                 <FormattedMessage defaultMessage='Go to overview'/>
             </StyledDropdownMenuItem>
@@ -972,7 +1082,10 @@ const ContextMenu = (props: ContextMenuProps) => {
                     <RowContainer>
                         <ColContainer>
                             <IconWrapper>
-                                <BookOutlineIcon size={22}/>
+                                <FusionIcon
+                                    name='playbook'
+                                    size={18}
+                                />
                             </IconWrapper>
                             <FormattedMessage defaultMessage='Go to playbook'/>
                         </ColContainer>
@@ -987,7 +1100,10 @@ const ContextMenu = (props: ContextMenuProps) => {
                         onClick={() => dispatch(openUpdateRunChannelModal(props.playbookRunID, props.teamID, props.runType, props.onUpdateChannel))}
                     >
                         <IconWrapper>
-                            <LinkVariantIcon size={22}/>
+                            <FusionIcon
+                                name='link'
+                                size={18}
+                            />
                         </IconWrapper>
                         <FormattedMessage defaultMessage='Move to a different channel'/>
                     </StyledDropdownMenuItem>
@@ -1012,15 +1128,15 @@ const MenuItemSubTitle = styled.div`
 
     /* don't let the playbook title make context menu grow too wide */
     max-width: 220px;
-    margin-left: 33px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    margin-left: 29px;
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     text-overflow: ellipsis;
     white-space: nowrap;
 `;
 
 const TasksDone = styled.div`
     display: flex;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 11px;
 `;
 

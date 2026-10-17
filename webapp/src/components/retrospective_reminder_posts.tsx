@@ -32,25 +32,19 @@ import {
 
 import {Timestamp} from 'src/webapp_globals';
 
-import ClipboardChecklist from 'src/components/assets/illustrations/clipboard_checklist_svg';
-
 import {PrimaryButton, TertiaryButton} from './assets/buttons';
 import {FutureTimeSpec} from './rhs/rhs_post_update';
 
 const Divider = styled.div`
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     margin-top: 12px;
     margin-bottom: 12px;
 `;
 
 const ReminderText = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     line-height: 20px;
-`;
-
-const IllustrationContainer = styled.div`
-    padding: 12px;
 `;
 
 interface ReminderCommonProps {
@@ -116,9 +110,6 @@ const ReminderCommon = (props: ReminderCommonProps) => {
                     {reminderText}
                 </ReminderText>
             </CustomPostContent>
-            <IllustrationContainer>
-                <ClipboardChecklist/>
-            </IllustrationContainer>
         </CustomPostContainer>
     );
 };

@@ -14,7 +14,7 @@ const EmptyState = () => {
 };
 
 const EmptyText = styled.span`
-    color: var(--center-channel-color-64);
+    color: var(--am-faint, var(--center-channel-color-64));
     font-style: italic;
     font-size: 14px;
     line-height: 20px;
