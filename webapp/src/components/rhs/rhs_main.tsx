@@ -16,6 +16,7 @@ import {navigateToChannel} from 'src/browser_routing';
 import {usePlaybooksCrud} from 'src/hooks';
 import LoadingSpinner from 'src/components/assets/loading_spinner';
 import {RunStatus} from 'src/graphql/generated/graphql';
+import {firstChannelView, getChannelView, setChannelView} from 'src/panel/channel_view';
 
 import {graphql} from 'src/graphql/generated/gql';
 
@@ -159,39 +160,46 @@ const defaultListOptions : RunListOptions = {
 // Rules for automatic display:
 // * No Runs Ever -> RHS Home
 // * Only Finished Runs -> Runs list blank state
-// * Single active run (ignoring finished) -> Details page for that run (back button goes to runs list)
+// * Single active run (ignoring finished) -> Details page for that run (back button goes to runs list), only the
+//   first time the panel shows the channel's runs
 // * Multiple active runs -> Runs list
+//
+// After that, the channel's runs show the view the person was last on in the channel (src/panel/channel_view.ts):
+// going back to the list stays on the list, whatever the runs do, and so does leaving the view or closing the panel.
 const RightHandSidebar = () => {
     const currentTeam = useAppSelector(getCurrentTeam);
     const currentChannelId = useAppSelector(getCurrentChannelId);
-    const [currentRunId, setCurrentRunId] = useState<string | undefined>();
-    const autoSelectCheckedForChannel = useRef<string | undefined>(undefined);
+    const [currentRunId, setCurrentRunId] = useState<string | undefined>(() => getChannelView(currentChannelId)?.runId);
+    const shownChannelId = useRef(currentChannelId);
     const [autoAddTaskRunId, setAutoAddTaskRunId] = useState<string|undefined>();
     const [listOptions, setListOptions] = useState<RunListOptions>(defaultListOptions);
     const fetchedRuns = useFilteredSortedRuns(currentChannelId, listOptions);
     const {isLoading} = usePlaybooksCrud({team_id: currentTeam?.id}, {infinitePaging: true});
 
+    // The person's choice of view in the channel: a run's checklist, or the list (none).
+    const chooseRun = (runId?: string) => {
+        setCurrentRunId(runId);
+        setChannelView(currentChannelId, runId);
+    };
+
     useEffect(() => {
         // reset filter state
         setListOptions(defaultListOptions);
+
+        // Another channel: the view the person was last on there.
+        if (shownChannelId.current !== currentChannelId) {
+            shownChannelId.current = currentChannelId;
+            setCurrentRunId(getChannelView(currentChannelId)?.runId);
+        }
     }, [currentChannelId]);
 
-    // auto-select single in-progress run in channel if applicable
+    // The first time the channel's runs show: its only run in progress, else the list. It's then the channel's view,
+    // which only the person changes (a run, back to the list): runs starting or finishing later open nothing.
     useEffect(() => {
-        if (currentChannelId && currentChannelId !== autoSelectCheckedForChannel.current) {
-            setCurrentRunId(() => {
-                if (fetchedRuns.runsInProgress) {
-                    autoSelectCheckedForChannel.current = currentChannelId; // mark that we've checked this channel
-
-                    if (fetchedRuns.runsInProgress.length === 1) {
-                        return fetchedRuns.runsInProgress[0].id; // auto-select the single in-progress run
-                    }
-
-                    return undefined; // no auto-select
-                }
-
-                return undefined; // clear immediately - wait until runsInProgress is loaded
-            });
+        const first = firstChannelView(currentChannelId, fetchedRuns.runsInProgress);
+        if (first) {
+            setCurrentRunId(first.runId);
+            setChannelView(currentChannelId, first.runId);
         }
     }, [currentChannelId, fetchedRuns.runsInProgress]);
 
@@ -199,15 +207,16 @@ const RightHandSidebar = () => {
         return <RHSLoading/>;
     }
 
+    // Back to the channel's runs: the list, which stays.
     const clearCurrentRunId = () => {
         fetchedRuns.refetch();
-        setCurrentRunId(undefined);
+        chooseRun(undefined);
     };
 
     const handleOnCreateRun = (runId: string, channelId: string, statsData: {autoAddTask?: boolean}) => {
         if (channelId === currentChannelId) {
             fetchedRuns.refetch();
-            setCurrentRunId(runId);
+            chooseRun(runId);
             if (statsData.autoAddTask) {
                 setAutoAddTaskRunId(runId);
             }
@@ -255,7 +264,7 @@ const RightHandSidebar = () => {
         <RHSRunList
             runs={runsList}
             onSelectRun={(runID: string) => {
-                setCurrentRunId(runID);
+                chooseRun(runID);
             }}
             options={listOptions}
             setOptions={setListOptions}

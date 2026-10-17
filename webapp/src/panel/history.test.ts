@@ -7,7 +7,7 @@ import {
     PANEL_HOME,
     isPanelPath,
     makePanelHistory,
-    openPanelHome,
+    openPanel,
     openPlaybooksPanel,
     setPanelControls,
 } from './history';
@@ -157,20 +157,46 @@ describe('openPlaybooksPanel', () => {
     });
 });
 
-describe('openPanelHome', () => {
-    test('starts a closed panel from the channel runs', () => {
+describe('openPanel', () => {
+    test('reopens a closed panel on the view it was on, not on the channel\'s runs', () => {
         const {panel} = setup(false);
+        openPanel('team-1', panel);
         panel.push(RUN);
 
-        openPanelHome(panel);
-        expect(panel.location.pathname).toBe(PANEL_HOME);
+        openPanel('team-1', panel);
+        expect(panel.location.pathname).toBe(RUN);
+        expect(panel.canGoBack()).toBe(true);
+    });
+
+    test.each([
+        ['the channel\'s runs (its home)', PANEL_HOME],
+        ['the list of runs, playbooks and tasks', '/playbooks/browse'],
+        ['the list of playbooks', '/playbooks/playbooks'],
+    ])('reopens on %s when that was the last view', (_, path) => {
+        const {panel} = setup(false);
+        openPanel('team-1', panel);
+        panel.push('/playbooks/runs');
+        panel.push(path);
+
+        openPanel('team-1', panel);
+        expect(panel.location.pathname).toBe(path);
     });
 
     test('leaves an open panel where it is (the button then closes it)', () => {
         const {panel} = setup(true);
         panel.push(RUN);
 
-        openPanelHome(panel);
+        openPanel('team-1', panel);
         expect(panel.location.pathname).toBe(RUN);
+    });
+
+    test('starts again from the channel\'s runs when opened in another community', () => {
+        const {panel} = setup(false);
+        openPanel('team-a', panel);
+        panel.push(RUN);
+
+        openPanel('team-b', panel);
+        expect(panel.location.pathname).toBe(PANEL_HOME);
+        expect(panel.canGoBack()).toBe(false);
     });
 });

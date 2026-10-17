@@ -183,9 +183,21 @@ export function openPlaybooksPanel(path: string, history: PanelHistory = panelHi
     }
 }
 
-// openPanelHome opens the panel on the channel's runs, as the channel header button and the app bar icon do.
-export function openPanelHome(history: PanelHistory = panelHistory) {
-    if (!(controls?.isOpen() ?? false)) {
+// The community the panel was last opened in (openPanel).
+let openedInTeamId: string | undefined;
+
+/**
+ * openPanel readies the panel for the channel header button and the app bar icon to open it: on the view the person
+ * was last on, whichever it was (the channel's runs, a checklist, the list of playbooks, a run...), as closing the
+ * panel left it. Only a panel opened in another community than last time starts again from the channel's runs, as
+ * the views of a run or a playbook of the community left do (useLeaveOnTeamChange).
+ */
+export function openPanel(teamId?: string, history: PanelHistory = panelHistory) {
+    if (controls?.isOpen() ?? false) {
+        return;
+    }
+    if (teamId && openedInTeamId && teamId !== openedInTeamId) {
         history.reset(PANEL_HOME);
     }
+    openedInTeamId = teamId || openedInTeamId;
 }
