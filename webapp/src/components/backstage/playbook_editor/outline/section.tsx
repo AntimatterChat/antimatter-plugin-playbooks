@@ -98,7 +98,7 @@ const HeaderRight = styled.div`/* stylelint-disable no-empty-source */`;
 const Title = styled.h3`
     position: relative;
     margin: 0;
-    font-family: Metropolis, sans-serif;
+    font-family: var(--am-font-display, Metropolis), sans-serif;
     font-size: 20px;
     font-weight: 600;
     line-height: 28px;

@@ -5,7 +5,6 @@ import React from 'react';
 import {useIntl} from 'react-intl';
 
 import styled from 'styled-components';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 import {DateTime} from 'luxon';
 
 import {
@@ -15,6 +14,7 @@ import {
     FlagOutlineIcon,
 } from '@mattermost/compass-icons/components';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import {PlaybookRun} from 'src/types/playbook_run';
 import {PlaybookRunType} from 'src/graphql/generated/graphql';
 import {useOnFinishRun} from 'src/components/backstage/playbook_runs/playbook_run/finish_run';
@@ -218,7 +218,7 @@ const FinishedIndicator = styled.div`
     flex-direction: row;
     align-items: center;
     padding: 12px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 4px;
     background-color: var(--center-channel-bg);
 `;
@@ -235,7 +235,7 @@ const FinishedNotice = styled.div`
     flex-direction: column;
     padding: 0;
     margin-left: 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     line-height: 16px;
 `;
@@ -283,7 +283,7 @@ const FinishContent = styled.div`
     flex-direction: row;
     align-items: center;
     padding: 12px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 4px;
 `;
 
@@ -296,7 +296,7 @@ const FinishIconWrapper = styled.div`
 const FinishText = styled.div`
     display: flex;
     margin: 0 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     line-height: 20px;
 `;
@@ -320,7 +320,7 @@ const ParticipateContent = styled.div`
     flex-direction: row;
     align-items: center;
     padding: 12px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 4px;
     background: rgba(var(--center-channel-color-rgb), 0.04);
 `;
@@ -328,7 +328,7 @@ const ParticipateContent = styled.div`
 const ParticipateText = styled.div`
     display: flex;
     margin: 0 12px 0 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     line-height: 20px;
 `;

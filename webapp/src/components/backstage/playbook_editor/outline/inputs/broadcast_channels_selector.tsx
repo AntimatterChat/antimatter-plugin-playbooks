@@ -152,7 +152,7 @@ const selectStyles: StylesConfig<Channel, boolean> = {
 export default BroadcastChannels;
 
 const StyledReactSelect = styled(ReactSelect)`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;

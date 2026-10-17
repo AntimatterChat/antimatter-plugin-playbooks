@@ -97,7 +97,7 @@ const AssignOwnerSelector = (props: Props) => {
 export default AssignOwnerSelector;
 
 const StyledProfile = styled(Profile)`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 
     && .image {
         width: 24px;
@@ -110,7 +110,7 @@ const StyledReactSelect = styled(ReactSelect)`
     background-color: ${(props) => (props.isDisabled ? 'rgba(var(--center-channel-bg-rgb), 0.16)' : 'var(--center-channel-bg)')};
 
     .assign-owner-selector__input {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 
     .assign-owner-selector__menu {
@@ -134,7 +134,7 @@ const StyledReactSelect = styled(ReactSelect)`
 
     .assign-owner-selector__option--is-selected {
         background-color: var(--center-channel-bg);
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 
     .assign-owner-selector__option--is-focused {
@@ -149,7 +149,7 @@ const StyledReactSelect = styled(ReactSelect)`
         border: none;
         border-radius: 4px;
         background-color: transparent;
-        box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16);
+        box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
         font-size: 14px;
         transition: all 0.15s ease;
         transition-delay: 0s;
@@ -162,7 +162,7 @@ const StyledReactSelect = styled(ReactSelect)`
             position: absolute;
             top: 8px;
             left: 16px;
-            color: rgba(var(--center-channel-color-rgb), 0.56);
+            color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
             content: '\f0349';
             font-family: compass-icons, mattermosticons;
             font-size: 18px;
@@ -174,7 +174,7 @@ const StyledReactSelect = styled(ReactSelect)`
     .assign-owner-selector__group-heading {
         height: 32px;
         padding: 8px 12px;
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
         font-size: 12px;
         font-weight: 600;
         line-height: 16px;

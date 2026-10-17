@@ -4,6 +4,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import {FUSION} from 'src/components/fusion/web_ui';
+
 export enum ToastStyle {
     Success = 'success',
     Failure = 'failure',
@@ -73,6 +75,13 @@ const StyledToast = styled.div<{toastStyle: ToastStyle}>`
     box-shadow: 0 4px 6px rgba(0 0 0 / 0.12);
     color: ${({toastStyle}) => (toastStyle === ToastStyle.Failure ? 'var(--center-channel-color)' : 'var(--center-channel-bg)')};
 
+    /* Fusion's toasts (.am-toast): rounder, its danger colour for failures. */
+    ${FUSION} & {
+        border-radius: 10px;
+        background: ${({toastStyle}) => (toastStyle === ToastStyle.Failure ? 'var(--am-danger)' : 'var(--am-text)')};
+        box-shadow: var(--am-shadow);
+    }
+
     &.fade-enter {
         transform: translateY(80px);
     }
@@ -97,7 +106,7 @@ const StyledText = styled.div`
     align-items: center;
     margin: 0 8px;
     color: var(--center-channel-bg);
-    font-family: "Open Sans";
+    font-family: var(--am-font-ui, "Open Sans"), sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 600;

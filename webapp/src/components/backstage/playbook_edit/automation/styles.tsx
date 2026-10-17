@@ -37,7 +37,7 @@ export const SelectorWrapper = styled.div`
 export const AutomationCard = styled.div`
     padding: 2rem;
     padding-bottom: 0;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 8px;
     margin: 0 0 20px;
 `;

@@ -230,7 +230,7 @@ const Separator = styled.div`
 
 const SelectedCount = styled.span`
     color: var(--center-channel-bg);
-    font-family: "Open Sans", sans-serif;
+    font-family: var(--am-font-ui, "Open Sans"), sans-serif;
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
@@ -270,7 +270,7 @@ export const BarButton = styled.button`
     background: rgba(var(--center-channel-bg-rgb), 0.08);
     color: var(--center-channel-bg);
     cursor: pointer;
-    font-family: "Open Sans", sans-serif;
+    font-family: var(--am-font-ui, "Open Sans"), sans-serif;
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;

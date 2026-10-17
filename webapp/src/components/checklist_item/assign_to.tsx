@@ -5,11 +5,11 @@ import React, {useMemo, useState} from 'react';
 import styled, {css} from 'styled-components';
 import {useIntl} from 'react-intl';
 import {UserProfile} from '@mattermost/types/users';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 import {Placement} from '@floating-ui/react';
 
 import {AccountOutlineIcon} from '@mattermost/compass-icons/components';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import Profile from 'src/components/profile/profile';
 import ProfileSelector, {type ExtraSection} from 'src/components/profile/profile_selector';
 import {useProfilesForRun} from 'src/hooks';
@@ -323,7 +323,7 @@ const StyledProfileSelector = styled(ProfileSelector).attrs({
         padding: 2px 6px 2px 4px;
         margin-top: 0;
         background: rgba(var(--center-channel-color-rgb), 0.08);
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
         border-radius: 100px;
         border: none;
         font-weight: 400;
@@ -367,13 +367,13 @@ const StyledProfileSelector = styled(ProfileSelector).attrs({
 
     .NoAssignee-button {
         background-color: transparent;
-        border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
-        color: rgba(var(--center-channel-color-rgb), 0.64);
+        border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
         padding: 2px;
 
         ${({enableEdit}) => enableEdit && css`
             &:hover {
-                color: var(--center-channel-color);
+                color: var(--am-text, var(--center-channel-color));
             }
         `}
     }
@@ -389,7 +389,7 @@ const AssignToTextContainer = styled.div<{isPlaceholder: boolean, enableEdit: bo
     color: ${({isPlaceholder}) => (isPlaceholder ? 'rgba(var(--center-channel-color-rgb), 0.64)' : 'var(--center-channel-color)')};
      ${({enableEdit}) => enableEdit && css`
         &:hover {
-            color: var(--center-channel-color);
+            color: var(--am-text, var(--center-channel-color));
         }
     `}
     font-weight: 400;
@@ -431,7 +431,7 @@ const DropdownRoleAvatarIcon = styled.span`
     flex-shrink: 0;
     border-radius: 50%;
     background: rgba(var(--center-channel-color-rgb), 0.08);
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 `;
 
 const ChipRoleAvatarIcon = styled.span`
@@ -441,7 +441,7 @@ const ChipRoleAvatarIcon = styled.span`
     justify-content: center;
     width: ${AVATAR_SIZE_PX}px;
     height: ${AVATAR_SIZE_PX}px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 `;
 
 const RoleAssigneeDisplay = styled.div`

@@ -37,7 +37,7 @@ export const ProfileImage = styled.img`
     height: 32px;
     border-radius: 50%;
     margin: 0 8px 0 0;
-    background-color: #bbb;
+    background-color: var(--am-raise-2, #bbb);
 
     .image-sm {
         width: 24px;
@@ -63,7 +63,7 @@ export const ProfileName = styled.div<{$hasExtra: boolean}>`
 
     .description {
         margin-left: 4px;
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     }
 `;
 

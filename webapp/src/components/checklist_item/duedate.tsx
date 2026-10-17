@@ -11,9 +11,9 @@ import {
     Duration,
     DurationLikeObject,
 } from 'luxon';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 import {Placement} from '@floating-ui/react';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import DateTimeSelector, {DateTimeOption, optionFromMillis} from 'src/components/datetime_selector';
 import {
     Mode,
@@ -353,7 +353,7 @@ const ControlComponentAnchor = styled.a`
 `;
 
 const LabelRight = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
@@ -389,7 +389,7 @@ const CalendarIcon = styled.div<{$overdueOrDueSoon: boolean}>`
     pointer-events: none;
 
     ${({$overdueOrDueSoon}) => !$overdueOrDueSoon && `
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     `}
 `;
 
@@ -412,7 +412,7 @@ const DueDateContainer = styled.div<{$overdue: boolean, $dueSoon: boolean, $edit
     padding: ${({$isPlaceholder}) => ($isPlaceholder ? '1px' : '1px 8px')};
     max-width: 100%;
     background: ${({$isPlaceholder}) => ($isPlaceholder ? 'transparent' : 'rgba(var(--center-channel-color-rgb), 0.08)')};
-    border: ${({$isPlaceholder}) => ($isPlaceholder ? '1px solid rgba(var(--center-channel-color-rgb), 0.08)' : 'none')}; ;
+    border: ${({$isPlaceholder}) => ($isPlaceholder ? '1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08))' : 'none')}; ;
     color: ${({$isPlaceholder}) => ($isPlaceholder ? 'rgba(var(--center-channel-color-rgb), 0.64)' : 'var(--center-channel-color)')};
 
     ${({$overdue, $dueSoon}) => (($overdue || $dueSoon) && css`
@@ -423,7 +423,7 @@ const DueDateContainer = styled.div<{$overdue: boolean, $dueSoon: boolean, $edit
     ${({$editable}) => $editable && css`
         &:hover {
             background: rgba(var(--center-channel-color-rgb), 0.16);
-            color: var(--center-channel-color);
+            color: var(--am-text, var(--center-channel-color));
             cursor: pointer
         }
     `}

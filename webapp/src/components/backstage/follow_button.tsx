@@ -6,8 +6,7 @@ import {useIntl} from 'react-intl';
 
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppSelector} from 'src/hooks/redux';
 
 import {SecondaryButton, TertiaryButton} from 'src/components/assets/buttons';

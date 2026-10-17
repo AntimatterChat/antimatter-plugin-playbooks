@@ -22,6 +22,7 @@ import {useToaster} from 'src/components/backstage/toast_banner';
 import {ToastStyle} from 'src/components/backstage/toast';
 import {PlaybookWithChecklist} from 'src/types/playbook';
 import OwnerGroupOnlyActionsToggle from 'src/components/backstage/playbook_editor/owner_group_only_actions_toggle';
+import {FUSION} from 'src/components/fusion/web_ui';
 
 import StatusUpdates from './section_status_updates';
 import SectionAdminSettings from './section_admin_settings';
@@ -377,11 +378,19 @@ export const Sections = styled(SectionsImpl)`
     flex-direction: column;
     flex-grow: 1;
     padding: 2rem;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.04);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.04));
     border-radius: 8px;
     margin-bottom: 40px;
     background: var(--center-channel-bg);
     box-shadow: 0 4px 6px rgba(0 0 0 / 0.12);
+
+    /* Fusion's cards: flat, on the side surface. */
+    ${FUSION} & {
+        border-color: var(--am-line);
+        border-radius: 12px;
+        background: var(--am-side);
+        box-shadow: none;
+    }
 `;
 
 const AdminSettingsSection = styled.div`

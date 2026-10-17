@@ -4,11 +4,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import {useIntl} from 'react-intl';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
 import {getCurrentChannel} from 'mattermost-redux/selectors/entities/channels';
 import {GlobalState} from '@mattermost/types/store';
 
+import {WithTooltip} from 'src/components/fusion/tip';
+import {FUSION} from 'src/components/fusion/web_ui';
 import {useAppSelector} from 'src/hooks/redux';
 
 import {useRunFollowers, useRunMetadata} from 'src/hooks';
@@ -89,13 +90,19 @@ const VerticalLine = styled.div`
     height: 24px;
     border-left: 1px solid var(--center-channel-color);
     opacity: 0.16;
+
+    /* Fusion's dividers: its line colour, opaque. */
+    ${FUSION} & {
+        border-left-color: var(--am-line);
+        opacity: 1;
+    }
     margin: 0 8px;
 `;
 
 const ChannelNameText = styled.div`
     overflow: hidden;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
-    font-family: "Open Sans", sans-serif;
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
+    font-family: var(--am-font-ui, "Open Sans"), sans-serif;
     font-size: 12px;
     font-weight: 400;
     line-height: 20px;

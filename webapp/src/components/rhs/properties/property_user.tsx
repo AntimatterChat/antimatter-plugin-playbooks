@@ -275,7 +275,7 @@ const RemoveButton = styled.button`
     background: none;
     border: none;
     cursor: pointer;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 14px;
     padding: 0 2px;
     line-height: 1;

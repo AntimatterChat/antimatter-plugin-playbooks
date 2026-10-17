@@ -22,12 +22,12 @@ import {
     StarOutlineIcon,
 } from '@mattermost/compass-icons/components';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 import {getTeam} from 'mattermost-redux/selectors/entities/teams';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 import {FormattedMessage, FormattedNumber, useIntl} from 'react-intl';
 import {createGlobalState} from 'react-use';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import {navigateToPluginUrl, pluginUrl} from 'src/browser_routing';
@@ -83,7 +83,7 @@ const StyledLink = styled(Link)`
         align-items: center;
         padding: 0 8px;
         border-radius: 4px;
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
         font-size: 14px;
         font-weight: 600;
 
@@ -543,8 +543,8 @@ const CheckboxInputStyled = styled(CheckboxInput)`
 const SecondaryButtonLargerCheckbox = styled(SecondaryButtonLarger) <{checked: boolean}>`
     /* Increase the specificity to override the default btn-secondary colors */
     && {
-        border: 1px solid rgba(var(--center-channel-color-rgb), 0.24);
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.24));
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 
         &:hover:enabled {
             background-color: rgba(var(--center-channel-color-rgb), 0.08);
@@ -581,7 +581,7 @@ export const TitleButton = styled.button`
     display: inline-flex;
     padding-left: 16px;
     border-radius: 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     fill: rgba(var(--center-channel-color-rgb), 0.64);
     border: none;
     background: none;

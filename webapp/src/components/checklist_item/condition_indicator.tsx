@@ -5,8 +5,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {SourceBranchIcon} from '@mattermost/compass-icons/components';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {ChecklistItem} from 'src/types/playbook';
 
 interface ConditionIndicatorProps {

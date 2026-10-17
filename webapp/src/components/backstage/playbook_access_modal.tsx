@@ -40,7 +40,7 @@ const SizedGenericModal = styled(GenericModal)`
 const HorizontalBlock = styled.div`
     display: flex;
     flex-direction: row;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
 
     > i {
         margin-left: -3px;
@@ -56,13 +56,13 @@ const SubTitle = styled.div`
 const PrivateLink = styled.a`
 	margin-right: 3px;
 	margin-left: 4px;
-	color: var(--link-color);
+	color: var(--am-anti, var(--link-color));
 	font-size: 12px;
 	line-height: 16px;
 `;
 
 const BlueArrow = styled.i`
-	color: var(--link-color);
+	color: var(--am-anti, var(--link-color));
 `;
 
 const PlaybookAccessModal = ({

@@ -169,7 +169,7 @@ const ExtraInfoContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin-top: 12px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;

@@ -20,11 +20,19 @@ import {
     useRole,
 } from '@floating-ui/react';
 
+import {isFusionUI} from 'src/components/fusion/web_ui';
+
 const FloatingContainer = styled.div<{$styles?: ReturnType<typeof css>}>`
 	z-index: 50;
     min-width: 16rem;
 
     ${({$styles}) => $styles};
+
+    /* Fusion's layer (.am-layer) has no height of its own: a menu keeps its own, which the placement measures. */
+    &.am-layer {
+        height: auto;
+        background: none;
+    }
 
 	.PlaybookRunProfileButton {
 		.Profile {
@@ -111,6 +119,9 @@ const Dropdown = (props: DropdownProps) => {
                 },
             })}
             $styles={props.containerStyles}
+
+            // In the Fusion UI, menus are drawn in its layer, so that its classes and theme apply to them.
+            className={isFusionUI() ? 'am-layer' : undefined}
         >
             {props.children}
         </FloatingContainer>

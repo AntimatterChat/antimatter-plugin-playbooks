@@ -410,21 +410,21 @@ const SuggestionItem = styled.li<{$selected: boolean}>`
 
 const TokenName = styled.span`
     font-weight: 600;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 `;
 
 const TokenDesc = styled.span`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
 `;
 
 const TextBox = styled(BaseInput)`
     width: 100%;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     background: ${(props) => (props.disabled ? 'rgba(var(--center-channel-color-rgb), 0.04)' : 'var(--center-channel-bg)')};
 
     ::placeholder {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
         opacity: 0.64;
     }
 `;
@@ -438,12 +438,12 @@ const Preview = styled.div`
 `;
 
 const PreviewLabel = styled.span`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     margin-right: 4px;
 `;
 
 const PreviewText = styled.span`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 `;
 
 const Warning = styled.div`

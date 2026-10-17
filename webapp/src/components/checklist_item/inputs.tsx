@@ -94,7 +94,7 @@ const ChecklistItemDescription = styled.div<{height: string}>`
     height: ${({height}) => height};
     padding-right: 8px;
     margin-left: 36px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     font-style: normal;
     font-weight: 400;

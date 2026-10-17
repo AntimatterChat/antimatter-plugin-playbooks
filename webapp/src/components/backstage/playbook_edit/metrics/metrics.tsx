@@ -283,12 +283,12 @@ const HorizontalContainer = styled.div`
 
     > i {
         margin-top: 2px;
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     }
 
     > svg {
         margin: 2px 7px 0 0;
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     }
 `;
 
@@ -303,7 +303,7 @@ const OptionTitle = styled.div`
 `;
 
 const OptionDesc = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     line-height: 16px;
 `;

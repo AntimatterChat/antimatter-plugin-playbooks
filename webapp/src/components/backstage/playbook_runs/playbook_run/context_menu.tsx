@@ -9,8 +9,7 @@ import {useIntl} from 'react-intl';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 import {CheckAllIcon, PlayOutlineIcon} from '@mattermost/compass-icons/components';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import {useTextOverflow} from 'src/hooks';
@@ -288,7 +287,7 @@ const TitleText = styled.span`
 
 const IconWrapper = styled.div`
     margin-right: 6px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     display: flex;
     align-items: center;
     flex-shrink: 0;

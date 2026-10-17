@@ -117,7 +117,7 @@ const PropertyRow = styled.div`
 `;
 
 const PropertyLabel = styled.div`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 12px;
     font-weight: 600;
     line-height: 24px;

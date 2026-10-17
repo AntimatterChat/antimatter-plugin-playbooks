@@ -9,7 +9,7 @@ export const BaseInput = styled.input<{$invalid?: boolean; $readOnly?: boolean}>
     border: none;
     border-radius: 4px;
     background-color: rgba(var(--center-channel-bg-rgb));
-    box-shadow: ${(props) => (props.$invalid ? 'inset 0 0 0 2px var(--error-text)' : 'inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16)')};
+    box-shadow: ${(props) => (props.$invalid ? 'inset 0 0 0 2px var(--error-text)' : 'inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16))')};
     font-size: 14px;
     line-height: 40px;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
@@ -20,7 +20,7 @@ export const BaseInput = styled.input<{$invalid?: boolean; $readOnly?: boolean}>
 
     ${(props) => props.$readOnly && `
         background-color: rgba(var(--center-channel-color-rgb), 0.04);
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
         cursor: not-allowed;
     `}
 `;
@@ -30,7 +30,7 @@ export const BaseTextArea = styled.textarea`
     border: none;
     border-radius: 4px;
     background-color: rgba(var(--center-channel-bg-rgb));
-    box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16);
+    box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     font-size: 14px;
     line-height: 20px;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
@@ -48,11 +48,11 @@ export const InputTrashIcon = styled.span<InputTrashIconProps>`
     position: absolute;
     top: 0;
     right: 5px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
     visibility: ${(props) => (props.$show ? 'visible' : 'hidden')};
 
     &:hover {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 `;

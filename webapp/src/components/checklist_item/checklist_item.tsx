@@ -15,9 +15,9 @@ import {DraggableProvided} from '@hello-pangea/dnd';
 import {UserProfile} from '@mattermost/types/users';
 
 import {FloatingPortal} from '@floating-ui/react';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import {
     clientAddChecklistItem,
     clientEditChecklistItem,
@@ -1014,7 +1014,7 @@ export const CheckboxContainer = styled.div`
         box-sizing: border-box;
         align-items: center;
         justify-content: center;
-        border: 1px solid rgba(var(--center-channel-color-rgb), 0.24);
+        border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.24));
         border-radius: 2px;
         margin: 0;
         margin-top: 2px;
@@ -1075,7 +1075,7 @@ const DragButton = styled.i<{$isVisible: boolean, $isDragging: boolean}>`
     margin-right: 4px;
     margin-left: 4px;
     margin-top: 1px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     opacity: 0;
     ${({$isVisible}) => !$isVisible && css`
         visibility: hidden;
@@ -1097,7 +1097,7 @@ const Row = styled.div`
 
 const AssigneeEditorPanel = styled.div`
     margin: 8px 10px 0 35px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.12);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.12));
     border-radius: 4px;
     padding: 8px;
     background: var(--center-channel-bg);
@@ -1164,7 +1164,7 @@ const ItemContainer = styled.div<{$editing: boolean, $disabled: boolean, $hoverM
     ${({$hasCondition, $isPlaybookEditor}) => $hasCondition && $isPlaybookEditor && css`
         margin-left: 15px;
         padding-left: 5px;
-        border-left: 2px solid rgba(var(--center-channel-color-rgb), 0.16);
+        border-left: 2px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     `}
 
     ${({$hoverMenuItemOpen}) => !$hoverMenuItemOpen && css`

@@ -29,7 +29,7 @@ const ChipContainer = styled.div`
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     margin-right: 4px;
     margin-bottom: 2px;
     cursor: ${(props) => (props.onClick ? 'pointer' : 'default')};

@@ -1,0 +1,88 @@
+/*
+ * Playbooks in the Fusion UI: what its views draw with the classic web app's classes (Bootstrap's buttons and fields,
+ * the classic scrollbars), in Fusion's tokens, type and shapes. Every rule is scoped to the panel under Fusion, so
+ * the classic UI keeps its look (see fusion_skin.test.ts). The plugin's own components take Fusion's look in their
+ * styles (src/components/fusion).
+ */
+
+html[data-am-web-ui='fusion'] [data-playbooks-panel] {
+    background: var(--am-main);
+    color: var(--am-text);
+    font-family: var(--am-font-ui), sans-serif;
+
+    h1,
+    h2,
+    h3 {
+        font-family: var(--am-font-display), sans-serif;
+    }
+
+    /* Bootstrap's buttons, as Fusion's (.am-btn). */
+    .btn {
+        border: 0;
+        border-radius: 10px;
+        box-shadow: none;
+        font-family: var(--am-font-ui), sans-serif;
+        font-weight: 600;
+    }
+
+    .btn.btn-primary {
+        background: var(--am-matter);
+        color: #fff;
+    }
+
+    .btn:is(.btn-secondary, .btn-tertiary, .btn-default) {
+        background: var(--am-raise);
+        color: var(--am-text);
+    }
+
+    .btn:is(.btn-secondary, .btn-tertiary, .btn-default):hover:not(:disabled) {
+        background: var(--am-raise-2);
+    }
+
+    .btn.btn-danger {
+        background: var(--am-danger);
+        color: #fff;
+    }
+
+    .btn:disabled {
+        opacity: 0.45;
+    }
+
+    /* Bootstrap's fields, as Fusion's (.am-field). */
+    .form-control {
+        border: 1px solid var(--am-line);
+        border-radius: 9px;
+        background: var(--am-side);
+        box-shadow: none;
+        color: var(--am-text);
+    }
+
+    .form-control:focus {
+        border-color: var(--am-matter);
+    }
+
+    .form-control::placeholder {
+        color: var(--am-faint);
+    }
+
+    input[type='checkbox'],
+    input[type='radio'] {
+        accent-color: var(--am-matter);
+    }
+
+    /* The classic scrollbars (react-custom-scrollbars), thin and in Fusion's colours. */
+    .scrollbar--vertical {
+        border-radius: 4px;
+        background: var(--am-raise-2);
+    }
+
+    /* Links in the views' text, in Fusion's link colour. */
+    .markdown__link,
+    .theme.markdown__link {
+        color: var(--am-anti);
+    }
+
+    hr {
+        border-color: var(--am-line);
+    }
+}

@@ -6,15 +6,6 @@ import {useIntl} from 'react-intl';
 import styled from 'styled-components';
 import {useQuery} from '@apollo/client';
 import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
-import {
-    BookLockOutlineIcon,
-    BookOutlineIcon,
-    CheckAllIcon,
-    CheckboxMultipleMarkedOutlineIcon,
-    PlayBoxMultipleOutlineIcon,
-    PlayOutlineIcon,
-    PlusIcon,
-} from '@mattermost/compass-icons/components';
 
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
@@ -26,6 +17,8 @@ import {pluginUrl} from 'src/browser_routing';
 import {useImportPlaybook} from 'src/components/backstage/import_playbook';
 import {LHSPlaybookDotMenu} from 'src/components/backstage/lhs_playbook_dot_menu';
 import {LHSRunDotMenu} from 'src/components/backstage/lhs_run_dot_menu';
+import FusionIcon, {FusionIconName} from 'src/components/fusion/icon';
+import {APP_COLOR, FUSION} from 'src/components/fusion/web_ui';
 
 import {PanelTitle, usePanelHistory} from './panel_title';
 import {playbookLHSQueryDocument} from './browse_query';
@@ -62,7 +55,15 @@ const useBrowseData = (teamID: string) => {
 };
 
 const ICON_SIZE = 18;
-const MENU_ICON_COLOR = 'rgba(var(--center-channel-color-rgb), 0.56)';
+const MENU_ICON_COLOR = 'var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56))';
+
+// A row's icon: one of Fusion's line icons (Compass's under the classic UI).
+const rowIcon = (name: FusionIconName) => (
+    <FusionIcon
+        name={name}
+        size={ICON_SIZE}
+    />
+);
 
 /**
  * PanelBrowse lists what you can reach in Playbooks, as the full page's left sidebar did: all runs, all playbooks and
@@ -87,7 +88,7 @@ const PanelBrowse = () => {
         <BrowseRow
             key={run.id}
             testId='playbooks-browse-run'
-            icon={run.type === PlaybookRunType.Playbook ? <PlayOutlineIcon size={ICON_SIZE}/> : <CheckAllIcon size={ICON_SIZE}/>}
+            icon={rowIcon(run.type === PlaybookRunType.Playbook ? 'runbook' : 'checkbox')}
             title={run.name}
             onOpen={open(`/runs/${run.id}?from=playbooks_lhs`)}
             menu={(
@@ -108,7 +109,7 @@ const PanelBrowse = () => {
         <BrowseRow
             key={pb.id}
             testId='playbooks-browse-playbook'
-            icon={pb.public ? <BookOutlineIcon size={ICON_SIZE}/> : <BookLockOutlineIcon size={ICON_SIZE}/>}
+            icon={rowIcon(pb.public ? 'playbook' : 'lock')}
             title={pb.title}
             onOpen={open(`/playbooks/${pb.id}`)}
             menu={(
@@ -139,19 +140,19 @@ const PanelBrowse = () => {
             >
                 <BrowseRow
                     testId='playbooks-browse-all-runs'
-                    icon={<PlayBoxMultipleOutlineIcon size={ICON_SIZE}/>}
+                    icon={rowIcon('runbook')}
                     title={formatMessage({defaultMessage: 'All runs', description: 'Playbooks side panel: opens the list of every run and checklist the user can see in the community.'})}
                     onOpen={open('/runs')}
                 />
                 <BrowseRow
                     testId='playbooks-browse-all-playbooks'
-                    icon={<BookOutlineIcon size={ICON_SIZE}/>}
+                    icon={rowIcon('playbook')}
                     title={formatMessage({defaultMessage: 'All playbooks', description: 'Playbooks side panel: opens the list of every playbook the user can see in the community, with the templates to start a new one.'})}
                     onOpen={open('/playbooks')}
                 />
                 <BrowseRow
                     testId='playbooks-browse-tasks'
-                    icon={<CheckboxMultipleMarkedOutlineIcon size={ICON_SIZE}/>}
+                    icon={rowIcon('inbox')}
                     title={formatMessage({defaultMessage: 'Your tasks'})}
                     onOpen={open('/tasks')}
                     trailing={hasOverdueTasks ? (
@@ -196,7 +197,10 @@ const PanelBrowse = () => {
                                 aria-label={formatMessage({defaultMessage: 'Create playbook'})}
                                 title={formatMessage({defaultMessage: 'Create playbook'})}
                             >
-                                <PlusIcon size={16}/>
+                                <FusionIcon
+                                    name='plus'
+                                    size='sm'
+                                />
                             </HeadingButton>
                         </>
                     )}
@@ -261,7 +265,7 @@ const Heading = styled.h4`
     display: flex;
     align-items: center;
     margin: 10px 2px 0;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 11px;
     font-weight: 700;
     gap: 8px;
@@ -319,7 +323,12 @@ const Row = styled.div`
 
 const RowIcon = styled.span`
     display: flex;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
+
+    /* As the other apps' rows in the Fusion UI: the icon in the app's colour. */
+    ${FUSION} & {
+        color: ${APP_COLOR};
+    }
 `;
 
 const RowTrailing = styled.span`
@@ -332,12 +341,12 @@ const OverdueDot = styled.span`
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--dnd-indicator);
+    background: var(--am-danger, var(--dnd-indicator));
 `;
 
 const Empty = styled.div`
     padding: 4px 2px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 13px;
 `;
 

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import {useIntl} from 'react-intl';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
+import {WithTooltip} from 'src/components/fusion/tip';
 
 interface Props {
     testId: string;
@@ -67,10 +67,10 @@ export const Search = styled.div<{width?: string}>`
         width: ${(props) => (props.width ? props.width : '360px')};
         height: 4rem;
         padding-left: 4rem;
-        border: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+        border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
         border-radius: 4px;
         background-color: var(--center-channel-bg);
-        font-family: 'Open Sans', sans-serif;
+        font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
         font-size: 14px;
         transition: all 0.15s ease;
         transition-delay: 0s;
@@ -85,7 +85,7 @@ export const Search = styled.div<{width?: string}>`
         position: absolute;
         top: 7px;
         left: 16px;
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
         content: '\\f0349';
         font-family: compass-icons, mattermosticons;
         font-size: 18px;
@@ -95,7 +95,7 @@ export const Search = styled.div<{width?: string}>`
 `;
 
 const ClearButton = styled.i`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 18px;
 `;
 

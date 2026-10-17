@@ -95,18 +95,18 @@ const ProfilePic = styled.img`
 `;
 const Author = styled.span`
     margin-right: 6px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 600;
 `;
 
 const Date = styled.span`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
 `;
 
 const Body = styled.div`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;

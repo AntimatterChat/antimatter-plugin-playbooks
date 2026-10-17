@@ -4,8 +4,8 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import styled from 'styled-components';
 import {useIntl} from 'react-intl';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import ProfileSelector from 'src/components/profile/profile_selector';
 import {useProfilesInTeam} from 'src/hooks';
 import {
@@ -285,7 +285,7 @@ const DisabledReasonBanner = styled.div`
     padding: 6px 8px;
     border-radius: 4px;
     background: rgba(var(--center-channel-color-rgb), 0.08);
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     line-height: 16px;
 `;
@@ -295,7 +295,7 @@ const SectionLabel = styled.div`
     font-weight: 600;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     padding: 4px 8px 2px;
 `;
 
@@ -316,8 +316,8 @@ const AssigneeSelect = styled.select`
     border: none;
     border-radius: 4px;
     background-color: var(--center-channel-bg);
-    box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16);
-    color: var(--center-channel-color);
+    box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
+    color: var(--am-text, var(--center-channel-color));
     font-size: 13px;
     cursor: pointer;
 

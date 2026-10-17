@@ -23,7 +23,7 @@ export const PillBox = styled.div`
     padding: 4px 4px 4px 12px;
     border-radius: 16px;
     background-color: rgba(var(--center-channel-color-rgb), 0.08);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: normal;
     line-height: 15px;

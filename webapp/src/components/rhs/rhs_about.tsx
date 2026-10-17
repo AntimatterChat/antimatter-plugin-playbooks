@@ -253,7 +253,7 @@ const StyledProfileSelector = styled(ProfileSelector)`
         border-radius: 100px;
         margin-top: 0;
         background: rgba(var(--center-channel-color-rgb), 0.08);
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
 
         &:hover {
             background: rgba(var(--center-channel-color-rgb), 0.16);
@@ -286,7 +286,7 @@ const OwnerSection = styled(MemberSection)`
 const ParticipantsSection = styled(MemberSection)`/* stylelint-disable no-empty-source */`;
 
 const MemberSectionTitle = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
@@ -317,7 +317,7 @@ const ShowMoreButton = styled.button`
     border: none;
     border-radius: 4px;
     background: transparent;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
@@ -330,7 +330,7 @@ const ShowMoreButton = styled.button`
 
     &:hover {
         background: rgba(var(--center-channel-color-rgb), 0.08);
-        color: rgba(var(--center-channel-color-rgb), 0.72);
+        color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     }
 `;
 

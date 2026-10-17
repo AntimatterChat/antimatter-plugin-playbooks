@@ -145,7 +145,7 @@ const Header = styled.div`
     padding-top: 4px;
     padding-left: 12px;
     margin-bottom: 8px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     font-weight: 600;
     gap: .75rem;
@@ -177,7 +177,7 @@ const Item = styled.div<{$active: boolean}>`
     font-size: 14px;
     line-height: 14px;
     background: transparent;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 
     ${({$active}) => $active && css`
         background: rgba(var(--button-bg-rgb), 0.08);

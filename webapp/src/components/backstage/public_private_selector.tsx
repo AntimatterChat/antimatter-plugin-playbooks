@@ -76,7 +76,7 @@ const BigText = styled.div`
 `;
 
 const SmallText = styled.div`
-	color: rgba(var(--center-channel-color-rgb), 0.56);
+	color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 	font-size: 12px;
 	line-height: 16px;
 `;

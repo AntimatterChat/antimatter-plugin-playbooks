@@ -53,7 +53,7 @@ const Container = styled.div`
 
 const Label = styled.span`
     font-size: 12px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
 `;
 
 const Bar = styled.div`

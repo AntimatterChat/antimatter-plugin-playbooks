@@ -58,14 +58,14 @@ const Header = styled.div`
     display: flex;
     align-items: center;
     margin: 24px 0 8px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;
 
     svg {
         margin-right: 7px;
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     }
 `;
 
@@ -80,7 +80,7 @@ const Title = styled.div`
 const HorizontalLine = styled.div`
     width: 100%;
     height: 0;
-    border-top: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-top: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     margin: 0 0 0 16px;
 `;
 

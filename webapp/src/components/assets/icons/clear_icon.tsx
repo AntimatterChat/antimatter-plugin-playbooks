@@ -4,5 +4,5 @@
 import styled from 'styled-components';
 
 export default styled.i.attrs(() => ({className: 'icon icon-close-circle'}))`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 `;

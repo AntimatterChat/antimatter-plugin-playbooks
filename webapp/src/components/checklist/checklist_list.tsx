@@ -785,7 +785,7 @@ const BulkEditInfoToast = styled.div`
     z-index: 100;
     max-width: 95%;
     color: var(--center-channel-bg);
-    font-family: "Open Sans", sans-serif;
+    font-family: var(--am-font-ui, "Open Sans"), sans-serif;
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;

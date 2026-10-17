@@ -5,9 +5,10 @@ import React from 'react';
 import {useIntl} from 'react-intl';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
 import LeftChevron from 'src/components/assets/icons/left_chevron';
+import FusionIcon from 'src/components/fusion/icon';
+import Tip from 'src/components/fusion/tip';
+import {FUSION, isFusionUI} from 'src/components/fusion/web_ui';
 import {RHSTitleRemoteRender} from 'src/rhs_title_remote_render';
 import {RHSTitleButton, RHSTitleContainer, RHSTitleText} from 'src/components/rhs/rhs_title_common';
 
@@ -34,7 +35,7 @@ export const PanelTitle = ({title, subtitle, actions}: Props) => {
     return (
         <RHSTitleRemoteRender>
             <RHSTitleContainer data-testid='playbooks-panel-title'>
-                <WithTooltip
+                <Tip
                     id='playbooks-panel-back'
                     title={backLabel}
                 >
@@ -43,9 +44,9 @@ export const PanelTitle = ({title, subtitle, actions}: Props) => {
                         aria-label={backLabel}
                         data-testid='playbooks-panel-back'
                     >
-                        <LeftChevron/>
+                        {isFusionUI() ? <BackIcon name='chev'/> : <LeftChevron/>}
                     </RHSTitleButton>
-                </WithTooltip>
+                </Tip>
                 <RHSTitleText data-testid='playbooks-panel-title-text'>{title}</RHSTitleText>
                 {subtitle && (
                     <>
@@ -59,18 +60,27 @@ export const PanelTitle = ({title, subtitle, actions}: Props) => {
     );
 };
 
+// Fusion's chevron points down: the back button's points left, as in the other apps' panels.
+const BackIcon = styled(FusionIcon)`
+    transform: rotate(90deg);
+`;
+
 const VerticalLine = styled.div`
     height: 24px;
     flex: none;
-    border-left: 1px solid var(--center-channel-color);
+    border-left: 1px solid var(--am-line, var(--center-channel-color));
     margin: 0 8px;
     opacity: 0.16;
+
+    ${FUSION} & {
+        opacity: 1;
+    }
 `;
 
 const Subtitle = styled.div`
     overflow: hidden;
     min-width: 0;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     line-height: 20px;
     text-overflow: ellipsis;

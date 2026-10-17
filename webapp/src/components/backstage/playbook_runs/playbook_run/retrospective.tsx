@@ -180,7 +180,7 @@ const HeaderButtonsRight = styled.div`
 
 const TimestampContainer = styled.div`
     margin-right: 16px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-weight: normal;
 `;
 

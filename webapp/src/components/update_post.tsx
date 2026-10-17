@@ -11,8 +11,7 @@ import {getChannel, getChannelsNameMapInCurrentTeam} from 'mattermost-redux/sele
 import {getCurrentTeamId, getTeam} from 'mattermost-redux/selectors/entities/teams';
 import {General} from 'mattermost-redux/constants';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppSelector} from 'src/hooks/redux';
 
 import PostText from 'src/components/post_text';
@@ -168,7 +167,7 @@ const BadgeContainer = styled.div`
     height: 24px;
     align-items: center;
     margin-right: 8px;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 11px;
     font-weight: normal;
     letter-spacing: 0.02em;

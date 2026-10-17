@@ -81,7 +81,7 @@ const StyledTextArea = styled(StyledTextarea)`
 const PostTextContainer = styled.div<{ published?: boolean}>`
     flex-grow: 1;
     padding: 10px 25px 0 16px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 8px;
     margin: 8px 0 0;
     background-color: ${(props) => (props.published ? 'rgba(var(--center-channel-color-rgb),0.03)' : 'var(--center-channel-bg)')};

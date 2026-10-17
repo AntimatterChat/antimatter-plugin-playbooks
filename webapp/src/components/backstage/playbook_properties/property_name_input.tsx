@@ -155,7 +155,7 @@ const StyledInput = styled.input<{$hasError?: boolean}>`
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     padding: 4px 8px;
     border-radius: 0;
     cursor: pointer;
@@ -185,12 +185,12 @@ const StyledInput = styled.input<{$hasError?: boolean}>`
     }
 
     &::placeholder {
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     }
 `;
 
 const ErrorMessage = styled.div`
-    color: #D24B4E;
+    color: var(--am-danger, var(--error-text));
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;

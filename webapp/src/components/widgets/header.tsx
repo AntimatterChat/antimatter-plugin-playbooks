@@ -59,7 +59,7 @@ const HeaderEl = styled.header`
 
     > div p {
         margin: 6px 0 0;
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
         font-size: 12px;
         font-weight: 400;
         line-height: 16px;

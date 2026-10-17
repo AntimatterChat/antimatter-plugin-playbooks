@@ -202,7 +202,7 @@ const ItemLeft = styled.div`
 
     span {
         font-size: 14px;
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 `;
 

@@ -11,8 +11,7 @@ import {UserProfile} from '@mattermost/types/users';
 import {sortByUsername} from 'mattermost-redux/utils/user_utils';
 import {getCurrentUser} from 'mattermost-redux/selectors/entities/users';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import Profile from 'src/components/profile/profile';
@@ -268,7 +267,7 @@ const Container = styled.div`
 
 const ParticipantsNumber = styled.div`
     margin-right: auto;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
@@ -335,7 +334,7 @@ const HeaderSection = styled.div`
     flex-direction: row;
     align-items: center;
     padding: 20px 20px 0;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 `;
 
 const AddParticipantIcon = styled(AccountPlusOutlineIcon)`
@@ -352,12 +351,12 @@ const ParticipantButton = styled.button`
     height: 25px;
     align-items: center;
     border-radius: 4px;
-    color: var(--link-color);
+    color: var(--am-anti, var(--link-color));
     fill: var(--link-color);
 
     &:hover {
        background: rgba(var(--button-bg-rgb), 0.08);
-       color: rgba(var(--center-channel-color-rgb), 0.72);
+       color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     }
 `;
 

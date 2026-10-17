@@ -114,7 +114,7 @@ const Container = styled.div`
     }
 
     &:not(:first-child) {
-        border-top: 1px solid rgba(var(--center-channel-color-rgb), 0.12);
+        border-top: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.12));
     }
 
     &:last-child {
@@ -138,7 +138,7 @@ const HeaderText = styled.div`
     max-width: 50%;
     padding: 4px 0;
     margin: 0 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;

@@ -99,7 +99,7 @@ const BetaFeaturesSetting = ({id, value, disabled, onChange, setSaveNeeded}: Pro
 
 const Accordion = styled.div`
     width: 100%;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.12);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.12));
     border-radius: 4px;
     background: var(--center-channel-bg);
     overflow: hidden;
@@ -114,7 +114,7 @@ const AccordionHeader = styled.button`
     padding: 16px 20px;
     border: none;
     background: transparent;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     cursor: pointer;
     text-align: left;
 
@@ -137,7 +137,7 @@ const HeaderLeft = styled.div`
 
 const Chevron = styled.i`
     margin-top: 2px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 16px;
 `;
 
@@ -155,7 +155,7 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
@@ -163,7 +163,7 @@ const Subtitle = styled.div`
 
 const Badge = styled.div`
     flex-shrink: 0;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
@@ -175,7 +175,7 @@ const AccordionBody = styled.div`
     flex-direction: column;
     gap: 12px;
     padding: 0 20px 16px 44px;
-    border-top: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-top: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
 `;
 
 const FeatureRow = styled.div`
@@ -212,14 +212,14 @@ const FeatureCopy = styled.div`
 `;
 
 const FeatureName = styled.div`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
 `;
 
 const FeatureHelp = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     line-height: 16px;
 `;

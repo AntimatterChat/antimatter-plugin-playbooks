@@ -175,7 +175,7 @@ const EditHeader = styled.div`
     padding: 12px 24px;
     border-radius: 4px 4px 0 0;
     background: rgba(var(--center-channel-color-rgb), 0.04);
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 14px;
     line-height: 20px;
 `;
@@ -198,7 +198,7 @@ const EditContainer = styled.div`
     border-radius: 0 0 4px 4px;
     margin-bottom: 12px;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     line-height: 20px;
 `;

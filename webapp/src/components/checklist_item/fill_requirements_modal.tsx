@@ -218,7 +218,7 @@ const StyledModal = styled(GenericModal)`
 const Description = styled.p`
     flex-shrink: 0;
     margin: 0 0 16px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     line-height: 20px;
 `;
@@ -241,7 +241,7 @@ const Field = styled.div`
 
 const Label = styled.label`
     margin-bottom: 8px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
@@ -255,7 +255,7 @@ const Input = styled.input<{$hasError?: boolean}>`
     border: 1px solid ${({$hasError}) => ($hasError ? 'var(--error-text)' : 'rgba(var(--center-channel-color-rgb), 0.16)')};
     border-radius: 4px;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
 
     &:focus {

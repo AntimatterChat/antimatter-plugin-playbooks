@@ -258,7 +258,7 @@ export const ButtonLabel = styled.label<{disabled: boolean}>`
     flex-grow: 1;
     align-items: center;
     padding: 10px 16px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     border-radius: 4px;
     margin: 0 0 8px;
     background: ${({disabled}) => (disabled ? 'rgba(var(--center-channel-color-rgb), 0.04)' : 'var(--center-channel-bg)')};
@@ -292,7 +292,7 @@ export const StyledChannelSelector = styled(ChannelSelector)`
             position: absolute;
             top: 8px;
             left: 16px;
-            color: rgba(var(--center-channel-color-rgb), 0.56);
+            color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
             content: '\f0349';
             font-family: compass-icons, mattermosticons;
             font-size: 18px;
@@ -318,7 +318,7 @@ const RunNamingBlock = styled.div`
 const InputLabel = styled.label`
     font-size: 12px;
     font-weight: 600;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     margin-top: 8px;
 `;
 
@@ -336,7 +336,7 @@ const InsertVariableButton = styled.button`
     border: none;
     border-radius: 4px;
     background: transparent;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
 
     &:hover {

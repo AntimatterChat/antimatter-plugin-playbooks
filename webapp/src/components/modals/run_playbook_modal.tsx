@@ -882,7 +882,7 @@ const HorizontalSplit = styled.div`
 `;
 
 const HeaderButtonWrapper = styled.div`
-    font-family: 'Open Sans';
+    font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
     margin-right: 30px;
     margin-left: auto;
 `;
@@ -917,7 +917,7 @@ const ErrorMessage = styled.div`
 const NamePreview = styled.div`
     margin-top: -8px;
     margin-bottom: 8px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     line-height: 16px;
 `;
@@ -1164,7 +1164,7 @@ const PropertyFieldRow = styled.div`
 
 const PropertyFieldLabel = styled.label`
     margin-bottom: 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
@@ -1202,7 +1202,7 @@ const MultiuserRemoveButton = styled.button`
     background: none;
     border: none;
     cursor: pointer;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 14px;
     padding: 0 2px;
     line-height: 1;

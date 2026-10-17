@@ -5,11 +5,11 @@ import React from 'react';
 
 import styled, {css} from 'styled-components';
 import {useIntl} from 'react-intl';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/users';
 import {BookOutlineIcon} from '@mattermost/compass-icons/components';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppSelector} from 'src/hooks/redux';
 
 import {PrimaryButton, TertiaryButton} from 'src/components/assets/buttons';
@@ -99,7 +99,7 @@ const RHSAboutTitle = (props: Props) => {
                             ${SemiBoldHeading};
                             font-size: 18px;
                             line-height: 24px;
-                            color: var(--center-channel-color);
+                            color: var(--am-text, var(--center-channel-color));
                             height: 30px;
                             width: 100%;
                             padding: 0 8px;
@@ -171,7 +171,7 @@ const PlaybookChip = styled.button`
 
 const PlaybookChipText = styled.span`
     overflow: hidden;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 10px;
     font-weight: 600;
     line-height: 16px;

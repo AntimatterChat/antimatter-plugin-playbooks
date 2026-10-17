@@ -28,7 +28,7 @@ export const StyledAsyncSelect = styled(AsyncSelect)`
     }
 
     .profile-autocomplete__input {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 
     .profile-autocomplete__option--is-selected {
@@ -44,7 +44,7 @@ export const StyledAsyncSelect = styled(AsyncSelect)`
         border: none;
         border-radius: 4px;
         background-color: transparent;
-        box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16);
+        box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
         transition: all 0.15s ease;
         transition-delay: 0s;
 
@@ -56,7 +56,7 @@ export const StyledAsyncSelect = styled(AsyncSelect)`
             position: absolute;
             top: 8px;
             left: 16px;
-            color: rgba(var(--center-channel-color-rgb), 0.56);
+            color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
             content: '\f0349';
             font-family: compass-icons, mattermosticons;
             font-size: 18px;

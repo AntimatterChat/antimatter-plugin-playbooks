@@ -23,7 +23,7 @@ export const PropertyDisplayContainer = styled.div.attrs<{$readOnly?: boolean}>(
     tabIndex: $readOnly ? undefined : 0,
 }))<{$readOnly?: boolean}>`
     flex: 1;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     line-height: 20px;
     padding: 4px 0;

@@ -102,7 +102,7 @@ const commonTitleStyle = css`
     padding: 0 4px 0 0;
     border: none;
     background: none;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-style: normal;
     font-weight: 400;

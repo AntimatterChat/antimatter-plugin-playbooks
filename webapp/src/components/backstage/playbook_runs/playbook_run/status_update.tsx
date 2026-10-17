@@ -288,7 +288,7 @@ const Content = styled.div<{isShort: boolean}>`
     flex-direction: row;
     align-items: center;
     padding: 12px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 4px;
 `;
 
@@ -301,7 +301,7 @@ const Header = styled.div`
 `;
 
 const Placeholder = styled.i`
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
 `;
 
 const Kebab = styled.div`

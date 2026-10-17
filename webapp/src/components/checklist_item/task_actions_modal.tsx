@@ -170,7 +170,7 @@ const selectStyles: StylesConfig<OptionTypeBase, boolean> = {
     control: (provided, {isDisabled}) => ({
         ...provided,
         backgroundColor: isDisabled ? 'rgba(var(--center-channel-bg-rgb),0.16)' : 'var(--center-channel-bg)',
-        border: '1px solid rgba(var(--center-channel-color-rgb), 0.16)',
+        border: '1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16))',
         '&&:before': {content: 'none'},
     }),
     placeholder: (provided) => ({

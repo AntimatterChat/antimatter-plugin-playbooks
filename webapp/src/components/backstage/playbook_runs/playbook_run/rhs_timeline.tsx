@@ -122,11 +122,11 @@ const Filters = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 0 22px;
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
 `;
 
 const FilterText = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 12px;
     font-weight: 600;
 `;
@@ -151,7 +151,7 @@ export const ItemList = styled.ul`
         bottom: 50px;
         left: 32px;
         width: 1px;
-        background: #EFF1F5;
+        background: var(--am-raise, rgba(var(--center-channel-color-rgb), 0.08));
         content: '';
     }
 `;

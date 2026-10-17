@@ -133,7 +133,7 @@ const Card = styled.div`
     padding: 16px;
     padding-right: 20px;
     padding-left: 11px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.04);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.04));
     border-radius: 4px;
     background: var(--center-channel-bg);
     box-shadow: 0 2px 3px rgba(0 0 0 / 0.08);

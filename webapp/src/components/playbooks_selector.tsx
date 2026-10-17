@@ -286,7 +286,7 @@ const Container = styled.div`
     flex-direction: column;
 `;
 const GroupTitle = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size:  12px;
     font-weight: 600;
     line-height: 16px;
@@ -330,14 +330,14 @@ const ItemCenter = styled.div`
 
 const ItemTitle = styled.div`
     margin-bottom: 4px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size:  14px;
     font-weight: 400;
     line-height: 20px;
 `;
 const ItemDescription = styled.div`
     margin-bottom: 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size:  12px;
     font-weight: 400;
     line-height: 16px;
@@ -345,7 +345,7 @@ const ItemDescription = styled.div`
 const ItemSubTitle = styled.div`
     display: flex;
     align-items: center;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size:  12px;
     font-weight: 400;
     line-height: 16px;

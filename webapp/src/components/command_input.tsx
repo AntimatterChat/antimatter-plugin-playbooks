@@ -27,7 +27,7 @@ const AutocompleteWrapper = styled.div`
             height: 40px;
             min-height: 40px;
             border: none;
-            box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16);
+            box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
             transition: all 0.15s ease;
 
             &:focus {

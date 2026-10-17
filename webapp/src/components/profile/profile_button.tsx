@@ -51,7 +51,7 @@ const Button = styled.button`
     border: none;
     border-radius: 4px;
     background-color: unset;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: default;
     font-weight: 600;
     transition: all 0.15s ease;
@@ -59,7 +59,7 @@ const Button = styled.button`
 
     &:hover {
         background: rgba(var(--center-channel-color-rgb), 0.08);
-        color: rgba(var(--center-channel-color-rgb), 0.72);
+        color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     }
 
     &.active {
@@ -68,7 +68,7 @@ const Button = styled.button`
 
     .PlaybookRunProfile {
         &.active {
-            color: var(--center-channel-color);
+            color: var(--am-text, var(--center-channel-color));
             cursor: pointer;
         }
     }
@@ -79,7 +79,7 @@ const Button = styled.button`
         border-radius: 100px;
         margin-top: 4px;
         background-color: transparent;
-        color: rgba(var(--center-channel-color-rgb), 0.64);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
         cursor: pointer;
         font-size: 12px;
         font-weight: normal;
@@ -88,7 +88,7 @@ const Button = styled.button`
 
         &:hover {
             background: rgba(var(--center-channel-color-rgb), 0.08);
-            color: rgba(var(--center-channel-color-rgb), 0.72);
+            color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
         }
 
         &.active {
@@ -105,7 +105,7 @@ const Button = styled.button`
     .first-container .Assigned-button {
         padding: 2px 0;
         margin-top: 0;
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
         font-size: 14px;
         line-height: 20px;
     }

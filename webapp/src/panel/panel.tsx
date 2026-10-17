@@ -36,6 +36,7 @@ import {PANEL_SCROLL_ID} from './constants';
 import {PanelWidthProvider} from './panel_width';
 import {PanelTitle} from './panel_title';
 import PanelBrowse from './browse';
+import './fusion_skin.scss';
 
 const ID_FORMAT = '[a-z0-9]{26}';
 
@@ -149,13 +150,15 @@ const PlaybooksPanel = ({history = panelHistory}: Props) => {
     );
 };
 
+// Under the Fusion UI, its surface, text colour and font (see fusion_skin.scss for the classic classes inside).
 const Root = styled(PanelWidthProvider)`
     position: relative;
     display: flex;
     height: 100%;
     min-height: 0;
     flex-direction: column;
-    background: var(--center-channel-bg);
+    background: var(--am-main, var(--center-channel-bg));
+    color: var(--am-text, var(--center-channel-color));
 `;
 
 const Scroll = styled.div`

@@ -4,6 +4,8 @@
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
+import {FUSION} from 'src/components/fusion/web_ui';
+
 export const RHSTitleContainer = styled.div`
     display: flex;
     overflow: visible;
@@ -16,7 +18,7 @@ export const RHSTitleText = styled.div`
     overflow: hidden;
     flex-shrink: 0;
     padding: 0 4px 0 0;
-    font-family: Metropolis;
+    font-family: var(--am-font-display, Metropolis), sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 32px;
@@ -34,7 +36,7 @@ export const RHSTitle = styled.div`
     text-overflow: ellipsis;
 
     &&& {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 `;
 
@@ -49,7 +51,7 @@ export const RHSTitleLink = styled(Link)`
     text-overflow: ellipsis;
 
     &&& {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 
     &:hover {
@@ -77,7 +79,7 @@ export const RHSTitleButton = styled.button`
     background: none;
     border-radius: 4px;
     cursor: pointer;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 
     &:hover {
         background: rgba(var(--center-channel-color-rgb), 0.08);
@@ -86,6 +88,17 @@ export const RHSTitleButton = styled.button`
     &:active {
         background: rgba(var(--button-bg-rgb), 0.08);
         color: var(--button-bg);
+    }
+
+    /* The Fusion UI's panel header buttons (.sidebar--right__header .btn-icon). */
+    ${FUSION} & {
+        border-radius: 8px;
+        color: var(--am-muted);
+    }
+
+    ${FUSION} &:hover {
+        background: var(--am-hover);
+        color: var(--am-text);
     }
 `;
 
@@ -100,6 +113,6 @@ export const RHSTitleStyledButtonIcon = styled.i`
 
     ${RHSTitleText}:hover &,
     ${RHSTitleLink}:hover & {
-        color: rgba(var(--center-channel-color-rgb), 0.72);
+        color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     }
 `;

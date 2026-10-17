@@ -82,11 +82,11 @@ const ShowMoreButton = styled.button`
     display: inline-flex;
     flex-shrink: 0;
     padding: 0 8px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.1);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.1));
     border-radius: 2px;
     margin: 0 8px;
     background: var(--center-channel-bg);
-    color: var(--link-color);
+    color: var(--am-anti, var(--link-color));
     font-size: 13px;
     font-weight: bold;
     line-height: 24px;

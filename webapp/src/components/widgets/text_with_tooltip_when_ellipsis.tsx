@@ -9,7 +9,8 @@ import React, {
     useState,
 } from 'react';
 import {debounce} from 'debounce';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
+
+import {WithTooltip} from 'src/components/fusion/tip';
 
 interface Props {
     id: string;

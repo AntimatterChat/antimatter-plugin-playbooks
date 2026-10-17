@@ -197,9 +197,9 @@ const titleCommon = css`
     ${SemiBoldHeading}
     font-size: 16px;
     line-height: 24px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     padding: 4px 8px;
     border: none;
     border-radius: 4px;
-    box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16);
+    box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
 `;

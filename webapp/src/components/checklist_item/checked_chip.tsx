@@ -10,8 +10,8 @@ import {
     CloseIcon,
     RefreshIcon,
 } from '@mattermost/compass-icons/components';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import Profile from 'src/components/profile/profile';
 import {PAST_TIME_SPEC} from 'src/components/time_spec';
 import {useFormattedUsernameByID} from 'src/hooks';
@@ -337,7 +337,7 @@ const Chip = styled.div`
     gap: 4px;
     border-radius: 13px;
     background: rgba(var(--center-channel-color-rgb), 0.08);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 12px;
     line-height: 16px;
     white-space: nowrap;

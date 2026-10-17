@@ -44,7 +44,7 @@ const Badge = styled.div<BadgeProps>`
         default:
             return css`
                 box-shadow: gray 0 0 2pt;
-                color: var(--center-channel-color);
+                color: var(--am-text, var(--center-channel-color));
             `;
         }
     }}

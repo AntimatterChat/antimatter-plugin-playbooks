@@ -5,8 +5,8 @@ import React, {useRef, useState} from 'react';
 import {useIntl} from 'react-intl';
 
 import styled, {css} from 'styled-components';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch} from 'src/hooks/redux';
 
 import {clientRunChecklistItemSlashCommand} from 'src/client';
@@ -193,7 +193,7 @@ const CommandButton = styled.div<{$editing: boolean, $isDisabled: boolean, $isPl
     height: 24px;
     max-width: 100%;
     background: ${({$isPlaceholder}) => ($isPlaceholder ? 'transparent' : 'rgba(var(--center-channel-color-rgb), 0.08)')};
-    border: ${({$isPlaceholder}) => ($isPlaceholder ? '1px solid rgba(var(--center-channel-color-rgb), 0.08)' : 'none')}; ;
+    border: ${({$isPlaceholder}) => ($isPlaceholder ? '1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08))' : 'none')}; ;
     color: ${({$isPlaceholder}) => ($isPlaceholder ? 'rgba(var(--center-channel-color-rgb), 0.64)' : 'var(--center-channel-color)')};
 
     ${({$isDisabled}) => ($isDisabled ? css`
@@ -201,7 +201,7 @@ const CommandButton = styled.div<{$editing: boolean, $isDisabled: boolean, $isPl
     ` : css`
         &:hover {
             background: rgba(var(--center-channel-color-rgb), 0.16);
-            color: var(--center-channel-color);
+            color: var(--am-text, var(--center-channel-color));
         }
     `)}
 `;
@@ -214,7 +214,7 @@ const Run = styled.div<RunProps>`
     font-size: 12px;
     font-weight: bold;
     display: inline;
-    color: var(--link-color);
+    color: var(--am-anti, var(--link-color));
     cursor: pointer;
     margin: 2px 4px;
 
@@ -223,7 +223,7 @@ const Run = styled.div<RunProps>`
     }
 
     ${({$running}) => $running && css`
-        color: rgba(var(--center-channel-color-rgb), 0.64);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
         cursor: default;
 
         &:hover {
@@ -285,7 +285,7 @@ const FormContainer = styled.div`
     min-width: 340px;
     box-sizing: border-box;
     flex-direction: column;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     border-radius: 8px;
     background: var(--center-channel-bg);
     box-shadow: 0 20px 32px rgba(0 0 0 / 0.12);

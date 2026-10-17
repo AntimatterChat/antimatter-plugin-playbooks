@@ -8,8 +8,8 @@ const BackstageListHeader = styled.div<{$edgeless?: boolean}>`
     padding: 0 1.6rem;
     font-size: 14px;
     line-height: 4rem;
-    color: var(--center-channel-color);
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    color: var(--am-text, var(--center-channel-color));
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-top-color: rgba(var(--center-channel-color-rgb), 0.16);
     background-color: rgba(var(--center-channel-color-rgb), 0.04);
     border-radius: 4px;

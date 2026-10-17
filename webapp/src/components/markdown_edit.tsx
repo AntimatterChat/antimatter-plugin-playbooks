@@ -7,8 +7,7 @@ import {useIntl} from 'react-intl';
 
 import {useUpdateEffect} from 'react-use';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import MarkdownTextbox from 'src/components/markdown_textbox';
 
 import FormattedMarkdown from 'src/components/formatted_markdown';
@@ -142,7 +141,7 @@ const commonTextStyle = css`
     align-items: center;
     padding: var(--markdown-textbox-padding, 12px 30px 12px 16px);
     border-radius: var(--markdown-textbox-radius, 4px);
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -181,7 +180,7 @@ const MarkdownEditContainer = styled.div<{$editing: boolean; $dashed: boolean; $
         }
 
         ${({$noBorder}) => $noBorder && css`
-            border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+            border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
         `}
     }
 
@@ -200,7 +199,7 @@ export const RenderedText = styled.div`
 `;
 
 const PlaceholderText = styled.span`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 14px;
     font-style: italic;
     font-weight: 400;

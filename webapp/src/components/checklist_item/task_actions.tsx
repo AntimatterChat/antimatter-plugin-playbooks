@@ -5,8 +5,8 @@ import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 
 import styled, {css} from 'styled-components';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch} from 'src/hooks/redux';
 
 import {haveAtleastOneEnabledAction} from 'src/components/checklist_item/task_actions_modal';
@@ -79,7 +79,7 @@ const TaskActionsContainer = styled.div<{$editable: boolean; $isPlaceholder: boo
     align-items: center;
     background: ${({$isPlaceholder}) => ($isPlaceholder ? 'transparent' : 'rgba(var(--center-channel-color-rgb), 0.08)')};
     border-radius: 13px;
-    border: ${({$isPlaceholder}) => ($isPlaceholder ? '1px solid rgba(var(--center-channel-color-rgb), 0.08)' : 'none')}; ;
+    border: ${({$isPlaceholder}) => ($isPlaceholder ? '1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08))' : 'none')}; ;
     color: ${({$isPlaceholder}) => ($isPlaceholder ? 'rgba(var(--center-channel-color-rgb), 0.64)' : 'var(--center-channel-color)')};
     display: flex;
     flex-flow: row wrap;
@@ -94,7 +94,7 @@ const TaskActionsContainer = styled.div<{$editable: boolean; $isPlaceholder: boo
     ${({$editable, $disabled}) => $editable && !$disabled && css`
         &:hover {
             background: rgba(var(--center-channel-color-rgb), 0.16);
-            color: var(--center-channel-color);
+            color: var(--am-text, var(--center-channel-color));
             cursor: pointer;
         }
     `}
@@ -108,7 +108,7 @@ const ActionIcon = styled.i`
     width: 20px;
     height: 20px;
     align-items: center;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     text-align: center;
 `;
 

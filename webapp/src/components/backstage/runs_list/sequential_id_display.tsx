@@ -17,7 +17,7 @@ const SequentialIdDisplay = ({sequentialId}: Props) => (
 const SequentialId = styled.span`
     font-weight: 600;
     font-size: 12px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     background: rgba(var(--center-channel-color-rgb), 0.08);
     border-radius: 4px;
     padding: 2px 6px;

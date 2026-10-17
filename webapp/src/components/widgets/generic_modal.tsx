@@ -8,6 +8,7 @@ import {Modal} from 'react-bootstrap';
 import {FormattedMessage} from 'react-intl';
 
 import {DestructiveButton, PrimaryButton, TertiaryButton} from 'src/components/assets/buttons';
+import {FUSION} from 'src/components/fusion/web_ui';
 
 type Props = {
     className?: string;
@@ -200,6 +201,15 @@ export const Buttons = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+    /* Fusion's dialog actions (.am-modal-actions). */
+    ${FUSION} & {
+        gap: 8px;
+    }
+
+    ${FUSION} & > .btn {
+        margin: 0;
+    }
 `;
 
 export const DefaultFooterContainer = styled.div`
@@ -210,17 +220,24 @@ export const DefaultFooterContainer = styled.div`
 
 export const ModalHeading = styled.h1`
     margin: 0;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 22px;
     line-height: 28px;
     align-self: center;
+
+    /* Fusion's dialog titles. */
+    ${FUSION} & {
+        font-family: var(--am-font-display), sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+    }
 `;
 
 export const ModalSideheading = styled.h6`
     padding-left: 8px;
     border-left: solid 1px rgba(var(--center-channel-color-rgb), 0.56);
     margin: 0 0 0 8px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     line-height: 20px;
 `;
@@ -228,14 +245,14 @@ export const ModalSideheading = styled.h6`
 export const ModalSubheading = styled.h6`
     margin-top: 6px;
     margin-bottom: 0;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
-    font-family: 'Open Sans';
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
+    font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
     font-size: 12px;
     line-height: 16px;
 `;
 
 export const Description = styled.p`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     line-height: 16px;
 
@@ -247,7 +264,7 @@ export const Description = styled.p`
 export const Label = styled.label`
     margin-top: 24px;
     margin-bottom: 8px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
@@ -258,8 +275,8 @@ export const InlineLabel = styled.label`
     width: max-content;
     padding: 0 3px;
     margin: 0 0 -8px 12px;
-    background: var(--center-channel-bg);
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    background: var(--am-main, var(--center-channel-bg));
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 10px;
     font-weight: normal;
     line-height: 14px;

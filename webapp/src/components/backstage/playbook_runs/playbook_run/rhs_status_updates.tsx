@@ -39,5 +39,5 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
     padding: 12px 16px;
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
 `;

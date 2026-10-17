@@ -363,11 +363,11 @@ const selectStyles: StylesConfig<Option, boolean> = {
         borderRadius: '4px',
         boxShadow: state.isFocused ?
             'inset 0 0 0 2px var(--button-bg)' :
-            'inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16)',
+            'inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16))',
         '&:hover': {
             boxShadow: state.isFocused ?
                 'inset 0 0 0 2px var(--button-bg)' :
-                'inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.24)',
+                'inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.24))',
         },
     }),
     input: (provided) => ({

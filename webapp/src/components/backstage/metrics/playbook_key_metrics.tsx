@@ -91,7 +91,7 @@ const InnerContainer = styled.div`
     flex-direction: column;
     padding: 0 20px 20px;
     margin: 0 auto;
-    font-family: 'Open Sans', sans-serif;
+    font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
     font-style: normal;
     font-weight: 600;
 `;

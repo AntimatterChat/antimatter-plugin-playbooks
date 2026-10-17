@@ -54,7 +54,7 @@ export const TriggerKeywords = ({editable, keywords, onUpdate, testId}: TriggerK
 
 const Container = styled.fieldset`
     box-sizing: border-box;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     border-radius: 4px;
     box-shadow: 0 2px 3px rgba(0 0 0 / 0.08);
 
@@ -84,13 +84,13 @@ const Legend = styled.legend`
 `;
 
 const Label = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 11px;
 `;
 
 const Title = styled.div`
     margin-top: 2px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 600;
 `;

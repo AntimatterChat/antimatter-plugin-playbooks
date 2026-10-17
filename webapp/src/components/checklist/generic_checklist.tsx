@@ -427,7 +427,7 @@ const IconWrapper = styled.div`
 
 const ChecklistContainer = styled.div`
     padding: 8px 0;
-    border:  1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border:  1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 0 0 4px 4px;
     border-top: 0;
     background-color: var(--center-channel-bg);

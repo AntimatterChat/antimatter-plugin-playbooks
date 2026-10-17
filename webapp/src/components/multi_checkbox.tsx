@@ -22,7 +22,7 @@ const FilterCheckboxContainer = styled(CheckboxContainer)`
         width: 16px;
         min-width: 16px;
         height: 16px;
-        border: 1px solid rgba(var(--center-channel-color-rgb), 0.24);
+        border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.24));
         border-radius: 2px;
     }
 
@@ -44,7 +44,7 @@ const Divider = styled.div`
 
 const Title = styled.div`
     margin: 0 0 0 20px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     font-weight: 600;
     line-height: 28px;

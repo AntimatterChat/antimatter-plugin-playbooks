@@ -74,7 +74,7 @@ const PlaybookRunListHeader = styled.div`
     padding: 0 1.6rem;
     border-radius: 4px;
     background-color: rgba(var(--center-channel-color-rgb), 0.04);
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 11px;
     font-weight: 600;
     line-height: 36px;

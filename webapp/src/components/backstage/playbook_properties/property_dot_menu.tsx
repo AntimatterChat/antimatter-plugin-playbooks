@@ -13,7 +13,7 @@ import {
     TrashCanOutlineIcon,
 } from '@mattermost/compass-icons/components';
 
-import DotMenu, {DropdownMenu, DropdownMenuItem} from 'src/components/dot_menu';
+import DotMenu, {DropdownMenu, DropdownMenuItem, fusionDangerMenuItem} from 'src/components/dot_menu';
 import type {PropertyField} from 'src/types/properties';
 
 type Props = {
@@ -88,10 +88,7 @@ const PropertyDotMenu = ({
                 <DangerDropdownMenuItem onClick={handleDeleteClick}>
                     <MenuItemContent>
                         <MenuItemLeft>
-                            <TrashCanOutlineIcon
-                                size={18}
-                                color='#D24B4E'
-                            />
+                            <TrashCanOutlineIcon size={18}/>
                             <FormattedMessage
                                 defaultMessage='Delete attribute'
                             />
@@ -147,12 +144,14 @@ const MenuItemLeft = styled.div`
 
 const DangerDropdownMenuItem = styled(DropdownMenuItem)`
     && {
-        color: #D24B4E;
+        color: var(--am-danger, var(--error-text));
     }
 
     &&:hover {
-        color: #D24B4E;
+        color: var(--am-danger, var(--error-text));
     }
+
+    ${fusionDangerMenuItem}
 `;
 
 export default PropertyDotMenu;

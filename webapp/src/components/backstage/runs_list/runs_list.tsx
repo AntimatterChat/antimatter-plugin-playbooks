@@ -31,7 +31,7 @@ interface Props {
 
 const PlaybookRunList = styled.div`
     color: rgba(var(--center-channel-color-rgb), 0.90);
-    font-family: 'Open Sans', sans-serif;
+    font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
 `;
 
 const Footer = styled.div`
@@ -42,7 +42,7 @@ const Footer = styled.div`
 const Count = styled.div`
     width: 100%;
     padding-top: 8px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     text-align: center;
 `;
 

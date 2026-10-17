@@ -4,8 +4,7 @@
 import styled, {css} from 'styled-components';
 import React from 'react';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {CompassIcon} from 'src/types/compass';
 
 interface HeaderButtonProps {
@@ -51,7 +50,7 @@ const Icon = styled.button`
     padding: 0;
     border: none;
     background: transparent;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
     line-height: 24px;
 `;

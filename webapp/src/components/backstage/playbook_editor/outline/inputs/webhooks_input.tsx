@@ -147,7 +147,7 @@ interface TextAreaProps {
 
 const TextArea = styled.textarea<TextAreaProps>`
     ::placeholder {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
         opacity: 0.64;
     }
 
@@ -155,8 +155,8 @@ const TextArea = styled.textarea<TextAreaProps>`
     width: 100%;
     padding: 10px 16px;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
-    box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.24);
+    color: var(--am-text, var(--center-channel-color));
+    box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.24));
     border: none;
 
     &:focus {

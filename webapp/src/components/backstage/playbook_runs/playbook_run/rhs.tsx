@@ -91,7 +91,7 @@ const Container = styled.div<{isOpen: boolean, $overlay: boolean}>`
     display: ${({isOpen}) => (isOpen ? 'flex' : 'hidden')};
     height: 100%;
     flex-direction: column;
-    border-left: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-left: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     background-color: var(--center-channel-bg);
 
     ${({$overlay}) => $overlay && css`
@@ -106,7 +106,7 @@ const Header = styled.div`
     display: flex;
     height: 56px;
     flex-direction: row;
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
 `;
 
 const HeaderIcon = styled.div`
@@ -117,7 +117,7 @@ const HeaderIcon = styled.div`
     justify-content: center;
     border-radius: 4px;
     margin-right: 20px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
 
     &:hover {
@@ -127,7 +127,7 @@ const HeaderIcon = styled.div`
 
 const HeaderTitle = styled.div`
     margin: auto 0;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 16px;
     font-weight: 600;
     line-height: 32px;
@@ -141,15 +141,15 @@ const HeaderTitle = styled.div`
 export const HeaderVerticalDivider = styled.div`
     height: 2.4rem;
     align-self: center;
-    border-left: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border-left: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     margin: 0 8px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 `;
 
 export const HeaderSubtitle = styled.div`
     overflow: hidden;
     align-self: center;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     text-overflow: ellipsis;
     white-space: nowrap;

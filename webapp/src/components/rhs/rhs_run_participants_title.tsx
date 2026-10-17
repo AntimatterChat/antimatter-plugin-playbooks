@@ -3,8 +3,8 @@
 
 import React from 'react';
 import {useIntl} from 'react-intl';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import LeftChevron from 'src/components/assets/icons/left_chevron';
 import {HeaderSubtitle, HeaderVerticalDivider} from 'src/components/backstage/playbook_runs/playbook_run/rhs';
 

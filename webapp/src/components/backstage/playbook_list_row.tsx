@@ -22,8 +22,7 @@ import {
 import {Client4} from 'mattermost-redux/client';
 import {getCurrentUser} from 'mattermost-redux/selectors/entities/users';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import {useHasPlaybookPermission, useHasTeamPermission} from 'src/hooks';
@@ -77,7 +76,7 @@ const PlaybookItem = styled.div`
     align-items: center;
     padding-top: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     margin: 0;
     cursor: pointer;
 `;

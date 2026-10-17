@@ -11,8 +11,7 @@ import React, {
 import styled, {css} from 'styled-components';
 import {useIntl} from 'react-intl';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {copyToClipboard} from 'src/utils';
 
 type Props = {
@@ -84,7 +83,7 @@ const CopyIcon = styled.button<{$clicked: boolean}>`
 
     border: none;
     background: transparent;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 
 
     ${({$clicked}) => !$clicked && css`

@@ -7,8 +7,7 @@ import styled from 'styled-components';
 
 import {PlusIcon, TrashCanOutlineIcon} from '@mattermost/compass-icons/components';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import type {PropertyField} from 'src/types/properties';
 import Dropdown from 'src/components/dropdown';
 import {DropdownMenu, DropdownMenuItem} from 'src/components/dot_menu';
@@ -255,15 +254,15 @@ const AddButton = styled.button`
     border: none;
     border-radius: 4px;
     background: transparent;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     cursor: pointer;
-    font-family: 'Open Sans';
+    font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
     font-size: 12px;
     font-weight: 600;
     transition: all 0.15s ease;
 
     &:hover {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
         background: rgba(var(--center-channel-color-rgb), 0.04);
     }
 
@@ -291,8 +290,8 @@ const MultiValueContainer = styled.div`
 `;
 
 const MultiValueLabel = styled.span`
-    color: var(--center-channel-color);
-    font-family: 'Open Sans';
+    color: var(--am-text, var(--center-channel-color));
+    font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
@@ -300,12 +299,12 @@ const MultiValueLabel = styled.span`
 `;
 
 const RenameInput = styled.input`
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     border-radius: 4px;
     outline: none;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
-    font-family: 'Open Sans';
+    color: var(--am-text, var(--center-channel-color));
+    font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: normal;
@@ -319,7 +318,7 @@ const RenameInput = styled.input`
     }
 
     &::placeholder {
-        color: rgba(var(--center-channel-color-rgb), 0.64);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     }
 `;
 

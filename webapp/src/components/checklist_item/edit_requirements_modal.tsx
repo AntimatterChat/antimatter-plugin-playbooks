@@ -166,7 +166,7 @@ const StyledModal = styled(GenericModal)`
 const Description = styled.p`
     flex-shrink: 0;
     margin: 0 0 16px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     line-height: 20px;
 `;
@@ -190,7 +190,7 @@ const Field = styled.div`
 const Label = styled.label`
     display: block;
     margin-bottom: 8px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
@@ -207,10 +207,10 @@ const Input = styled.input`
     height: 40px;
     box-sizing: border-box;
     padding: 0 16px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     border-radius: 4px;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
 
     &:focus {
@@ -231,7 +231,7 @@ const RemoveButton = styled.button`
     border: none;
     border-radius: 4px;
     background: transparent;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
 
     &:hover {

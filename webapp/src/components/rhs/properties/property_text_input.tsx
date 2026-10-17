@@ -48,7 +48,7 @@ const PropertyTextInput = (props: Props) => {
 };
 
 const Input = styled.input`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     line-height: 24px;
     flex: 1;
@@ -64,7 +64,7 @@ const Input = styled.input`
     }
 
     &::placeholder {
-        color: rgba(var(--center-channel-color-rgb), 0.64);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     }
 `;
 

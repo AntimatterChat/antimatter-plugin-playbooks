@@ -80,7 +80,7 @@ const AssigneeOnlyCompleteRow = styled.div`
     padding: 4px 12px 10px;
     cursor: pointer;
     user-select: none;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
 `;
 
 const AssigneeOnlyCompleteCheckbox = styled.input`
@@ -92,7 +92,7 @@ const AssigneeOnlyCompleteLabel = styled.span`
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 `;
 
 const ControlComponentButton = styled.button`
@@ -106,5 +106,5 @@ const ControlComponentButton = styled.button`
     cursor: pointer;
     font-size: 12px;
     font-weight: 600;
-    color: var(--link-color);
+    color: var(--am-anti, var(--link-color));
 `;

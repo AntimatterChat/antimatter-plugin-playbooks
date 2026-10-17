@@ -99,7 +99,7 @@ const Name = styled.div`
     overflow: hidden;
     max-width: 180px;
     padding: 8px 0 8px 24px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -133,7 +133,7 @@ const Value = ({metricValue, metricType, editable}: ValueProps) => {
 const ValueContainer = styled.div`
     display: table-cell;
     padding: 8px 24px 8px 36px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 `;
 
 const ValuePlaceholder = styled(ValueContainer)`

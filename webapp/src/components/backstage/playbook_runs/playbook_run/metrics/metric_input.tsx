@@ -104,7 +104,7 @@ const InputWithIcon = styled.span`
         position: absolute;
         top: 1px;
         left: 14px;
-        color: rgba(var(--center-channel-color-rgb), 0.64);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     }
 
     input {
@@ -125,7 +125,7 @@ const TargetTitle = styled.div`
     flex-grow: 1;
     align-items: center;
     justify-content: flex-end;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
 `;
 
 const Target = ({title, text}: { title: string, text?: string }) => {

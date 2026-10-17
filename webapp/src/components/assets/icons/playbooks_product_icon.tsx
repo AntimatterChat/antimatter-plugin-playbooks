@@ -4,9 +4,11 @@
 import React from 'react';
 import styled, {css} from 'styled-components';
 
+import {APP_COLOR} from 'src/components/fusion/web_ui';
+
 // The Playbooks app icon of the Antimatter UI: a runbook (checked steps and a run arrow) drawn as a stroke
 // icon on a 24x24 grid, in the Playbooks app colour.
-export const playbooksAppColor = '#60A5FA';
+export const playbooksAppColor = APP_COLOR;
 
 const paths = [
     'm4 6 1.5 1.5L8 5M11 6h9M4 12l1.5 1.5L8 11M11 12h5',

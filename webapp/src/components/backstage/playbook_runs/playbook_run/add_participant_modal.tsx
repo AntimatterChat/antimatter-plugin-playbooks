@@ -194,7 +194,7 @@ const FooterExtraInfoContainer = styled.div`
     flex-direction: row;
     align-items: center;
     margin-right: auto;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -220,7 +220,7 @@ const selectStyles: StylesConfig<OptionTypeBase, boolean> = {
     control: (provided, {isDisabled}) => ({
         ...provided,
         backgroundColor: isDisabled ? 'rgba(var(--center-channel-bg-rgb),0.16)' : 'var(--center-channel-bg)',
-        border: '1px solid rgba(var(--center-channel-color-rgb), 0.16)',
+        border: '1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16))',
         minHeight: '48px',
         fontSize: '16px',
         '&&:before': {content: 'none'},

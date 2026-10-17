@@ -121,7 +121,7 @@ const Title = styled.div`
     overflow: hidden;
     max-width: 220px;
     margin: 2px 0;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
@@ -133,7 +133,7 @@ const Value = styled.div`
     overflow: hidden;
     max-width: 220px;
     margin: 2px 0;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 16px;
     font-weight: normal;
     line-height: 24px;

@@ -146,7 +146,7 @@ const Container = styled.div`
 
 const Card = styled.div`
     width: 533px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.04);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.04));
     border-radius: 4px;
     background: var(--center-channel-bg);
     box-shadow: 0 2px 3px rgba(var(--center-channel-color-rgb), 0.08);
@@ -167,7 +167,7 @@ const Cell = styled.div`
 
 const Title = styled.div`
     margin-bottom: 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;

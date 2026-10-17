@@ -3,8 +3,8 @@
 
 import React from 'react';
 import styled, {css} from 'styled-components';
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
 
+import {WithTooltip} from 'src/components/fusion/tip';
 import Profile from 'src/components/profile/profile';
 
 import {useFormattedUsernameByID} from 'src/hooks';
@@ -82,7 +82,7 @@ export const Rest = styled.div<{$sizeInPx: number}>`
     margin-left: -${({$sizeInPx}) => ($sizeInPx * 5) / 28}px;
     border-radius: 50%;
     background-color: rgba(var(--center-channel-color-rgb), 0.16);
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-weight: 600;
     font-size: 11px;
     display: flex;

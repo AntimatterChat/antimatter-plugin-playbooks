@@ -79,7 +79,7 @@ const TimestampContainer = styled.div`
     flex-grow: 1;
     align-items: center;
     justify-content: flex-end;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 12px;
     white-space: pre-wrap;
 `;

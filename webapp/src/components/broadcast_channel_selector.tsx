@@ -50,7 +50,7 @@ const StyledChannelSelector = styled(ChannelSelector)`
             position: absolute;
             top: 8px;
             left: 16px;
-            color: rgba(var(--center-channel-color-rgb), 0.56);
+            color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
             content: '\f0349';
             font-family: compass-icons, mattermosticons;
             font-size: 18px;
@@ -81,7 +81,7 @@ const StyledClearIcon = styled(ClearIcon)`
     font-size: 14px;
 
     &:hover {
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     }
 `;
 

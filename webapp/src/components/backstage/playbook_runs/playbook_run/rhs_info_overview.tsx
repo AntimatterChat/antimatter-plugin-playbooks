@@ -28,8 +28,7 @@ import {UserProfile} from '@mattermost/types/users';
 
 import {getCurrentTeam} from 'mattermost-redux/selectors/entities/teams';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {TertiaryButton} from 'src/components/assets/buttons';
 import FollowButton from 'src/components/backstage/follow_button';
 import {Role} from 'src/components/backstage/playbook_runs/shared';
@@ -390,7 +389,7 @@ const ItemDisabledContent = styled(ItemContent)`
         margin-right: 3px;
     }
 
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
 `;
 
 const OverviewItemName = styled.div`

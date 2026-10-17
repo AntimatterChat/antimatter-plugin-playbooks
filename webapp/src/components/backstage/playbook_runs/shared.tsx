@@ -13,11 +13,11 @@ import CopyLink from 'src/components/widgets/copy_link';
 
 export const Content = styled.div`
     padding: 0 8px 4px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 8px;
     margin: 8px 0 0;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 `;
 
 export const ExpandRight = styled.div`
@@ -33,7 +33,7 @@ export const Badge = styled(StatusBadge)`
 
 export const HelpText = styled.div`
     margin-top: 4px;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
@@ -87,7 +87,7 @@ const LinkTitle = styled.h3`
     display: inline-block;
     padding-left: 8px;
     margin: 0;
-    font-family: Metropolis, sans-serif;
+    font-family: var(--am-font-display, Metropolis), sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;

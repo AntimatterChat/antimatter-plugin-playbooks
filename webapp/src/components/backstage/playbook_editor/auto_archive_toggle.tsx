@@ -5,8 +5,7 @@ import React, {useCallback, useEffect, useRef} from 'react';
 import {useIntl} from 'react-intl';
 import styled from 'styled-components';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {Toggle} from 'src/components/backstage/playbook_edit/automation/toggle';
 
 interface Props {
@@ -71,7 +70,7 @@ export default AutoArchiveToggle;
 const ToggleBanner = styled.div`
     margin-top: 8px;
     padding: 8px 0;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;

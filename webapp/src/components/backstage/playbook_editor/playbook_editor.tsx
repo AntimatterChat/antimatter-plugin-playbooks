@@ -21,8 +21,7 @@ import {fetchMyCategories} from 'mattermost-redux/actions/channel_categories';
 import {StarIcon, StarOutlineIcon} from '@mattermost/compass-icons/components';
 import {getCurrentUserId} from 'mattermost-redux/selectors/entities/common';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 import {isCurrentUserAdmin} from 'src/selectors';
 
@@ -47,6 +46,7 @@ import {useExpandedPanel} from 'src/panel/expanded';
 import {useLeaveOnTeamChange} from 'src/panel/team_change';
 import {usePanelWidth} from 'src/panel/panel_width';
 import {EDITOR_NAV_WIDTH, NARROW_EDITOR_WIDTH} from 'src/panel/constants';
+import {FUSION} from 'src/components/fusion/web_ui';
 
 import Outline, {ScrollNav, Sections} from './outline/outline';
 import * as Controls from './controls';
@@ -342,11 +342,11 @@ const titleCommon = css`
     ${SemiBoldHeading};
     font-size: 16px;
     line-height: 24px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     padding: 4px 8px;
     border: none;
     border-radius: 4px;
-    box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16);
+    box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
 `;
 
 const TitleBar = styled.div`
@@ -406,7 +406,7 @@ const Header = styled.header`
 const titleMenuOverrides = css`
     ${Controls.TitleMenu} {
         margin: 0;
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
 
         &:hover,
         &:focus {
@@ -421,7 +421,7 @@ const Heading = styled.h1`
     ${SemiBoldHeading}
     font-size: 32px;
     line-height: 40px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     min-height: var(--bar-height);
     display: inline-flex;
     align-items: center;
@@ -437,7 +437,7 @@ const Title = styled.h1`
     ${SemiBoldHeading}
     font-size: 16px;
     line-height: 24px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     height: 24px;
     margin: 0;
 
@@ -445,7 +445,7 @@ const Title = styled.h1`
 `;
 
 const Description = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -459,7 +459,7 @@ const NavItem = styled(NavLink)`
     text-align: center;
 
     && {
-        color: rgba(var(--center-channel-color-rgb), 0.64);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
 
         &:hover {
             color: var(--button-bg);
@@ -475,6 +475,28 @@ const NavItem = styled(NavLink)`
         box-shadow: inset 0 -3px 0 0 var(--button-bg);
         color: var(--button-bg);
     }
+
+    /* Fusion's segmented tabs (.am-seg button). */
+    ${FUSION} &&& {
+        height: 32px;
+        flex: 1;
+        justify-content: center;
+        padding: 0 10px;
+        border-radius: 7px;
+        box-shadow: none;
+        color: var(--am-muted);
+        font-size: 13.5px;
+    }
+
+    ${FUSION} &&&:hover {
+        color: var(--am-text);
+    }
+
+    ${FUSION} &&&.active {
+        background: var(--am-raise-2);
+        box-shadow: none;
+        color: var(--am-text);
+    }
 `;
 
 const NavBar = styled.nav`
@@ -483,19 +505,32 @@ const NavBar = styled.nav`
     width: 100%;
     justify-content: center;
     grid-area: nav;
+
+    /* Fusion's segmented tabs (.am-seg). */
+    ${FUSION} && {
+        width: auto;
+        box-sizing: border-box;
+        align-self: center;
+        margin: 8px 12px;
+        padding: 3px;
+        border: 1px solid var(--am-line);
+        border-radius: 10px;
+        background: var(--am-side);
+        gap: 2px;
+    }
 `;
 
 const NavBackdrop = styled.div`
     position: sticky;
     z-index: 2;
     top: 0;
-    background: var(--center-channel-bg);
-    box-shadow: inset 0 -1px 0 0 rgba(var(--center-channel-color-rgb), 0.08);
+    background: var(--am-main, var(--center-channel-bg));
+    box-shadow: inset 0 -1px 0 0 var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     grid-area: nav-left/nav-left/nav-right/nav-right;
 `;
 
 const TitleHeaderBackdrop = styled.div`
-    background: var(--center-channel-bg);
+    background: var(--am-main, var(--center-channel-bg));
     grid-area: title/title/control/title;
 `;
 
@@ -504,6 +539,10 @@ const Editor = styled.main<{$headingVisible: boolean, $narrow: boolean, $noScrol
     min-height: 100%;
     display: grid;
     background-color: rgba(var(--center-channel-color-rgb), 0.04);
+
+    ${FUSION} & {
+        background-color: var(--am-main);
+    }
 
     --markdown-textbox-radius: 8px;
     --markdown-textbox-padding: 12px 16px;
@@ -657,7 +696,7 @@ export const StarButton = styled.button`
 
     &:hover {
        background: rgba(var(--center-channel-color-rgb), 0.08);
-       color: rgba(var(--center-channel-color-rgb), 0.72);
+       color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     }
 `;
 export default PlaybookEditor;

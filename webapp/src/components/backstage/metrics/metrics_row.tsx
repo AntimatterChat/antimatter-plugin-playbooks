@@ -92,7 +92,7 @@ const NormalText = styled.div`
 
 const SmallText = styled.div`
     margin: 5px 0;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 11px;
     font-weight: 400;
     line-height: 16px;
@@ -109,7 +109,7 @@ const PlaybookRunItem = styled.div`
     align-items: center;
     padding-top: 8px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     margin: 0;
     background: var(--center-channel-bg);
     cursor: pointer;

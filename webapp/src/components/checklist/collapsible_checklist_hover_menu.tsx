@@ -8,7 +8,12 @@ import {DraggableProvidedDragHandleProps} from '@hello-pangea/dnd';
 
 import {clientDuplicateChecklist, clientRestoreChecklist, clientSkipChecklist} from 'src/client';
 import {HamburgerButton} from 'src/components/assets/icons/three_dots_icon';
-import DotMenu, {DotMenuButton, DropdownMenu, DropdownMenuItem} from 'src/components/dot_menu';
+import DotMenu, {
+    DotMenuButton,
+    DropdownMenu,
+    DropdownMenuItem,
+    fusionDangerMenuItem,
+} from 'src/components/dot_menu';
 import {HoverMenuButton} from 'src/components/rhs/rhs_shared';
 
 export interface Props {
@@ -145,22 +150,24 @@ export const StyledDropdownMenuItemRed = styled(DropdownMenuItem)`
     padding: 8px 0;
 
     && {
-        color: #D24B4E;
+        color: var(--am-danger, var(--error-text));
     }
 
     &&:hover {
-        color: #D24B4E;
+        color: var(--am-danger, var(--error-text));
     }
+
+    ${fusionDangerMenuItem}
 `;
 
 export const DropdownIcon = styled.i`
     margin-right: 11px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 `;
 
 export const DropdownIconRed = styled.i`
     margin-right: 11px;
-    color: #D24B4E;
+    color: var(--am-danger, var(--error-text));
 `;
 
 export default CollapsibleChecklistHoverMenu;

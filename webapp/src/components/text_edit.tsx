@@ -7,8 +7,7 @@ import {useIntl} from 'react-intl';
 
 import {useUpdateEffect} from 'react-use';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {resolve, useUniqueId} from 'src/utils';
 
 import {CancelSaveButtons, CancelSaveContainer} from './checklist_item/inputs';
@@ -134,7 +133,7 @@ const commonTextStyle = css`
     align-items: center;
     padding: var(--markdown-textbox-padding, 12px 30px 12px 16px);
     border-radius: var(--markdown-textbox-radius, 4px);
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;

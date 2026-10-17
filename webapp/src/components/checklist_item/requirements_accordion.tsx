@@ -129,7 +129,7 @@ const RequirementsAccordion = ({
 
 const Container = styled.div`
     margin: 12px 0 4px 36px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 4px;
     background: rgba(var(--center-channel-color-rgb), 0.04);
 `;
@@ -149,7 +149,7 @@ const Header = styled.button`
     padding: 6px 8px;
     border: none;
     background: transparent;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     cursor: pointer;
     font-size: 12px;
     font-weight: 600;
@@ -157,7 +157,7 @@ const Header = styled.button`
     text-align: left;
 
     &:hover {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 `;
 
@@ -211,7 +211,7 @@ const Field = styled.div`
 `;
 
 const ReqLabel = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
@@ -221,10 +221,10 @@ const ReqValue = styled.div`
     min-height: 32px;
     box-sizing: border-box;
     padding: 6px 10px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.12);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.12));
     border-radius: 4px;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 13px;
     font-weight: 400;
     line-height: 18px;

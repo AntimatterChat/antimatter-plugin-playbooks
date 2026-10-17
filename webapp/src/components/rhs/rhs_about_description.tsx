@@ -115,7 +115,7 @@ const commonDescriptionStyle = css`
     padding: 2px 8px;
     border-radius: 5px;
     margin-bottom: 16px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     line-height: 20px;
 

@@ -201,7 +201,7 @@ const StatCard = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 20px 20px 12px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.04);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.04));
     border-radius: 4px;
     background-color: var(--center-channel-bg);
     box-shadow: 0 2px 3px rgba(0 0 0 / 0.32);
@@ -209,14 +209,14 @@ const StatCard = styled.div`
 
 const StatText = styled.div`
     padding-top: 10px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
 `;
 
 const StatNum = styled.div`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 44px;
     line-height: 56px;
 `;
@@ -262,7 +262,7 @@ const GraphBox = styled.div`
     max-width: 532px;
     max-height: 180px;
     flex-grow: 1;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.04);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.04));
     border-radius: 4px;
     background-color: var(--center-channel-bg);
     box-shadow: 0 2px 3px rgba(0 0 0 / 0.32);

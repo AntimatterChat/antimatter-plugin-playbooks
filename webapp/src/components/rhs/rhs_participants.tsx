@@ -9,8 +9,7 @@ import {Link} from 'react-router-dom';
 import {AccountMultiplePlusOutlineIcon, AccountPlusOutlineIcon, OpenInNewIcon} from '@mattermost/compass-icons/components';
 import {getCurrentChannel} from 'mattermost-redux/selectors/entities/channels';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import {RHSParticipant, Rest} from 'src/components/rhs/rhs_participant';
@@ -160,7 +159,7 @@ const useOpenMembersModalIfPresent = () => {
 };
 
 const NoParticipants = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 11px;
     line-height: 16px;
     white-space: nowrap;
@@ -202,14 +201,14 @@ const IconWrapper = styled.div<{$format: 'icon' | 'icontext'}>`
     border: 1px dashed rgba(var(--center-channel-color-rgb), 0.56);
     border-radius: ${(props) => (props.$format === 'icontext' ? '15px' : '50%')};
     margin-left: 2px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
     font-size: 12px;
 
     &:hover {
         border: 1px dashed rgba(var(--center-channel-color-rgb), 0.72);
         background: rgba(var(--center-channel-color-rgb), 0.04);
-        color: rgba(var(--center-channel-color-rgb), 0.72);
+        color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
 
     }
 

@@ -18,8 +18,7 @@ import {getChannel} from 'mattermost-redux/selectors/entities/channels';
 
 import {ApolloProvider, useQuery} from '@apollo/client';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 
 import GenericModal, {Description, Label} from 'src/components/widgets/generic_modal';
@@ -564,7 +563,7 @@ const useReminderTimerOption = (
 const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 
     ${Description} {
         span {
@@ -596,7 +595,7 @@ const WarningLine = styled.p`
 const MessagePreview = styled.div`
     margin-top: 4px;
     margin-bottom: 8px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 12px;
     line-height: 16px;
     white-space: pre-wrap;

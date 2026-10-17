@@ -227,7 +227,7 @@ export default DateTimeSelector;
 const Wrapper = styled.div`
     display: flex;
     flex: 1;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;

@@ -506,7 +506,7 @@ const InnerContainer = styled.div`
     padding: 28px 32px;
     margin: 5rem auto;
     box-shadow: 0 4px 6px rgba(0 0 0 / 0.12);
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.04);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.04));
 
     > div + div {
         margin-top: 16px;
@@ -525,7 +525,7 @@ const Table = styled.table`
 
 const TableHeader = styled.thead`
     background: rgba(var(--center-channel-color-rgb), 0.04);
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.12);
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.12));
 `;
 
 const TableBody = styled.tbody`
@@ -536,7 +536,7 @@ const TableRow = styled.tr`
     height: 40px;
 
     &:not(:last-child) {
-        border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.12);
+        border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.12));
     }
 
     tbody &:hover {
@@ -550,7 +550,7 @@ const TableHeaderCell = styled.th`
     font-size: 12px;
     font-weight: 600;
     line-height: 16px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     letter-spacing: 0.02em;
 
     &:first-child {
@@ -568,12 +568,12 @@ const DragHandle = styled.div`
     align-items: center;
     justify-content: center;
     cursor: grab;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     height: 100%;
     width: 18px;
 
     &:hover {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 
     &:active {
@@ -611,11 +611,11 @@ const TypeIconButton = styled.button`
     border-radius: 0;
     width: 40px;
     height: 40px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
 
     &:hover:not(:disabled) {
         background: rgba(var(--center-channel-color-rgb), 0.08);
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
     }
 
     &:disabled {

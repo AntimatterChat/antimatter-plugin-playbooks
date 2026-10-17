@@ -186,7 +186,7 @@ const ProgressBackground = styled.div`
     &::after {
         display: block;
         width: 100%;
-        border-bottom: 2px solid rgba(var(--center-channel-color-rgb), 0.08);
+        border-bottom: 2px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
         content: '';
     }
 `;
@@ -216,7 +216,7 @@ const Horizontal = styled.div`
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 4px 4px 0 0;
     background-color: rgba(var(--center-channel-color-rgb), 0.04);
     cursor: pointer;
@@ -226,18 +226,18 @@ const Icon = styled.i`
     position: relative;
     top: 2px;
     margin: 0 0 0 6px;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     font-size: 18px;
 
     ${Horizontal}:hover & {
-        color: rgba(var(--center-channel-color-rgb), 0.64);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     }
 `;
 
 const Title = styled.div`
     overflow: hidden;
     margin: 0 6px 0 0;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     font-weight: 600;
     line-height: 44px;
@@ -257,7 +257,7 @@ export const TitleHelpTextWrapper = styled.div`
     white-space: nowrap;
 
     ${Horizontal}:hover & {
-        color: rgba(var(--center-channel-color-rgb), 0.56);
+        color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     }
 `;
 

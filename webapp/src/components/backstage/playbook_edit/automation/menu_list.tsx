@@ -9,7 +9,7 @@ import {MenuListComponentProps, OptionTypeBase} from 'react-select';
 
 const MenuListWrapper = styled.div`
     max-height: 280px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     border-radius: 4px;
     background-color: var(--center-channel-bg);
 `;

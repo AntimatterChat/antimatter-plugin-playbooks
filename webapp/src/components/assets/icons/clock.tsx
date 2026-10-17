@@ -9,7 +9,7 @@ import Icon from 'src/components/assets/svg';
 const Svg = styled(Icon)`
     width: 34px;
     height: 34px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
 `;
 
 const Clock = (props : {className?: string}) => (

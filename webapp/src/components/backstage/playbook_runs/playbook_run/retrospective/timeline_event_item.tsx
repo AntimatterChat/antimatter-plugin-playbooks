@@ -11,8 +11,7 @@ import {DateTime} from 'luxon';
 
 import {ClockOutlineIcon} from '@mattermost/compass-icons/components';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppDispatch} from 'src/hooks/redux';
 
 import {
@@ -38,7 +37,7 @@ const Circle = styled.div`
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #EFF1F5;
+    background: var(--am-raise, rgba(var(--center-channel-color-rgb), 0.08));
     color: var(--button-bg);
 
     > .icon {
@@ -92,7 +91,7 @@ const TimeBetween = styled.div`
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background: #EFF1F5;
+        background: var(--am-raise, rgba(var(--center-channel-color-rgb), 0.08));
         content: '';
     }
 `;
@@ -125,7 +124,7 @@ const SummaryDeleted = styled.span`
 
 const SummaryDetail = styled.div`
     margin: 4px 0 0;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 11px;
 `;
 

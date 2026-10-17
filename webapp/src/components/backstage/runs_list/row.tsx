@@ -32,7 +32,7 @@ import {ToastStyle} from 'src/components/backstage/toast';
 
 const SmallText = styled.div`
     margin: 5px 0;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 11px;
     font-weight: 400;
     line-height: 16px;
@@ -85,7 +85,7 @@ const PlaybookRunItem = styled.div`
     align-items: center;
     padding-top: 8px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     margin: 0;
     background-color: var(--center-channel-bg);
     cursor: pointer;
@@ -113,7 +113,7 @@ const CompactDetails = styled.div`
     overflow: hidden;
     min-width: 0;
     align-items: center;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 11px;
     gap: 8px;
     line-height: 16px;

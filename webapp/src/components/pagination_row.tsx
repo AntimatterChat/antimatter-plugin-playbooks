@@ -15,7 +15,7 @@ const PaginationRowDiv = styled.div`
 `;
 
 const Count = styled.span`
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     white-space: nowrap;
 `;
 

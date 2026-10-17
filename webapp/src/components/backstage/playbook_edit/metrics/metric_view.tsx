@@ -68,18 +68,18 @@ const ViewContainer = styled.div`
     display: flex;
     flex: 1;
     padding: 12px 16px 16px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
     border-radius: 4px;
     margin-bottom: 12px;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 14px;
     line-height: 20px;
 `;
 
 const Lhs = styled.div`
     padding: 0 6px 0 0;
-    color: rgba(var(--center-channel-color-rgb), 0.64);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.64));
     font-size: 18px;
 
     svg {
@@ -91,7 +91,7 @@ const Centre = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-size: 14px;
     line-height: 20px;
 `;
@@ -99,7 +99,7 @@ const Centre = styled.div`
 const Rhs = styled.div`
     display: flex;
     align-items: flex-start;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 `;
 
 const Button = styled.button`
@@ -140,7 +140,7 @@ const DescrText = styled.span`
 `;
 
 const Title = styled.div`
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-weight: 600;
 `;
 

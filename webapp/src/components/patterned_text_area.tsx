@@ -103,7 +103,7 @@ interface TextAreaProps {
 
 const TextArea = styled.textarea<TextAreaProps>`
     ::placeholder {
-        color: var(--center-channel-color);
+        color: var(--am-text, var(--center-channel-color));
         opacity: 0.64;
     }
 
@@ -113,7 +113,7 @@ const TextArea = styled.textarea<TextAreaProps>`
     color: ${(props) => (props.disabled ? 'rgba(var(--center-channel-color-rgb), 0.64)' : 'var(--center-channel-color);')};
     border-radius: 4px;
     border: none;
-    box-shadow: inset 0 0 0 1px rgba(var(--center-channel-color-rgb), 0.16);
+    box-shadow: inset 0 0 0 1px var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     font-size: 14px;
     padding: 10px 16px;
     resize: ${(props) => (props.disabled && 'none') || props.resize || 'none'};

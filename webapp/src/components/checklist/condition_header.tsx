@@ -7,8 +7,7 @@ import {useIntl} from 'react-intl';
 
 import ReactSelect, {StylesConfig} from 'react-select';
 
-import {WithTooltip} from '@mattermost/shared/components/tooltip';
-
+import {WithTooltip} from 'src/components/fusion/tip';
 import {useAppSelector} from 'src/hooks/redux';
 
 import {ConditionExprV1} from 'src/types/conditions';
@@ -469,7 +468,7 @@ const AddConditionButton = styled.button`
     border: none;
     border-radius: 4px;
     background: none;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.15s ease, background 0.15s ease;
@@ -495,7 +494,7 @@ const RemoveConditionButton = styled.button`
     border: none;
     border-radius: 4px;
     background: none;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.15s ease, background 0.15s ease;
@@ -546,7 +545,7 @@ const HeaderContainer = styled.div`
 
 const IfLabel = styled.span`
     font-size: 13px;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -565,7 +564,7 @@ const ConditionsText = styled.div`
 const PlainText = styled.span`
     font-size: 12px;
     font-weight: 600;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
 `;
 
 const Chip = styled.span`
@@ -575,7 +574,7 @@ const Chip = styled.span`
     min-height: 24px;
     font-size: 12px;
     font-weight: 600;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     background: rgba(var(--center-channel-color-rgb), 0.08);
     border-radius: 4px;
 `;
@@ -600,7 +599,7 @@ const LogicalOperatorSelect = styled(ReactSelect<SelectOption>)`
 const LogicalOperatorLabel = styled.span`
     font-size: 11px;
     font-weight: 700;
-    color: rgba(var(--center-channel-color-rgb), 0.72);
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     padding: 0 8px;
     height: 24px;
     display: flex;
@@ -618,10 +617,10 @@ const StyledReactSelect = styled(ReactSelect<SelectOption>)`
 
 const StyledInput = styled.input`
     padding: 4px 8px;
-    border: 1px solid rgba(var(--center-channel-color-rgb), 0.16);
+    border: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16));
     border-radius: 4px;
     background: var(--center-channel-bg);
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 13px;
     height: 24px;
 
@@ -681,7 +680,7 @@ const selectStyles: StylesConfig<SelectOption, false> = {
         ...provided,
         marginTop: '4px',
         borderRadius: '4px',
-        border: '1px solid rgba(var(--center-channel-color-rgb), 0.16)',
+        border: '1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.16))',
         boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
         backgroundColor: 'var(--center-channel-bg)',
         zIndex: 9999,
@@ -772,7 +771,7 @@ const ActionButton = styled.button`
     border: none;
     border-radius: 4px;
     background: none;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
 

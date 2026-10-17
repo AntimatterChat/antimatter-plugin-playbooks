@@ -7,7 +7,7 @@ import styled, {css} from 'styled-components';
 
 export const Section = styled.section`
     padding: 24px 0;
-    border-bottom: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
+    border-bottom: 1px solid var(--am-line, rgba(var(--center-channel-color-rgb), 0.08));
 `;
 
 type LinkURL = {to: string, name: string};
@@ -56,8 +56,8 @@ const SectionHeaderContainer = styled.div`
 `;
 
 const SectionTitle = styled.div`
-    color: rgba(var(--center-channel-color-rgb), 0.72);
-    font-family: 'Open Sans';
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
+    font-family: var(--am-font-ui, 'Open Sans'), sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 600;

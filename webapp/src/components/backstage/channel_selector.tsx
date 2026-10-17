@@ -264,12 +264,12 @@ const ChannelContainer = styled.div`
 const ChanneIcon = styled.div`
     display: flex;
     align-self: center;
-    color: rgba(var(--center-channel-color-rgb), 0.56);
+    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
 `;
 const ChannelDisplay = styled.div`
     overflow: hidden;
     margin-left: 4px;
-    color: var(--center-channel-color);
+    color: var(--am-text, var(--center-channel-color));
     font-size: 12px;
     text-overflow: ellipsis;
     white-space: nowrap;
