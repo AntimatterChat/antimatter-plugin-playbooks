@@ -213,6 +213,7 @@ export default class Plugin {
             return currentChannel && currentChannel.type !== General.GM_CHANNEL && currentChannel.type !== General.DM_CHANNEL;
         };
         registry.registerChannelHeaderButtonAction(ChannelHeaderButton, boundToggleRHSAction, ChannelHeaderText, ChannelHeaderTooltip);
+
         // "Channel automation", not "Channel Actions": it opens the channel's automation rules (welcome message,
         // sidebar category, playbook suggestions on keywords), not a menu of actions like a message's "More actions".
         registry.registerChannelHeaderMenuAction(<FormattedMessage defaultMessage='Channel automation…'/>, () => store.dispatch(showChannelActionsModal()), shouldRender);
