@@ -52,12 +52,12 @@ export const FavoriteRunMenuItem = (props: {isFavoriteRun: boolean, toggleFavori
             {props.isFavoriteRun ? (
                 <>
                     <StarOutlineIcon size={18}/>
-                    <FormattedMessage defaultMessage='Unfavorite'/>
+                    <FormattedMessage defaultMessage='Unfavourite'/>
                 </>
             ) : (
                 <>
                     <StarIcon size={18}/>
-                    <FormattedMessage defaultMessage='Favorite'/>
+                    <FormattedMessage defaultMessage='Favourite'/>
                 </>
             )}
         </StyledDropdownMenuItem>

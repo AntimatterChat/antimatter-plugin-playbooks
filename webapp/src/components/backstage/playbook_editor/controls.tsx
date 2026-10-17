@@ -298,9 +298,9 @@ export const FavoritePlaybookMenuItem = (props: {playbookId: string, isFavorite:
     return (
         <StyledDropdownMenuItem onClick={toggleFavorite}>
             {props.isFavorite ? (
-                <><StarOutlineIcon size={18}/>{formatMessage({defaultMessage: 'Unfavorite'})}</>
+                <><StarOutlineIcon size={18}/>{formatMessage({defaultMessage: 'Unfavourite'})}</>
             ) : (
-                <><StarIcon size={18}/>{formatMessage({defaultMessage: 'Favorite'})}</>
+                <><StarIcon size={18}/>{formatMessage({defaultMessage: 'Favourite'})}</>
             )}
         </StyledDropdownMenuItem>
     );

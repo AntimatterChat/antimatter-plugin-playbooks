@@ -649,7 +649,7 @@ export const useReservedCategoryTitleMapper = () => {
     return (categoryName: ReservedCategory | string) => {
         switch (categoryName) {
         case ReservedCategory.Favorite:
-            return formatMessage({defaultMessage: 'Favorites'});
+            return formatMessage({defaultMessage: 'Favourites'});
         case ReservedCategory.Runs:
             return formatMessage({defaultMessage: 'Runs and Checklists'});
         case ReservedCategory.Playbooks:
