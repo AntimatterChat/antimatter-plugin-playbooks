@@ -194,6 +194,7 @@
   "FEGywG": "Please specify a future date/time for the update reminder.",
   "FGzxgY": "e.g., Time to acknowledge, Time to resolve",
   "FLG4Iu": "Make run owner",
+  "FX6AJE": "{activeRuns, plural, =0 {No runs in progress} one {# run in progress} other {# runs in progress}}",
   "FXCLuZ": "{total, number} total",
   "FgydNe": "View",
   "FipAX+": "Error loading playbook attributes. Please try again.",

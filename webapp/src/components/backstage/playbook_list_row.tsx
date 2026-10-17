@@ -56,11 +56,14 @@ interface Props {
     onRestore: () => void
     onDuplicate: () => void
     onMembershipChanged: (joined: boolean) => void;
+
+    // One line per playbook (its name, its runs in progress, its actions) for a side panel narrower than the table.
+    compact?: boolean;
 }
 
-const ActionCol = styled.div`
+const ActionCol = styled.div<{$compact?: boolean}>`
     position: relative;
-	width: 16.6667%;
+	width: ${({$compact}) => ($compact ? 'auto' : '16.6667%')};
 	min-height: 1px;
 	padding-right: 15px;
 	padding-left: 15px;
@@ -79,10 +82,12 @@ const PlaybookItem = styled.div`
     cursor: pointer;
 `;
 
-const PlaybookItemTitle = styled.div`
+const PlaybookItemTitle = styled.div<{$compact?: boolean}>`
     position: relative;
     display: flex;
-    width: 33.3333%;
+    width: ${({$compact}) => ($compact ? 'auto' : '33.3333%')};
+    min-width: 0;
+    flex: ${({$compact}) => ($compact ? '1' : 'none')};
     min-height: 1px;
     flex-direction: column;
     padding-right: 15px;
@@ -185,7 +190,10 @@ const PlaybookListRow = (props: Props) => {
             data-testid='playbook-item'
             data-playbook-id={props.playbook.id}
         >
-            <PlaybookItemTitle data-testid='playbook-title'>
+            <PlaybookItemTitle
+                data-testid='playbook-title'
+                $compact={props.compact}
+            >
                 <TextWithTooltip
                     id={props.playbook.title}
                     text={props.playbook.title}
@@ -200,20 +208,33 @@ const PlaybookListRow = (props: Props) => {
                             </Fragment>))}
                     </InfoLine>
                 }
+                {props.compact &&
+                    <InfoLine data-testid='playbook-active-runs'>
+                        {formatMessage({
+                            defaultMessage: '{activeRuns, plural, =0 {No runs in progress} one {# run in progress} other {# runs in progress}}',
+                            description: 'Playbooks side panel: under a playbook\'s name in the list of playbooks, how many of its runs are in progress.',
+                        }, {activeRuns: props.playbook.active_runs})}
+                    </InfoLine>
+                }
             </PlaybookItemTitle>
-            <PlaybookItemRow>
-                {props.playbook.last_run_at ? (
-                    <Timestamp
-                        {...TIME_SPEC}
-                        value={props.playbook.last_run_at}
-                    />
-                ) : (
-                    '-' // eslint-disable-line formatjs/no-literal-string-in-jsx
-                )}
-            </PlaybookItemRow>
-            <PlaybookItemRow>{props.playbook.active_runs}</PlaybookItemRow>
-            <PlaybookItemRow>{props.playbook.num_runs}</PlaybookItemRow>
+            {!props.compact && (
+                <>
+                    <PlaybookItemRow>
+                        {props.playbook.last_run_at ? (
+                            <Timestamp
+                                {...TIME_SPEC}
+                                value={props.playbook.last_run_at}
+                            />
+                        ) : (
+                            '-' // eslint-disable-line formatjs/no-literal-string-in-jsx
+                        )}
+                    </PlaybookItemRow>
+                    <PlaybookItemRow>{props.playbook.active_runs}</PlaybookItemRow>
+                    <PlaybookItemRow>{props.playbook.num_runs}</PlaybookItemRow>
+                </>
+            )}
             <ActionCol
+                $compact={props.compact}
                 style={{
                     display: 'flex',
                     gap: '4px',

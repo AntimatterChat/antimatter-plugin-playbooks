@@ -20,11 +20,12 @@ import {PrimaryButton} from 'src/components/assets/buttons';
 
 import {clientHasPlaybooks} from 'src/client';
 import {useLHSRefresh} from 'src/components/backstage/lhs_navigation';
+import {useCompactList} from 'src/panel/panel_width';
 
 const NoContentContainer = styled.div`
     display: flex;
     flex-direction: row;
-    margin: 0 10vw;
+    margin: 0 16px;
     height: 100%;
     align-items: center;
     justify-content: center;
@@ -57,14 +58,15 @@ const NoContentDescription = styled.h5`
 `;
 
 const NoContentPlaybookRunSvgContainer = styled.div`
-    @media (width <= 1000px) {
-        display: none;
-    }
+    flex: none;
 `;
 
 const NoContentPage = () => {
     const dispatch = useAppDispatch();
     const teamId = useAppSelector(getCurrentTeamId);
+
+    // The illustration only beside the text in a wide panel (it hid on narrow windows).
+    const compact = useCompactList();
     const [playbookExist, setPlaybookExist] = useState(false);
     const {setSelectedPlaybook} = usePlaybooksCrud({team_id: '', per_page: BACKSTAGE_LIST_PER_PAGE});
     const {create} = usePlaybooksRouting<Playbook>({onGo: setSelectedPlaybook});
@@ -110,9 +112,11 @@ const NoContentPage = () => {
                 </PrimaryButton>
                 }
             </NoContentTextContainer>
-            <NoContentPlaybookRunSvgContainer>
-                <PlaybookListSvg/>
-            </NoContentPlaybookRunSvgContainer>
+            {!compact && (
+                <NoContentPlaybookRunSvgContainer>
+                    <PlaybookListSvg/>
+                </NoContentPlaybookRunSvgContainer>
+            )}
         </NoContentContainer>
     );
 };

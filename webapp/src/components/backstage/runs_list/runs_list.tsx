@@ -12,6 +12,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import {FetchPlaybookRunsParams, PlaybookRun} from 'src/types/playbook_run';
 
 import LoadingSpinner from 'src/components/assets/loading_spinner';
+import {PANEL_SCROLL_ID} from 'src/panel/constants';
+import {useCompactList} from 'src/panel/panel_width';
 
 import Row from './row';
 import RunListHeader from './run_list_header';
@@ -74,6 +76,9 @@ const RunList = ({
         (fetchParams?.participant_or_follower_id?.length ?? 0) > 0
     );
 
+    // In a side panel narrower than the table: one line per run, without the table's sortable header.
+    const compact = useCompactList();
+
     const nextPage = () => {
         setFetchParams((oldParam: FetchPlaybookRunsParams) => ({...oldParam, page: oldParam.page + 1}));
     };
@@ -90,10 +95,12 @@ const RunList = ({
                 fixedPlaybook={fixedPlaybook}
             />
             {filterPill}
-            <RunListHeader
-                fetchParams={fetchParams}
-                setFetchParams={setFetchParams}
-            />
+            {!compact && (
+                <RunListHeader
+                    fetchParams={fetchParams}
+                    setFetchParams={setFetchParams}
+                />
+            )}
             {playbookRuns.length === 0 && !isFiltering &&
                 <div className='text-center pt-8'>
                     <FormattedMessage defaultMessage='There are no runs for this playbook.'/>
@@ -109,13 +116,14 @@ const RunList = ({
                 next={nextPage}
                 hasMore={playbookRuns.length < totalCount}
                 loader={<SpinnerContainer><StyledSpinner/></SpinnerContainer>}
-                scrollableTarget={'playbooks-backstageRoot'}
+                scrollableTarget={PANEL_SCROLL_ID}
             >
                 {playbookRuns.map((playbookRun) => (
                     <Row
                         key={playbookRun.id}
                         playbookRun={playbookRun}
                         fixedTeam={fixedTeam}
+                        compact={compact}
                     />
                 ))}
             </InfiniteScroll>

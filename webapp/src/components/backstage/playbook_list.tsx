@@ -37,6 +37,7 @@ import {ToastStyle} from 'src/components/backstage/toast';
 import {useToaster} from 'src/components/backstage/toast_banner';
 
 import {useFileDragDetection} from 'src/components/backstage/file_drag_detection';
+import {useCompactList} from 'src/panel/panel_width';
 import {FileUploadOverlay} from 'src/components/backstage/file_upload_overlay';
 
 import CheckboxInput from './runs_list/checkbox_input';
@@ -129,6 +130,7 @@ const ImportLink = styled.a`
 
 const PlaybooksListFilters = styled.div`
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: 16px;
 `;
@@ -169,6 +171,9 @@ const PlaybookList = (props: { firstTimeUserExperience?: boolean }) => {
     });
 
     const isDraggingFile = useFileDragDetection();
+
+    // In a side panel narrower than the table: one line per playbook, without the table's sortable header.
+    const compact = useCompactList();
 
     const hasPlaybooks = Boolean(playbooks?.length);
 
@@ -225,6 +230,7 @@ const PlaybookList = (props: { firstTimeUserExperience?: boolean }) => {
                 onArchive={() => openConfirmArchiveModal(p)}
                 onDuplicate={() => duplicatePlaybook(p.id).then(refreshLHS)}
                 onMembershipChanged={() => fetchPlaybooks()}
+                compact={compact}
             />
         ));
     }
@@ -283,45 +289,47 @@ const PlaybookList = (props: { firstTimeUserExperience?: boolean }) => {
                     />
                     <HorizontalSpacer $size={12}/>
                 </PlaybooksListFilters>
-                <BackstageListHeader $edgeless={true}>
-                    <div className='row'>
-                        <div className='col-sm-4'>
-                            <SortableColHeader
-                                name={formatMessage({defaultMessage: 'Name'})}
-                                direction={params.direction}
-                                active={params.sort === 'title'}
-                                onClick={() => sortBy('title')}
-                            />
+                {!compact && (
+                    <BackstageListHeader $edgeless={true}>
+                        <div className='row'>
+                            <div className='col-sm-4'>
+                                <SortableColHeader
+                                    name={formatMessage({defaultMessage: 'Name'})}
+                                    direction={params.direction}
+                                    active={params.sort === 'title'}
+                                    onClick={() => sortBy('title')}
+                                />
+                            </div>
+                            <div className='col-sm-2'>
+                                <SortableColHeader
+                                    name={formatMessage({defaultMessage: 'Last used'})}
+                                    direction={params.direction}
+                                    active={params.sort === 'last_run_at'}
+                                    onClick={() => sortBy('last_run_at')}
+                                />
+                            </div>
+                            <div className='col-sm-2'>
+                                <SortableColHeader
+                                    name={formatMessage({defaultMessage: 'Active Runs'})}
+                                    direction={params.direction}
+                                    active={params.sort === 'active_runs'}
+                                    onClick={() => sortBy('active_runs')}
+                                />
+                            </div>
+                            <div className='col-sm-2'>
+                                <SortableColHeader
+                                    name={formatMessage({defaultMessage: 'Runs'})}
+                                    direction={params.direction}
+                                    active={params.sort === 'runs'}
+                                    onClick={() => sortBy('runs')}
+                                />
+                            </div>
+                            <div className='col-sm-2'>
+                                <FormattedMessage defaultMessage='Actions'/>
+                            </div>
                         </div>
-                        <div className='col-sm-2'>
-                            <SortableColHeader
-                                name={formatMessage({defaultMessage: 'Last used'})}
-                                direction={params.direction}
-                                active={params.sort === 'last_run_at'}
-                                onClick={() => sortBy('last_run_at')}
-                            />
-                        </div>
-                        <div className='col-sm-2'>
-                            <SortableColHeader
-                                name={formatMessage({defaultMessage: 'Active Runs'})}
-                                direction={params.direction}
-                                active={params.sort === 'active_runs'}
-                                onClick={() => sortBy('active_runs')}
-                            />
-                        </div>
-                        <div className='col-sm-2'>
-                            <SortableColHeader
-                                name={formatMessage({defaultMessage: 'Runs'})}
-                                direction={params.direction}
-                                active={params.sort === 'runs'}
-                                onClick={() => sortBy('runs')}
-                            />
-                        </div>
-                        <div className='col-sm-2'>
-                            <FormattedMessage defaultMessage='Actions'/>
-                        </div>
-                    </div>
-                </BackstageListHeader>
+                    </BackstageListHeader>
+                )}
                 {listBody}
                 <PaginationRow
                     page={params.page}

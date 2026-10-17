@@ -43,6 +43,7 @@ const ControlComponentAnchor = styled.a`
 
 const PlaybookRunListFilters = styled.div`
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: 1rem 16px;
     gap: 4px;

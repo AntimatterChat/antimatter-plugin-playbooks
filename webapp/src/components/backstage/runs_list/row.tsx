@@ -95,9 +95,43 @@ const PlaybookRunItem = styled.div`
     }
 `;
 
+const CompactRunItem = styled(PlaybookRunItem)`
+    padding: 10px 16px;
+    gap: 12px;
+`;
+
+const CompactMain = styled.div`
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+`;
+
+const CompactDetails = styled.div`
+    display: flex;
+    overflow: hidden;
+    min-width: 0;
+    align-items: center;
+    color: rgba(var(--center-channel-color-rgb), 0.64);
+    font-size: 11px;
+    gap: 8px;
+    line-height: 16px;
+    white-space: nowrap;
+
+    > * {
+        overflow: hidden;
+        margin: 0;
+        text-overflow: ellipsis;
+    }
+`;
+
 interface Props {
     playbookRun: PlaybookRun
     fixedTeam?: boolean
+
+    // One line per run (its name, status and last update) for a side panel narrower than the table.
+    compact?: boolean
 }
 
 const teamNameSelector = (teamId: string) => (state: GlobalState): string => getTeam(state, teamId)?.display_name ?? '';
@@ -119,6 +153,35 @@ const Row = (props: Props) => {
 
     function openPlaybookRunDetails(playbookRun: PlaybookRun) {
         navigateToPluginUrl(`/runs/${playbookRun.id}?from=run_list`);
+    }
+
+    if (props.compact) {
+        return (
+            <CompactRunItem
+                key={props.playbookRun.id}
+                data-testid='run-list-item'
+                onClick={() => openPlaybookRunDetails(props.playbookRun)}
+            >
+                <CompactMain>
+                    <NameRow>
+                        {props.playbookRun.sequential_id && (
+                            <SequentialIdDisplay
+                                sequentialId={props.playbookRun.sequential_id}
+                            />
+                        )}
+                        <RunName>{props.playbookRun.name}</RunName>
+                    </NameRow>
+                    <CompactDetails>
+                        <SmallStatusBadge
+                            status={BadgeType[props.playbookRun.current_status]}
+                        />
+                        <span>{DateTime.fromMillis(findLastUpdatedWithDefault(props.playbookRun)).toRelative()}</span>
+                        {infoLine}
+                    </CompactDetails>
+                </CompactMain>
+                <FollowPlaybookRun id={props.playbookRun.id}/>
+            </CompactRunItem>
+        );
     }
 
     return (
