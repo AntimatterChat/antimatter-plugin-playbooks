@@ -2,6 +2,9 @@
 // See LICENSE.txt for license information.
 
 import React from 'react';
+import {createPath, parsePath} from 'history';
+
+import {isPanelPath, openPlaybooksPanel} from 'src/panel/history';
 
 // @ts-ignore
 const WebappUtils = window.WebappUtils;
@@ -11,7 +14,14 @@ type PathLike = {
     search: string;
 }
 
+// Antimatter: Playbooks' pages (/playbooks/...) are views of its side panel: going to one opens the panel on it, in
+// the current channel. The other paths are the app's.
 export const navigateToUrl = (urlPath: string | PathLike) => {
+    const path = typeof urlPath === 'string' ? urlPath : createPath(urlPath);
+    if (isPanelPath(parsePath(path).pathname ?? '')) {
+        openPlaybooksPanel(path);
+        return;
+    }
     WebappUtils.browserHistory.push(urlPath);
 };
 
@@ -20,7 +30,7 @@ export const pluginUrl = (urlPath: string) => {
 };
 
 export const navigateToPluginUrl = (urlPath: string) => {
-    WebappUtils.browserHistory.push(pluginUrl(urlPath));
+    openPlaybooksPanel(pluginUrl(urlPath));
 };
 
 /**

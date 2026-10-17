@@ -1,24 +1,21 @@
 // Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {useUpdateEffect} from 'react-use';
 import {FormattedMessage, useIntl} from 'react-intl';
 import styled from 'styled-components';
 import {Redirect, useLocation, useRouteMatch} from 'react-router-dom';
-import {selectTeam} from 'mattermost-redux/actions/teams';
-import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 import {getCurrentUser} from 'mattermost-redux/selectors/entities/users';
 import qs from 'qs';
 
-import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
+import {useAppSelector} from 'src/hooks/redux';
 
 import {
     useChannel,
     useEnsureProfiles,
     usePlaybook,
-    usePreviousTeamId,
     useRun,
     useRunFollowers,
     useRunMetadata,
@@ -29,8 +26,9 @@ import {pluginErrorUrl} from 'src/browser_routing';
 import {ErrorPageTypes} from 'src/constants';
 import {PlaybookRun} from 'src/types/playbook_run';
 
-import {useDefaultRedirectOnTeamChange} from 'src/components/backstage/main_body';
 import {useFilter} from 'src/components/backstage/playbook_runs/playbook_run/timeline_utils';
+import {PanelTitle} from 'src/panel/panel_title';
+import {useLeaveOnTeamChange} from 'src/panel/team_change';
 
 import Summary from './summary';
 import {ParticipantStatusUpdate, ViewerStatusUpdate} from './status_update';
@@ -46,8 +44,11 @@ import RHSTimeline from './rhs_timeline';
 
 const RHSRunInfoTitle = <FormattedMessage defaultMessage={'Info'}/>;
 const RHSParticipantsTitle = <FormattedMessage defaultMessage={'Participants'}/>;
+
+// Antimatter: in the side panel, the run's info, timeline, participants and status updates cover the run's page
+// (with their own back and close buttons) instead of sitting beside it: closed until asked for.
 const useRHS = (playbookRun?: PlaybookRun|null) => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const [scrollable, setScrollable] = useState(true);
     const [section, setSection] = useState<RHSContent>(RHSContent.RunInfo);
     const [title, setTitle] = useState<React.ReactNode>(RHSRunInfoTitle);
@@ -82,10 +83,9 @@ export enum PlaybookRunIDs {
 
 const PlaybookRunDetails = () => {
     const {formatMessage} = useIntl();
-    const dispatch = useAppDispatch();
     const match = useRouteMatch<{playbookRunId: string}>();
     const playbookRunId = match.params.playbookRunId;
-    const {hash: urlHash} = useLocation();
+    const {hash: urlHash, search} = useLocation();
     const retrospectiveMetricId = urlHash.startsWith('#' + PlaybookRunIDs.SectionRetrospective) ? urlHash.substring(1 + PlaybookRunIDs.SectionRetrospective.length) : '';
     const [playbookRun, playbookRunResult] = useRun(playbookRunId);
     const [playbook] = usePlaybook(playbookRun?.playbook_id);
@@ -99,7 +99,7 @@ const PlaybookRunDetails = () => {
     const followState = useRunFollowers(metadata?.followers || []);
     const hasPermanentViewerAccess = playbook?.public || playbook?.members.find((m) => m.user_id === myUser.id) !== undefined;
 
-    const queryParams = qs.parse(location.search, {ignoreQueryPrefix: true});
+    const queryParams = qs.parse(search, {ignoreQueryPrefix: true});
     const role = playbookRun?.participant_ids.includes(myUser.id) || playbookRun?.owner_user_id === myUser.id ? Role.Participant : Role.Viewer;
 
     useEnsureProfiles(playbookRun?.participant_ids ?? []);
@@ -110,41 +110,22 @@ const PlaybookRunDetails = () => {
         resetFilters();
     }, [playbookRunId]);
 
+    // Opened from the channel's participants: show the run's participants, once (the overlay can then be closed).
+    const openedParticipants = useRef(false);
     useEffect(() => {
         const RHSUpdatesOpened = RHS.isOpen && RHS.section === RHSContent.RunStatusUpdates;
         const emptyUpdates = !playbookRun?.status_update_enabled || playbookRun.status_posts.length === 0;
-        if (queryParams.from === 'channel_rhs_participants') {
+        if (queryParams.from === 'channel_rhs_participants' && playbookRun && !openedParticipants.current) {
+            openedParticipants.current = true;
             RHS.open(RHSContent.RunParticipants, RHSParticipantsTitle, playbookRun?.name);
         } else if (RHSUpdatesOpened && emptyUpdates) {
             RHS.open(RHSContent.RunInfo, RHSRunInfoTitle, playbookRun?.name);
         }
     }, [playbookRun, RHS.section, RHS.isOpen]);
 
-    const currentTeamId = useAppSelector(getCurrentTeamId);
-    const [prevTeamId] = usePreviousTeamId();
-    const hasRun = Boolean(playbookRun);
-
-    useEffect(() => {
-        // Team-based runs: select the run's own team.
-        const teamId = playbookRun?.team_id;
-        if (teamId) {
-            dispatch(selectTeam(teamId));
-            return;
-        }
-
-        // DM/GM checklists are teamless. MainBody.useInitTeamRoutingLogic
-        // suppresses prev-team restore on /runs/:id routes, so on a refresh
-        // of a DM/GM run there's no team selected at all — channel link,
-        // recent activity, and timeline rendering all need a team context.
-        // usePreviousTeamId() encapsulates the same default-team logic the
-        // Antimatter host webapp uses (prev team localStorage → first team).
-        if (!hasRun || currentTeamId || !prevTeamId) {
-            return;
-        }
-        dispatch(selectTeam(prevTeamId));
-    }, [dispatch, hasRun, playbookRun?.team_id, currentTeamId, prevTeamId]);
-
-    useDefaultRedirectOnTeamChange(playbookRun?.team_id);
+    // Antimatter: the panel shows the run in the current community: it doesn't switch communities for the run (the
+    // links to a run open its channel first), and leaves the run when you switch to another community.
+    useLeaveOnTeamChange(playbookRun?.team_id);
 
     // When first loading the page, the element with the ID corresponding to the URL
     // hash is not mounted, so the browser fails to automatically scroll to such section.
@@ -236,7 +217,11 @@ const PlaybookRunDetails = () => {
     }
 
     return (
-        <Container>
+        <Container data-testid='playbooks-panel-run'>
+            <PanelTitle
+                title={formatMessage({defaultMessage: 'Run overview', description: 'Playbooks side panel: the title of the view with a run\'s summary, status updates, checklists and retrospective.'})}
+                subtitle={playbookRun.name}
+            />
             <MainWrapper>
                 <Header>
                     <RunHeader
@@ -289,6 +274,7 @@ const PlaybookRunDetails = () => {
                 </Main>
             </MainWrapper>
             <RightHandSidebar
+                overlay={true}
                 isOpen={RHS.isOpen}
                 title={RHS.title}
                 subtitle={RHS.subtitle}
@@ -310,18 +296,18 @@ const RowContainer = styled.div`
 `;
 
 const Container = styled.div`
-    display: grid;
-    grid-auto-columns: minmax(400px, 2fr) minmax(400px, 1fr);
-    grid-auto-flow: column;
+    position: relative;
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
     overflow-y: hidden;
-
-    @media screen and (width >= 1600px) {
-        grid-auto-columns: 2.5fr 500px;
-    }
 `;
 
 const MainWrapper = styled.div`
     display: grid;
+    height: 100%;
+    min-height: 0;
     grid-auto-columns: minmax(0, 1fr);
     grid-auto-flow: row;
     grid-template-rows: 56px 1fr;
@@ -331,7 +317,7 @@ const MainWrapper = styled.div`
 const Main = styled.main`
     display: grid;
     min-height: 0;
-    padding: 0 20px 60px;
+    padding: 0 16px 60px;
     grid-auto-columns: min(780px, 100%);
     overflow-y: auto;
     place-content: start center;

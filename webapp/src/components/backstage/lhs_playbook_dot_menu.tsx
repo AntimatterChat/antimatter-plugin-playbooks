@@ -13,9 +13,12 @@ import {CopyPlaybookLinkMenuItem, FavoritePlaybookMenuItem, LeavePlaybookMenuIte
 interface Props {
     playbookId: string;
     isFavorite: boolean;
+
+    // The icon's colour: the button colour by default (on the sidebar), the text's in the side panel.
+    iconColor?: string;
 }
 
-export const LHSPlaybookDotMenu = ({playbookId, isFavorite}: Props) => {
+export const LHSPlaybookDotMenu = ({playbookId, isFavorite, iconColor = 'var(--button-color)'}: Props) => {
     return (
         <>
             <DotMenu
@@ -23,7 +26,7 @@ export const LHSPlaybookDotMenu = ({playbookId, isFavorite}: Props) => {
                 icon={(
                     <DotsVerticalIcon
                         size={14.4}
-                        color={'var(--button-color)'}
+                        color={iconColor}
                     />
                 )}
                 dotMenuButton={DotMenuButtonStyled}

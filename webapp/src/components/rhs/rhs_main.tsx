@@ -9,11 +9,9 @@ import styled from 'styled-components';
 
 import {useQuery} from '@apollo/client';
 
-import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
+import {useAppSelector} from 'src/hooks/redux';
 
-import {setRHSOpen} from 'src/actions';
 import RHSRunDetails from 'src/components/rhs/rhs_run_details';
-import {ToastProvider} from 'src/components/backstage/toast_banner';
 import {navigateToChannel} from 'src/browser_routing';
 import {usePlaybooksCrud} from 'src/hooks';
 import LoadingSpinner from 'src/components/assets/loading_spinner';
@@ -149,25 +147,14 @@ const useFilteredSortedRuns = (channelID: string, listOptions: RunListOptions) =
     };
 };
 
-const useSetRHSState = () => {
-    const dispatch = useAppDispatch();
-
-    // Let other parts of the app know if we are open or not
-    useEffect(() => {
-        dispatch(setRHSOpen(true));
-        return () => {
-            dispatch(setRHSOpen(false));
-        };
-    }, [dispatch]);
-};
-
 const defaultListOptions : RunListOptions = {
     sort: 'create_at',
     direction: 'DESC',
     filter: FilterType.InProgress,
 };
 
-// RightHandSidebar the sidebar for integration of playbooks into channels
+// RightHandSidebar the sidebar for integration of playbooks into channels: the first view of the Playbooks panel
+// (src/panel/panel.tsx), which also has the app's other pages.
 //
 // Rules for automatic display:
 // * No Runs Ever -> RHS Home
@@ -175,7 +162,6 @@ const defaultListOptions : RunListOptions = {
 // * Single active run (ignoring finished) -> Details page for that run (back button goes to runs list)
 // * Multiple active runs -> Runs list
 const RightHandSidebar = () => {
-    useSetRHSState();
     const currentTeam = useAppSelector(getCurrentTeam);
     const currentChannelId = useAppSelector(getCurrentChannelId);
     const [currentRunId, setCurrentRunId] = useState<string | undefined>();
@@ -296,13 +282,5 @@ const Centered = styled.div`
     justify-content: center;
 `;
 
-const RHSWrapped = () => {
-    return (
-        <ToastProvider>
-            <RightHandSidebar/>
-        </ToastProvider>
-    );
-};
-
-export default RHSWrapped;
+export default RightHandSidebar;
 

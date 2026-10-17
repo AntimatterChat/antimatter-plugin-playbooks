@@ -19,6 +19,7 @@ import Dropdown from 'src/components/dropdown';
 import {DropdownMenu, TitleButton} from 'src/components/dot_menu';
 
 import {useLHSRefresh} from 'src/components/backstage/lhs_navigation';
+import {panelHistory} from 'src/panel/history';
 import {navigateToUrl, pluginUrl} from 'src/browser_routing';
 import {PlaybookRun} from 'src/types/playbook_run';
 import {SemiBoldHeading} from 'src/styles/headings';
@@ -221,7 +222,8 @@ export const useLeaveRun = (hasPermanentViewerAccess: boolean, playbookRunId: st
                     toastStyle: ToastStyle.Success,
                 });
 
-                const sameRunRDP = window.location.href.includes('runs/' + playbookRunId);
+                // The run's overview is a view of the side panel: leave it if it shows this run.
+                const sameRunRDP = panelHistory.location.pathname.includes('runs/' + playbookRunId);
                 if (!hasPermanentViewerAccess && sameRunRDP) {
                     navigateToUrl(pluginUrl(''));
                 }
@@ -234,7 +236,10 @@ export const useLeaveRun = (hasPermanentViewerAccess: boolean, playbookRunId: st
         <ConfirmModal
             show={showLeaveRunConfirm}
             title={formatMessage({defaultMessage: 'Confirm leave{isFollowing, select, true { and unfollow} other {}}'}, {isFollowing})}
-            message={formatMessage({defaultMessage: 'When you leave{isFollowing, select, true { and unfollow a run} other { a run}}, it\'s removed from the left-hand sidebar. You can find it again by viewing all runs.'}, {isFollowing})}
+            message={formatMessage({
+                defaultMessage: 'When you leave{isFollowing, select, true { and unfollow a run} other { a run}}, it\'s removed from your runs in the Playbooks panel. You can find it again by viewing all runs.',
+                description: 'Playbooks: confirmation shown before the user leaves a run; the Playbooks panel is the app\'s side panel, which lists the user\'s runs.',
+            }, {isFollowing})}
             confirmButtonText={isFollowing ? formatMessage({defaultMessage: 'Leave and unfollow'}) : formatMessage({defaultMessage: 'Leave'})}
             onConfirm={() => {
                 onLeaveRun();

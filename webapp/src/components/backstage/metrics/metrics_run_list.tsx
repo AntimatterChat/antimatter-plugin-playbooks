@@ -11,6 +11,7 @@ import Filters from 'src/components/backstage/runs_list/filters';
 import {Metric, MetricType} from 'src/types/playbook';
 
 import LoadingSpinner from 'src/components/assets/loading_spinner';
+import {PANEL_SCROLL_ID} from 'src/panel/constants';
 
 import MetricsRunListHeader from './metrics_run_list_header';
 import MetricsRow from './metrics_row';
@@ -78,7 +79,7 @@ const MetricsRunList = ({
                 next={nextPage}
                 hasMore={playbookRuns.length < totalCount}
                 loader={<SpinnerContainer><StyledSpinner/></SpinnerContainer>}
-                scrollableTarget={'playbooks-backstageRoot'}
+                scrollableTarget={PANEL_SCROLL_ID}
             >
                 {playbookRuns.map((playbookRun) => (
                     <MetricsRow

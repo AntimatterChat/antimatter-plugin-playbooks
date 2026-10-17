@@ -2,26 +2,11 @@
 // See LICENSE.txt for license information.
 
 import {useApolloClient} from '@apollo/client';
-import React from 'react';
-import styled from 'styled-components';
 
-import PlaybooksSidebar, {playbookLHSQueryDocument} from 'src/components/sidebar/playbooks_sidebar';
+import {playbookLHSQueryDocument} from 'src/panel/browse_query';
 
-const LHSContainer = styled.div`
-    display: flex;
-    width: 240px;
-    flex-direction: column;
-    background-color: var(--sidebar-bg);
-`;
-
-const LHSNavigation = () => {
-    return (
-        <LHSContainer data-testid='lhs-navigation'>
-            <PlaybooksSidebar/>
-        </LHSContainer>
-    );
-};
-
+// Antimatter: the full page's left sidebar is the side panel's browse view (src/panel/browse.tsx); the changes that
+// used to refresh the sidebar (following a run, archiving a playbook...) refresh its lists.
 export const useLHSRefresh = () => {
     const apolloClient = useApolloClient();
 
@@ -33,5 +18,3 @@ export const useLHSRefresh = () => {
 
     return refreshLists;
 };
-
-export default LHSNavigation;

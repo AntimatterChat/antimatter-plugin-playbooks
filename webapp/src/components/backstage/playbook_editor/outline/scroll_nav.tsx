@@ -15,7 +15,7 @@ import {useLocation} from 'react-router-dom';
 
 import {TextBoxOutlineIcon} from '@mattermost/compass-icons/components';
 
-import {BackstageID} from 'src/components/backstage/backstage';
+import {PANEL_SCROLL_ID} from 'src/panel/constants';
 import {useScrollListener} from 'src/hooks';
 
 interface Props {
@@ -55,7 +55,7 @@ const ScrollNav = ({items, ...attrs}: Props & Attrs) => {
         }
     }, []);
 
-    const root = document.getElementById(BackstageID);
+    const root = document.getElementById(PANEL_SCROLL_ID);
 
     useEffect(updateActiveSection, []);
     useScrollListener(root, updateActiveSection);

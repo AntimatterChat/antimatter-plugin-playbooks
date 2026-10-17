@@ -23,6 +23,7 @@
     "css-vars-ponyfill": "2.4.9",
     "debounce": "1.2.1",
     "graphql": "16.9.0",
+    "history": "4.10.1",
     "js-trim-multiline-string": "^1.0.8",
     "lodash": "4.18.1",
     "luxon": "3.6.1",

@@ -11,6 +11,7 @@ import {
     CheckAllIcon,
     CheckIcon,
     LinkVariantIcon,
+    PlayBoxMultipleOutlineIcon,
     PlayOutlineIcon,
     PlusIcon,
     SortAscendingIcon,
@@ -148,9 +149,11 @@ const RHSRunList = (props: Props) => {
         }
     };
 
+    // The panel's list of everything in Playbooks: all runs, all playbooks, your tasks (the full page's sidebar).
     const handleGoToPlaybooks = () => {
-        navigateToPluginUrl('/playbooks');
+        navigateToPluginUrl('/browse');
     };
+    const browseLabel = formatMessage({defaultMessage: 'Browse runs, playbooks and tasks', description: 'Playbooks side panel: the title bar button that opens the list of all runs, all playbooks and the user\'s tasks.'});
 
     return (
         <>
@@ -169,6 +172,19 @@ const RHSRunList = (props: Props) => {
                     <ChannelNameText>
                         {currentChannelName}
                     </ChannelNameText>
+                    <WithTooltip
+                        id='playbooks-browse-button'
+                        title={browseLabel}
+                    >
+                        <BrowseButton
+                            type='button'
+                            onClick={handleGoToPlaybooks}
+                            aria-label={browseLabel}
+                            data-testid='playbooks-browse-button'
+                        >
+                            <PlayBoxMultipleOutlineIcon size={18}/>
+                        </BrowseButton>
+                    </WithTooltip>
                 </TitleContainer>
             </RHSTitleRemoteRender>
             <Container>
@@ -355,9 +371,30 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
 
 const TitleContainer = styled.div`
     display: flex;
+    flex: 1;
+    min-width: 0;
     flex-direction: row;
     align-items: center;
     gap: 8px;
+`;
+
+const BrowseButton = styled.button`
+    display: flex;
+    width: 32px;
+    height: 32px;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    margin-left: auto;
+    background: none;
+    color: rgba(var(--center-channel-color-rgb), 0.56);
+
+    &:hover {
+        background: rgba(var(--center-channel-color-rgb), 0.08);
+        color: rgba(var(--center-channel-color-rgb), 0.72);
+    }
 `;
 
 const VerticalLine = styled.div`

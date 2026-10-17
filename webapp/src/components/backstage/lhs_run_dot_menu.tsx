@@ -34,9 +34,12 @@ interface Props {
     participantIDs: string[];
     followerIDs: string[];
     hasPermanentViewerAccess: boolean;
+
+    // The icon's colour: the button colour by default (on the sidebar), the text's in the side panel.
+    iconColor?: string;
 }
 
-export const LHSRunDotMenu = ({playbookRunId, isFavorite, ownerUserId, participantIDs, followerIDs, hasPermanentViewerAccess}: Props) => {
+export const LHSRunDotMenu = ({playbookRunId, isFavorite, ownerUserId, participantIDs, followerIDs, hasPermanentViewerAccess, iconColor = 'var(--button-color)'}: Props) => {
     const {formatMessage} = useIntl();
     const {add: addToast} = useToaster();
     const setRunFavorite = useSetRunFavorite(playbookRunId);
@@ -77,7 +80,7 @@ export const LHSRunDotMenu = ({playbookRunId, isFavorite, ownerUserId, participa
                 icon={(
                     <DotsVerticalIcon
                         size={14.4}
-                        color={'var(--button-color)'}
+                        color={iconColor}
                     />
                 )}
                 dotMenuButton={DotMenuButtonStyled}

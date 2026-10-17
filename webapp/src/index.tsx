@@ -5,7 +5,6 @@ import React from 'react';
 import {Root, createRoot} from 'react-dom/client';
 import {Unsubscribe} from 'redux';
 
-import {Redirect, useLocation, useRouteMatch} from 'react-router-dom';
 import {WebSocketEvents} from '@mattermost/client';
 import {GlobalState} from '@mattermost/types/store';
 import {Client4} from 'mattermost-redux/client';
@@ -16,21 +15,18 @@ import {getCurrentChannel} from 'mattermost-redux/selectors/entities/channels';
 
 import {Store} from 'src/types/store';
 
-import PlaybooksProductIcon, {playbooksAppIconURL} from 'src/components/assets/icons/playbooks_product_icon';
+import {playbooksAppIconURL} from 'src/components/assets/icons/playbooks_product_icon';
 import {GlobalSelectStyle} from 'src/components/backstage/styles';
-import GlobalHeaderRight from 'src/components/global_header_right';
 import LoginHook from 'src/components/login_hook';
 import BetaFeaturesSetting from 'src/components/backstage/beta_features_setting';
-import {isConfiguredForDevelopment} from 'src/selectors';
+import {isConfiguredForDevelopment, isPlaybookRunRHSOpen} from 'src/selectors';
 import {makeRHSOpener} from 'src/rhs_opener';
 import {makeWelcomeMessagePoster} from 'src/welcome_message_poster';
 import {makeSlashCommandHook} from 'src/slash_command';
 import {RetrospectiveFirstReminder, RetrospectiveReminder} from 'src/components/retrospective_reminder_posts';
 import manifest from 'src/manifest';
 import {ChannelHeaderButton, ChannelHeaderText, ChannelHeaderTooltip} from 'src/components/channel_header';
-import RightHandSidebar from 'src/components/rhs/rhs_main';
 import {makeAttachToPlaybookRunAction, makeStartPlaybookRunAction} from 'src/components/post_menu';
-import Backstage from 'src/components/backstage/backstage';
 import ChannelActionsModal from 'src/components/channel_actions_modal';
 import {
     actionSetGlobalSettings,
@@ -72,10 +68,15 @@ import {
     fetchGlobalSettings,
     fetchSiteStats,
     getMyTopPlaybooks,
+    getSiteUrl,
     getTeamTopPlaybooks,
     notifyConnect,
     setSiteUrl,
 } from 'src/client';
+import PlaybooksPanel from 'src/panel/panel';
+import OldUrlRedirect from 'src/panel/old_urls';
+import {openPanelHome, setPanelControls} from 'src/panel/history';
+import {installLinkInterceptor} from 'src/panel/link_interceptor';
 import {UpdatePost} from 'src/components/update_post';
 import UpdateRequestPost from 'src/components/update_request_post';
 
@@ -85,22 +86,6 @@ import {setPlaybooksGraphQLClient} from './graphql_client';
 import {RHSTitlePlaceholder} from './rhs_title_remote_render';
 import {ApolloWrapper, makeGraphqlClient} from './graphql/apollo';
 import PresetTemplates from './components/templates/template_data';
-
-const GlobalHeaderCenter = () => {
-    return null;
-};
-
-const OldRoutesRedirect = () => {
-    const match = useRouteMatch();
-    const location = useLocation();
-    const redirPath = location.pathname.replace(match.url, '');
-
-    return (
-        <Redirect
-            to={'/playbooks' + redirPath}
-        />
-    );
-};
 
 type WindowObject = {
     location: {
@@ -144,6 +129,7 @@ function getSiteURL(): string {
 export default class Plugin {
     removeRHSListener?: Unsubscribe;
     removeChannelSwitcherListener?: Unsubscribe;
+    removeLinkInterceptor?: () => void;
     activityFunc?: () => void;
 
     stylesContainer?: Element;
@@ -161,18 +147,13 @@ export default class Plugin {
             }
         });
 
-        // eslint-disable-next-line react/require-optimization
-        const BackstageWrapped = () => (
-            <ApolloWrapper
-                component={<Backstage/>}
-                client={graphqlClient}
-            />
-        );
-
+        // Antimatter: Playbooks is an app of the side panel, without a full page (registerProduct): its runs, a run's
+        // overview, its playbooks and their editor, your tasks are views of the panel. Links to the old pages open them
+        // there (OldUrlRedirect and the link interceptor below).
         // eslint-disable-next-line react/require-optimization
         const RHSWrapped = () => (
             <ApolloWrapper
-                component={<RightHandSidebar/>}
+                component={<PlaybooksPanel/>}
                 client={graphqlClient}
             />
         );
@@ -184,25 +165,18 @@ export default class Plugin {
             />
         );
 
-        const enableTeamSidebar = true;
-
-        registry.registerProduct(
-            '/playbooks',
-            <PlaybooksProductIcon
-                size={24}
-                colored={true}
-            />,
-            'Playbooks',
-            '/playbooks',
-            BackstageWrapped,
-            GlobalHeaderCenter,
-            GlobalHeaderRight,
-            enableTeamSidebar
-        );
-
         // RHS Registration
-        const {toggleRHSPlugin} = registry.registerRightHandSidebarComponent(RHSWrapped, <RHSTitlePlaceholderWrapped/>);
-        const boundToggleRHSAction = (): void => store.dispatch(toggleRHSPlugin);
+        const {toggleRHSPlugin, showRHSPlugin} = registry.registerRightHandSidebarComponent(RHSWrapped, <RHSTitlePlaceholderWrapped/>);
+
+        // The channel header button and the app bar icon open the panel on the channel's runs.
+        const boundToggleRHSAction = (): void => {
+            openPanelHome();
+            store.dispatch(toggleRHSPlugin);
+        };
+        setPanelControls({
+            isOpen: () => isPlaybookRunRHSOpen(store.getState()),
+            show: () => store.dispatch(showRHSPlugin),
+        });
 
         // Store the toggleRHS action to use later
         store.dispatch(setToggleRHSAction(boundToggleRHSAction));
@@ -274,9 +248,8 @@ export default class Plugin {
         // Local slash commands
         registry.registerSlashCommandWillBePostedHook(makeSlashCommandHook(store));
 
-        // Redirect old routes
-        registry.registerNeedsTeamRoute('/error', OldRoutesRedirect);
-        registry.registerNeedsTeamRoute('/', OldRoutesRedirect);
+        // The old full-page URLs (/playbooks/..., sent to /<team>/playbooks/... by the web app) open the side panel
+        registry.registerNeedsTeamRoute('/', OldUrlRedirect);
 
         // Custom post types
         registry.registerPostTypeComponent('custom_retro_rem_first', RetrospectiveFirstReminder);
@@ -348,6 +321,9 @@ export default class Plugin {
 
         this.userActivityWatch();
 
+        // Links to the old full page, in messages and dialogs, open the side panel.
+        this.removeLinkInterceptor = installLinkInterceptor({getSiteURL: getSiteUrl});
+
         // Listen for channel changes and open the RHS when appropriate.
         this.removeRHSListener = store.subscribe(makeRHSOpener(store, graphqlClient));
 
@@ -367,6 +343,11 @@ export default class Plugin {
             this.removeChannelSwitcherListener();
             delete this.removeChannelSwitcherListener;
         }
+        if (this.removeLinkInterceptor) {
+            this.removeLinkInterceptor();
+            delete this.removeLinkInterceptor;
+        }
+        setPanelControls(null);
         if (this.activityFunc) {
             document.removeEventListener('click', this.activityFunc);
             delete this.activityFunc;

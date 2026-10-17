@@ -4,7 +4,7 @@
 import React, {ReactNode} from 'react';
 
 import Scrollbars from 'react-custom-scrollbars';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 import {renderThumbVertical, renderTrackHorizontal, renderView} from 'src/components/rhs/rhs_shared';
 
@@ -25,9 +25,12 @@ interface Props {
     subtitle?: ReactNode;
     onBack?: () => void;
     scrollable: boolean;
+
+    // Over the run's page, filling the side panel, instead of beside it.
+    overlay?: boolean;
 }
 
-const RightHandSidebar = ({isOpen, onClose, title, children, subtitle, onBack, scrollable}: Props) => {
+const RightHandSidebar = ({isOpen, onClose, title, children, subtitle, onBack, scrollable, overlay = false}: Props) => {
     const sidebarRef = React.useRef(null);
 
     if (!isOpen) {
@@ -40,6 +43,7 @@ const RightHandSidebar = ({isOpen, onClose, title, children, subtitle, onBack, s
             role='complementary'
             ref={sidebarRef}
             isOpen={isOpen}
+            $overlay={overlay}
         >
             <Header>
                 {onBack ? (
@@ -82,13 +86,20 @@ const RightHandSidebar = ({isOpen, onClose, title, children, subtitle, onBack, s
 
 export default RightHandSidebar;
 
-const Container = styled.div<{isOpen: boolean}>`
+const Container = styled.div<{isOpen: boolean, $overlay: boolean}>`
     right: 0;
     display: ${({isOpen}) => (isOpen ? 'flex' : 'hidden')};
     height: 100%;
     flex-direction: column;
     border-left: 1px solid rgba(var(--center-channel-color-rgb), 0.08);
     background-color: var(--center-channel-bg);
+
+    ${({$overlay}) => $overlay && css`
+        position: absolute;
+        z-index: 6;
+        inset: 0;
+        border-left: none;
+    `}
 `;
 
 const Header = styled.div`

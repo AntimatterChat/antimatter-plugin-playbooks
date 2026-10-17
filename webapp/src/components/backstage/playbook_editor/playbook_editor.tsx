@@ -15,7 +15,6 @@ import {generatePath} from 'react-router';
 import {useIntl} from 'react-intl';
 
 import {useIntersection} from 'react-use';
-import {selectTeam} from 'mattermost-redux/actions/teams';
 import {fetchChannelsAndMembers} from 'mattermost-redux/actions/channels';
 import {fetchMyCategories} from 'mattermost-redux/actions/channel_categories';
 
@@ -28,7 +27,7 @@ import {useAppDispatch, useAppSelector} from 'src/hooks/redux';
 import {isCurrentUserAdmin} from 'src/selectors';
 
 import {pluginErrorUrl} from 'src/browser_routing';
-import {useForceDocumentTitle, useStats} from 'src/hooks';
+import {useStats} from 'src/hooks';
 import {usePlaybook as useRestPlaybook} from 'src/hooks/crud';
 import {PlaybookRole} from 'src/types/permissions';
 import {ErrorPageTypes} from 'src/constants';
@@ -43,7 +42,11 @@ import MarkdownEdit from 'src/components/markdown_edit';
 import TextEdit from 'src/components/text_edit';
 import {PrimaryButton, TertiaryButton} from 'src/components/assets/buttons';
 import {CancelSaveContainer} from 'src/components/checklist_item/inputs';
-import {useDefaultRedirectOnTeamChange} from 'src/components/backstage/main_body';
+import {PanelTitle} from 'src/panel/panel_title';
+import {useExpandedPanel} from 'src/panel/expanded';
+import {useLeaveOnTeamChange} from 'src/panel/team_change';
+import {usePanelWidth} from 'src/panel/panel_width';
+import {EDITOR_NAV_WIDTH, NARROW_EDITOR_WIDTH} from 'src/panel/constants';
 
 import Outline, {ScrollNav, Sections} from './outline/outline';
 import * as Controls from './controls';
@@ -61,7 +64,13 @@ const PlaybookEditor = () => {
     const currentUserId = useAppSelector(getCurrentUserId);
     const isSystemAdmin = useAppSelector(isCurrentUserAdmin);
 
-    useForceDocumentTitle(playbook?.title ? (playbook.title + ' - Playbooks') : 'Playbooks');
+    // Antimatter: the editor was a full page; it's a view of the side panel, which it widens while it shows. It lays
+    // itself out by the panel's width: one column (its phone layout) when the panel is narrow.
+    useExpandedPanel();
+    const width = usePanelWidth() ?? window.innerWidth;
+    const narrow = width < NARROW_EDITOR_WIDTH;
+    const noScrollNav = width < EDITOR_NAV_WIDTH;
+    useLeaveOnTeamChange(playbook?.team_id);
 
     const headingRef = useRef<HTMLDivElement>(null);
     const headingIntersection = useIntersection(headingRef as React.RefObject<HTMLElement>, {threshold: 1});
@@ -73,12 +82,10 @@ const PlaybookEditor = () => {
             return;
         }
 
-        dispatch(selectTeam(teamId));
         dispatch(fetchChannelsAndMembers(teamId));
         dispatch(fetchMyCategories(teamId));
     }, [dispatch, playbook?.team_id, playbookId]);
 
-    useDefaultRedirectOnTeamChange(playbook?.team_id);
     const currentUserMember = useMemo(() => playbook?.members.find(({user_id}) => user_id === currentUserId), [playbook?.members, currentUserId]);
     const playbookAdminRole = restPlaybook?.default_playbook_admin_role || PlaybookRole.Admin;
     const isPlaybookAdmin = currentUserMember?.scheme_roles?.includes(playbookAdminRole) ?? false;
@@ -92,9 +99,16 @@ const PlaybookEditor = () => {
         return <Redirect to={pluginErrorUrl(ErrorPageTypes.PLAYBOOKS)}/>;
     }
 
+    const panelTitle = (
+        <PanelTitle
+            title={formatMessage({defaultMessage: 'Playbook'})}
+            subtitle={playbook?.title}
+        />
+    );
+
     if (loading || !playbook) {
         // loading
-        return null;
+        return panelTitle;
     }
 
     const archived = playbook.delete_at !== 0;
@@ -125,7 +139,13 @@ const PlaybookEditor = () => {
     };
 
     return (
-        <Editor $headingVisible={headingVisible}>
+        <Editor
+            $headingVisible={headingVisible}
+            $narrow={narrow}
+            $noScrollNav={noScrollNav}
+            data-testid='playbooks-panel-editor'
+        >
+            {panelTitle}
             <TitleHeaderBackdrop/>
             <NavBackdrop/>
             <TitleBar>
@@ -479,7 +499,7 @@ const TitleHeaderBackdrop = styled.div`
     grid-area: title/title/control/title;
 `;
 
-const Editor = styled.main<{$headingVisible: boolean}>`
+const Editor = styled.main<{$headingVisible: boolean, $narrow: boolean, $noScrollNav: boolean}>`
     height: fit-content;
     min-height: 100%;
     display: grid;
@@ -544,15 +564,15 @@ const Editor = styled.main<{$headingVisible: boolean}>`
     }
 
     /* === scrolling, condense header/title === */
-    ${({$headingVisible}) => !$headingVisible && css`
-        @media screen and (width >= 769px) {
-            /* // only on tablet-desktop */
-            ${TitleBar} {
-                ${Controls.TitleMenu}, .indicator {
-                    display: inline-flex;
-                }
+    ${({$headingVisible, $narrow}) => !$headingVisible && !$narrow && css`
+        /* only in a wide panel */
+        ${TitleBar} {
+            ${Controls.TitleMenu}, .indicator {
+                display: inline-flex;
             }
         }
+    `}
+    ${({$headingVisible}) => !$headingVisible && css`
         ${Controls.Back} {
             span {
                 display: none;
@@ -560,8 +580,8 @@ const Editor = styled.main<{$headingVisible: boolean}>`
         }
     `}
 
-    /* === mobile === */
-    @media screen and (width <= 768px) {
+    /* === narrow panel (the phone layout of the full page) === */
+    ${({$narrow}) => $narrow && css`
         --bar-height: 50px;
 
         grid-template:
@@ -599,6 +619,10 @@ const Editor = styled.main<{$headingVisible: boolean}>`
             grid-area: nav;
         }
 
+        ${NavItem} {
+            padding: 16px 12px;
+        }
+
         ${Sections} {
             padding: 15px 20px 20px;
             margin: 10px;
@@ -612,13 +636,13 @@ const Editor = styled.main<{$headingVisible: boolean}>`
             /* non-sticky checklist header */
             position: unset;
         }
-    }
+    `}
 
-    @media screen and (width <= 1266px) {
+    ${({$noScrollNav}) => $noScrollNav && css`
         ${ScrollNav} {
             display: none;
         }
-    }
+    `}
 `;
 
 export const StarButton = styled.button`
