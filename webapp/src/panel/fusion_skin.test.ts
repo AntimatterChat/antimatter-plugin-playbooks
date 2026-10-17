@@ -39,9 +39,9 @@ describe('the panel\'s Fusion skin', () => {
     });
 
     test('scopes every rule to the panel under the Fusion UI', () => {
-        const unscoped = topLevelSelectors().
-            flatMap((selector) => selector.split(',').map((s) => s.trim())).
-            filter((selector) => !selector.startsWith(SCOPE));
+        const unscoped = topLevelSelectors()
+            .flatMap((selector) => selector.split(',').map((s) => s.trim()))
+            .filter((selector) => !selector.startsWith(SCOPE));
         expect(unscoped).toEqual([]);
     });
 

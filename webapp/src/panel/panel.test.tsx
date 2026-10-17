@@ -21,6 +21,7 @@ import PlaybooksPanel from './panel';
 
 // The views are tested on their own: here, each one only says which it is (and what it was given).
 jest.mock('src/components/rhs/rhs_main', () => ({__esModule: true, default: () => <div data-testid='view-channel-runs'/>}));
+
 // The run view fetches its run as the signed-in person, and sends one they can't open to the not-found view (as
 // PlaybookRunDetails does when the fetch fails): here, the run FORBIDDEN_RUN_ID.
 jest.mock('src/components/backstage/playbook_runs/playbook_run/playbook_run', () => {

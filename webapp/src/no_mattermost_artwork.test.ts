@@ -61,9 +61,9 @@ const files = sourceFiles(SRC).filter((f) => f !== __filename);
 
 describe('Mattermost artwork', () => {
     test('no module of the plugin imports the old illustrations', () => {
-        const offenders = files.flatMap((file) => importsOf(file).
-            filter((spec) => OLD_ARTWORK.includes(withoutExtension(spec)) || (/\/illustrations\//).test(spec) || (/_svg$/).test(withoutExtension(spec))).
-            map((spec) => `${path.relative(SRC, file)} imports ${spec}`));
+        const offenders = files.flatMap((file) => importsOf(file)
+            .filter((spec) => OLD_ARTWORK.includes(withoutExtension(spec)) || (/\/illustrations\//).test(spec) || (/_svg$/).test(withoutExtension(spec)))
+            .map((spec) => `${path.relative(SRC, file)} imports ${spec}`));
         expect(offenders).toEqual([]);
     });
 
@@ -87,9 +87,9 @@ describe('Mattermost artwork', () => {
     });
 
     test('no image is imported but the plugin\'s own icons', () => {
-        const images = files.flatMap((file) => importsOf(file).
-            filter((spec) => (/\.(png|jpe?g|gif|webp|svg)$/).test(spec)).
-            map((spec) => `${path.relative(SRC, file)} imports ${spec}`));
+        const images = files.flatMap((file) => importsOf(file)
+            .filter((spec) => (/\.(png|jpe?g|gif|webp|svg)$/).test(spec))
+            .map((spec) => `${path.relative(SRC, file)} imports ${spec}`));
         expect(images).toEqual([]);
     });
 });
