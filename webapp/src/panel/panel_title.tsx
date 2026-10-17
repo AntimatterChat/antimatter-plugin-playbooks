@@ -5,6 +5,7 @@ import React from 'react';
 import {useIntl} from 'react-intl';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
+
 import LeftChevron from 'src/components/assets/icons/left_chevron';
 import FusionIcon from 'src/components/fusion/icon';
 import Tip from 'src/components/fusion/tip';

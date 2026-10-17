@@ -6,7 +6,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {IntlProvider} from 'react-intl';
-import {fireEvent, render, screen, within} from '@testing-library/react';
+import {
+    fireEvent,
+    render,
+    screen,
+    within,
+} from '@testing-library/react';
 
 import {PresetTemplates} from 'src/components/templates/template_data';
 

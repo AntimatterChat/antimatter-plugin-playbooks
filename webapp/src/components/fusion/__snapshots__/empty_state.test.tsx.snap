@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyState keeps its structure (Fusion UI, error tone) 1`] = `
+<div
+  className="Container-imVVdw cXAoAx"
+  data-empty-state={true}
+  ref={null}
+>
+  <span
+    className="IconTile-kYqpUY JAegg"
+    data-testid="empty-state-icon"
+    ref={null}
+  >
+    <svg
+      aria-hidden="true"
+      className="am-ic"
+      data-fusion-icon="ban"
+      fill="none"
+      height={22}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.8}
+      style={
+        {
+          "height": 22,
+          "width": 22,
+        }
+      }
+      width={22}
+    >
+      <use
+        href="#am-i-ban"
+      />
+    </svg>
+  </span>
+  <h3
+    className="Title-gqksKv hewnDQ"
+    ref={null}
+  >
+    Run not found
+  </h3>
+  <p
+    className="Text-jBKhDe jImyRG"
+    ref={null}
+  >
+    The run you’re requesting is private or does not exist.
+  </p>
+</div>
+`;
+
+exports[`EmptyState keeps its structure (classic UI) 1`] = `
+<div
+  className="Container-imVVdw gjgECs"
+  data-empty-state={true}
+  ref={null}
+>
+  <span
+    className="IconTile-kYqpUY imoVLX"
+    data-testid="empty-state-icon"
+    ref={null}
+  >
+    <i
+      aria-hidden="true"
+      className="icon icon-book-outline"
+      data-fusion-icon="playbook"
+      style={
+        {
+          "fontSize": 22,
+        }
+      }
+    />
+  </span>
+  <h3
+    className="Title-gqksKv hewnDQ"
+    ref={null}
+  >
+    No playbooks yet
+  </h3>
+  <p
+    className="Text-jBKhDe jImyRG"
+    ref={null}
+  >
+    Playbooks make important procedures repeatable.
+  </p>
+  <div
+    className="Actions-gjNmbu kDOnBS"
+    ref={null}
+  >
+    <button
+      className="btn btn-primary PrimaryButton-bSzsdJ jFjrEK"
+      onClick={[MockFunction]}
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-plus"
+        data-fusion-icon="plus"
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      />
+      Choose a template
+    </button>
+  </div>
+  <button
+    className="btn btn-tertiary TertiaryButton-dMQxbd PlainButton-iZQiJT bzJcCG eKDRNj"
+    onClick={[MockFunction]}
+    ref={null}
+  >
+    Import
+  </button>
+  <p
+    className="Note-hFWZLH hySHnu"
+    ref={null}
+  >
+    A note.
+  </p>
+</div>
+`;

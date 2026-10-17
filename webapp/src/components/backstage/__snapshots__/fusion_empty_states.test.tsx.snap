@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the playbooks list with no playbook keeps its structure 1`] = `
+<div
+  className="Container-imVVdw gjgECs"
+  data-empty-state={true}
+  data-testid="playbooks-getting-started"
+  ref={null}
+>
+  <span
+    className="IconTile-kYqpUY imoVLX"
+    data-testid="empty-state-icon"
+    ref={null}
+  >
+    <i
+      aria-hidden="true"
+      className="icon icon-book-outline"
+      data-fusion-icon="playbook"
+      style={
+        {
+          "fontSize": 22,
+        }
+      }
+    />
+  </span>
+  <h3
+    className="Title-gqksKv hewnDQ"
+    ref={null}
+  >
+    No playbooks yet
+  </h3>
+  <p
+    className="Text-jBKhDe jImyRG"
+    ref={null}
+  >
+    Playbooks make important procedures repeatable and accountable. Each run keeps its own record and retrospective.
+  </p>
+  <div
+    className="Actions-gjNmbu kDOnBS"
+    ref={null}
+  >
+    <button
+      className="btn btn-primary PrimaryButton-bSzsdJ jFjrEK"
+      data-testid="playbooks-getting-started-templates"
+      onClick={[MockFunction]}
+      ref={null}
+    >
+      Choose a template
+    </button>
+  </div>
+</div>
+`;

@@ -89,6 +89,7 @@ const RHSRunDetailsTitle = (props: Props) => {
 const VerticalLine = styled.div`
     height: 24px;
     border-left: 1px solid var(--center-channel-color);
+    margin: 0 8px;
     opacity: 0.16;
 
     /* Fusion's dividers: its line colour, opaque. */
@@ -96,7 +97,6 @@ const VerticalLine = styled.div`
         border-left-color: var(--am-line);
         opacity: 1;
     }
-    margin: 0 8px;
 `;
 
 const ChannelNameText = styled.div`
