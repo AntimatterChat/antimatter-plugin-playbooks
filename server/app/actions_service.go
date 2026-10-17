@@ -454,7 +454,7 @@ func getPlaybookSuggestionsMessageAttachment(playbooks []Playbook, triggeringPos
 
 		attachment := &model.MessageAttachment{
 			Actions: []*model.PostAction{yesButton, ignoreButton},
-			Text:    "Open Channel Actions in the channel header to view and edit keywords.",
+			Text:    "Open Channel automation in the channel menu to view and edit keywords.",
 		}
 		return attachment
 	}

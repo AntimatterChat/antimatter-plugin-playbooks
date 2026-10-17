@@ -54,10 +54,10 @@ describe('channels > general actions', {testIsolation: true}, () => {
             // # Go to the test channel
             cy.visit(`/${testTeam.name}/channels/${testChannel.name}`);
 
-            // # Open Channel Header and the Channel Actions modal
+            // # Open Channel Header and the Channel automation modal
             cy.get('#channelHeaderDropdownButton').click();
             cy.findByText('More actions').trigger('mouseover');
-            cy.findByText('Channel Actions').click();
+            cy.findByText('Channel automation…').click();
 
             // # Enable the categorization action and set the name
             cy.contains('sidebar category').click();
@@ -86,10 +86,10 @@ describe('channels > general actions', {testIsolation: true}, () => {
             // # Go to the test channel
             cy.visit(`/${testTeam.name}/channels/${testChannel.name}`);
 
-            // # Open Channel Header and the Channel Actions modal
+            // # Open Channel Header and the Channel automation modal
             cy.get('#channelHeaderDropdownButton').click();
             cy.findByText('More actions').trigger('mouseover');
-            cy.findByText('Channel Actions').click();
+            cy.findByText('Channel automation…').click();
 
             // # Toggle on and set the welcome message
             cy.contains('temporary welcome message').click();
@@ -136,10 +136,10 @@ describe('channels > general actions', {testIsolation: true}, () => {
                 // # Go to the test channel
                 cy.visit(`/${testTeam.name}/channels/${channel.name}`);
 
-                // # Open Channel Header and the Channel Actions modal
+                // # Open Channel Header and the Channel automation modal
                 cy.get('#channelHeaderDropdownButton').click();
                 cy.findByText('More actions').trigger('mouseover');
-                cy.findByText('Channel Actions').click();
+                cy.findByText('Channel automation…').click();
 
                 // # Set a keyword, enable the playbook trigger,
                 // # and select the Playbook to run
@@ -197,10 +197,10 @@ describe('channels > general actions', {testIsolation: true}, () => {
                 // # Go to the test channel
                 cy.visit(`/${testTeam.name}/channels/${channel.name}`);
 
-                // # Open Channel Header and the Channel Actions modal
+                // # Open Channel Header and the Channel automation modal
                 cy.get('#channelHeaderDropdownButton').click();
                 cy.findByText('More actions').trigger('mouseover');
-                cy.findByText('Channel Actions').click();
+                cy.findByText('Channel automation…').click();
 
                 // # Set a keyword, enable the playbook trigger,
                 // # and select the Playbook to run
@@ -274,10 +274,10 @@ describe('channels > general actions', {testIsolation: true}, () => {
                 // # Go to the test channel
                 cy.visit(`/${testTeam.name}/channels/${channel.name}`);
 
-                // # Open Channel Header and the Channel Actions modal
+                // # Open Channel Header and the Channel automation modal
                 cy.get('#channelHeaderDropdownButton').click();
                 cy.findByText('More actions').trigger('mouseover');
-                cy.findByText('Channel Actions').click();
+                cy.findByText('Channel automation…').click();
 
                 // # Set a keyword, enable the playbook trigger,
                 // # and select the Playbook to run
@@ -359,10 +359,10 @@ describe('channels > general actions', {testIsolation: true}, () => {
                 // # Go to the test channel
                 cy.visit(`/${testTeam.name}/channels/${channel.name}`);
 
-                // # Open Channel Header and the Channel Actions modal
+                // # Open Channel Header and the Channel automation modal
                 cy.get('#channelHeaderDropdownButton').click();
                 cy.findByText('More actions').trigger('mouseover');
-                cy.findByText('Channel Actions').click();
+                cy.findByText('Channel automation…').click();
 
                 // # Set a keyword, enable the playbook trigger,
                 // # and select the playbook to run. Turn the
@@ -404,10 +404,10 @@ describe('channels > general actions', {testIsolation: true}, () => {
             // # Visit the first channel
             cy.visit(`/${testTeam.name}/channels/${testChannel.name}`);
 
-            // # Open Channel Header and the Channel Actions modal
+            // # Open Channel Header and the Channel automation modal
             cy.get('#channelHeaderDropdownButton').click();
             cy.findByText('More actions').trigger('mouseover');
-            cy.findByText('Channel Actions').click();
+            cy.findByText('Channel automation…').click();
 
             // # Enable the categorization action and set the name
             const categoryName = 'example category ' + Date.now();
@@ -425,10 +425,10 @@ describe('channels > general actions', {testIsolation: true}, () => {
             // # Switch to the additional channel
             cy.get('#sidebarItem_' + channel.name).click();
 
-            // # Open Channel Header and the Channel Actions modal
+            // # Open Channel Header and the Channel automation modal
             cy.get('#channelHeaderDropdownButton').click();
             cy.findByText('More actions').trigger('mouseover');
-            cy.findByText('Channel Actions').click();
+            cy.findByText('Channel automation…').click();
 
             // * Verify that the categorization action is disabled
             cy.findByText('Add the channel to a sidebar category for the user').parent().within(() => {

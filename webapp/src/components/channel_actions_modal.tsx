@@ -162,8 +162,8 @@ const ChannelActionsModal = () => {
     return (
         <ActionsModal
             id={'channel-actions-modal'}
-            title={formatMessage({defaultMessage: 'Channel Actions'})}
-            subtitle={formatMessage({defaultMessage: 'Channel actions allow you to automate activities for this channel'})}
+            title={formatMessage({defaultMessage: 'Channel automation'})}
+            subtitle={formatMessage({defaultMessage: 'Automate what happens in this channel'})}
             show={show}
             onHide={onHide}
             editable={editable}

@@ -59,8 +59,8 @@ const PlaybookActionsModal = ({playbook, readOnly}: Props) => {
     return (
         <ActionsModal
             id={'playbooks-actions-modal'}
-            title={formatMessage({defaultMessage: 'Channel Actions'})}
-            subtitle={formatMessage({defaultMessage: 'Channel actions allow you to automate activities for the channel'})}
+            title={formatMessage({defaultMessage: 'Channel automation'})}
+            subtitle={formatMessage({defaultMessage: 'Automate what happens in the run\'s channel'})}
             show={show}
             onHide={onHide}
             editable={!readOnly}
