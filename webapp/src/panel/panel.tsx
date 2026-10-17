@@ -1,8 +1,14 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
 
 import React, {useEffect} from 'react';
 import {useIntl} from 'react-intl';
-import {Redirect, Route, Router, Switch} from 'react-router-dom';
+import {
+    Redirect,
+    Route,
+    Router,
+    Switch,
+} from 'react-router-dom';
 import styled from 'styled-components';
 
 import {useAppDispatch} from 'src/hooks/redux';
@@ -19,7 +25,13 @@ import RunsPage from 'src/components/backstage/runs_page';
 import TaskInbox from 'src/components/backstage/rhs/task_inbox/task_inbox';
 import ErrorPage from 'src/components/error_page';
 
-import {PANEL_BASE, PANEL_BROWSE, PANEL_HOME, PanelHistory, panelHistory} from './history';
+import {
+    PANEL_BASE,
+    PANEL_BROWSE,
+    PANEL_HOME,
+    PanelHistory,
+    panelHistory,
+} from './history';
 import {PANEL_SCROLL_ID} from './constants';
 import {PanelWidthProvider} from './panel_width';
 import {PanelTitle} from './panel_title';

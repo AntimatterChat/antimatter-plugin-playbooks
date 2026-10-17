@@ -1,11 +1,16 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
 
 // Antimatter: Playbooks has no full page (no product, no app switcher entry): it's an app of the side panel, and the
 // old full-page URLs open the panel.
 
-import {PANEL_HOME, panelHistory, openPlaybooksPanel} from 'src/panel/history';
+import {PANEL_HOME, openPlaybooksPanel, panelHistory} from 'src/panel/history';
 
 jest.mock('src/webapp_globals', () => ({browserHistory: undefined}));
+
+// The charts of the playbook statistics aren't drawn here (chart.js and its plugins don't load in jsdom).
+jest.mock('src/components/backstage/line_graph', () => ({__esModule: true, default: () => null}));
+jest.mock('src/components/backstage/bar_graph', () => ({__esModule: true, default: () => null}));
 
 const TOGGLE = {type: 'TOGGLE_PLAYBOOKS_PANEL'};
 const SHOW = {type: 'SHOW_PLAYBOOKS_PANEL'};
@@ -34,7 +39,7 @@ const loadPlugin = () => {
         plugin = instance;
     };
     jest.isolateModules(() => {
-        require('src/index'); // eslint-disable-line global-require
+        require('src/index'); // eslint-disable-line global-require, @typescript-eslint/no-require-imports
     });
     return plugin;
 };
@@ -87,8 +92,8 @@ describe('Playbooks registrations', () => {
             plugin = instance;
         };
         jest.isolateModules(() => {
-            require('src/index'); // eslint-disable-line global-require
-            ({panelHistory: history, openPlaybooksPanel: open} = require('src/panel/history')); // eslint-disable-line global-require
+            require('src/index'); // eslint-disable-line global-require, @typescript-eslint/no-require-imports
+            ({panelHistory: history, openPlaybooksPanel: open} = require('src/panel/history')); // eslint-disable-line global-require, @typescript-eslint/no-require-imports
         });
         const {registry} = makeRegistry();
         const store = makeStore(false);

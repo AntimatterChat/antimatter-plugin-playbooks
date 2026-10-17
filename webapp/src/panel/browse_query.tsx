@@ -1,4 +1,5 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
 
 // (A .tsx file: the GraphQL code generator reads the queries of the .tsx files.)
 

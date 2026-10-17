@@ -1,8 +1,14 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
 
 import {GlobalState} from '@mattermost/types/store';
 
-import {RedirectDeps, panelPathOfOldUrl, redirectOldUrl, runIdOfPanelPath} from './old_urls';
+import {
+    RedirectDeps,
+    panelPathOfOldUrl,
+    redirectOldUrl,
+    runIdOfPanelPath,
+} from './old_urls';
 
 type FakeState = {
     currentTeamId: string;

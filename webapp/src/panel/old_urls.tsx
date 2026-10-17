@@ -1,4 +1,5 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
 
 // Antimatter: the links to the old full page keep working. Messages, emails and notifications link to
 // /playbooks/runs/<id> or /playbooks/playbooks/<id>; the web app sends /playbooks/... to /<community>/playbooks/...,
@@ -100,7 +101,7 @@ export async function redirectOldUrl(teamName: string, panelPath: string, deps: 
             resolve();
             return;
         }
-        let unsubscribe = () => {};
+        let unsubscribe: () => void = () => undefined;
         const timer = setTimeout(() => {
             unsubscribe();
             resolve();
@@ -136,7 +137,7 @@ const OldUrlRedirect = () => {
     const store = useStore<GlobalState>();
 
     useEffect(() => {
-        const match = /^\/([^/]+)(\/.*)?$/.exec(location.pathname);
+        const match = (/^\/([^/]+)(\/.*)?$/).exec(location.pathname);
         if (!match) {
             return;
         }

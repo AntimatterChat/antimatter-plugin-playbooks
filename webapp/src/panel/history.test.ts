@@ -1,4 +1,5 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
 
 import {createMemoryHistory} from 'history';
 
@@ -18,7 +19,13 @@ const RUN = '/playbooks/runs/abcdefghijklmnopqrstuvwxyz';
 const setup = (open = false) => {
     const app = createMemoryHistory({initialEntries: ['/lumen/channels/town-square']});
     const panel = makePanelHistory(() => app);
-    const controls = {open, isOpen: () => controls.open, show: jest.fn(() => { controls.open = true; })};
+    const controls = {
+        open,
+        isOpen: () => controls.open,
+        show: jest.fn(() => {
+            controls.open = true;
+        }),
+    };
     setPanelControls(controls);
     return {app, panel, controls};
 };

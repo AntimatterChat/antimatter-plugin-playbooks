@@ -1,8 +1,16 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
+
+/* eslint-disable formatjs/no-literal-string-in-jsx */
 
 import React from 'react';
 import {IntlProvider} from 'react-intl';
-import {act, fireEvent, render, screen} from '@testing-library/react';
+import {
+    act,
+    fireEvent,
+    render,
+    screen,
+} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 
 import {setRHSOpen} from 'src/actions';
@@ -17,7 +25,7 @@ jest.mock('src/components/backstage/playbook_runs/playbook_run/playbook_run', ()
     const {useRouteMatch, useLocation} = jest.requireActual('react-router-dom');
     return {
         __esModule: true,
-        default: () => {
+        default: function RunView() {
             const {params} = useRouteMatch();
             const {hash} = useLocation();
             return <div data-testid='view-run'>{params.playbookRunId + hash}</div>;
@@ -28,7 +36,7 @@ jest.mock('src/components/backstage/playbook_editor/playbook_editor', () => {
     const {useRouteMatch} = jest.requireActual('react-router-dom');
     return {
         __esModule: true,
-        default: () => {
+        default: function EditorView() {
             const {params} = useRouteMatch();
             return <div data-testid='view-editor'>{`${params.playbookId}:${params.tab ?? 'usage'}`}</div>;
         },
@@ -42,7 +50,12 @@ jest.mock('src/components/backstage/runs_page', () => ({__esModule: true, defaul
 jest.mock('src/components/backstage/rhs/task_inbox/task_inbox', () => ({__esModule: true, default: () => <div data-testid='view-tasks'/>}));
 jest.mock('src/components/error_page', () => {
     const {useLocation} = jest.requireActual('react-router-dom');
-    return {__esModule: true, default: () => <div data-testid='view-error'>{useLocation().search}</div>};
+    return {
+        __esModule: true,
+        default: function ErrorView() {
+            return <div data-testid='view-error'>{useLocation().search}</div>;
+        },
+    };
 });
 jest.mock('src/panel/browse', () => ({__esModule: true, default: () => <div data-testid='view-browse'/>}));
 jest.mock('src/components/backstage/toast_banner', () => ({ToastProvider: ({children}: {children: React.ReactNode}) => <>{children}</>}));
@@ -56,6 +69,7 @@ jest.mock('src/hooks/redux', () => ({
     useAppSelector: (selector: (state: unknown) => unknown) => selector(mockState),
 }));
 jest.mock('mattermost-redux/selectors/entities/teams', () => ({
+    ...jest.requireActual('mattermost-redux/selectors/entities/teams'),
     getCurrentTeamId: (state: {teamId: string}) => state.teamId,
 }));
 
@@ -64,14 +78,16 @@ const PLAYBOOK_ID = 'zyxwvutsrqponmlkjihgfedcba';
 
 let history: PanelHistory;
 
+// A new element each time, so that a rerender renders again (the store is mocked).
+const panelElement = () => (
+    <IntlProvider locale='en'>
+        <PlaybooksPanel history={history}/>
+    </IntlProvider>
+);
+
 const renderPanel = () => {
-    const ui = (
-        <IntlProvider locale='en'>
-            <PlaybooksPanel history={history}/>
-        </IntlProvider>
-    );
-    const result = render(ui);
-    return {...result, rerender: () => result.rerender(ui)};
+    const result = render(panelElement());
+    return {...result, rerender: () => result.rerender(panelElement())};
 };
 
 const go = (path: string) => act(() => {
@@ -184,13 +200,13 @@ describe('useLeaveOnTeamChange', () => {
     };
 
     const renderView = (teamId?: string) => {
-        const ui = (
+        const element = () => (
             <Router history={history}>
                 <RunOfTeam teamId={teamId}/>
             </Router>
         );
-        const result = render(ui);
-        return () => result.rerender(ui);
+        const result = render(element());
+        return () => result.rerender(element());
     };
 
     test('takes a run or playbook view of the community you left back to the channel\'s runs', () => {

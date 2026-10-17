@@ -1,4 +1,5 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
 
 // The id of the panel's scrolling view: the lists' infinite scroll and the editor's section links follow it (the full
 // page's container had the same id).

@@ -1,6 +1,13 @@
-// Copyright (c) 2026-present Antimatter contributors. See LICENSE.txt for license information.
+// Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
+// See LICENSE.txt for license information.
 
-import React, {createContext, useContext, useLayoutEffect, useRef, useState} from 'react';
+import React, {
+    createContext,
+    useContext,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react';
 
 import {COMPACT_LIST_WIDTH, DEFAULT_PANEL_WIDTH} from './constants';
 
