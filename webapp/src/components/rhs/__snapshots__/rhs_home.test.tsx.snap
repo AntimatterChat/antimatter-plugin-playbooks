@@ -1,97 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`the Playbooks panel outside a channel keeps its structure 1`] = `
-[
+<div
+  className="Panel-dBbpUR fUkqPF am-app-panel"
+  data-testid="playbooks-rhs-home"
+  ref={null}
+>
   <div
-    data-testid="title"
-  >
-    <div
-      className="RHSTitleText-jNFYLT jvEQUk"
-      ref={null}
-    >
-      Playbooks
-    </div>
-  </div>,
-  <div
-    className="Panel-dBbpUR fUkqPF am-app-panel"
-    data-testid="playbooks-rhs-home"
+    className="Container-imVVdw gjgECs"
+    data-empty-state={true}
+    data-testid="playbooks-rhs-welcome"
     ref={null}
   >
-    <div
-      className="Container-imVVdw gjgECs"
-      data-empty-state={true}
-      data-testid="playbooks-rhs-welcome"
+    <span
+      className="IconTile-kYqpUY imoVLX"
+      data-testid="empty-state-icon"
       ref={null}
     >
-      <span
-        className="IconTile-kYqpUY imoVLX"
-        data-testid="empty-state-icon"
-        ref={null}
-      >
-        <i
-          aria-hidden="true"
-          className="icon icon-product-playbooks"
-          data-fusion-icon="runbook"
-          style={
-            {
-              "fontSize": 22,
-            }
+      <i
+        aria-hidden="true"
+        className="icon icon-product-playbooks"
+        data-fusion-icon="runbook"
+        style={
+          {
+            "fontSize": 22,
           }
-        />
-      </span>
-      <h3
-        className="Title-gqksKv hewnDQ"
-        ref={null}
-      >
-        Welcome to Playbooks
-      </h3>
-      <p
-        className="Text-jBKhDe jImyRG"
-        ref={null}
-      >
-        A playbook is a checklist you can run again and again, with its own automations. Each run keeps a record of what happened.
-      </p>
-      <div
-        className="Actions-gjNmbu kDOnBS"
-        ref={null}
-      >
-        <button
-          className="btn btn-primary PrimaryButton-bSzsdJ jFjrEK"
-          data-testid="playbooks-rhs-create"
-          onClick={[Function]}
-          ref={null}
-        >
-          <i
-            aria-hidden="true"
-            className="icon icon-plus"
-            data-fusion-icon="plus"
-            style={
-              {
-                "fontSize": 16,
-              }
-            }
-          />
-          Create playbook
-        </button>
-      </div>
-    </div>
-    <h4
-      className="Heading-da-dYZr ejcjHs am-app-h"
+        }
+      />
+    </span>
+    <h3
+      className="Title-gqksKv hewnDQ"
       ref={null}
     >
-      Start from a template
-    </h4>
+      Welcome to Playbooks
+    </h3>
+    <p
+      className="Text-jBKhDe jImyRG"
+      ref={null}
+    >
+      A playbook is a checklist you can run again and again, with its own automations. Each run keeps a record of what happened.
+    </p>
     <div
-      className="Row-kCLKpd imnHRw am-app-row"
-      data-testid="template-details"
-      onClick={[Function]}
-      onKeyDown={[Function]}
+      className="Actions-gjNmbu kDOnBS"
       ref={null}
-      role="button"
-      tabIndex={0}
     >
-      <span
-        className="Tile-dGYnRf eTtVtW"
+      <button
+        className="btn btn-primary PrimaryButton-bSzsdJ jFjrEK"
+        data-testid="playbooks-rhs-create"
+        onClick={[Function]}
         ref={null}
       >
         <i
@@ -104,367 +60,399 @@ exports[`the Playbooks panel outside a channel keeps its structure 1`] = `
             }
           }
         />
-      </span>
-      <span
-        className="Main-eUTYVI lhLYZu"
-        ref={null}
-      >
-        <b>
-          Blank
-        </b>
-        <span
-          className="am-sub"
-        >
-          1 checklist · 1 action
-        </span>
-      </span>
-      <button
-        aria-label="Use Blank"
-        className="UseButton-iyoKqW jwIqdX"
-        data-testid="use-playbook"
-        onClick={[Function]}
-        ref={null}
-        type="button"
-      >
-        Use
+        Create playbook
       </button>
     </div>
-    <div
-      className="Row-kCLKpd imnHRw am-app-row"
-      data-testid="template-details"
-      onClick={[Function]}
-      onKeyDown={[Function]}
+  </div>
+  <h4
+    className="Heading-da-dYZr ejcjHs am-app-h"
+    ref={null}
+  >
+    Start from a template
+  </h4>
+  <div
+    className="Row-kCLKpd imnHRw am-app-row"
+    data-testid="template-details"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    ref={null}
+    role="button"
+    tabIndex={0}
+  >
+    <span
+      className="Tile-dGYnRf eTtVtW"
       ref={null}
-      role="button"
-      tabIndex={0}
     >
-      <span
-        className="Tile-dGYnRf eTtVtW"
-        ref={null}
-      >
-        <i
-          aria-hidden="true"
-          className="icon icon-flag-outline"
-          data-fusion-icon="flag"
-          style={
-            {
-              "fontSize": 16,
-            }
+      <i
+        aria-hidden="true"
+        className="icon icon-plus"
+        data-fusion-icon="plus"
+        style={
+          {
+            "fontSize": 16,
           }
-        />
-      </span>
-      <span
-        className="Main-eUTYVI lhLYZu"
-        ref={null}
-      >
-        <b>
-          Product Release
-        </b>
-        <span
-          className="am-sub"
-        >
-          4 checklists · 3 actions
-        </span>
-      </span>
-      <button
-        aria-label="Use Product Release"
-        className="UseButton-iyoKqW jwIqdX"
-        data-testid="use-playbook"
-        onClick={[Function]}
-        ref={null}
-        type="button"
-      >
-        Use
-      </button>
-    </div>
-    <div
-      className="Row-kCLKpd imnHRw am-app-row"
-      data-testid="template-details"
-      onClick={[Function]}
-      onKeyDown={[Function]}
+        }
+      />
+    </span>
+    <span
+      className="Main-eUTYVI lhLYZu"
       ref={null}
-      role="button"
-      tabIndex={0}
     >
+      <b>
+        Blank
+      </b>
       <span
-        className="Tile-dGYnRf eTtVtW"
-        ref={null}
+        className="am-sub"
       >
-        <i
-          aria-hidden="true"
-          className="icon icon-fire"
-          data-fusion-icon="flame"
-          style={
-            {
-              "fontSize": 16,
-            }
-          }
-        />
+        1 checklist · 1 action
       </span>
-      <span
-        className="Main-eUTYVI lhLYZu"
-        ref={null}
-      >
-        <b>
-          Incident Resolution
-        </b>
-        <span
-          className="am-sub"
-        >
-          4 checklists · 4 actions
-        </span>
-      </span>
-      <button
-        aria-label="Use Incident Resolution"
-        className="UseButton-iyoKqW jwIqdX"
-        data-testid="use-playbook"
-        onClick={[Function]}
-        ref={null}
-        type="button"
-      >
-        Use
-      </button>
-    </div>
-    <div
-      className="Row-kCLKpd imnHRw am-app-row"
-      data-testid="template-details"
+    </span>
+    <button
+      aria-label="Use Blank"
+      className="UseButton-iyoKqW jwIqdX"
+      data-testid="use-playbook"
       onClick={[Function]}
-      onKeyDown={[Function]}
       ref={null}
-      role="button"
-      tabIndex={0}
+      type="button"
     >
-      <span
-        className="Tile-dGYnRf eTtVtW"
-        ref={null}
-      >
-        <i
-          aria-hidden="true"
-          className="icon icon-account-multiple-outline"
-          data-fusion-icon="users"
-          style={
-            {
-              "fontSize": 16,
-            }
+      Use
+    </button>
+  </div>
+  <div
+    className="Row-kCLKpd imnHRw am-app-row"
+    data-testid="template-details"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    ref={null}
+    role="button"
+    tabIndex={0}
+  >
+    <span
+      className="Tile-dGYnRf eTtVtW"
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-flag-outline"
+        data-fusion-icon="flag"
+        style={
+          {
+            "fontSize": 16,
           }
-        />
-      </span>
+        }
+      />
+    </span>
+    <span
+      className="Main-eUTYVI lhLYZu"
+      ref={null}
+    >
+      <b>
+        Product Release
+      </b>
       <span
-        className="Main-eUTYVI lhLYZu"
-        ref={null}
+        className="am-sub"
       >
-        <b>
-          Customer Onboarding
-        </b>
-        <span
-          className="am-sub"
-        >
-          4 checklists · 3 actions
-        </span>
+        4 checklists · 3 actions
       </span>
-      <button
-        aria-label="Use Customer Onboarding"
-        className="UseButton-iyoKqW jwIqdX"
-        data-testid="use-playbook"
-        onClick={[Function]}
-        ref={null}
-        type="button"
-      >
-        Use
-      </button>
-    </div>
-    <div
-      className="Row-kCLKpd imnHRw am-app-row"
-      data-testid="template-details"
+    </span>
+    <button
+      aria-label="Use Product Release"
+      className="UseButton-iyoKqW jwIqdX"
+      data-testid="use-playbook"
       onClick={[Function]}
-      onKeyDown={[Function]}
       ref={null}
-      role="button"
-      tabIndex={0}
+      type="button"
     >
-      <span
-        className="Tile-dGYnRf eTtVtW"
-        ref={null}
-      >
-        <i
-          aria-hidden="true"
-          className="icon icon-account-plus-outline"
-          data-fusion-icon="user-plus"
-          style={
-            {
-              "fontSize": 16,
-            }
+      Use
+    </button>
+  </div>
+  <div
+    className="Row-kCLKpd imnHRw am-app-row"
+    data-testid="template-details"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    ref={null}
+    role="button"
+    tabIndex={0}
+  >
+    <span
+      className="Tile-dGYnRf eTtVtW"
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-fire"
+        data-fusion-icon="flame"
+        style={
+          {
+            "fontSize": 16,
           }
-        />
-      </span>
+        }
+      />
+    </span>
+    <span
+      className="Main-eUTYVI lhLYZu"
+      ref={null}
+    >
+      <b>
+        Incident Resolution
+      </b>
       <span
-        className="Main-eUTYVI lhLYZu"
-        ref={null}
+        className="am-sub"
       >
-        <b>
-          Employee Onboarding
-        </b>
-        <span
-          className="am-sub"
-        >
-          5 checklists · 2 actions
-        </span>
+        4 checklists · 4 actions
       </span>
-      <button
-        aria-label="Use Employee Onboarding"
-        className="UseButton-iyoKqW jwIqdX"
-        data-testid="use-playbook"
-        onClick={[Function]}
-        ref={null}
-        type="button"
-      >
-        Use
-      </button>
-    </div>
-    <div
-      className="Row-kCLKpd imnHRw am-app-row"
-      data-testid="template-details"
+    </span>
+    <button
+      aria-label="Use Incident Resolution"
+      className="UseButton-iyoKqW jwIqdX"
+      data-testid="use-playbook"
       onClick={[Function]}
-      onKeyDown={[Function]}
       ref={null}
-      role="button"
-      tabIndex={0}
+      type="button"
     >
-      <span
-        className="Tile-dGYnRf eTtVtW"
-        ref={null}
-      >
-        <i
-          aria-hidden="true"
-          className="icon icon-lightbulb-outline"
-          data-fusion-icon="sparkle"
-          style={
-            {
-              "fontSize": 16,
-            }
+      Use
+    </button>
+  </div>
+  <div
+    className="Row-kCLKpd imnHRw am-app-row"
+    data-testid="template-details"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    ref={null}
+    role="button"
+    tabIndex={0}
+  >
+    <span
+      className="Tile-dGYnRf eTtVtW"
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-account-multiple-outline"
+        data-fusion-icon="users"
+        style={
+          {
+            "fontSize": 16,
           }
-        />
-      </span>
+        }
+      />
+    </span>
+    <span
+      className="Main-eUTYVI lhLYZu"
+      ref={null}
+    >
+      <b>
+        Customer Onboarding
+      </b>
       <span
-        className="Main-eUTYVI lhLYZu"
-        ref={null}
+        className="am-sub"
       >
-        <b>
-          Feature Lifecycle
-        </b>
-        <span
-          className="am-sub"
-        >
-          5 checklists · 3 actions
-        </span>
+        4 checklists · 3 actions
       </span>
-      <button
-        aria-label="Use Feature Lifecycle"
-        className="UseButton-iyoKqW jwIqdX"
-        data-testid="use-playbook"
-        onClick={[Function]}
-        ref={null}
-        type="button"
-      >
-        Use
-      </button>
-    </div>
-    <div
-      className="Row-kCLKpd imnHRw am-app-row"
-      data-testid="template-details"
+    </span>
+    <button
+      aria-label="Use Customer Onboarding"
+      className="UseButton-iyoKqW jwIqdX"
+      data-testid="use-playbook"
       onClick={[Function]}
-      onKeyDown={[Function]}
       ref={null}
-      role="button"
-      tabIndex={0}
+      type="button"
     >
-      <span
-        className="Tile-dGYnRf eTtVtW"
-        ref={null}
-      >
-        <i
-          aria-hidden="true"
-          className="icon icon-magnify"
-          data-fusion-icon="ticket"
-          style={
-            {
-              "fontSize": 16,
-            }
+      Use
+    </button>
+  </div>
+  <div
+    className="Row-kCLKpd imnHRw am-app-row"
+    data-testid="template-details"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    ref={null}
+    role="button"
+    tabIndex={0}
+  >
+    <span
+      className="Tile-dGYnRf eTtVtW"
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-account-plus-outline"
+        data-fusion-icon="user-plus"
+        style={
+          {
+            "fontSize": 16,
           }
-        />
-      </span>
+        }
+      />
+    </span>
+    <span
+      className="Main-eUTYVI lhLYZu"
+      ref={null}
+    >
+      <b>
+        Employee Onboarding
+      </b>
       <span
-        className="Main-eUTYVI lhLYZu"
-        ref={null}
+        className="am-sub"
       >
-        <b>
-          Bug Bash
-        </b>
-        <span
-          className="am-sub"
-        >
-          5 checklists · 3 actions
-        </span>
+        5 checklists · 2 actions
       </span>
-      <button
-        aria-label="Use Bug Bash"
-        className="UseButton-iyoKqW jwIqdX"
-        data-testid="use-playbook"
-        onClick={[Function]}
-        ref={null}
-        type="button"
-      >
-        Use
-      </button>
-    </div>
-    <div
-      className="Row-kCLKpd imnHRw am-app-row"
-      data-testid="template-details"
+    </span>
+    <button
+      aria-label="Use Employee Onboarding"
+      className="UseButton-iyoKqW jwIqdX"
+      data-testid="use-playbook"
       onClick={[Function]}
-      onKeyDown={[Function]}
       ref={null}
-      role="button"
-      tabIndex={0}
+      type="button"
     >
-      <span
-        className="Tile-dGYnRf eTtVtW"
-        ref={null}
-      >
-        <i
-          aria-hidden="true"
-          className="icon icon-information-outline"
-          data-fusion-icon="compass"
-          style={
-            {
-              "fontSize": 16,
-            }
+      Use
+    </button>
+  </div>
+  <div
+    className="Row-kCLKpd imnHRw am-app-row"
+    data-testid="template-details"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    ref={null}
+    role="button"
+    tabIndex={0}
+  >
+    <span
+      className="Tile-dGYnRf eTtVtW"
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-lightbulb-outline"
+        data-fusion-icon="sparkle"
+        style={
+          {
+            "fontSize": 16,
           }
-        />
-      </span>
+        }
+      />
+    </span>
+    <span
+      className="Main-eUTYVI lhLYZu"
+      ref={null}
+    >
+      <b>
+        Feature Lifecycle
+      </b>
       <span
-        className="Main-eUTYVI lhLYZu"
-        ref={null}
+        className="am-sub"
       >
-        <b>
-          Learn how to use playbooks
-        </b>
-        <span
-          className="am-sub"
-        >
-          2 checklists · 2 actions
-        </span>
+        5 checklists · 3 actions
       </span>
-      <button
-        aria-label="Use Learn how to use playbooks"
-        className="UseButton-iyoKqW jwIqdX"
-        data-testid="use-playbook"
-        onClick={[Function]}
-        ref={null}
-        type="button"
+    </span>
+    <button
+      aria-label="Use Feature Lifecycle"
+      className="UseButton-iyoKqW jwIqdX"
+      data-testid="use-playbook"
+      onClick={[Function]}
+      ref={null}
+      type="button"
+    >
+      Use
+    </button>
+  </div>
+  <div
+    className="Row-kCLKpd imnHRw am-app-row"
+    data-testid="template-details"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    ref={null}
+    role="button"
+    tabIndex={0}
+  >
+    <span
+      className="Tile-dGYnRf eTtVtW"
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-magnify"
+        data-fusion-icon="ticket"
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      />
+    </span>
+    <span
+      className="Main-eUTYVI lhLYZu"
+      ref={null}
+    >
+      <b>
+        Bug Bash
+      </b>
+      <span
+        className="am-sub"
       >
-        Use
-      </button>
-    </div>
-  </div>,
-]
+        5 checklists · 3 actions
+      </span>
+    </span>
+    <button
+      aria-label="Use Bug Bash"
+      className="UseButton-iyoKqW jwIqdX"
+      data-testid="use-playbook"
+      onClick={[Function]}
+      ref={null}
+      type="button"
+    >
+      Use
+    </button>
+  </div>
+  <div
+    className="Row-kCLKpd imnHRw am-app-row"
+    data-testid="template-details"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    ref={null}
+    role="button"
+    tabIndex={0}
+  >
+    <span
+      className="Tile-dGYnRf eTtVtW"
+      ref={null}
+    >
+      <i
+        aria-hidden="true"
+        className="icon icon-information-outline"
+        data-fusion-icon="compass"
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      />
+    </span>
+    <span
+      className="Main-eUTYVI lhLYZu"
+      ref={null}
+    >
+      <b>
+        Learn how to use playbooks
+      </b>
+      <span
+        className="am-sub"
+      >
+        2 checklists · 2 actions
+      </span>
+    </span>
+    <button
+      aria-label="Use Learn how to use playbooks"
+      className="UseButton-iyoKqW jwIqdX"
+      data-testid="use-playbook"
+      onClick={[Function]}
+      ref={null}
+      type="button"
+    >
+      Use
+    </button>
+  </div>
+</div>
 `;

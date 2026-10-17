@@ -16,7 +16,8 @@ describe('channels > rhs > title', {testIsolation: true}, () => {
     let playbookRunChannelName;
     let testPlaybookRun;
 
-    const getHeaderTitle = () => cy.get('#rhsContainer').find('.sidebar--right__title');
+    // The view's title is in the panel's toolbar row, under the panel's header (which only names the app).
+    const getHeaderTitle = () => cy.get('#rhsContainer').findByTestId('playbooks-panel-toolbar');
 
     before(() => {
         cy.apiInitSetup().then(({team, user}) => {

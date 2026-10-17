@@ -111,8 +111,6 @@ beforeEach(() => {
     mockState.teamId = 'team-1';
     history = makePanelHistory(() => undefined);
 
-    // The plugin's title slot in the side panel's header (RHSTitlePlaceholder).
-    document.body.innerHTML = '<div id="playbooks-rhs-title-placeholder"></div>';
 });
 
 describe('the Playbooks panel', () => {
@@ -169,6 +167,42 @@ describe('the Playbooks panel', () => {
         expect(screen.getByTestId('playbooks-panel-title-text').textContent).toBe('Runs');
 
         fireEvent.click(screen.getByTestId('playbooks-panel-back'));
+        expect(screen.getByTestId('view-channel-runs')).toBeTruthy();
+    });
+
+    test('puts the view\'s title, back button and actions in its own toolbar row, at the top of its body', () => {
+        const {container} = renderPanel();
+        go('/playbooks/tasks');
+
+        const root = container.querySelector('[data-playbooks-panel]')!;
+        const toolbar = screen.getByTestId('playbooks-panel-toolbar');
+        expect(root.contains(toolbar)).toBe(true);
+        expect(root.firstElementChild).toBe(toolbar);
+        expect(toolbar.contains(screen.getByTestId('playbooks-panel-back'))).toBe(true);
+        expect(toolbar.contains(screen.getByTestId('playbooks-panel-title-text'))).toBe(true);
+
+        // Nothing of the panel outside it (the host's header has no slot for it).
+        expect(document.getElementById('playbooks-rhs-title-placeholder')).toBeNull();
+        expect(Array.from(document.body.children).every((el) => el === container || !el.textContent)).toBe(true);
+    });
+
+    test('the toolbar row takes no room when the view puts nothing in it', () => {
+        renderPanel();
+        expect(screen.getByTestId('playbooks-panel-toolbar').childElementCount).toBe(0);
+    });
+
+    test('going home from the list of playbooks stays home', () => {
+        const {rerender} = renderPanel();
+        go('/playbooks/browse');
+        go('/playbooks/playbooks');
+
+        fireEvent.click(screen.getByTestId('playbooks-panel-back'));
+        expect(screen.getByTestId('view-browse')).toBeTruthy();
+        act(() => history.back());
+        expect(screen.getByTestId('view-channel-runs')).toBeTruthy();
+
+        rerender();
+        expect(history.location.pathname).toBe(PANEL_HOME);
         expect(screen.getByTestId('view-channel-runs')).toBeTruthy();
     });
 

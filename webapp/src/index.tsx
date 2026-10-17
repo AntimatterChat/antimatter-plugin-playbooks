@@ -83,7 +83,6 @@ import UpdateRequestPost from 'src/components/update_request_post';
 import {RetrospectivePost} from './components/retrospective_post';
 
 import {setPlaybooksGraphQLClient} from './graphql_client';
-import {RHSTitlePlaceholder} from './rhs_title_remote_render';
 import {ApolloWrapper, makeGraphqlClient} from './graphql/apollo';
 import PresetTemplates from './components/templates/template_data';
 
@@ -158,16 +157,10 @@ export default class Plugin {
                 client={graphqlClient}
             />
         );
-        // eslint-disable-next-line react/require-optimization
-        const RHSTitlePlaceholderWrapped = () => (
-            <ApolloWrapper
-                component={<RHSTitlePlaceholder/>}
-                client={graphqlClient}
-            />
-        );
-
-        // RHS Registration
-        const {toggleRHSPlugin, showRHSPlugin} = registry.registerRightHandSidebarComponent(RHSWrapped, <RHSTitlePlaceholderWrapped/>);
+        // RHS Registration. Its title is the app's name, which the host's panel header shows: each view's title, back
+        // button and actions are in the panel's own toolbar row (src/panel/panel_toolbar.tsx), not in the header.
+        // The product name isn't translated.
+        const {toggleRHSPlugin, showRHSPlugin} = registry.registerRightHandSidebarComponent(RHSWrapped, 'Playbooks');
 
         // The channel header button and the app bar icon open the panel on the channel's runs.
         const boundToggleRHSAction = (): void => {
