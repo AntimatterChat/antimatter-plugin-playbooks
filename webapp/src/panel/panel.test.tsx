@@ -21,13 +21,18 @@ import PlaybooksPanel from './panel';
 
 // The views are tested on their own: here, each one only says which it is (and what it was given).
 jest.mock('src/components/rhs/rhs_main', () => ({__esModule: true, default: () => <div data-testid='view-channel-runs'/>}));
+// The run view fetches its run as the signed-in person, and sends one they can't open to the not-found view (as
+// PlaybookRunDetails does when the fetch fails): here, the run FORBIDDEN_RUN_ID.
 jest.mock('src/components/backstage/playbook_runs/playbook_run/playbook_run', () => {
-    const {useRouteMatch, useLocation} = jest.requireActual('react-router-dom');
+    const {Redirect, useRouteMatch, useLocation} = jest.requireActual('react-router-dom');
     return {
         __esModule: true,
         default: function RunView() {
             const {params} = useRouteMatch();
             const {hash} = useLocation();
+            if (params.playbookRunId === 'forbiddenrunforbiddenrunxx') {
+                return <Redirect to='/playbooks/error?type=playbook_runs'/>;
+            }
             return <div data-testid='view-run'>{params.playbookRunId + hash}</div>;
         },
     };
@@ -74,20 +79,26 @@ jest.mock('mattermost-redux/selectors/entities/teams', () => ({
 }));
 
 const RUN_ID = 'abcdefghijklmnopqrstuvwxyz';
+const FORBIDDEN_RUN_ID = 'forbiddenrunforbiddenrunxx';
 const PLAYBOOK_ID = 'zyxwvutsrqponmlkjihgfedcba';
 
 let history: PanelHistory;
 
+type PanelStateProps = {setPanelState?: (state: string | null) => void; initialPanelState?: string};
+
 // A new element each time, so that a rerender renders again (the store is mocked).
-const panelElement = () => (
+const panelElement = (props: PanelStateProps = {}) => (
     <IntlProvider locale='en'>
-        <PlaybooksPanel history={history}/>
+        <PlaybooksPanel
+            history={history}
+            {...props}
+        />
     </IntlProvider>
 );
 
-const renderPanel = () => {
-    const result = render(panelElement());
-    return {...result, rerender: () => result.rerender(panelElement())};
+const renderPanel = (props: PanelStateProps = {}) => {
+    const result = render(panelElement(props));
+    return {...result, rerender: () => result.rerender(panelElement(props))};
 };
 
 const go = (path: string) => act(() => {
@@ -240,5 +251,84 @@ describe('useLeaveOnTeamChange', () => {
         act(() => rerender());
 
         expect(history.location.pathname).toBe(`/playbooks/runs/${RUN_ID}`);
+    });
+});
+
+describe('the pop-out panel state', () => {
+    test('a pop-out window starts on the run the main window showed, with the channel\'s runs to go back to', () => {
+        renderPanel({initialPanelState: `/playbooks/runs/${RUN_ID}#playbook-run-retrospective`});
+
+        expect(screen.getByTestId('view-run').textContent).toBe(`${RUN_ID}#playbook-run-retrospective`);
+        expect(history.canGoBack()).toBe(true);
+        act(() => history.back());
+        expect(history.location.pathname).toBe(PANEL_HOME);
+    });
+
+    test('a pop-out window starts on a playbook\'s tab', () => {
+        renderPanel({initialPanelState: `/playbooks/playbooks/${PLAYBOOK_ID}/outline`});
+
+        expect(screen.getByTestId('view-editor').textContent).toBe(`${PLAYBOOK_ID}:outline`);
+    });
+
+    test('a run the person can\'t open shows the not-found view', () => {
+        renderPanel({initialPanelState: `/playbooks/runs/${FORBIDDEN_RUN_ID}`});
+
+        expect(screen.queryByTestId('view-run')).toBeNull();
+        expect(screen.getByTestId('view-error').textContent).toBe('?type=playbook_runs');
+    });
+
+    test.each([
+        ['a path outside the panel', '/admin_console/users'],
+        ['another site', 'https://example.com/playbooks/runs'],
+        ['a protocol-relative URL', '//example.com/playbooks/runs'],
+        ['control characters', `/playbooks/runs/${RUN_ID}\n`],
+        ['an overlong state', '/playbooks/runs/' + 'a'.repeat(600)],
+        ['the home view', PANEL_HOME],
+        ['an empty state', ''],
+    ])('ignores %s and starts on the channel\'s runs', (_, state) => {
+        const appPush = jest.fn();
+        history = makePanelHistory(() => ({push: appPush}) as never);
+        renderPanel({initialPanelState: state});
+
+        expect(screen.getByTestId('view-channel-runs')).toBeTruthy();
+        expect(history.canGoBack()).toBe(false);
+        expect(appPush).not.toHaveBeenCalled();
+    });
+
+    test('the main window reports where the panel is as it moves, home as null', () => {
+        const setPanelState = jest.fn();
+        renderPanel({setPanelState});
+        expect(setPanelState).toHaveBeenLastCalledWith(null);
+
+        go(`/playbooks/runs/${RUN_ID}`);
+        expect(setPanelState).toHaveBeenLastCalledWith(`/playbooks/runs/${RUN_ID}`);
+
+        go(`/playbooks/playbooks/${PLAYBOOK_ID}/reports`);
+        expect(setPanelState).toHaveBeenLastCalledWith(`/playbooks/playbooks/${PLAYBOOK_ID}/reports`);
+
+        act(() => history.back());
+        expect(setPanelState).toHaveBeenLastCalledWith(`/playbooks/runs/${RUN_ID}`);
+
+        act(() => history.reset());
+        expect(setPanelState).toHaveBeenLastCalledWith(null);
+    });
+
+    test('stops reporting once the panel is gone', () => {
+        const setPanelState = jest.fn();
+        const {unmount} = renderPanel({setPanelState});
+        unmount();
+        setPanelState.mockClear();
+
+        act(() => history.push('/playbooks/tasks'));
+        expect(setPanelState).not.toHaveBeenCalled();
+    });
+
+    test('without the props (the classic UI), works as before', () => {
+        renderPanel();
+        expect(screen.getByTestId('view-channel-runs')).toBeTruthy();
+        expect(history.canGoBack()).toBe(false);
+
+        go('/playbooks/tasks');
+        expect(screen.getByTestId('view-tasks')).toBeTruthy();
     });
 });

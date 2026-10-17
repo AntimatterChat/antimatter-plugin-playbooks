@@ -31,6 +31,7 @@ import {
     PANEL_HOME,
     PanelHistory,
     panelHistory,
+    usePanelState,
 } from './history';
 import {PANEL_SCROLL_ID} from './constants';
 import {PanelWidthProvider} from './panel_width';
@@ -128,14 +129,19 @@ const useSetRHSState = () => {
 
 type Props = {
     history?: PanelHistory;
+
+    // The host's pop-out panel state (Fusion): where the panel is, and the view a pop-out window starts on.
+    setPanelState?: (state: string | null) => void;
+    initialPanelState?: string;
 };
 
 /**
  * PlaybooksPanel is the Playbooks app in the side panel: the channel's runs and checklists first, and every page the
  * app had as a full page (runs, a run's overview, playbooks and their editor, your tasks) as views with a back button.
  */
-const PlaybooksPanel = ({history = panelHistory}: Props) => {
+const PlaybooksPanel = ({history = panelHistory, setPanelState, initialPanelState}: Props) => {
     useSetRHSState();
+    usePanelState(history, setPanelState, initialPanelState);
 
     return (
         <Router history={history}>

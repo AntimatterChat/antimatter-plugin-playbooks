@@ -14,6 +14,7 @@ import {
     createMemoryHistory,
     createPath,
 } from 'history';
+import {useEffect, useState} from 'react';
 
 import {browserHistory} from 'src/webapp_globals';
 
@@ -102,6 +103,50 @@ export function makePanelHistory(appHistory: () => History | undefined = () => b
 }
 
 export const panelHistory = makePanelHistory();
+
+// The longest pop-out panel state the host passes on (it travels in the pop-out window's URL).
+const MAX_PANEL_STATE = 512;
+
+// isRestorablePanelState tells whether a pop-out panel state is a view of the panel to start on. The state comes from
+// a URL, so it's untrusted: only the panel's own paths are taken, and the view fetches its run or playbook again as
+// the signed-in person (one they can't open shows the not-found view).
+export function isRestorablePanelState(state?: string): state is string {
+    if (!state || state.length > MAX_PANEL_STATE || state === PANEL_HOME) {
+        return false;
+    }
+    if (Array.from(state).some((c) => c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127)) {
+        return false;
+    }
+    return isPanelPath(createLocation(state).pathname ?? '');
+}
+
+/**
+ * usePanelState links the panel to the host's pop-out panel state: a pop-out window starts on the view the main
+ * window showed (initialPanelState, e.g. '/playbooks/runs/<id>'), and the panel reports every move (setPanelState),
+ * null for the channel's runs, so that "Open in a new window" starts where the person is. Without the props (the
+ * classic UI), nothing changes.
+ */
+export function usePanelState(history: PanelHistory, setPanelState?: (state: string | null) => void, initialPanelState?: string): void {
+    useState(() => {
+        if (isRestorablePanelState(initialPanelState)) {
+            history.reset(PANEL_HOME);
+            history.push(initialPanelState);
+        }
+        return null;
+    });
+
+    useEffect(() => {
+        if (!setPanelState) {
+            return undefined;
+        }
+        const report = () => {
+            const path = createPath(history.location);
+            setPanelState(path === PANEL_HOME ? null : path);
+        };
+        report();
+        return history.listen(report);
+    }, [history, setPanelState]);
+}
 
 type PanelControls = {
 

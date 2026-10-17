@@ -150,10 +150,11 @@ export default class Plugin {
         // Antimatter: Playbooks is an app of the side panel, without a full page (registerProduct): its runs, a run's
         // overview, its playbooks and their editor, your tasks are views of the panel. Links to the old pages open them
         // there (OldUrlRedirect and the link interceptor below).
+        // The host passes its pop-out panel state (Fusion), so that the panel in a new window starts on the same view.
         // eslint-disable-next-line react/require-optimization
-        const RHSWrapped = () => (
+        const RHSWrapped = (props: {setPanelState?: (state: string | null) => void; initialPanelState?: string}) => (
             <ApolloWrapper
-                component={<PlaybooksPanel/>}
+                component={<PlaybooksPanel {...props}/>}
                 client={graphqlClient}
             />
         );
