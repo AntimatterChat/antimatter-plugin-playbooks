@@ -110,7 +110,6 @@ beforeEach(() => {
     mockDispatch.mockClear();
     mockState.teamId = 'team-1';
     history = makePanelHistory(() => undefined);
-
 });
 
 describe('the Playbooks panel', () => {

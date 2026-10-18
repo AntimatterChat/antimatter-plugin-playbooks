@@ -31,7 +31,6 @@ jest.mock('src/actions', () => ({
     displayPlaybookCreateModal: (props: {startingTemplate?: string}) => ({type: 'CREATE_PLAYBOOK', ...props}),
 }));
 
-
 const home = () => (
     <IntlProvider locale='en'>
         <RHSHome/>

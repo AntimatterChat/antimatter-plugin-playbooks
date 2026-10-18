@@ -4,7 +4,12 @@
 /* eslint-disable formatjs/no-literal-string-in-jsx */
 
 import React from 'react';
-import {act, fireEvent, render, screen} from '@testing-library/react';
+import {
+    act,
+    fireEvent,
+    render,
+    screen,
+} from '@testing-library/react';
 
 import {forgetChannelViews} from 'src/panel/channel_view';
 

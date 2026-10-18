@@ -158,6 +158,7 @@ export default class Plugin {
                 client={graphqlClient}
             />
         );
+
         // RHS Registration. Its title is the app's name, which the host's panel header shows: each view's title, back
         // button and actions are in the panel's own toolbar row (src/panel/panel_toolbar.tsx), not in the header.
         // The product name isn't translated.
