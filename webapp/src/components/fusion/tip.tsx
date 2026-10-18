@@ -17,7 +17,8 @@ const takesDataAttributes = (element: React.ReactElement) => typeof element.type
 
 /**
  * Tip gives its child a tooltip: the Fusion UI's (a data-am-tip attribute, which Fusion shows above any element under
- * the pointer or the keyboard) under Fusion, the classic tooltip under the classic UI.
+ * the pointer or the keyboard, and below it when there's no room above, as in the panel's toolbar at the top of the
+ * window) under Fusion, the classic tooltip (which flips the same way) under the classic UI.
  */
 const Tip = ({title, id, children}: Props) => {
     if (isFusionUI() && takesDataAttributes(children)) {

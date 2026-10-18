@@ -21,13 +21,12 @@ import {openPlaybookRunModal, openUpdateRunChannelModal} from 'src/actions';
 import Profile from 'src/components/profile/profile';
 import DotMenu, {DotMenuButton, DropdownMenuItem, TitleButton} from 'src/components/dot_menu';
 import {TertiaryButton} from 'src/components/assets/buttons';
-import {RHSTitleRemoteRender} from 'src/rhs_title_remote_render';
+import {PanelToolbar} from 'src/panel/panel_toolbar';
 import EmptyState from 'src/components/fusion/empty_state';
 import FusionIcon from 'src/components/fusion/icon';
 import Tip from 'src/components/fusion/tip';
 import {FUSION} from 'src/components/fusion/web_ui';
 import LoadingSpinner from 'src/components/assets/loading_spinner';
-import PlaybooksProductIcon from 'src/components/assets/icons/playbooks_product_icon';
 import {navigateToPluginUrl} from 'src/browser_routing';
 import {useToaster} from 'src/components/backstage/toast_banner';
 import {ToastStyle} from 'src/components/backstage/toast';
@@ -37,7 +36,6 @@ import {useTextOverflow} from 'src/hooks';
 import {RunPermissionFields, useCanModifyRun} from 'src/hooks/run_permissions';
 
 import {UserList} from './rhs_participants';
-import {RHSTitleText} from './rhs_title_common';
 
 interface PlaybookToDisplay {
     title: string
@@ -147,18 +145,10 @@ const RHSRunList = (props: Props) => {
 
     return (
         <>
-            <RHSTitleRemoteRender>
-                <TitleContainer>
-                    <PlaybooksProductIcon
-                        size={24}
-                        colored={true}
-                    />
-                    <RHSTitleText>
-                        {/* product name; don't translate */}
-                        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                        {'Playbooks'}
-                    </RHSTitleText>
-                    <VerticalLine/>
+            {/* The panel's toolbar: the channel the checklists are of, and the button to browse everything (the
+                header names the app). */}
+            <PanelToolbar>
+                <TitleContainer data-testid='playbooks-channel-toolbar'>
                     <ChannelNameText>
                         {currentChannelName}
                     </ChannelNameText>
@@ -179,7 +169,7 @@ const RHSRunList = (props: Props) => {
                         </BrowseButton>
                     </Tip>
                 </TitleContainer>
-            </RHSTitleRemoteRender>
+            </PanelToolbar>
             <Container>
                 {(
                     <Header>
@@ -420,7 +410,7 @@ const BrowseButton = styled.button`
         color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     }
 
-    /* The title bar's icon buttons in the Fusion UI (.sidebar--right__header .btn-icon). */
+    /* Fusion's icon buttons. */
     ${FUSION} & {
         border-radius: 8px;
         color: var(--am-muted);
@@ -432,26 +422,17 @@ const BrowseButton = styled.button`
     }
 `;
 
-const VerticalLine = styled.div`
-    height: 24px;
-    border-left: 1px solid var(--center-channel-color);
-    opacity: 0.16;
-
-    /* Fusion's dividers: its line colour, opaque. */
-    ${FUSION} & {
-        border-left-color: var(--am-line);
-        opacity: 1;
-    }
-`;
-
+// The toolbar's title: the channel whose checklists the view lists.
 const ChannelNameText = styled.div`
     overflow: hidden;
-    color: var(--am-muted, rgba(var(--center-channel-color-rgb), 0.56));
+    min-width: 0;
+    color: var(--am-text-2, rgba(var(--center-channel-color-rgb), 0.72));
     font-family: var(--am-font-ui, "Open Sans"), sans-serif;
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 13px;
+    font-weight: 600;
     line-height: 20px;
     text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 const SegmentedButtonContainer = styled.div`

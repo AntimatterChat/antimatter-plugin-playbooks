@@ -15,9 +15,6 @@ import EmptyState from 'src/components/fusion/empty_state';
 import {DraftPlaybookWithChecklist} from 'src/types/playbook';
 import {displayPlaybookCreateModal} from 'src/actions';
 import {useCanCreatePlaybooksInTeam} from 'src/hooks';
-import {RHSTitleRemoteRender} from 'src/rhs_title_remote_render';
-
-import {RHSTitleText} from './rhs_title_common';
 
 /**
  * RHSHome is the panel's first view outside a channel: what Playbooks is, the button to create a playbook, and the
@@ -33,62 +30,54 @@ const RHSHome = () => {
         dispatch(displayPlaybookCreateModal({startingTemplate: template?.title}));
     };
 
+    // No toolbar: the panel's header already names the app.
     return (
-        <>
-            <RHSTitleRemoteRender>
-                <RHSTitleText>
-                    {/* product name; don't translate */}
-                    {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                    {'Playbooks'}
-                </RHSTitleText>
-            </RHSTitleRemoteRender>
-            <Panel
-                className='am-app-panel'
-                data-testid='playbooks-rhs-home'
-            >
-                <EmptyState
-                    icon='runbook'
-                    data-testid='playbooks-rhs-welcome'
-                    title={formatMessage({
-                        defaultMessage: 'Welcome to Playbooks',
-                        description: 'Playbooks side panel: the title of its first view, shown outside a channel.',
-                    })}
-                    text={formatMessage({
-                        defaultMessage: 'A playbook is a checklist you can run again and again, with its own automations. Each run keeps a record of what happened.',
-                        description: 'Playbooks side panel: what a playbook is, under the welcome title.',
-                    })}
-                    action={canCreatePlaybooks ? {
-                        label: formatMessage({defaultMessage: 'Create playbook'}),
-                        icon: 'plus',
-                        onClick: () => newPlaybook(),
-                        testId: 'playbooks-rhs-create',
-                    } : undefined}
-                    note={canCreatePlaybooks ? undefined : formatMessage({
-                        defaultMessage: 'You can’t create playbooks in this community.',
-                        description: 'Playbooks side panel: shown instead of the create button to people without the permission to create playbooks.',
-                    })}
-                />
-                {canCreatePlaybooks && (
-                    <>
-                        <Heading className='am-app-h'>
-                            {formatMessage({
-                                defaultMessage: 'Start from a template',
-                                description: 'Playbooks side panel: the heading of the list of templates a new playbook can start from.',
-                            })}
-                        </Heading>
-                        {PresetTemplates.map(({title, icon, template}) => (
-                            <TemplateRow
-                                key={title}
-                                title={title}
-                                icon={icon}
-                                template={template}
-                                onSelect={() => newPlaybook(template)}
-                            />
-                        ))}
-                    </>
-                )}
-            </Panel>
-        </>
+        <Panel
+            className='am-app-panel'
+            data-testid='playbooks-rhs-home'
+        >
+            <EmptyState
+                icon='runbook'
+                data-testid='playbooks-rhs-welcome'
+                title={formatMessage({
+                    defaultMessage: 'Welcome to Playbooks',
+                    description: 'Playbooks side panel: the title of its first view, shown outside a channel.',
+                })}
+                text={formatMessage({
+                    defaultMessage: 'A playbook is a checklist you can run again and again, with its own automations. Each run keeps a record of what happened.',
+                    description: 'Playbooks side panel: what a playbook is, under the welcome title.',
+                })}
+                action={canCreatePlaybooks ? {
+                    label: formatMessage({defaultMessage: 'Create playbook'}),
+                    icon: 'plus',
+                    onClick: () => newPlaybook(),
+                    testId: 'playbooks-rhs-create',
+                } : undefined}
+                note={canCreatePlaybooks ? undefined : formatMessage({
+                    defaultMessage: 'You can’t create playbooks in this community.',
+                    description: 'Playbooks side panel: shown instead of the create button to people without the permission to create playbooks.',
+                })}
+            />
+            {canCreatePlaybooks && (
+                <>
+                    <Heading className='am-app-h'>
+                        {formatMessage({
+                            defaultMessage: 'Start from a template',
+                            description: 'Playbooks side panel: the heading of the list of templates a new playbook can start from.',
+                        })}
+                    </Heading>
+                    {PresetTemplates.map(({title, icon, template}) => (
+                        <TemplateRow
+                            key={title}
+                            title={title}
+                            icon={icon}
+                            template={template}
+                            onSelect={() => newPlaybook(template)}
+                        />
+                    ))}
+                </>
+            )}
+        </Panel>
     );
 };
 

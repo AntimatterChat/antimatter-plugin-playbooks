@@ -45,7 +45,7 @@ import {useTutorialStepper} from 'src/components/tutorial/tutorial_tour_tip/mana
 import {browserHistory} from 'src/webapp_globals';
 import {useToaster} from 'src/components/backstage/toast_banner';
 import {ToastStyle} from 'src/components/backstage/toast';
-import {RHSTitleRemoteRender} from 'src/rhs_title_remote_render';
+import {PanelToolbar} from 'src/panel/panel_toolbar';
 
 import RHSRunDetailsTitle from './rhs_run_details_title';
 import RHSRunParticipants from './rhs_run_participants';
@@ -162,14 +162,14 @@ const RHSRunDetails = (props: Props) => {
     if (showParticipants) {
         return (
             <>
-                <RHSTitleRemoteRender>
+                <PanelToolbar>
                     <RHSRunParticipantsTitle
                         onBackClick={() => {
                             setShowParticipants(false);
                         }}
                         runName={playbookRun.name}
                     />
-                </RHSTitleRemoteRender>
+                </PanelToolbar>
                 <RHSRunParticipants
                     playbookRun={playbookRun}
                 />
@@ -185,14 +185,14 @@ const RHSRunDetails = (props: Props) => {
 
     return (
         <>
-            <RHSTitleRemoteRender>
+            <PanelToolbar>
                 <RHSRunDetailsTitle
                     runID={props.runID}
                     onBackClick={props.onBackClick}
                     runName={playbookRun.name}
                     isPlaybookRun={playbookRun?.type === PlaybookRunType.Playbook}
                 />
-            </RHSTitleRemoteRender>
+            </PanelToolbar>
             <RHSContainer>
                 <RHSContent>
                     <Scrollbars

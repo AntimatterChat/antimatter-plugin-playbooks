@@ -10,10 +10,10 @@ import LeftChevron from 'src/components/assets/icons/left_chevron';
 import FusionIcon from 'src/components/fusion/icon';
 import Tip from 'src/components/fusion/tip';
 import {FUSION, isFusionUI} from 'src/components/fusion/web_ui';
-import {RHSTitleRemoteRender} from 'src/rhs_title_remote_render';
 import {RHSTitleButton, RHSTitleContainer, RHSTitleText} from 'src/components/rhs/rhs_title_common';
 
 import type {PanelHistory} from './history';
+import {PanelToolbar} from './panel_toolbar';
 
 // usePanelHistory is the panel's history (its router's), with its back button's moves.
 export const usePanelHistory = () => useHistory() as PanelHistory;
@@ -26,15 +26,15 @@ type Props = {
     actions?: React.ReactNode;
 };
 
-// PanelTitle is the title bar of a panel view that isn't the channel's runs: a back button, the view's name and what
-// it shows (a run's or a playbook's name).
+// PanelTitle is the title bar of a panel view that isn't the channel's runs, in the panel's toolbar row: a back
+// button, the view's name and what it shows (a run's or a playbook's name).
 export const PanelTitle = ({title, subtitle, actions}: Props) => {
     const {formatMessage} = useIntl();
     const history = usePanelHistory();
     const backLabel = formatMessage({defaultMessage: 'Back', description: 'Playbooks side panel: the button that goes back to the previous view of the panel.'});
 
     return (
-        <RHSTitleRemoteRender>
+        <PanelToolbar>
             <RHSTitleContainer data-testid='playbooks-panel-title'>
                 <Tip
                     id='playbooks-panel-back'
@@ -57,7 +57,7 @@ export const PanelTitle = ({title, subtitle, actions}: Props) => {
                 )}
                 {actions && <Actions>{actions}</Actions>}
             </RHSTitleContainer>
-        </RHSTitleRemoteRender>
+        </PanelToolbar>
     );
 };
 

@@ -36,6 +36,7 @@ import {
 import {PANEL_SCROLL_ID} from './constants';
 import {PanelWidthProvider} from './panel_width';
 import {PanelTitle} from './panel_title';
+import {PanelToolbarRow} from './panel_toolbar';
 import PanelBrowse from './browse';
 import './fusion_skin.scss';
 
@@ -138,6 +139,7 @@ type Props = {
 /**
  * PlaybooksPanel is the Playbooks app in the side panel: the channel's runs and checklists first, and every page the
  * app had as a full page (runs, a run's overview, playbooks and their editor, your tasks) as views with a back button.
+ * Each view puts its title, back button and actions in the panel's toolbar row, at the top of its body (PanelToolbar).
  */
 const PlaybooksPanel = ({history = panelHistory, setPanelState, initialPanelState}: Props) => {
     useSetRHSState();
@@ -147,9 +149,11 @@ const PlaybooksPanel = ({history = panelHistory, setPanelState, initialPanelStat
         <Router history={history}>
             <ToastProvider>
                 <Root data-playbooks-panel={true}>
-                    <Scroll id={PANEL_SCROLL_ID}>
-                        <PanelRoutes/>
-                    </Scroll>
+                    <PanelToolbarRow>
+                        <Scroll id={PANEL_SCROLL_ID}>
+                            <PanelRoutes/>
+                        </Scroll>
+                    </PanelToolbarRow>
                 </Root>
             </ToastProvider>
         </Router>

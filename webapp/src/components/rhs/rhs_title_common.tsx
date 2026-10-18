@@ -90,7 +90,7 @@ export const RHSTitleButton = styled.button`
         color: var(--button-bg);
     }
 
-    /* The Fusion UI's panel header buttons (.sidebar--right__header .btn-icon). */
+    /* Fusion's icon buttons, as in the panel's toolbar row. */
     ${FUSION} & {
         border-radius: 8px;
         color: var(--am-muted);

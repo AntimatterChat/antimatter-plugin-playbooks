@@ -12,6 +12,7 @@ import {General} from 'mattermost-redux/constants';
 import {FormattedMessage} from 'react-intl';
 import {ApolloClient, NormalizedCacheObject} from '@apollo/client';
 import {getCurrentChannel} from 'mattermost-redux/selectors/entities/channels';
+import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 
 import {Store} from 'src/types/store';
 
@@ -75,7 +76,7 @@ import {
 } from 'src/client';
 import PlaybooksPanel from 'src/panel/panel';
 import OldUrlRedirect from 'src/panel/old_urls';
-import {openPanelHome, setPanelControls} from 'src/panel/history';
+import {openPanel, setPanelControls} from 'src/panel/history';
 import {installLinkInterceptor} from 'src/panel/link_interceptor';
 import {UpdatePost} from 'src/components/update_post';
 import UpdateRequestPost from 'src/components/update_request_post';
@@ -83,7 +84,6 @@ import UpdateRequestPost from 'src/components/update_request_post';
 import {RetrospectivePost} from './components/retrospective_post';
 
 import {setPlaybooksGraphQLClient} from './graphql_client';
-import {RHSTitlePlaceholder} from './rhs_title_remote_render';
 import {ApolloWrapper, makeGraphqlClient} from './graphql/apollo';
 import PresetTemplates from './components/templates/template_data';
 
@@ -158,20 +158,15 @@ export default class Plugin {
                 client={graphqlClient}
             />
         );
-        // eslint-disable-next-line react/require-optimization
-        const RHSTitlePlaceholderWrapped = () => (
-            <ApolloWrapper
-                component={<RHSTitlePlaceholder/>}
-                client={graphqlClient}
-            />
-        );
 
-        // RHS Registration
-        const {toggleRHSPlugin, showRHSPlugin} = registry.registerRightHandSidebarComponent(RHSWrapped, <RHSTitlePlaceholderWrapped/>);
+        // RHS Registration. Its title is the app's name, which the host's panel header shows: each view's title, back
+        // button and actions are in the panel's own toolbar row (src/panel/panel_toolbar.tsx), not in the header.
+        // The product name isn't translated.
+        const {toggleRHSPlugin, showRHSPlugin} = registry.registerRightHandSidebarComponent(RHSWrapped, 'Playbooks');
 
-        // The channel header button and the app bar icon open the panel on the channel's runs.
+        // The channel header button and the app bar icon open the panel on the view the person was last on.
         const boundToggleRHSAction = (): void => {
-            openPanelHome();
+            openPanel(getCurrentTeamId(store.getState()));
             store.dispatch(toggleRHSPlugin);
         };
         setPanelControls({

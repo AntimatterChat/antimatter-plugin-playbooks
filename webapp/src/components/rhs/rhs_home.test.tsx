@@ -31,11 +31,6 @@ jest.mock('src/actions', () => ({
     displayPlaybookCreateModal: (props: {startingTemplate?: string}) => ({type: 'CREATE_PLAYBOOK', ...props}),
 }));
 
-// The title goes to the side panel's header; here, in place.
-jest.mock('src/rhs_title_remote_render', () => ({
-    RHSTitleRemoteRender: ({children}: {children: React.ReactNode}) => <div data-testid='title'>{children}</div>,
-}));
-
 const home = () => (
     <IntlProvider locale='en'>
         <RHSHome/>
@@ -48,6 +43,12 @@ beforeEach(() => {
 });
 
 describe('the Playbooks panel outside a channel', () => {
+    test('has no toolbar of its own: the panel\'s header names the app', () => {
+        render(home());
+        expect(screen.queryByTestId('playbooks-panel-toolbar')).toBeNull();
+        expect(screen.queryByText('Playbooks')).toBeNull();
+    });
+
     test('greets with a Fusion empty state and one primary action, not an illustration', () => {
         render(home());
 
