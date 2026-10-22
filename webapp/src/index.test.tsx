@@ -27,11 +27,34 @@ const makeRegistry = () => {
     return {registry, calls};
 };
 
-const makeStore = (rhsOpen = false) => ({
-    dispatch: jest.fn(),
-    getState: () => ({'plugins-playbooks': {rhsOpen}}),
-    subscribe: jest.fn(),
-});
+// The state has a current community: the channel header button and the app bar icon read it (openPanel).
+const makeStore = (rhsOpen = false) => {
+    const store = {
+        teamId: 'team-1',
+        dispatch: jest.fn(),
+        getState: () => ({
+            'plugins-playbooks': {rhsOpen},
+            entities: {teams: {currentTeamId: store.teamId}},
+        }),
+        subscribe: jest.fn(),
+    };
+    return store;
+};
+
+// Loads the plugin with its own panel history (isolateModules), for the tests that look at the panel's views.
+const loadPluginAndHistory = () => {
+    let plugin: any;
+    let history: typeof panelHistory | undefined;
+    let open: typeof openPlaybooksPanel | undefined;
+    (window as any).registerPlugin = (_id: string, instance: unknown) => {
+        plugin = instance;
+    };
+    jest.isolateModules(() => {
+        require('src/index'); // eslint-disable-line global-require, @typescript-eslint/no-require-imports
+        ({panelHistory: history, openPlaybooksPanel: open} = require('src/panel/history')); // eslint-disable-line global-require, @typescript-eslint/no-require-imports
+    });
+    return {plugin, history: history!, open: open!};
+};
 
 const loadPlugin = () => {
     let plugin: any;
@@ -84,26 +107,38 @@ describe('Playbooks registrations', () => {
         expect(store.dispatch).toHaveBeenCalledWith(TOGGLE);
     });
 
+    test('the button opens the panel again on the view it was on, and on the channel\'s runs in another community', () => {
+        const {plugin, history} = loadPluginAndHistory();
+        const {registry, calls} = makeRegistry();
+        const store = makeStore(false);
+        plugin.doRegistrations(registry, store, {});
+        const toggle = calls.registerChannelHeaderButtonAction[0][1] as () => void;
+
+        toggle();
+        history.push('/playbooks/runs');
+
+        // Closed, then opened again in the same community: the view stays.
+        toggle();
+        expect(history.location.pathname).toBe('/playbooks/runs');
+
+        // In another community, the panel starts again from the channel's runs.
+        store.teamId = 'team-2';
+        toggle();
+        expect(history.location.pathname).toBe(PANEL_HOME);
+        expect(store.dispatch).toHaveBeenLastCalledWith(TOGGLE);
+    });
+
     test('opening a view shows the panel', () => {
-        let history: typeof panelHistory | undefined;
-        let open: typeof openPlaybooksPanel | undefined;
-        let plugin: any;
-        (window as any).registerPlugin = (_id: string, instance: unknown) => {
-            plugin = instance;
-        };
-        jest.isolateModules(() => {
-            require('src/index'); // eslint-disable-line global-require, @typescript-eslint/no-require-imports
-            ({panelHistory: history, openPlaybooksPanel: open} = require('src/panel/history')); // eslint-disable-line global-require, @typescript-eslint/no-require-imports
-        });
+        const {plugin, history, open} = loadPluginAndHistory();
         const {registry} = makeRegistry();
         const store = makeStore(false);
         plugin.doRegistrations(registry, store, {});
 
-        open!('/playbooks/runs');
+        open('/playbooks/runs');
 
         expect(store.dispatch).toHaveBeenCalledWith(SHOW);
-        expect(history!.location.pathname).toBe('/playbooks/runs');
-        history!.back();
-        expect(history!.location.pathname).toBe(PANEL_HOME);
+        expect(history.location.pathname).toBe('/playbooks/runs');
+        history.back();
+        expect(history.location.pathname).toBe(PANEL_HOME);
     });
 });
