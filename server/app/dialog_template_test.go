@@ -10,6 +10,7 @@ import (
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/plugin/plugintest"
 	"github.com/mattermost/mattermost/server/public/pluginapi"
+	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -17,6 +18,12 @@ import (
 // newDialogTestService returns a minimal PlaybookRunServiceImpl; only fields needed by newPlaybookRunDialog are set.
 func newDialogTestService(t *testing.T) *PlaybookRunServiceImpl {
 	t.Helper()
+
+	// i18n.T falls back to the untranslated key when no bundle is loaded yet; load it once (it's
+	// a no-op on later calls) so dialog text built from T(...) is the actual translated string,
+	// not just its id — needed to check IntroductionText below.
+	require.NoError(t, i18n.TranslationsPreInit("../../assets/i18n"))
+
 	mockAPI := &plugintest.API{}
 	mockAPI.On("GetUser", "user-1").Return(&model.User{
 		Id:       "user-1",
