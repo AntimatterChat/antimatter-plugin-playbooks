@@ -11,6 +11,13 @@ let idCounter = 0;
 // uniqueId generates a unique id with an optional prefix.
 export const uniqueId = (prefix ?: string) => prefix + String(++idCounter);
 
+// bareUsername strips any leading "@" from a username before it's interpolated into a
+// '@{username}'-style message template (e.g. update_post.tsx, update_request_post.tsx). Without
+// this, a username that's already "@"-prefixed — from an older post, a different source, or a
+// value reused from somewhere that formats usernames as mentions — would show as "@@username"
+// instead of "@username".
+export const bareUsername = (username: string): string => username.replace(/^@+/, '');
+
 // useUniqueId exports a React hook simplifying the use of uniqueId.
 //
 // Note that changes to the prefix will not effect a change to the unique identifier.

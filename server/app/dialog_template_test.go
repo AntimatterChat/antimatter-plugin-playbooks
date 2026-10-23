@@ -4,11 +4,13 @@
 package app
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/mattermost/mattermost/server/public/model"
 	"github.com/mattermost/mattermost/server/public/plugin/plugintest"
 	"github.com/mattermost/mattermost/server/public/pluginapi"
+	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -16,6 +18,12 @@ import (
 // newDialogTestService returns a minimal PlaybookRunServiceImpl; only fields needed by newPlaybookRunDialog are set.
 func newDialogTestService(t *testing.T) *PlaybookRunServiceImpl {
 	t.Helper()
+
+	// i18n.T falls back to the untranslated key when no bundle is loaded yet; load it once (it's
+	// a no-op on later calls) so dialog text built from T(...) is the actual translated string,
+	// not just its id — needed to check IntroductionText below.
+	require.NoError(t, i18n.TranslationsPreInit("../../assets/i18n"))
+
 	mockAPI := &plugintest.API{}
 	mockAPI.On("GetUser", "user-1").Return(&model.User{
 		Id:       "user-1",
@@ -36,6 +44,45 @@ func findNameElement(dialog *model.Dialog) *model.DialogElement {
 		}
 	}
 	return nil
+}
+
+// TestGetUserDisplayName_NeverPrependsAt guards against the "new_run.intro" regression where the
+// dialog's IntroductionText showed a doubled "@" (e.g. "@@maya"): getUserDisplayName must never add
+// an "@" of its own, because its only safe use is inside a template that already writes one
+// ("**Owner** {{.Username}}"-style callers add it); a helper that sometimes returns an
+// already-mentioned string is exactly what let the "@" double in the first place.
+func TestGetUserDisplayName_NeverPrependsAt(t *testing.T) {
+	t.Run("username fallback has no @", func(t *testing.T) {
+		name := getUserDisplayName(&model.User{Username: "maya"})
+		assert.Equal(t, "maya", name)
+		assert.NotContains(t, name, "@")
+	})
+
+	t.Run("full name has no @ either", func(t *testing.T) {
+		name := getUserDisplayName(&model.User{Username: "maya", FirstName: "Maya", LastName: "Owner"})
+		assert.Equal(t, "Maya Owner", name)
+		assert.NotContains(t, name, "@")
+	})
+
+	t.Run("nil user", func(t *testing.T) {
+		assert.Equal(t, "", getUserDisplayName(nil))
+	})
+}
+
+// TestGetUserMentionOrDisplayName checks the mention-producing variant adds exactly one "@", only
+// for the username fallback (a full name is never itself a mention).
+func TestGetUserMentionOrDisplayName(t *testing.T) {
+	t.Run("username fallback gets exactly one @", func(t *testing.T) {
+		name := getUserMentionOrDisplayName(&model.User{Username: "maya"})
+		assert.Equal(t, "@maya", name)
+		assert.Equal(t, 1, strings.Count(name, "@"))
+	})
+
+	t.Run("full name is not mentioned", func(t *testing.T) {
+		name := getUserMentionOrDisplayName(&model.User{Username: "maya", FirstName: "Maya", LastName: "Owner"})
+		assert.Equal(t, "Maya Owner", name)
+		assert.NotContains(t, name, "@")
+	})
 }
 
 func TestNewPlaybookRunDialog_NameFieldOptional(t *testing.T) {
@@ -103,4 +150,19 @@ func TestNewPlaybookRunDialog_NameFieldOptional(t *testing.T) {
 		assert.False(t, nameEl.Optional, "name should be required when template has property placeholders")
 		assert.Equal(t, 1, nameEl.MinLength)
 	})
+}
+
+// TestNewPlaybookRunDialog_IntroText_SingleAtMention is the regression test for the "@@" bug: the
+// requester ("user-1" / "testuser") has no first/last name, so the intro text falls back to
+// mentioning them by username. It must contain exactly one "@testuser", never "@@testuser".
+func TestNewPlaybookRunDialog_IntroText_SingleAtMention(t *testing.T) {
+	svc := newDialogTestService(t)
+	playbooks := []Playbook{{ID: "pb-1", Title: "Plain Playbook"}}
+
+	dialog, err := svc.newPlaybookRunDialog("team-1", "user-1", "", "client-1", playbooks)
+	require.NoError(t, err)
+
+	assert.Equal(t, 1, strings.Count(dialog.IntroductionText, "@"), "intro text should mention the requester exactly once: %q", dialog.IntroductionText)
+	assert.Contains(t, dialog.IntroductionText, "@testuser")
+	assert.NotContains(t, dialog.IntroductionText, "@@testuser")
 }
