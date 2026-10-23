@@ -26,7 +26,7 @@ import {
     ms,
     useMakeOption,
 } from 'src/components/datetime_input';
-import {nearest} from 'src/utils';
+import {bareUsername, nearest} from 'src/utils';
 import {StyledSelect} from 'src/components/backstage/styles';
 import {useClientRect} from 'src/hooks';
 import {graphql} from 'src/graphql/generated';
@@ -71,7 +71,7 @@ const UpdateRequestPost = (props: Props) => {
     const {formatMessage} = useIntl();
     const channel = useAppSelector((state) => getChannel(state, props.post.channel_id));
     const team = useAppSelector((state) => getTeam(state, channel?.team_id ?? ''));
-    const targetUsername = typeof props.post.props.targetUsername === 'string' ? props.post.props.targetUsername : '';
+    const targetUsername = bareUsername(typeof props.post.props.targetUsername === 'string' ? props.post.props.targetUsername : '');
     const playbookRunId = typeof props.post.props.playbookRunId === 'string' ? props.post.props.playbookRunId : '';
 
     const [run, setRun] = useState<PlaybookRunReminderQuery['run']>(null);

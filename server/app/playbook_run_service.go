@@ -4224,7 +4224,7 @@ func (s *PlaybookRunServiceImpl) newPlaybookRunDialog(teamID, requesterID, postI
 	}
 
 	data := map[string]interface{}{
-		"Username": getUserDisplayName(user),
+		"Username": getUserMentionOrDisplayName(user),
 	}
 	introText := T("app.user.new_run.intro", data)
 
@@ -5290,6 +5290,10 @@ func (s *PlaybookRunServiceImpl) GetFollowers(playbookRunID string) ([]string, e
 	return followers, nil
 }
 
+// getUserDisplayName returns a bare name for inline display: the user's full name when set, else
+// their plain username. It never prepends "@" itself — callers that want a mention add it at the
+// point of use (as every other place in this file does), so that reusing this helper in a template
+// that already writes "@{{...}}" can never double the "@".
 func getUserDisplayName(user *model.User) string {
 	if user == nil {
 		return ""
@@ -5299,7 +5303,16 @@ func getUserDisplayName(user *model.User) string {
 		return fmt.Sprintf("%s %s", user.FirstName, user.LastName)
 	}
 
-	return fmt.Sprintf("@%s", user.Username)
+	return user.Username
+}
+
+// getUserMentionOrDisplayName is getUserDisplayName, but the username fallback is a proper mention
+// (prefixed with "@"): used where the surrounding text has no "@" of its own.
+func getUserMentionOrDisplayName(user *model.User) string {
+	if user != nil && (user.FirstName == "" || user.LastName == "") {
+		return "@" + user.Username
+	}
+	return getUserDisplayName(user)
 }
 
 func cleanChannelName(channelName string) string {

@@ -1,9 +1,27 @@
 // Copyright (c) 2020-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {uniqueId} from './utils';
+import {bareUsername, uniqueId} from './utils';
 
 describe('utils', () => {
+    describe('bareUsername', () => {
+        it('leaves a bare username unchanged', () => {
+            expect(bareUsername('maya')).toEqual('maya');
+        });
+
+        it('strips a single leading @', () => {
+            expect(bareUsername('@maya')).toEqual('maya');
+        });
+
+        it('strips a doubled leading @ (the "@@maya" case)', () => {
+            expect(bareUsername('@@maya')).toEqual('maya');
+        });
+
+        it('handles an empty string', () => {
+            expect(bareUsername('')).toEqual('');
+        });
+    });
+
     describe('uniqueId', () => {
         it('should handle a missing prefix', () => {
             const id1 = uniqueId();

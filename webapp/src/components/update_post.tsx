@@ -18,6 +18,7 @@ import PostText from 'src/components/post_text';
 import {CustomPostContainer, CustomPostContent} from 'src/components/custom_post_styles';
 import {formatText, messageHtmlToComponent} from 'src/webapp_globals';
 import {useFormattedUsernameByID} from 'src/hooks/general';
+import {bareUsername} from 'src/utils';
 
 interface Props {
     post: Post;
@@ -47,7 +48,7 @@ export const UpdatePost = (props: Props) => {
 
     const numTasksChecked = typeof props.post.props.numTasksChecked === 'number' ? props.post.props.numTasksChecked : 0;
     const numTasks = typeof props.post.props.numTasks === 'number' ? props.post.props.numTasks : 0;
-    const authorUsername = typeof props.post.props.authorUsername === 'string' ? props.post.props.authorUsername : '';
+    const authorUsername = bareUsername(typeof props.post.props.authorUsername === 'string' ? props.post.props.authorUsername : '');
 
     const participantIDs = props.post.props.participantIds && Array.isArray(props.post.props.participantIds) ? props.post.props.participantIds : [];
     const numParticipants = participantIDs.length;
