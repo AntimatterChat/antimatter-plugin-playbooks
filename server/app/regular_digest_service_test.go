@@ -10,6 +10,7 @@ import (
 	"time"
 	"unicode/utf8"
 
+	"github.com/mattermost/mattermost/server/public/shared/i18n"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -85,9 +86,12 @@ func TestDigestItemCap(t *testing.T) {
 	t.Run("buildRunsInProgressMessage caps at digestMaxItems", func(t *testing.T) {
 		runs := makeRunLinks(digestMaxItems + 5)
 		msg := buildRunsInProgressMessage(runs, "en", digestMaxItems)
-		// In the test environment i18n returns the key; check the key is present.
 		assert.Equal(t, digestMaxItems, strings.Count(msg, "- [Run"))
-		assert.Contains(t, msg, "app.user.digest.more_runs")
+		// Whether or not another test in this package has already loaded the i18n bundle
+		// (which makes T return the real translation instead of the bare key), the footer
+		// T itself produces is what should show up here.
+		T := i18n.GetUserTranslations("en")
+		assert.Contains(t, msg, T("app.user.digest.more_runs", len(runs)-digestMaxItems))
 	})
 
 	t.Run("buildRunsInProgressMessage under cap shows all", func(t *testing.T) {
@@ -108,7 +112,8 @@ func TestDigestItemCap(t *testing.T) {
 		runs := makeRunLinks(digestMaxItems + 3)
 		msg := buildRunsOverdueMessage(runs, "en", digestMaxItems)
 		assert.Equal(t, digestMaxItems, strings.Count(msg, "- [Run"))
-		assert.Contains(t, msg, "app.user.digest.more_runs")
+		T := i18n.GetUserTranslations("en")
+		assert.Contains(t, msg, T("app.user.digest.more_runs", len(runs)-digestMaxItems))
 	})
 
 	t.Run("buildAssignedTaskMessageSummary caps displayed tasks at digestMaxItems", func(t *testing.T) {
@@ -116,10 +121,12 @@ func TestDigestItemCap(t *testing.T) {
 		// Due date = 0 (no due date) is excluded in onlyTasksDueUntilToday mode.
 		// Use dueDate=1 (effectively epoch, well in the past) so tasks are treated as overdue.
 		runs := makeAssignedRuns(9, 3, 1)
+		totalTasks := 9 * 3
 		msg := buildAssignedTaskMessageSummary(runs, "en", time.UTC, false, digestMaxItems)
 		taskLineCount := strings.Count(msg, "  - [ ]")
 		require.Equal(t, digestMaxItems, taskLineCount, "should display exactly digestMaxItems task lines")
-		assert.Contains(t, msg, "app.user.digest.more_tasks", "should have more_tasks footer when over cap")
+		T := i18n.GetUserTranslations("en")
+		assert.Contains(t, msg, T("app.user.digest.more_tasks", totalTasks-digestMaxItems), "should have more_tasks footer when over cap")
 	})
 
 	t.Run("buildAssignedTaskMessageSummary under cap shows all tasks", func(t *testing.T) {
